@@ -196,7 +196,9 @@ $ ./sbin/nginx -t
 $ ./sbin/nginx -s reload
 ```
 
-当完成上面，用户可以访问(http://ip:8080/weevent-governance/)浏览器进行查看平台。
+用户可以通过浏览器访问http://ip:8080/weevent-governance/。`Governance`页面如下：
+
+![](../../image/Governance-ui.png)
 
 
 
