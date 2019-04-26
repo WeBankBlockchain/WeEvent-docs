@@ -12,12 +12,12 @@
 ### 事件（Event）  
 事件`Event`可以简单理解成业务层面的一个消息。一般是终端用户或设备触发。
 
-一个事件分为三部分，关联的主题、事件内容，事件ID`EventID`。参见`Java`代码映射[WeEvent.java](https://github.com/WeBankFinTech/WeEvent/blob/master/src/main/java/com/webank/weevent/sdk/WeEvent.java)。
+一个事件分为三部分，关联的主题、事件内容、事件ID`EventID`。`Java`映射类参见[WeEvent.java](https://github.com/WeBankFinTech/WeEvent/blob/master/src/main/java/com/webank/weevent/sdk/WeEvent.java)。
 
 事件内容是一个字节数组`byte[]`，对`WeEvent`是透明的。业务可以存放任何数据，例如字符型的`Json`、`XML` ，或者二进制的`Protocol Buffer`等。
 
 ### 主题（Topic）  
-数据结构相同，业务上属于同类型的事件归属于同一主题`Topic`。
+业务上一般把数据结构相同，属于同类型的事件归属于同一主题`Topic`。
 
 每个主题`Topic`逻辑上都有彼此独立的队列。主题之间是完全隔离的，存储、通知都不会互相影响。  
 
