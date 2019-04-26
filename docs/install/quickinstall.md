@@ -1,0 +1,190 @@
+## 快速安装
+
+快速安装是为了方便用户搭建开发和测试环境，在单台机器上快速部署`WeEvent`服务，支持一键安装所有子模块，提供统一的服务启停和监控脚本。
+
+如果是第一次安装`WeEvent`，参见这里的[系统要求](./environment.html) 。
+
+为了简化配置，建议将`WeEvent`服务和区块链`FISCO-BCOS`节点安装在同一台机器上。
+
+### 获取安装包
+
+下载安装包[WeEvent安装包](https://github.com/WeBankFinTech/WeEvent/releases/download/v0.9.0/weevent-0.9.0.tar.gz
+)，并且解压到`/tmp/` 。
+
+```shell
+$ cd /tmp/
+$ wget https://github.com/WeBankFinTech/WeEvent/releases/download/v0.9.0/weevent-0.9.0.tar.gz
+$ tar -zxf weevent-0.9.0.tar.gz
+```
+
+如果机器无法访问外网`wget`执行失败，可以通过别的方式下载再`rz`上传。
+
+解压后目录结构如下：
+
+```
+$ cd weevent-0.9.0/ 
+$ tree -L 2
+.
+|-- check-service.sh
+|-- config.ini
+|-- install-all.sh
+|-- modules
+|   |-- broker
+|   |-- governance
+|   `-- nginx
+|-- README.md
+|-- start-all.sh
+|-- stop-all.sh
+|-- third-packages
+|   |-- crudini-0.9.tar.gz
+|   |-- nginx-1.14.2.tar.gz
+|   `-- pcre-8.20.tar.gz
+`-- uninstall-all.sh
+```
+### 修改配置
+
+默认配置文件`./config.ini`如下：
+
+```ini
+# Required module
+[fisco-bcos]
+# FISCO-BCOS node channel, eg: weevent@127.0.0.1:8821;weevent@127.0.0.2:8821
+channel=weevent@127.0.0.1:8821
+# it is the 'web3sdk config' in the path of FISCO-BCOS's build tool
+web3sdk_conf_path=/data/app/weevent-block/fisco-package-build-tool/build/127.0.0.1_agent_genesis/build/web3sdk/conf
+
+# Required module
+[nginx]
+port=8080
+
+# Required module
+[broker]
+port=8081
+
+# Optional module
+[governance]
+enable=false
+port=8082
+mysql_ip=127.0.0.1
+mysql_port=3306
+mysql_user=xxx
+mysql_password=yyy
+```
+
+配置说明：  
+
+- 区块链FISCO-BCOS节点
+
+  推荐使用版本`1.3.8`，区块链`FISCO-BCOS`节点配置参数如下： 
+
+  - fisco-bcos.channel
+
+    区块链`FISCO-BCOS`节点的`channel`访问入口。可以配置多个节点，用`;`分割，如`weevent@127.0.0.1:8821;weevent@127.0.0.2:8821`。
+
+  - fisco-bcos.web3sdk_conf_path
+
+    访问区块链`FISCO-BCOS`节点的证书、私钥。
+
+    `web3sdk_conf_path`应该配置为区块链`FISCO-BCOS`节点安装目录下的`./web3sdk/conf`。
+
+- Nginx监听端口`nginx.port`
+
+- Broker监听端口`broker.port`
+
+- Governance模块配置
+
+  - `governance.enable`是否安装Governance模块，默认false不安装
+  - 监听端口`governance.port`
+  - Mysql配置`mysql_*`
+
+### 一键安装
+
+以安装到目录`/usr/local/weevent/`为例。
+
+```shell
+$ ./install-all.sh -p /usr/local/weevent/
+```
+
+正常安装，输出如下：
+
+```
+deploy contract success
+contract_address:0x9392da80a7ae52fdbcd3698111b23f045cf0745c
+broker install success 
+build & install pcre
+build & install nginx
+nginx install success
+```
+
+目标安装路径`/usr/local/weevent/`的结构如下
+
+```
+$ cd /usr/local/weevent/
+$ tree -L 2
+  .
+  |-- broker					    
+  |   |-- apps
+  |   |-- broker.sh
+  |   |-- check-service.sh
+  |   |-- conf
+  |   |-- deploy-topic-control.sh
+  |   |-- gen-cert-key.sh
+  |   |-- lib  
+  |   `-- logs
+  |-- check-service.sh				
+  |-- nginx					    	
+  |   |-- conf
+  |   |-- html
+  |   |-- logs
+  |   |-- nginx.sh
+  |   |-- nginx_temp
+  |   `-- sbin   
+  |-- start-all.sh					
+  |-- stop-all.sh				    
+  `-- uninstall-all.sh				
+```
+### 启停服务
+
+- 启动服务
+
+  通过`start-all.sh`命令启动所有服务 ，正常启动如下：
+
+  ```shell
+  $ ./start-all.sh
+  start broker success (PID=3642)
+  add the crontab job success
+  start nginx success (PID=3643)
+  add the crontab job success
+  ```
+
+  停止所有服务的命令`./stop-all.sh`。
+
+- 检查是否安装成功
+
+  ```shell
+  $ ./check-service.sh
+  check broker service 
+  broker service is ok
+  ```
+
+### 卸载服务
+
+执行如下脚本，卸载所有服务：
+
+  ```shell
+$ ./uninstall-all.sh
+WeEvent is running, stop it first? [Y/N]Y
+stop broker success
+remove the crontab job success
+stop nginx success
+remove the crontab job success
+Please confirm if you remove the WeEvent? [Y/N]Y
+uninstall WeEvent success 
+  ```
+
+### 注意事项
+
+- 快速安装脚本作为一种简易安装方式，所有子模块都是单实例的。  
+- 生产环境中建议对`Broker`和`Governance`进行多实例部署，然后添加到`Nginx`的路由配置里 `nginx/conf/conf.d/rs.conf`。  
+- 各子模块的部署细节参见[Broker模块部署](./module/broker.html)和[Governance模块部署](./module/governance.html)。
+
