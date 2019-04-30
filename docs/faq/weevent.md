@@ -14,11 +14,11 @@
 
 - 如何选择各种协议，`JsonRPC`、`RESTful`、`STOMP`还是`MQTT`？
   - Java程序
-    - 如果是`Spring`服务，有内置的`org.springframework.boot:spring-boot-starter-websocket`集成支持，推荐使用。
+    - 如果是`Spring`服务，有内置的`org.springframework.boot:spring-boot-starter-websocket`支持，推荐使用`MQTT`。
     - 如果是其他`Java`程序，建议使用`WeEvent`提供的`Java SDK`。
   - 其他语言
     - 生产者`Producer`建议使用`RESTful`/`JsonRPC` ，简单方便。
-    - 消费者`Consumer`因为涉及到事件的持续`Push`，建议使用`STOMP`。
+    - 消费者`Consumer`因为涉及到事件的持续`Push`，建议使用`STOMP`协议接入。
   - `MQTT`主要面向物联网`IoT`设备的接入。
 
 - `WeEvent`服务的高可用性方案是怎么样的？
