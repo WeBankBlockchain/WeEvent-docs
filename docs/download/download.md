@@ -1,9 +1,10 @@
 ## 安装包下载
-[V1.0.0版本变更](./history/changelog.html)
+[v1.0.0版本变更](./history/changelog.html)
 
 
 
-[V0.9.0版本变更](./history/changelog.html)
+
+[v0.9.0版本变更](./history/changelog.html)
 - 快速安装包: 
 
 [weevent-0.9.0.tar.gz](https://github.com/WeBankFinTech/WeEvent/releases/download/v0.9.0/weevent-0.9.0.tar.gz
