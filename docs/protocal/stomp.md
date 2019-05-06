@@ -102,7 +102,7 @@ StompSession.Subscription subscription = stompSession.subscribe(topic, new Stomp
 ```
 
 
-上述样例完整的代码，请参见[STOMP代码样例](https://github.com/WeBankFinTech/WeEvent/blob/v0.9.0/src/test/java/com/webank/weevent/sample/Stomp.java) 。
+上述样例完整的代码，请参见[STOMP代码样例](https://github.com/WeBankFinTech/WeEvent/blob/master/weevent-broker/src/test/java/com/webank/weevent/sample/Stomp.java) 。
 
 #### Spring环境
 
