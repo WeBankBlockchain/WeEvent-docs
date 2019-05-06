@@ -5,7 +5,7 @@
 
 #### Spring Boot进程配置
 
-配置文件链接[application-prod.properties](https://github.com/WeBankFinTech/WeEvent/blob/v0.9.0/src/main/resources/application-prod.properties) 。
+配置文件链接[application-prod.properties](https://github.com/WeBankFinTech/WeEvent/blob/master/weevent-broker/src/main/resources/application-prod.properties) 。
 
 ```ini
 #web container
@@ -37,19 +37,67 @@ spring.application.admin.enabled=false
 
 #### 区块链`FISCO-BCOS`节点配置
 
-配置文件链接[applicationContext.xml](https://github.com/WeBankFinTech/WeEvent/blob/v0.9.0/src/main/resources/applicationContext.xml) 。
-
-这个就是`FISCO-BCOS`的`Web3SDK`的配置文件，直接从节点上复制过来即可，不用修改。参见[Web3SDK配置文件](https://fisco-bcos-documentation.readthedocs.io/zh_CN/release-1.3/docs/web3sdk/index.html) 。
-
-#### WeEvent服务配置
-
-配置文件链接[weevent.properties](https://github.com/WeBankFinTech/WeEvent/blob/v0.9.0/src/main/resources/weevent.properties) 。
+配置文件链接[fisco.properties](https://github.com/WeBankFinTech/WeEvent/blob/master/weevent-broker/src/main/resources/fisco.properties) 。
 
 ```ini
 #fisco
-fisco.topic-controller.contract-address=0xddddd42da68a40784f5f63ada7ead9b36a38d2e3
-fisco.consumer.idle-time=1000
+version=2.0
+topic-controller.address=1:0x23df89a2893120f686a4aa03b41acf6836d11e5d;
+#version=1.3
+#topic-controller.address=0xddddd42da68a40784f5f63ada7ead9b36a38d2e3
+orgid=fisco
+nodes=127.0.0.1:30701
+#account
+account=bcec428d5205abe0f0cc8a734083908d9eb8563e31f943d760786edf42ad67dd
+#web3sdk
+web3sdk.timeout=10000
+web3sdk.core-pool-size=100
+web3sdk.max-pool-size=200
+web3sdk.queue-capacity=1000
+web3sdk.keep-alive-seconds=60
+```
 
+参数说明：
+
+- version
+
+  连接`FISCO-BCOS`节点的版本，支持2.0和1.3两个版本。
+
+- topic-controller.address
+
+  合约地址是`WeEvent`访问区块链访问数据的入口，需要用户在初始化`WeEvent`时部署合约并且修改。`Broker`安装包里带了部署合约的脚本`./deploy-topic-control.sh`。如果是`FISCO-BCOS`2.0，每个群组都有独立的地址，多个群组地址以`;`分割。
+
+- orgid
+
+  机构名。
+
+- nodes
+
+  区块链节点列表，多个地址以`;`分割。
+
+- account
+
+  `WeEvent`执行交易的账号，一般不需要修改。
+
+- web3sdk.*
+
+  `Web3SDK`连接池选项。
+
+- 证书文件
+
+  1.3版本的证书文件`ca.crt`和`client.keystore`放在`./conf`目录下。
+
+  2.0版本的证书文件`ca.crt`和`node.crt`、`node.key`放在`./conf/v2`目录下。
+
+区块链节点详细配置，参见[Web3SDK配置文件](https://fisco-bcos-documentation.readthedocs.io/zh_CN/release-2.0/docs/sdk/sdk.html) 。
+
+#### WeEvent服务配置
+
+配置文件链接[weevent.properties](https://github.com/WeBankFinTech/WeEvent/blob/master/weevent-broker/src/main/resources/weevent.properties) 。
+
+```ini
+#consumer
+consumer.idle-time=1000
 #ip white list
 ip.check.white-table=
 #redis server
@@ -82,12 +130,7 @@ stomp.heartbeats=30
 ```
 
 参数说明：
-- 合约地址fisco.topic-controller.contract-address
-
-   合约地址是`WeEvent`访问区块链访问数据的入口，需要用户在初始化`WeEvent`时部署合约并且修改。`Broker`安装包里带了部署合约的脚本`./deploy-topic-control.sh`。
-
-
-- fisco.consumer.idle-time
+- consumer.idle-time
 
     消费者线程中检测区块链新增块事件的周期，默认为1000毫秒。一般不用修改。
 
@@ -127,7 +170,7 @@ stomp.heartbeats=30
    - stomp.heartbeats：配置心跳时间间隔。默认时间间隔30秒，一般不用修改。
 
 ### Governance
-`Governance`的配置都在文件`application-prod.yml `中，配置文件链接[application-prod.yml](https://github.com/WeBankFinTech/WeEvent-governance/blob/v0.9.0/src/main/resources/application-prod.yml) 。
+`Governance`的配置都在文件`application-prod.yml `中，配置文件链接[application-prod.yml](https://github.com/WeBankFinTech/WeEvent/blob/master/weevent-governance/src/main/resources/application-prod.yml) 。
 
 ```nginx
 server:
@@ -178,7 +221,7 @@ logging:
 ### Nginx 配置说明
 #### 反向代理映射
 
-这个文件`./conf/conf.d/http.conf `主要配置反向代理的映射，一般不需修改。配置文件链接[http.conf](https://github.com/WeBankFinTech/WeEvent-build/blob/v0.9.0/modules/nginx/conf/conf.d/http.conf) 。
+这个文件`./conf/conf.d/http.conf `主要配置反向代理的映射，一般不需修改。配置文件链接[http.conf](https://github.com/WeBankFinTech/WeEvent/blob/master/weevent-build/modules/nginx/conf/conf.d/http.conf) 。
 
 ```nginx
 $ cat ./conf/conf.d/http.conf 
@@ -218,7 +261,7 @@ server {
 
 #### 后端子模块配置
 
-配置文件链接[rs.conf](https://github.com/WeBankFinTech/WeEvent-build/blob/v0.9.0/modules/nginx/conf/conf.d/rs.conf) 。
+配置文件链接[rs.conf](https://github.com/WeBankFinTech/WeEvent/blob/master/weevent-build/modules/nginx/conf/conf.d/rs.conf) 。
 
 ```shell
 $ cat ./conf/conf.d/rs.conf 
