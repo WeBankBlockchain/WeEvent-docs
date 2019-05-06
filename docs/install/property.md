@@ -5,7 +5,7 @@
 
 #### Spring Boot进程配置
 
-配置文件链接[application-prod.properties](https://github.com/WeBankFinTech/WeEvent/blob/master/src/main/resources/application-prod.properties) 。
+配置文件链接[application-prod.properties](https://github.com/WeBankFinTech/WeEvent/blob/v0.9.0/src/main/resources/application-prod.properties) 。
 
 ```ini
 #web container
@@ -37,13 +37,13 @@ spring.application.admin.enabled=false
 
 #### 区块链`FISCO-BCOS`节点配置
 
-配置文件链接[applicationContext.xml](https://github.com/WeBankFinTech/WeEvent/blob/master/src/main/resources/applicationContext.xml) 。
+配置文件链接[applicationContext.xml](https://github.com/WeBankFinTech/WeEvent/blob/v0.9.0/src/main/resources/applicationContext.xml) 。
 
 这个就是`FISCO-BCOS`的`Web3SDK`的配置文件，直接从节点上复制过来即可，不用修改。参见[Web3SDK配置文件](https://fisco-bcos-documentation.readthedocs.io/zh_CN/release-1.3/docs/web3sdk/index.html) 。
 
 #### WeEvent服务配置
 
-配置文件链接[weevent.properties](https://github.com/WeBankFinTech/WeEvent/blob/master/src/main/resources/weevent.properties) 。
+配置文件链接[weevent.properties](https://github.com/WeBankFinTech/WeEvent/blob/v0.9.0/src/main/resources/weevent.properties) 。
 
 ```ini
 #fisco
@@ -127,7 +127,7 @@ stomp.heartbeats=30
    - stomp.heartbeats：配置心跳时间间隔。默认时间间隔30秒，一般不用修改。
 
 ### Governance
-`Governance`的配置都在文件`application-prod.yml `中，配置文件链接[application-prod.yml](https://github.com/WeBankFinTech/WeEvent-governance/blob/master/src/main/resources/application-prod.yml) 。
+`Governance`的配置都在文件`application-prod.yml `中，配置文件链接[application-prod.yml](https://github.com/WeBankFinTech/WeEvent-governance/blob/v0.9.0/src/main/resources/application-prod.yml) 。
 
 ```nginx
 server:
@@ -178,7 +178,7 @@ logging:
 ### Nginx 配置说明
 #### 反向代理映射
 
-这个文件`./conf/conf.d/http.conf `主要配置反向代理的映射，一般不需修改。配置文件链接[http.conf](https://github.com/WeBankFinTech/WeEvent-build/blob/master/modules/nginx/conf/conf.d/http.conf) 。
+这个文件`./conf/conf.d/http.conf `主要配置反向代理的映射，一般不需修改。配置文件链接[http.conf](https://github.com/WeBankFinTech/WeEvent-build/blob/v0.9.0/modules/nginx/conf/conf.d/http.conf) 。
 
 ```nginx
 $ cat ./conf/conf.d/http.conf 
@@ -218,7 +218,7 @@ server {
 
 #### 后端子模块配置
 
-配置文件链接[rs.conf](https://github.com/WeBankFinTech/WeEvent-build/blob/master/modules/nginx/conf/conf.d/rs.conf) 。
+配置文件链接[rs.conf](https://github.com/WeBankFinTech/WeEvent-build/blob/v0.9.0/modules/nginx/conf/conf.d/rs.conf) 。
 
 ```shell
 $ cat ./conf/conf.d/rs.conf 

@@ -12,9 +12,9 @@
 
   `WeEvent`访问权限控制基于`HTTPS` + `IP`白名单，`STOMP`和`MQTT`协议还支持协议定义的账号/密码机制。
 
-- 如何选择各种协议，`JsonRPC`、`RESTful`、`STOMP`还是`MQTT`？
+- 如何选择各种接入协议，`JsonRPC`、`RESTful`、`STOMP`还是`MQTT`？
   - Java程序
-    - 如果是`Spring`服务，有内置的`org.springframework.boot:spring-boot-starter-websocket`支持，推荐使用`MQTT`。
+    - 如果是`Spring`服务，有内置的`org.springframework.boot:spring-boot-starter-websocket`支持，推荐使用`STOMP`。
     - 如果是其他`Java`程序，建议使用`WeEvent`提供的`Java SDK`。
   - 其他语言
     - 生产者`Producer`建议使用`RESTful`/`JsonRPC` ，简单方便。
