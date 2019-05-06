@@ -57,7 +57,7 @@ public class JsonRPC {
 }
 ```
 
-上述样例演示了使用`JsonRPC`如何创建主题和发布事件。完整代码，请参见[JsonRPC代码样例](https://github.com/WeBankFinTech/WeEvent/blob/v0.9.0/src/test/java/com/webank/weevent/sample/JsonRPC.java) 。
+上述样例演示了使用`JsonRPC`如何创建主题和发布事件。完整代码，请参见[JsonRPC代码样例](https://github.com/WeBankFinTech/WeEvent/blob/master/weevent-broker/src/test/java/com/webank/weevent/sample/JsonRPC.java) 。
 
 ### 接口说明
 

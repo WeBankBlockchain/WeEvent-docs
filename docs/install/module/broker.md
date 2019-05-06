@@ -12,7 +12,7 @@
 
    必选配置。Broker通过区块链`FISCO-BCOS`持久化数据。
 
-   推荐安装`FISCO-BCOS`1.3.8版本。具体安装步骤，请参见[FISCO-BCOS安装](https://fisco-bcos-documentation.readthedocs.io/zh_CN/release-1.3/docs/tools/index.html)。
+   推荐安装`FISCO-BCOS` 2.0版本。具体安装步骤，请参见[FISCO-BCOS 2.0安装](https://fisco-bcos-documentation.readthedocs.io/zh_CN/release-2.0/docs/installation.html)。
 
 - Redis缓存
 
@@ -33,27 +33,29 @@
 
 ``` shell
 $ cd /usr/local/weevent/
-$ wget https://github.com/WeBankFinTech/WeEvent/releases/download/v0.9.0/weevent-broker-0.9.0.tar.gz
-$ tar -zxf weevent-broker-0.9.0.tar.gz
+$ wget https://github.com/WeBankFinTech/WeEvent/releases/download/v1.0.0/weevent-broker-1.0.0.tar.gz
+$ tar -zxf weevent-broker-1.0.0.tar.gz
 ```
 如果机器无法访问外网`wget`执行失败，可以通过别的方式下载再`rz`上传。
 
 解压后的目录如下：
 
 ```
-$ cd ./weevent-broker-0.9.0
+$ cd ./weevent-broker-1.0.0
 $ tree  -L 2
 |-- apps
-|   `-- weevent-broker-0.9.0.jar
+|   |-- weevent-client-1.0.0.jar
+|   `-- weevent-broker-1.0.0.jar
 |-- broker.sh
 |-- check-service.sh
 |-- conf
-|   |-- applicationContext.xml
+|   |-- v2
 |   |-- application-prod.properties
 |   |-- application.properties
 |   |-- banner.txt
 |   |-- ca.crt
 |   |-- client.keystore
+|   |-- fisco.properties
 |   |-- log4j2.xml
 |   |-- server.p12
 |   `-- weevent.properties
@@ -64,18 +66,13 @@ $ tree  -L 2
 ### 修改配置文件
 - 区块链FISCO-BCOS节点
 
-  - 在区块链节点安装目录`./web3sdk/conf`拷贝`ca.crt`,`client.keystore`,`applicationContext.xml`并替换`Broker`安装目录`./conf`下的相同文件。                  
+  - 区块链节点配置文件fisco.properties
 
-  - 查看区块链节点安装目录配置文件`./node0/config.json`获取`channelport`。并把节点访问`ip`及`channelport`填写到`Broker`安装配置文件`./conf/applicationContext.xml`中，以下示例为配置两个区块链节根据业务以此类推。
+  - 访问节点的证书文件
 
-    ```xml
-    <property name="connectionsStr">
-        <list>
-            <value>WeEvent@127.0.0.1:8821</value>
-    	      <value>WeEvent@127.0.0.1:8822</value>
-        </list>
-    </property>
-    ```
+    1.3版本的证书文件`ca.crt`和`client.keystore`放在`./conf`目录下。
+
+    2.0版本的证书文件`ca.crt`和`node.crt`、`node.key`放在`./conf/v2`目录下。
 
     更详细的配置文件说明，请参见[Web3sdk配置说明](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/sdk/sdk.html)。
 
@@ -83,7 +80,7 @@ $ tree  -L 2
 
   - 部署Topic合约  
 
-    运行脚本`./deploy-topic-control.sh`，部署合约并得到合约地址，例如:
+    运行脚本`./deploy-topic-control.sh`，部署合约并得到合约地址（2.0版本需要参数，群组ID），例如:
 
     ```shell
     $ ./deploy-topic-control.sh
@@ -92,11 +89,12 @@ $ tree  -L 2
 
   - 修改配置文件
 
-      在配置文件`./conf/weevent.properties`中，替换为生成的合约地址。例如：
+      在配置文件`./conf/fisco.properties`中，替换为生成的合约地址。例如：
 
       ```ini
-      fisco.topic-controller.contract-address=0xd99253697e61bf19206ceb4704fc9914d0a4116c
+      topic-controller.address=0xd99253697e61bf19206ceb4704fc9914d0a4116c
       ```
+      2.0版本每个群组都有自己的合约地址，多个地址用`;`分号分割。格式为`1:0xd99253697e61bf19206ceb4704fc9914d0a4116c;2:0xd99253697e61bf19206ceb4704fc9914d0a4116d`
 
   -  **注意**
 

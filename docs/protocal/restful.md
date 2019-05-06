@@ -46,7 +46,7 @@ public class Rest {
 ```
 上述代码样例，演示了使用`RESTful`如何创建主题和发布事件。程序执行效果和在浏览器上直接访问`http://localhost:8080/weevent/rest/open?topic=com.weevent.test` 和`http://localhost:8080/weevent/rest/publish?topic=com.weevent.test&content=hello weevent`是一样的。
 
-完整的代码，请参见[RESTful代码样例](https://github.com/WeBankFinTech/WeEvent/blob/v0.9.0/src/test/java/com/webank/weevent/sample/Rest.java) 。
+完整的代码，请参见[RESTful代码样例](https://github.com/WeBankFinTech/WeEvent/blob/master/weevent-broker/src/test/java/com/webank/weevent/sample/Rest.java) 。
 
 
 ### 接口说明
