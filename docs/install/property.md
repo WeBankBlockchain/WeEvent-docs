@@ -37,6 +37,7 @@ spring.application.admin.enabled=false
 
 #### 区块链`FISCO-BCOS`节点配置
 
+
 配置文件链接[fisco.properties](https://github.com/WeBankFinTech/WeEvent/blob/master/weevent-broker/src/main/resources/fisco.properties) 。
 
 ```ini
@@ -170,6 +171,7 @@ stomp.heartbeats=30
    - stomp.heartbeats：配置心跳时间间隔。默认时间间隔30秒，一般不用修改。
 
 ### Governance
+
 `Governance`的配置都在文件`application-prod.yml `中，配置文件链接[application-prod.yml](https://github.com/WeBankFinTech/WeEvent/blob/master/weevent-governance/src/main/resources/application-prod.yml) 。
 
 ```nginx
