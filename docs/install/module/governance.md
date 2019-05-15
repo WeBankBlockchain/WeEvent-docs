@@ -28,11 +28,11 @@
 
   ​          `webase-node-mgr`需要加入`Nginx`反向代理，`Nginx`模块的安装参见[Nginx模块安装](./nginx.html) 。
 
-  ​          `Nginx`配置文件`./conf/conf.d/rs.conf`中,将8083换成`webase-node-mgr`使用的端口。
+  ​          `Nginx`配置文件`./conf/conf.d/rs.conf`中,将server部分换成`webase-node-mgr`使用的`IP`地址端口。
 
           ```nginx
   upstream webase_backend{
-      server localhost:8083 weight=100 max_fails=3;
+      server 127.0.0.1:8083 weight=100 max_fails=3;
       
       ip_hash;
       keepalive 1024;
