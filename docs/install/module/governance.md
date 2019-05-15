@@ -20,11 +20,26 @@
 
   版本为0.6及以上。具体安装步骤，请参见[WeBase安装](https://github.com/WeBankFinTech/WeBase)。
 
-  注意：`WeBase`只需要安装其`webase-front` (节点前置)以及`webase-node-mgr`(节点管理)两个部分。
+  **注意**：`WeBase`只需要安装其`webase-front` (节点前置)以及`webase-node-mgr`(节点管理)两个部分。
 
   ​           在`webase-node-mgr`服务启动前，找到其`conf/application.yml`将其中`isUseSecurity: true`
 
-  ​           设置成`isUseSecurity: false`,然后启动并加入`nginx`的反向代理。
+  ​           设置成`isUseSecurity: false`,然后启动。
+
+  ​          `webase-node-mgr`需要加入`Nginx`反向代理，`Nginx`模块的安装参见[Nginx模块安装](./nginx.html) 。
+
+  ​          `Nginx`配置文件`./conf/conf.d/rs.conf`中,将8083换成`webase-node-mgr`使用的端口。
+
+          ```nginx
+  upstream webase_backend{
+      server localhost:8083 weight=100 max_fails=3;
+      
+      ip_hash;
+      keepalive 1024;
+  }
+          ```
+
+  ​
 
 - Mysql数据库
 
@@ -178,7 +193,7 @@ $ tree -L 2
 
 如果需要部署多个进程实例，将上述步骤安装好的`Governance `目录打包拷贝到其他机器上，解压启动即可。
 
-`Nginx`配置文件`/etc/nginx/conf/conf.d/rs.conf`中，以下为配置2个`Governance`进程的样例。
+`Nginx`配置文件`./conf/conf.d/rs.conf`中，以下为配置2个`Governance`进程的样例。
 
 ```nginx
 upstream governance_backend{
