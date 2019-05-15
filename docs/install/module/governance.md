@@ -14,6 +14,18 @@
 
 ​       版本和`Governance`一致。具体安装步骤，请参见[Broker模块安装](./broker.html)。
 
+- WeBase模块
+
+  必选配置。通过`WeBase`存取区块链的数据。
+
+  版本为0.6及以上。具体安装步骤，请参见[WeBase安装](https://github.com/WeBankFinTech/WeBase)。
+
+  注意：`WeBase`只需要安装其`webase-front` (节点前置)以及`webase-node-mgr`(节点管理)两个部分。
+
+  ​           在`webase-node-mgr`服务启动前，找到其`conf/application.yml`将其中`isUseSecurity: true`
+
+  ​           设置成`isUseSecurity: false`,然后启动并加入`nginx`的反向代理。
+
 - Mysql数据库
 
   必选配置。`Governance`通过`Mysql`存储统计数据。
@@ -79,7 +91,7 @@ $ tree -L 2
       datasource:
         url: jdbc:mysql://127.0.0.1:3306/goverdb?useUnicode=true&characterEncoding=utf-8&useSSL=false
         driver-class-name: org.mariadb.jdbc.Driver
-        username: xxx
+        username: xxxx
         password: yyyy
         type: org.apache.commons.dbcp2.BasicDataSource
     ```
@@ -88,15 +100,6 @@ $ tree -L 2
     ```
     $ ./init-governance.sh
     init governance db success
-    ```
-
-- 配置Broker访问入口
-
-    在配置文件`./conf/application-prod.yml`中，修改对应的`broker`访问URL。
-
-    ```ini
-     weevent:
-       url: http://127.0.0.1:8080/weevent
     ```
 
 - 生成HTTPS证书
