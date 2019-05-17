@@ -39,7 +39,6 @@ WeEvent提供事件发布订阅功能，同时包含一个事件治理Web管理�
    :maxdepth: 1
 
    /introduction/index
-   /download/download.md
    /install/index
    /protocal/index
    /scarino/index
