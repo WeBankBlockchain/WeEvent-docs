@@ -14,6 +14,43 @@
 
 ​       版本和`Governance`一致。具体安装步骤，请参见[Broker模块安装](./broker.html)。
 
+- WeBase模块
+
+  必选配置。通过`WeBase`存取区块链的数据。
+
+  版本为0.6及以上。具体安装步骤，请参见[WeBase安装](https://github.com/WeBankFinTech/WeBase)。
+
+  **注意**：`WeBase`只需要安装其`webase-front` (节点前置)以及`webase-node-mgr`(节点管理)两个部分。
+
+  ​           在`webase-node-mgr`服务启动前，找到其`conf/application.yml`将其中`isUseSecurity: true`
+
+  ​           设置成`isUseSecurity: false`,然后启动。
+
+  ​	  启动后需要把前置节点添加到`webase-node-mgr`中：
+
+           ```shell
+  $ curl -H "Content-Type:application/json" -X POST --data '{ "frontIp": "127.0.0.1", "frontPort": "8084","agency":"agency1"}' http://127.0.0.1:8083/webase-node-mgr/front/new
+
+  {"code":0,"message":"success","data":{"frontId":3,"frontIp":"127.0.0.1","frontPort":8083,"agency":"agency1","createTime":null,"modifyTime":null}}
+           ```
+
+  ​        其中`frontIp,frontPort`要写真实的`webase-front`服务器`IP,Port`,而不能写例子中的127.0.0.1，后面的`Url`填写`webase-node-mgr`的服务端口。
+
+  ​          `webase-node-mgr`需要加入`Nginx`反向代理，`Nginx`模块的安装参见[Nginx模块安装](./nginx.html) 。
+
+  ​          `Nginx`配置文件`./conf/conf.d/rs.conf`中,将server部分换成`webase-node-mgr`使用的`IP`地址端口。
+
+          ```nginx
+  upstream webase_backend{
+      server 127.0.0.1:8083 weight=100 max_fails=3;
+      
+      ip_hash;
+      keepalive 1024;
+  }
+          ```
+
+  ​
+
 - Mysql数据库
 
   必选配置。`Governance`通过`Mysql`存储统计数据。
@@ -79,7 +116,7 @@ $ tree -L 2
       datasource:
         url: jdbc:mysql://127.0.0.1:3306/goverdb?useUnicode=true&characterEncoding=utf-8&useSSL=false
         driver-class-name: org.mariadb.jdbc.Driver
-        username: xxx
+        username: xxxx
         password: yyyy
         type: org.apache.commons.dbcp2.BasicDataSource
     ```
@@ -88,15 +125,6 @@ $ tree -L 2
     ```
     $ ./init-governance.sh
     init governance db success
-    ```
-
-- 配置Broker访问入口
-
-    在配置文件`./conf/application-prod.yml`中，修改对应的`broker`访问URL。
-
-    ```ini
-     weevent:
-       url: http://127.0.0.1:8080/weevent
     ```
 
 - 生成HTTPS证书
@@ -175,7 +203,7 @@ $ tree -L 2
 
 如果需要部署多个进程实例，将上述步骤安装好的`Governance `目录打包拷贝到其他机器上，解压启动即可。
 
-`Nginx`配置文件`/etc/nginx/conf/conf.d/rs.conf`中，以下为配置2个`Governance`进程的样例。
+`Nginx`配置文件`./conf/conf.d/rs.conf`中，以下为配置2个`Governance`进程的样例。
 
 ```nginx
 upstream governance_backend{
