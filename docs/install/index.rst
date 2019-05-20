@@ -17,4 +17,5 @@
    /install/environment
    /install/quickinstall
    /install/module/index
-   /install/property   
+   /install/property  
+   /install/download
