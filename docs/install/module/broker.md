@@ -29,7 +29,7 @@
 
 ### 获取安装包
 
-下载安装包[weevent-broker安装包](https://github.com/WeBankFinTech/WeEvent/releases/download/v0.9.0/weevent-broker-0.9.0.tar.gz)，并且解压到`/usr/local/weevent/`下。
+下载安装包[weevent-broker安装包](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.0.0/weevent-broker-1.0.0.tar.gz)，并且解压到`/usr/local/weevent/`下。
 
 ``` shell
 $ cd /usr/local/weevent/
