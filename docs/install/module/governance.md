@@ -50,8 +50,6 @@
           ```
 
 
-
-
 - Mysql数据库
 
   必选配置。`Governance`通过`Mysql`存储统计数据。

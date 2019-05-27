@@ -85,8 +85,7 @@ StompSession.Subscription subscription = stompSession.subscribe(header, new Stom
 说明
 
 - `topic`  订阅的主题
-- `StompFrameHandler`  ，对`StompFrame`和`StompHeaders`进行处理的方法。
-- `groupId` 
+- `StompFrameHandler`  ，对`StompFrame`和`StompHeaders`进行处理的方法。 
 
 
 **订阅事件扩展**
