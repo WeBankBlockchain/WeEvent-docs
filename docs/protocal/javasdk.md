@@ -153,7 +153,7 @@ public static void main(String[] args) {
         String url = "http://localhost:8080/weevent";
         WeEventClient client = WeEventClient(url);
         //publish接口的参数分别是主题Topic、事件内容Content
-        String groupId = 1;
+        String groupId = "1";
         //用户自定义拓展必须以weevent-开头，可选参数。
         Map<String, String> extensions = mew HashMap<>();
         extensions.put("weevent-url",https://github.com/WeBankFinTech/WeEvent);
