@@ -8,12 +8,12 @@
 
 ### 安装Nginx
 
-下载安装包[weevent-nginx安装包](https://github.com/WeBankFinTech/WeEvent/releases/download/v0.9.0/weevent-nginx-0.9.0.tar.gz)，解压到`/usr/local/weevent/`下。 
+下载安装包[weevent-nginx安装包](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.0.0/weevent-nginx-1.0.0.tar.gz)，解压到`/usr/local/weevent/`下。 
 
 ```shell
 $ cd /usr/local/weevent/
-$ wget https://github.com/WeBankFinTech/WeEvent/releases/download/v0.9.0/weevent-nginx-0.9.0.tar.gz
-$ tar -zxf weevent-nginx-0.9.0.tar.gz
+$ wget https://github.com/WeBankFinTech/WeEvent/releases/download/v1.0.0/weevent-nginx-1.0.0.tar.gz
+$ tar -zxf weevent-nginx-1.0.0.tar.gz
 ```
 
 如果机器无法访问外网`wget`执行失败，可以通过别的方式下载再`rz`上传。
@@ -21,7 +21,7 @@ $ tar -zxf weevent-nginx-0.9.0.tar.gz
 解压后目录结构如下：
 
 ```shell
-$ cd ./weevent-nginx-0.9.0
+$ cd ./weevent-nginx-1.0.0
 $ tree -L 2
 .
 |-- build-nginx.sh
