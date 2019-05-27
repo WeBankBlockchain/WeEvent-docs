@@ -47,15 +47,16 @@ broker.zookeeper.timeout=3000
 - 在`WeEvent`中创建主题`Topic` ，例如 `com.weevent.iot.event`。
 
   ```shell
-  $ curl http://localhost:8080/weevent/rest/open?topic=com.weevent.iot.event
+  $ curl http://localhost:8080/weevent/rest/open?topic=com.weevent.iot.event&groupId=1
   true
   ```
-
-
+  
+  `groupId`:群组`Id`，`fisco-bcos 2.0+`版本支持多群组功能，2.0以下版本不支持该功能可以不传。
+  
 - 通过`WeEvent`设置上行通道的`Topic`绑定。
 
   ```shell
-  $ curl http://localhost:8080/weevent/master/mqtt_add_inbound_topic?topic=com.weevent.iot.event
+  $ curl http://localhost:8080/weevent/master/mqtt_add_inbound_topic?topic=com.weevent.iot.event&groupId=1
   true
   ```
 
@@ -76,7 +77,7 @@ broker.zookeeper.timeout=3000
 - 移除绑定，`WeEvent`不会再收到事件通知
 
   ```shell
-  $ curl http://localhost:8080/weevent/master/mqtt_remove_inbound_topic?topic=com.weevent.iot.event
+  $ curl http://localhost:8080/weevent/master/mqtt_remove_inbound_topic?topic=com.weevent.iot.event&groupId=1
   ```
 
 #### 下发IoT设备命令
@@ -84,7 +85,7 @@ broker.zookeeper.timeout=3000
 - 在`WeEvent`里创建主题`Topic` ，例如`com.weevent.iot.control`。
 
   ```shell
-  $ curl http://localhost:8080/weevent/rest/open?topic=com.weevent.iot.control
+  $ curl http://localhost:8080/weevent/rest/open?topic=com.weevent.iot.control&groupId=1
   true
   ```
 
@@ -92,7 +93,7 @@ broker.zookeeper.timeout=3000
 - 通过`WeEvent`设置下行通道的`Topic`绑定
 
   ```shell
-  $ curl http://localhost:8080/weevent/master/mqtt_add_outbound_topic?topic=com.weevent.iot.control
+  $ curl http://localhost:8080/weevent/master/mqtt_add_outbound_topic?topic=com.weevent.iot.control&groupId=1
   true
   ```
 
@@ -100,10 +101,11 @@ broker.zookeeper.timeout=3000
 - 在`WeEvent`上发布事件
 
   ```shell
-  $ curl http://localhost:8080/weevent/rest/publish?topic=com.weevent.iot.control&content=hello
+  $ curl http://localhost:8080/weevent/rest/publish?topic=com.weevent.iot.control&groupId=1&content=hello&weevent-url=https://github.com/WeBankFinTech/WeEvent
   ```
-
-
+  
+  `weevent-url`:用户自定义拓展，以`weevent-`开头。可选参数。
+  
 - 在设备上可以订阅到这个事件
 
   ```shell
@@ -114,5 +116,5 @@ broker.zookeeper.timeout=3000
 - 移除绑定，`IoT`设备不会再收到事件通知
 
   ```shell
-  $ curl http://localhost:8080/weevent/master/mqtt_add_inbound_topic?topic=com.weevent.iot.control
+  $ curl http://localhost:8080/weevent/master/mqtt_add_inbound_topic?topic=com.weevent.iot.control&groupId=1
   ```

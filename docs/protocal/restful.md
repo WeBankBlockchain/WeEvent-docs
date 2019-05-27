@@ -31,10 +31,11 @@ public class Rest {
             System.out.println(result);
 
             // publish event to topic "com.weevent.test"
-            SendResult sendResult = rest.getForEntity("http://localhost:8080/weevent/rest/publish?topic={}&content={}",
+            SendResult sendResult = rest.getForEntity("http://localhost:8080/weevent/rest/publish?topic={}&groupId={}&content={}&weevent-url={}",
                     SendResult.class,
                     "com.weevent.test",
-                    "hello weevent".getBytes(StandardCharsets.UTF_8)).getBody();
+                    "1",
+                    "hello weevent".getBytes(StandardCharsets.UTF_8),                                         "https://github.com/WeBankFinTech/WeEvent").getBody();
 
             System.out.println(sendResult.getStatus());
             System.out.println(sendResult.getEventId());
@@ -44,7 +45,7 @@ public class Rest {
     }
 }
 ```
-上述代码样例，演示了使用`RESTful`如何创建主题和发布事件。程序执行效果和在浏览器上直接访问`http://localhost:8080/weevent/rest/open?topic=com.weevent.test` 和`http://localhost:8080/weevent/rest/publish?topic=com.weevent.test&content=hello weevent`是一样的。
+上述代码样例，演示了使用`RESTful`如何创建主题和发布事件。程序执行效果和在浏览器上直接访问`http://localhost:8080/weevent/rest/open?topic=com.weevent.test&groupId=1&weevent-url=https://github.com/WeBankFinTech/WeEvent` 和`http://localhost:8080/weevent/rest/publish?topic=com.weevent.test&groupId=1&content=hello weevent&weevent-url=https://github.com/WeBankFinTech/WeEvent`是一样的。
 
 完整的代码，请参见[RESTful代码样例](https://github.com/WeBankFinTech/WeEvent/blob/master/weevent-broker/src/test/java/com/webank/weevent/sample/Rest.java) 。
 
@@ -57,7 +58,7 @@ public class Rest {
 - 请求
 
   ```shell
-  $ curl http://localhost:8080/weevent/rest/open?topic=com.weevent.test
+  $ curl http://localhost:8080/weevent/rest/open?topic=com.weevent.test&groupId=1
   ```
 
 
@@ -70,13 +71,16 @@ public class Rest {
 
 - 说明
   `topic`: `Topic`名字，`ascii`值在`[32,128]`之间的都为有效字符，最大长度32字节。
+  
+  `groupId`: 群组`Id`，`fisco-bcos 2.0+`版本支持多群组功能，2.0以下版本不支持该功能可以不传。
+  
   重复`open`返回`true` 。
 
 #### 关闭Topic
 - 请求
 
   ```shell
-  $ curl http://localhost:8080/weevent/rest/close?topic=com.weevent.test
+  $ curl http://localhost:8080/weevent/rest/close?topic=com.weevent.test&groupId=1
   ```
 
 
@@ -90,7 +94,7 @@ public class Rest {
 - 请求
 
   ```shell
-  $ curl http://localhost:8080/weevent/rest/exist?topic=com.weevent.test
+  $ curl http://localhost:8080/weevent/rest/exist?topic=com.weevent.test&groupId=1
   ```
 
 
@@ -104,7 +108,7 @@ public class Rest {
 - 请求
 
   ```shell
-  $ curl http://localhost:8080/weevent/rest/publish?topic=com.weevent.test&content=123456
+  $ curl http://localhost:8080/weevent/rest/publish?topic=com.weevent.test&groupId=1&content=123456&weevent-url=https://github.com/WeBankFinTech/WeEvent
   ```
 
 
@@ -121,15 +125,17 @@ public class Rest {
 
 - 说明 
 
-  content ：`123456` ，需要特别注意两点：1、`content`的`UrlEncode`编码；2、`GET`方法支持的`QueryString`最大长度为1024字节。
+  `content` ：`123456` ，需要特别注意两点：1、`content`的`UrlEncode`编码；2、`GET`方法支持的`QueryString`最大长度为1024字节。
 
+  `weevent-url`:用户自定义拓展，以`weevent-`开头。可选参数。
+  
   status：`SUCCESS`，说明是发布成功，`eventId`是对应的事件ID。
 
 #### 订阅事件
 - 请求
 
   ```shell
-  $ curl http://localhost:8080/weevent/rest/subscribe?topic=com.weevent.test&subscriptionId=c8a600c0-61a7-4077-90f6-3aa39fc9cdd5&url=http%3a%2f%2flocalhost%3a8080%2fweevent%2fonsubscribe
+  $ curl http://localhost:8080/weevent/rest/subscribe?topic=com.weevent.test&groupId=1&subscriptionId=c8a600c0-61a7-4077-90f6-3aa39fc9cdd5&url=http%3a%2f%2flocalhost%3a8080%2fweevent%2fonsubscribe
   ```
 
 
@@ -174,7 +180,7 @@ public class Rest {
 - 请求
 
   ```shell
-  $ curl http://localhost:8080/weevent/rest/getEvent?eventId=2cf24dba-59-1124
+  $ curl http://localhost:8080/weevent/rest/getEvent?eventId=2cf24dba-59-1124&groupId=1
   ```
 
 - 应答
@@ -199,7 +205,7 @@ public class Rest {
 - 请求
 
   ```shell
-  $ curl http://localhost:8080/weevent/rest/list?pageIndex=1&pageSize=10
+  $ curl http://localhost:8080/weevent/rest/list?pageIndex=1&pageSize=10&groupId=1
   ```
 
 
@@ -234,7 +240,7 @@ public class Rest {
 - 请求
 
   ```shell
-  $ curl http://localhost:8080/weevent/rest/state?topic=com.weevent.test
+  $ curl http://localhost:8080/weevent/rest/state?topic=com.weevent.test&groupId=1
   ```
 
 
