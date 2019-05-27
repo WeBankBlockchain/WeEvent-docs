@@ -80,7 +80,7 @@ $ tree  -L 2
 
   - 部署Topic合约  
 
-    运行脚本`./deploy-topic-control.sh`，部署合约并得到合约地址（2.0版本需要参数，群组ID），例如:
+    运行脚本`./deploy-topic-control.sh`，部署合约并得到合约地址（2.0版本需要在脚本后添加参数，群组ID），例如:
 
     ```shell
     $ ./deploy-topic-control.sh
