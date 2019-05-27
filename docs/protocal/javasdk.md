@@ -56,7 +56,7 @@ public class WeEventClient {
      * @return send result, SendResult.SUCCESS if success, and SendResult.eventId
      * @throws BrokerException broker exception
      */
-    public SendResult publish(String topic, String topic, byte[] content, Map<String,String> extensions) throws BrokerException;
+    public SendResult publish(String topic, String groupId, byte[] content, Map<String,String> extensions) throws BrokerException;
 
     /**
      * Subscribe events from topic.
@@ -68,7 +68,7 @@ public class WeEventClient {
      * @return subscription Id
      * @throws BrokerException invalid input param
      */
-    public String subscribe(String topic, String topic, String offset, IConsumer.ConsumerListener listener);
+    public String subscribe(String topic, String groupId, String offset, IConsumer.ConsumerListener listener);
 
     /**
      * Unsubscribe an exist subscription subscribed by {@link #subscribe(String, String, IConsumer.ConsumerListener)}.
@@ -154,6 +154,7 @@ public static void main(String[] args) {
         WeEventClient client = WeEventClient(url);
         //publish接口的参数分别是主题Topic、事件内容Content
         String groupId = 1;
+        //用户自定义拓展必须以weevent-开头，可选参数。
         Map<String, String> extensions = mew HashMap<>();
         extensions.put("weevent-url",https://github.com/WeBankFinTech/WeEvent);
         SendResult sendResult = client.publish("com.weevent.test", groupId, "hello wolrd".getBytes(), extensions);

@@ -51,7 +51,7 @@ broker.zookeeper.timeout=3000
   true
   ```
   
-  `groupId`:群主`Id`，`fisco-bcos 2.0+`版本支持多群主功能，2.0以下版本不支持该功能可以不传。
+  `groupId`:群组`Id`，`fisco-bcos 2.0+`版本支持多群组功能，2.0以下版本不支持该功能可以不传。
   
 - 通过`WeEvent`设置上行通道的`Topic`绑定。
 

@@ -59,7 +59,7 @@ log.info("send result, receipt id: {}", receiptable.getReceiptId());
 
 `Topic` 为`com.weevent.test`。用户可以获取到`Receiptable`，并且通过`receiptable.getReceiptId()`，可以获取相应的回执。
 
-`groupId`为群主`Id`，`fisco-bcos 2.0+`版本支持多群主功能，2.0以下版本不支持该功能可以不传。
+`groupId`为群组`Id`，`fisco-bcos 2.0+`版本支持多群组功能，2.0以下版本不支持该功能可以不传。
 
 `weevent-url`为用户自定义拓展默认以`weevent-`开头。可选参数。
 
@@ -86,7 +86,7 @@ StompSession.Subscription subscription = stompSession.subscribe(header, new Stom
 
 - `topic`  订阅的主题
 - `StompFrameHandler`  ，对`StompFrame`和`StompHeaders`进行处理的方法。
-- `groupId` 群主`Id`，`fisco-bcos 2.0+`版本支持多群主功能，2.0以下版本不支持该功能可以不传。
+- `groupId` 
 
 
 **订阅事件扩展**
