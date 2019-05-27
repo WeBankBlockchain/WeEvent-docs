@@ -4,25 +4,24 @@
 
 如果是第一次安装`WeEvent`，参见这里的[系统要求](./environment.html) 。
 
-为了简化配置，建议将`WeEvent`服务和区块链`FISCO-BCOS`节点安装在同一台机器上。
+为了简化配置，在快速安装时建议将`WeEvent`服务和区块链`FISCO-BCOS`节点安装在同一台机器上。
 
 ### 获取安装包
 
-下载安装包[WeEvent安装包](https://github.com/WeBankFinTech/WeEvent/releases/download/v0.9.0/weevent-0.9.0.tar.gz
-)，并且解压到`/tmp/` 。
+下载安装包[WeEvent快速安装包](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.0.0/weevent-0.9.0.tar.gz)，并且解压到`/tmp/` 。
 
 ```shell
 $ cd /tmp/
-$ wget https://github.com/WeBankFinTech/WeEvent/releases/download/v0.9.0/weevent-0.9.0.tar.gz
-$ tar -zxf weevent-0.9.0.tar.gz
+$ wget https://github.com/WeBankFinTech/WeEvent/releases/download/v1.0.0/weevent-1.0.0.tar.gz
+$ tar -zxf weevent-1.0.0.tar.gz
 ```
 
-如果机器无法访问外网`wget`执行失败，可以通过别的方式下载再`rz`上传。
+如果机器无法访问外网`wget`执行失败，可以通过别的方式下载再`rz`上传。也可以通过[打包脚本package.sh](https://github.com/WeBankFinTech/WeEvent/blob/master/weevent-build/package.sh)生成最新安装包。
 
 解压后目录结构如下：
 
 ```
-$ cd weevent-0.9.0/ 
+$ cd weevent-1.0.0/ 
 $ tree -L 2
 .
 |-- check-service.sh
@@ -48,10 +47,12 @@ $ tree -L 2
 ```ini
 # Required module
 [fisco-bcos]
-# FISCO-BCOS node channel, eg: weevent@127.0.0.1:8821;weevent@127.0.0.2:8821
-channel=weevent@127.0.0.1:8821
-# it is the 'web3sdk config' in the path of FISCO-BCOS's build tool
-web3sdk_conf_path=/data/app/weevent-block/fisco-package-build-tool/build/127.0.0.1_agent_genesis/build/web3sdk/conf
+# support 1.3 and 2.0
+version=2.0
+# FISCO-BCOS node channel, eg: 127.0.0.1:8821;127.0.0.2:8821
+channel=127.0.0.1:8821
+# FISCO-BCOS's node path
+node_path=/data/FISCO-BCOS/127.0.0.1/node0
 
 # Required module
 [nginx]
@@ -75,17 +76,18 @@ mysql_password=yyy
 
 - 区块链FISCO-BCOS节点
 
-  推荐使用版本`1.3.8`，区块链`FISCO-BCOS`节点配置参数如下： 
+  - fisco-bcos.version
+
+    `FISCO-BCOS`1.3和2.0版本都支持，推荐使用`2.0`及以上版本。
+
 
   - fisco-bcos.channel
 
-    区块链`FISCO-BCOS`节点的`channel`访问入口。可以配置多个节点，用`;`分割，如`weevent@127.0.0.1:8821;weevent@127.0.0.2:8821`。
+    区块链节点的`channel`访问入口。配置多个节点时用`;`分割，如`127.0.0.1:8821;127.0.0.2:8821`。
 
-  - fisco-bcos.web3sdk_conf_path
+  - fisco-bcos.node_path
 
-    访问区块链`FISCO-BCOS`节点的证书、私钥。
-
-    `web3sdk_conf_path`应该配置为区块链`FISCO-BCOS`节点安装目录下的`./web3sdk/conf`。
+    区块链节点的访问证书、私钥存放的位置。值为区块链节点的安装目录。
 
 - Nginx监听端口`nginx.port`
 
@@ -105,12 +107,12 @@ mysql_password=yyy
 $ ./install-all.sh -p /usr/local/weevent/
 ```
 
-正常安装，输出如下：
+正常安装后，输出有如下关键字：
 
 ```
 deploy contract success
 contract_address:0x9392da80a7ae52fdbcd3698111b23f045cf0745c
-broker install success 
+broker install success
 build & install pcre
 build & install nginx
 nginx install success
