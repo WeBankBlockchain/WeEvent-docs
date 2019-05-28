@@ -28,11 +28,12 @@
 
   ​	  启动后需要把前置节点添加到`webase-node-mgr`中：
 
-           ```shell
+  ```shell
   $ curl -H "Content-Type:application/json" -X POST --data '{ "frontIp": "127.0.0.1", "frontPort": "8084","agency":"agency1"}' http://127.0.0.1:8083/webase-node-mgr/front/new
 
   {"code":0,"message":"success","data":{"frontId":3,"frontIp":"127.0.0.1","frontPort":8083,"agency":"agency1","createTime":null,"modifyTime":null}}
-           ```
+  ```
+
 
   ​        其中`frontIp,frontPort`要写真实的`webase-front`服务器`IP,Port`,而不能写例子中的127.0.0.1，后面的`Url`填写`webase-node-mgr`的服务端口。
 
@@ -40,16 +41,13 @@
 
   ​          `Nginx`配置文件`./conf/conf.d/rs.conf`中,将server部分换成`webase-node-mgr`使用的`IP`地址端口。
 
-          ```nginx
+  ```nginx
   upstream webase_backend{
-      server 127.0.0.1:8083 weight=100 max_fails=3;
-      
-      ip_hash;
-      keepalive 1024;
+  server 127.0.0.1:8083 weight=100 max_fails=3;
+  ip_hash;
+  keepalive 1024;
   }
-          ```
-
-  ​
+  ```
 
 - Mysql数据库
 
