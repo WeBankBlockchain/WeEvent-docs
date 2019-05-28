@@ -29,7 +29,7 @@
 
 ### 获取安装包
 
-下载安装包[weevent-broker安装包](https://github.com/WeBankFinTech/WeEvent/releases/download/v0.9.0/weevent-broker-0.9.0.tar.gz)，并且解压到`/usr/local/weevent/`下。
+下载安装包[weevent-broker安装包](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.0.0/weevent-broker-1.0.0.tar.gz)，并且解压到`/usr/local/weevent/`下。
 
 ``` shell
 $ cd /usr/local/weevent/
@@ -80,7 +80,7 @@ $ tree  -L 2
 
   - 部署Topic合约  
 
-    运行脚本`./deploy-topic-control.sh`，部署合约并得到合约地址（2.0版本需要参数，群组ID），例如:
+    运行脚本`./deploy-topic-control.sh`，部署合约并得到合约地址（2.0版本需要在脚本后添加参数，群组ID），例如:
 
     ```shell
     $ ./deploy-topic-control.sh
