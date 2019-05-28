@@ -10,9 +10,7 @@
 - Broker模块
 
    必选配置。通过`Broker`访问区块链。
-
-
-​       版本和`Governance`一致。具体安装步骤，请参见[Broker模块安装](./broker.html)。
+   版本和`Governance`一致。具体安装步骤，请参见[Broker模块安装](./broker.html)。
 
 - WeBase模块
 
@@ -20,13 +18,13 @@
 
   版本为0.6及以上。具体安装步骤，请参见[WeBase安装](https://github.com/WeBankFinTech/WeBase)。
 
-  **注意**：`WeBase`只需要安装其`webase-front` (节点前置)以及`webase-node-mgr`(节点管理)两个部分。
+  **注意**：`isUseSecurity`的改动
 
-  ​           在`webase-node-mgr`服务启动前，找到其`conf/application.yml`将其中`isUseSecurity: true`
+  ​                 在`webase-node-mgr`服务启动前，找到其`conf/application.yml`将其中`isUseSecurity: true`
 
-  ​           设置成`isUseSecurity: false`,然后启动。
+  ​                 设置成`isUseSecurity: false`,然后启动。
 
-  ​	  启动后需要把前置节点添加到`webase-node-mgr`中：
+  ​          启动`WeBase`服务，在`webase-node-mgr`中配置`webase-front`节点，需执行下面命令。
 
   ```shell
   $ curl -H "Content-Type:application/json" -X POST --data '{ "frontIp": "127.0.0.1", "frontPort": "8084","agency":"agency1"}' http://127.0.0.1:8083/webase-node-mgr/front/new
@@ -35,17 +33,21 @@
   ```
 
 
-  ​        其中`frontIp,frontPort`要写真实的`webase-front`服务器`IP,Port`,而不能写例子中的127.0.0.1，后面的`Url`填写`webase-node-mgr`的服务端口。
+​                       其中`frontIp,frontPort`要写真实的`webase-front`服务器`IP,Port`,而不能写例子中的127.0.0.1，
 
-  ​          `webase-node-mgr`需要加入`Nginx`反向代理，`Nginx`模块的安装参见[Nginx模块安装](./nginx.html) 。
+​                       后面的`Url`填写`webase-node-mgr`的服务`url`端口。
 
-  ​          `Nginx`配置文件`./conf/conf.d/rs.conf`中,将server部分换成`webase-node-mgr`使用的`IP`地址端口。
+下面是是正常的操作步骤
+
+​    `webase-node-mgr`需要加入`Nginx`反向代理，`Nginx`模块的安装参见[Nginx模块安装](./nginx.html) 。
+
+​    `Nginx`配置文件`./conf/conf.d/rs.conf`中,将server部分换成`webase-node-mgr`使用的`IP`地址端口。
 
   ```nginx
   upstream webase_backend{
-  server 127.0.0.1:8083 weight=100 max_fails=3;
-  ip_hash;
-  keepalive 1024;
+      server 127.0.0.1:8083 weight=100 max_fails=3;
+      ip_hash;
+      keepalive 1024;
   }
   ```
 
@@ -153,7 +155,7 @@ $ tree -L 2
       [no]:  y
     ```
 
-    根据提示填写证书主题信息和密码，生成的证书`server.p12`已更新到`./weevent-governance-0.9.0/conf/server.p12`。
+    根据提示填写证书主题信息和密码，生成的证书`server.p12`已更新到`./weevent-governance-1.0.0/conf/server.p12`。
 
   - 修改证书配置
 
