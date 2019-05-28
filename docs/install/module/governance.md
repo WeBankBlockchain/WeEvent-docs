@@ -18,38 +18,17 @@
 
   版本为0.6及以上。具体安装步骤，请参见[WeBase安装](https://github.com/WeBankFinTech/WeBase)。
 
-  **注意**：`isUseSecurity`的改动
+  **注意**：
 
-  ​                 在`webase-node-mgr`服务启动前，找到其`conf/application.yml`将其中`isUseSecurity: true`
+  - `isUseSecurity`的改动
 
-  ​                 设置成`isUseSecurity: false`,然后启动。
-
-  ​          启动`WeBase`服务，在`webase-node-mgr`中配置`webase-front`节点，需执行下面命令。
-
-  ```shell
-  $ curl -H "Content-Type:application/json" -X POST --data '{ "frontIp": "127.0.0.1", "frontPort": "8084","agency":"agency1"}' http://127.0.0.1:8083/webase-node-mgr/front/new
-
-  {"code":0,"message":"success","data":{"frontId":3,"frontIp":"127.0.0.1","frontPort":8083,"agency":"agency1","createTime":null,"modifyTime":null}}
-  ```
+    将`webase-node-mgr`服务中`conf/application.yml`文件,`isUseSecurity: true`修改成`isUseSecurity: false`
 
 
-​                       其中`frontIp,frontPort`要写真实的`webase-front`服务器`IP,Port`,而不能写例子中的127.0.0.1，
+  - `isDeleteInfo`的改动
 
-​                       后面的`Url`填写`webase-node-mgr`的服务`url`端口。
+    将`webase-node-mgr`服务中`conf/application.yml`文件,`isDeleteInfo: true`修改成`isDeleteInfo: false`
 
-下面是是正常的操作步骤
-
-​    `webase-node-mgr`需要加入`Nginx`反向代理，`Nginx`模块的安装参见[Nginx模块安装](./nginx.html) 。
-
-​    `Nginx`配置文件`./conf/conf.d/rs.conf`中,将server部分换成`webase-node-mgr`使用的`IP`地址端口。
-
-  ```nginx
-  upstream webase_backend{
-      server 127.0.0.1:8083 weight=100 max_fails=3;
-      ip_hash;
-      keepalive 1024;
-  }
-  ```
 
 - Mysql数据库
 
@@ -114,7 +93,7 @@ $ tree -L 2
     ```ini
     spring:  
       datasource:
-        url: jdbc:mysql://127.0.0.1:3306/goverdb?useUnicode=true&characterEncoding=utf-8&useSSL=false
+        url: jdbc:mysql://127.0.0.1:3306/governance?useUnicode=true&characterEncoding=utf-8&useSSL=false
         driver-class-name: org.mariadb.jdbc.Driver
         username: xxxx
         password: yyyy
@@ -159,7 +138,7 @@ $ tree -L 2
 
   - 修改证书配置
 
-    参见`./conf/application.yml`中`ssl`配置项 
+    参见`./conf/application.yml`中`ssl`配置项  
 
     ```ini
       ssl: 
@@ -209,6 +188,18 @@ $ tree -L 2
 upstream governance_backend{
     server 127.0.0.1:8082 weight=100 max_fails=3;
     server 127.0.0.2:8082 weight=100 max_fails=3;
+  
+    ip_hash;
+    keepalive 1024;
+}
+```
+
+`Nginx`配置文件`./conf/conf.d/rs.conf`中，以下为配置2个`webase-node-mgr`进程的样例
+
+```nginx
+upstream webase_backend{
+    server 127.0.0.1:8083 weight=100 max_fails=3;
+    server 127.0.0.2:8083 weight=100 max_fails=3;
   
     ip_hash;
     keepalive 1024;
