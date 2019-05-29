@@ -20,14 +20,9 @@
 
   **注意**：
 
-  - 由于使用`governance`自己的登录页面，需`isUseSecurity`变成`false`
+  - 修改`webase-node-mgr`服务中的`conf/application.yml`文件。
 
-    修改`webase-node-mgr`服务中的`conf/application.yml`文件，将`isUseSecurity: true`改成`isUseSecurity: false`
-
-
-  - 由于`governance`需要查看所有`WeEvent`数据，需`isDeleteInfo`设置成`false`
-
-    修改`webase-node-mgr`服务中的`conf/application.yml`文件，将`isDeleteInfo: true`修改成`isDeleteInfo: false`
+    将`isUseSecurity`配置成`false`，`isDeleteInfo`配置成`false`
 
 
 - Mysql数据库
