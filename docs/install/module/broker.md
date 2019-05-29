@@ -253,7 +253,7 @@ $ tree  -L 2
 
 ### 加入Nginx反向代理
 
-`WeEvent`服务的所有请求都通过`Nginx`负载均衡接入，`Nginx`子模块的安装参见[Nginx模块安装](./module/nginx.md) 。
+`WeEvent`服务的所有请求都通过`Nginx`负载均衡接入，`Nginx`子模块的安装参见[Nginx模块安装](./nginx.html) 。
 
 如果需要部署多个进程实例，将上述步骤安装好的`Broker`目录打包拷贝到其他机器上，解压启动即可。
 
