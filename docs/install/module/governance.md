@@ -10,7 +10,7 @@
 - Broker模块
 
    必选配置。通过`Broker`访问区块链。
-   版本和`Governance`一致。具体安装步骤，请参见[Broker模块安装](./broker.html)。
+   版本1.0.0。具体安装步骤，请参见[Broker模块安装](./broker.html)。
 
 - WeBase模块
 
