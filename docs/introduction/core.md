@@ -12,7 +12,7 @@
 ### 事件（Event）  
 事件`Event`可以简单理解成业务层面的一个消息。一般是终端用户或设备触发。
 
-一个事件分为三部分，关联的主题、事件内容、事件ID`EventID`。`Java`映射类参见[WeEvent.java](https://github.com/WeBankFinTech/WeEvent/blob/master/src/main/java/com/webank/weevent/sdk/WeEvent.java)。
+一个事件分为三部分，关联的主题、事件内容、事件ID`EventID`。`Java`映射类参见[WeEvent.java](https://github.com/WeBankFinTech/WeEvent/blob/master/weevent-client/src/main/java/com/webank/weevent/sdk/WeEvent.java)。
 
 事件内容是一个字节数组`byte[]`，对`WeEvent`是透明的。业务可以存放任何数据，例如字符型的`Json`、`XML` ，或者二进制的`Protocol Buffer`等。
 
