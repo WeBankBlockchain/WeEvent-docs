@@ -48,9 +48,8 @@ public class JsonRPC {
             // 发布事件，主题“com.weevent.test”，事件内容为"hello weevent"
             String groupId = "1";
             Map<String,String> extensions = new HashMap<>();
-            extensions.put("weevent-url","https://github.com/WeBankFinTech/WeEvent
-");
-            SendResult sendResult = rpc.publish("com.weevent.test", groupId, "hello weevent".getBytes(StandardCharsets.UTF_8),extensions);
+            extensions.put("weevent-format","json");
+            SendResult sendResult = rpc.publish("com.weevent.test", groupId, "hello weevent".getBytes(StandardCharsets.UTF_8), extensions);
             System.out.println(sendResult.getStatus());
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -69,7 +68,7 @@ public class JsonRPC {
 
 #### 创建Topic
 - 请求
-```bash
+```shell
 $ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":"open","params":{"topic":"com.weevent.test","groupId":"1"}}' http://localhost:8080/weevent/jsonrpc
 ```
 - 应答
@@ -83,7 +82,7 @@ $ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":
 
 - 说明
 
-  - topic：主题，`ascii`值在`[32,128]`之间的都为有效字符。
+  - topic：主题，`ascii`值在`[32,128]`之间，除了'+'、'#'都为有效字符。'+'、'#'作为是订阅通配符使用。
   
   - groupId：群组`Id`，`fisco-bcos 2.0+`版本支持多群组功能，2.0以下版本不支持该功能可以不传。
   
@@ -168,6 +167,7 @@ $ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":
 ```
 
 - 说明
+  - topic：事件主题。支持通配符按层次订阅，参见[MQTT通配符](http://public.dhe.ibm.com/software/dw/webservices/ws-mqtt/mqtt-v3r1.html) 。
   - url：事件通知回调`CGI `，当有生产者发布事件时，所有的事件都会通知到这个`URL`。 
   - subscriptionId：第一次订阅使用空字符串""。继续上一次订阅，`subscriptionId`是上次订阅ID。
   - result：是订阅ID。

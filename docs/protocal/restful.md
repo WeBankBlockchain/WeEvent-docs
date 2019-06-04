@@ -11,7 +11,7 @@
 
 - 调用异常时，返回异常信息`BrokerException`。
 
-  ```
+  ```json
   {"code": 200202, "the transaction does not correctly executed."}
   ```
 
@@ -31,11 +31,11 @@ public class Rest {
             System.out.println(result);
 
             // publish event to topic "com.weevent.test"
-            SendResult sendResult = rest.getForEntity("http://localhost:8080/weevent/rest/publish?topic={}&groupId={}&content={}&weevent-url={}",
+            SendResult sendResult = rest.getForEntity("http://localhost:8080/weevent/rest/publish?topic={}&groupId={}&content={}",
                     SendResult.class,
                     "com.weevent.test",
                     "1",
-                    "hello weevent".getBytes(StandardCharsets.UTF_8),                                         "https://github.com/WeBankFinTech/WeEvent").getBody();
+                    "hello weevent".getBytes(StandardCharsets.UTF_8)).getBody();
 
             System.out.println(sendResult.getStatus());
             System.out.println(sendResult.getEventId());
@@ -45,7 +45,11 @@ public class Rest {
     }
 }
 ```
-上述代码样例，演示了使用`RESTful`如何创建主题和发布事件。程序执行效果和在浏览器上直接访问`http://localhost:8080/weevent/rest/open?topic=com.weevent.test&groupId=1&weevent-url=https://github.com/WeBankFinTech/WeEvent` 和`http://localhost:8080/weevent/rest/publish?topic=com.weevent.test&groupId=1&content=hello weevent&weevent-url=https://github.com/WeBankFinTech/WeEvent`是一样的。
+上述代码样例，演示了使用`RESTful`如何创建主题和发布事件。程序执行效果和在浏览器上直接访问下面URL是一样的。
+
+http://localhost:8080/weevent/rest/open?topic=com.weevent.test&groupId=1
+
+http://localhost:8080/weevent/rest/publish?topic=com.weevent.test&groupId=1&content=hello weevent
 
 完整的代码，请参见[RESTful代码样例](https://github.com/WeBankFinTech/WeEvent/blob/master/weevent-broker/src/test/java/com/webank/weevent/sample/Rest.java) 。
 
@@ -70,10 +74,10 @@ public class Rest {
 
 
 - 说明
-  `topic`: `Topic`名字，`ascii`值在`[32,128]`之间的都为有效字符，最大长度32字节。
-  
-  `groupId`: 群组`Id`，`fisco-bcos 2.0+`版本支持多群组功能，2.0以下版本不支持该功能可以不传。
-  
+  `topic`: `Topic`名称，最大长度32字节。`ascii`值在`[32,128]`之间，除了‘+’、‘#’都有效。‘+’、‘#’作为订阅通配符使用。
+
+  `groupId`: 群组`Id`，`fisco-bcos 2.0+`版本支持多群组功能。2.0以下版本不支持该功能，可以不传，其他接口类似。
+
   重复`open`返回`true` 。
 
 #### 关闭Topic
@@ -128,7 +132,7 @@ public class Rest {
   `content` ：`123456` ，需要特别注意两点：1、`content`的`UrlEncode`编码；2、`GET`方法支持的`QueryString`最大长度为1024字节。
 
   `weevent-url`:用户自定义拓展，以`weevent-`开头。可选参数。
-  
+
   status：`SUCCESS`，说明是发布成功，`eventId`是对应的事件ID。
 
 #### 订阅事件
@@ -148,7 +152,7 @@ public class Rest {
 
 - 说明  
 
-  - topic：主题名称。
+  - topic：事件主题。支持通配符按层次订阅，参见[MQTT通配符](http://public.dhe.ibm.com/software/dw/webservices/ws-mqtt/mqtt-v3r1.html) 。
   - url：事件通知回调`CGI `，当有生产者发布事件时，所有的事件都会通知到这个`url`。 
   - subscriptionId：第一次订阅使用空字符串""。继续上一次订阅，`subscriptionId`是上次订阅ID。
   - 返回值是订阅ID`c8a600c0-61a7-4077-90f6-3aa39fc9cdd5`。
@@ -246,7 +250,7 @@ public class Rest {
 
 - 应答
 
-  ```shell
+  ```json
   {
       "topicName": "com.weevent.test",
       "topicAddress": "0x171befab4c1c7e0d33b5c3bd932ce0112d4caecd",
