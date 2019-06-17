@@ -1,120 +1,84 @@
 ## MQTT
-`WeEvent`服务对`MQTT`协议的支持依赖`Mosquitto`代理。`Mosquitto`是 `MQTT` 协议的一个开源实现。`Mosquitto`详细内容，请参见[Mosquitto官网](https://mosquitto.org/) 。同时需要给`Broker`配置`Zookeeper`服务。请参见[Broker模块安装](../install/module/broker.html)。
+`WeEvent`服务支持`MQTT Broker`功能。任何支持`MQTT`协议的IOT设备及客户端都能连接到`WeEvent`进行消息发布及订阅。
 
 ### 协议介绍
 
 - `MQTT`是物联网`IoT`中的主流接入协议，协议具体内容参见[http://mqtt.org/](http://mqtt.org/) 
 - `WeEvent`支持`MQTT 3.1.1`
-### MQTT桥接概念
-
-`WeEvent` 关于物联网`IoT`设备接入的流程如下图：
-
-  ![](../image/mqtt.png)
-
-`WeEvent`使用`Mosquitto`来做`MQTT`协议代理，也可以使用`EMQ`等商业软件，支持`MQTT 3.1.1`就可以。
-
-`IoT`设备往服务器发布事件，一般用来做数据采集，称为上行通道。对应`WeEvent`使用`mqtt_add_inbound_topic` 接口来设置桥接。
-
-服务器往`IoT`设备发布事件，一般用来做控制命令，称为下行通道。对应`WeEvent`使用`mqtt_add_outbound_topic`接口来设置桥接。
-
-### 配置MQTT桥接
+### 配置MQTT服务
 
  在`Broker`服务中，修改配置文件`./conf/weevent.properties`，然后重新启动服务。
 
-  ```ini
-#mqtt broker
-#mosquitto安装所在服务器的ip地址及端口号
-mqtt.broker.url=tcp://127.0.0.1:1883
-#mosquitto使用的用户名  
-mqtt.broker.user=${user}  
-#mosquitto使用的密码               
-mqtt.broker.password=${password}           
-mqtt.broker.qos=2
-mqtt.broker.timeout=5000
-#mosquitto default 20s
-mqtt.broker.keep-alive=15
-#zookeeper
-#zookeeper安装所在服务器的ip地址及端口号
-broker.zookeeper.ip=127.0.0.1:2181     
-broker.zookeeper.path=/event_broker
-broker.zookeeper.timeout=3000
-  ```
+```ini
+#mqtt brokerserver
+mqtt.brokerserver.port=8083
+mqtt.brokerserver.sobacklog=511
+mqtt.brokerserver.sokeepalive=true
+mqtt.brokerserver.keepalive=60
+mqtt.websocketserver.path=/weevent/mqtt
+mqtt.websocketserver.port=8084
+mqtt.user.login=
+mqtt.user.passcode=
+```
 
-### 样例演示
+在Broker服务中修改配置文件。`./conf/application.properties`,然后重启服务。
 
-#### IoT设备数据采集
+```ini
+#https
+server.ssl.enabled=true
+server.ssl.key-store=classpath:server.p12
+server.ssl.key-store-password=123456
+server.ssl.keyStoreType=PKCS12
+server.ssl.keyAlias=weevent
+```
 
-- 在`WeEvent`中创建主题`Topic` ，例如 `com.weevent.iot.event`。
+参数说明：
 
-  ```shell
-  $ curl http://localhost:8080/weevent/rest/open?topic=com.weevent.iot.event&groupId=1
-  true
-  ```
-  
-  `groupId`:群组`Id`，`fisco-bcos 2.0+`版本支持多群组功能，2.0以下版本不支持该功能可以不传。
-  
-- 通过`WeEvent`设置上行通道的`Topic`绑定。
+- mqtt.brokerserver.port
 
-  ```shell
-  $ curl http://localhost:8080/weevent/master/mqtt_add_inbound_topic?topic=com.weevent.iot.event&groupId=1
-  true
-  ```
+  `mqtt`访问端口。
 
+- mqtt.brokerserver.sobacklog
 
-- `IoT`设备发布事件
+  服务器请求处理线程全满时，用于临时存放已完成`tcp`三次握手请求的队列的最大长度。
 
-  `IoT`设备和传统方式一样通过`MQTT`协议发布事件。
+- mqtt.brokerserver.sokeepalive
 
-  ```shell
-  $ mosquitto_pub -h localhost -p 1883 -u ${user} -P ${password} -t "com.weevent.iot.event" -m "{\"timestamp\":133345566,\"key\":\"temperature\",\"value\":10.0}"
-  ```
+  是否开启连接检测以此判断服务是否可用。
 
+- mqtt.websocketserver.path
 
-- 通过`WeEvent`订阅事件
+  `websocket`访问链接。
 
-  在`WeEvent`上订阅该主题`com.weevent.iot.event`，就可以得到`IoT`设备发送上来的数据。
+- mqtt.websocketserver.port
 
-- 移除绑定，`WeEvent`不会再收到事件通知
+  `websocket`访问端口。
 
-  ```shell
-  $ curl http://localhost:8080/weevent/master/mqtt_remove_inbound_topic?topic=com.weevent.iot.event&groupId=1
-  ```
+- mqtt.user.login
 
-#### 下发IoT设备命令
+  `mqtt`访问用户名，为空则不校验用户名。
 
-- 在`WeEvent`里创建主题`Topic` ，例如`com.weevent.iot.control`。
+- mqtt.user.passcode
 
-  ```shell
-  $ curl http://localhost:8080/weevent/rest/open?topic=com.weevent.iot.control&groupId=1
-  true
-  ```
+  `mqtt`访问用户密码，为空则不校验用户密码。
 
+- server.ssl.enabled
 
-- 通过`WeEvent`设置下行通道的`Topic`绑定
+  开启`https`功能。
 
-  ```shell
-  $ curl http://localhost:8080/weevent/master/mqtt_add_outbound_topic?topic=com.weevent.iot.control&groupId=1
-  true
-  ```
+- server.ssl.key-store
 
+  证书文件路径。安装包里自带了默认证书`./conf/server.p12` ，可以直接使用。用户也可以选择使用包里的`./gen-cert-key.sh`脚本重新生成证书。
 
-- 在`WeEvent`上发布事件
+- server.ssl.key-store-password
 
-  ```shell
-  $ curl http://localhost:8080/weevent/rest/publish?topic=com.weevent.iot.control&groupId=1&content=hello&weevent-url=https://github.com/WeBankFinTech/WeEvent
-  ```
-  
-  `weevent-url`:用户自定义拓展，以`weevent-`开头。可选参数。
-  
-- 在设备上可以订阅到这个事件
+  证书密码。
 
-  ```shell
-  $ mosquitto_sub -h localhost -p 1883 -u ${user} -P ${password} -t "com.weevent.iot.control"
-  ```
+- server.ssl.keyAlias
 
+  `key`别名。
+### 注意事项
 
-- 移除绑定，`IoT`设备不会再收到事件通知
+- 因区块链必须确保消息成功上链暂不支持QOS-0和QOS-2消息级别。
 
-  ```shell
-  $ curl http://localhost:8080/weevent/master/mqtt_add_inbound_topic?topic=com.weevent.iot.control&groupId=1
-  ```
+- 暂不支持断连后会话恢复功能。
