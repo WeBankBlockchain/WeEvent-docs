@@ -9,47 +9,21 @@
 
 - Broker模块
 
-   必选配置。通过`Broker`访问区块链。
-
-
-​       版本和`Governance`一致。具体安装步骤，请参见[Broker模块安装](./broker.html)。
+   必选配置，通过`Broker`访问区块链。
+   版本1.0.0。具体安装步骤，请参见[Broker模块安装](./broker.html)。
 
 - WeBase模块
 
-  必选配置。通过`WeBase`存取区块链的数据。
+  必选配置，通过`WeBase`存取区块链的数据。
 
   版本为0.6及以上。具体安装步骤，请参见[WeBase安装](https://github.com/WeBankFinTech/WeBase)。
 
-  **注意**：`WeBase`只需要安装其`webase-front` (节点前置)以及`webase-node-mgr`(节点管理)两个部分。
+  **注意**：
 
-  ​           在`webase-node-mgr`服务启动前，找到其`conf/application.yml`将其中`isUseSecurity: true`
+  - 修改`webase-node-mgr`服务中的`conf/application.yml`文件。
 
-  ​           设置成`isUseSecurity: false`,然后启动。
+    将`isUseSecurity`配置成`false`，`isDeleteInfo`配置成`false`
 
-  ​	  启动后需要把前置节点添加到`webase-node-mgr`中：
-
-           ```shell
-  $ curl -H "Content-Type:application/json" -X POST --data '{ "frontIp": "127.0.0.1", "frontPort": "8084","agency":"agency1"}' http://127.0.0.1:8083/webase-node-mgr/front/new
-
-  {"code":0,"message":"success","data":{"frontId":3,"frontIp":"127.0.0.1","frontPort":8083,"agency":"agency1","createTime":null,"modifyTime":null}}
-           ```
-
-  ​        其中`frontIp,frontPort`要写真实的`webase-front`服务器`IP,Port`,而不能写例子中的127.0.0.1，后面的`Url`填写`webase-node-mgr`的服务端口。
-
-  ​          `webase-node-mgr`需要加入`Nginx`反向代理，`Nginx`模块的安装参见[Nginx模块安装](./nginx.html) 。
-
-  ​          `Nginx`配置文件`./conf/conf.d/rs.conf`中,将server部分换成`webase-node-mgr`使用的`IP`地址端口。
-
-          ```nginx
-  upstream webase_backend{
-      server 127.0.0.1:8083 weight=100 max_fails=3;
-      
-      ip_hash;
-      keepalive 1024;
-  }
-          ```
-
-  ​
 
 - Mysql数据库
 
@@ -60,13 +34,13 @@
 
 ### 获取安装包
 
-下载安装包[weevent-governance安装包](https://github.com/WeBankFinTech/WeEvent/releases/download/v0.9.0/weevent-governance-0.9.0.tar.gz
+下载安装包[weevent-governance安装包](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.0.0/weevent-governance-1.0.0.tar.gz
 )，并且解压到`/usr/local/weevent/`下。
 
 ```shell
 $ cd /usr/local/weevent/
-$ wget https://github.com/WeBankFinTech/WeEvent/releases/download/v0.9.0/weevent-governance-0.9.0.tar.gz
-$ tar -xvf weevent-governance-0.9.0.tar.gz
+$ wget https://github.com/WeBankFinTech/WeEvent/releases/download/v1.0.0/weevent-governance-1.0.0.tar.gz
+$ tar -xvf weevent-governance-1.0.0.tar.gz
 ```
 
 如果机器无法访问外网`wget`执行失败，可以通过别的方式下载再`rz`上传。
@@ -74,10 +48,10 @@ $ tar -xvf weevent-governance-0.9.0.tar.gz
 解压后的目录结构如下
 
 ```
-$ cd ./weevent-governance-0.9.0
+$ cd ./weevent-governance-1.0.0
 $ tree -L 2
 |-- apps
-|   `-- weevent-governance-0.9.0.jar
+|   `-- weevent-governance-1.0.0.jar
 |-- check-service.sh
 |-- conf
 |   |-- application-dev.yml
@@ -114,7 +88,7 @@ $ tree -L 2
     ```ini
     spring:  
       datasource:
-        url: jdbc:mysql://127.0.0.1:3306/goverdb?useUnicode=true&characterEncoding=utf-8&useSSL=false
+        url: jdbc:mysql://127.0.0.1:3306/governance?useUnicode=true&characterEncoding=utf-8&useSSL=false
         driver-class-name: org.mariadb.jdbc.Driver
         username: xxxx
         password: yyyy
@@ -155,11 +129,11 @@ $ tree -L 2
       [no]:  y
     ```
 
-    根据提示填写证书主题信息和密码，生成的证书`server.p12`已更新到`./weevent-governance-0.9.0/conf/server.p12`。
+    根据提示填写证书主题信息和密码，生成的证书`server.p12`已更新到`./weevent-governance-1.0.0/conf/server.p12`。
 
   - 修改证书配置
 
-    参见`./conf/application.yml`中`ssl`配置项 
+    参见`./conf/application.yml`中`ssl`配置项  
 
     ```ini
       ssl: 
@@ -209,6 +183,18 @@ $ tree -L 2
 upstream governance_backend{
     server 127.0.0.1:8082 weight=100 max_fails=3;
     server 127.0.0.2:8082 weight=100 max_fails=3;
+  
+    ip_hash;
+    keepalive 1024;
+}
+```
+
+`Nginx`配置文件`./conf/conf.d/rs.conf`中，以下为配置2个`webase-node-mgr`进程的样例
+
+```nginx
+upstream webase_backend{
+    server 127.0.0.1:8083 weight=100 max_fails=3;
+    server 127.0.0.2:8083 weight=100 max_fails=3;
   
     ip_hash;
     keepalive 1024;

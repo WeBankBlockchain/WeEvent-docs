@@ -6,18 +6,22 @@
 ### 协议说明
 
 - 支持STOMP协议的`1.1`、`1.2`版本。暂时不支持消息确认`ACK`和事务`Transaction`语义。 
-- 传输协议方面，同时支持`STOMP Over WebSocket`和`STOMP Over SockJS`。
+
+- 传输协议方面，同时支持`STOMP Over WebSocket`(访问URL为ws://localhost:8080/weevent/stomp
+
+  )和`STOMP Over SockJS`（访问URL为ws://localhost:8080/weevent/sockjs）。
 
 ### JavaScript语言
 前端面直接访问`WeEvent`，推荐使用开源库[stompjs](https://github.com/stomp-js/stompjs)，该库支持STOMP协议的`1.1`、`1.2`的版本。使用`stompjs` +` sockjs`的组合效果更好。
 
 ### Java语言
 #### Spring Boot 环境
-- Spring对STOMP的支持需要依赖，以`gradle` 为例：  
+加入`Spring Boot`的依赖，以`gradle` 为例：  
 
-  ```groovy
-  implementation("org.springframework.boot:spring-boot-starter-websocket")
-  ```
+```groovy
+implementation("org.springframework.boot:spring-boot-starter-websocket")
+```
+`Spring`从4.0开始引入`spring-websocket`模块，支持`STOMP`，建议使用`Spring Boot` 2.0.0以上版本。
 
 #### 代码样例
 
@@ -84,7 +88,7 @@ StompSession.Subscription subscription = stompSession.subscribe(header, new Stom
 
 说明
 
-- `topic`  订阅的主题
+- `topic`  订阅的主题。支持通配符按层次订阅，参见[MQTT通配符](http://public.dhe.ibm.com/software/dw/webservices/ws-mqtt/mqtt-v3r1.html) 。
 - `StompFrameHandler`  ，对`StompFrame`和`StompHeaders`进行处理的方法。 
 
 
