@@ -133,8 +133,6 @@ http://localhost:8080/weevent/rest/publish?topic=com.weevent.test&groupId=1&cont
 
   `weevent-url`:用户自定义拓展，以`weevent-`开头。可选参数。
 
-  `weevent-url`:用户自定义拓展，以`weevent-`开头。可选参数。
-  
   status：`SUCCESS`，说明是发布成功，`eventId`是对应的事件ID。
 
 #### 订阅事件
@@ -289,7 +287,7 @@ http://localhost:8080/weevent/rest/publish?topic=com.weevent.test&groupId=1&cont
           "[10.107.105.239:30304]"
       ]
   }
-  ``` 
+  ```
 #### 获取订阅列表 
 - 请求
     ```shell
