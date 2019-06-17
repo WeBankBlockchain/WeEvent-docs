@@ -83,6 +83,7 @@ $ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":
 - 说明
 
   - topic：主题，`ascii`值在`[32,128]`之间，除了'+'、'#'都为有效字符。'+'、'#'作为是订阅通配符使用。
+  
   - groupId：群组`Id`，`fisco-bcos 2.0+`版本支持多群组功能，2.0以下版本不支持该功能可以不传。
   
     可以重复`open`，也是返回`true`
