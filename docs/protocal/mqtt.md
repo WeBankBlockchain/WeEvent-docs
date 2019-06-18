@@ -1,5 +1,5 @@
 ## MQTT
-`WeEvent`服务支持`MQTT Broker`功能。任何支持`MQTT`协议的IOT设备及客户端都能连接到`WeEvent`进行消息发布及订阅。
+`WeEvent`服务支持`MQTT Broker`功能。任何支持`MQTT`协议的IoT设备及客户端都能连接到`WeEvent`进行消息发布及订阅。
 
 ### 协议介绍
 
@@ -19,17 +19,6 @@ mqtt.websocketserver.path=/weevent/mqtt
 mqtt.websocketserver.port=8084
 mqtt.user.login=
 mqtt.user.passcode=
-```
-
-在Broker服务中修改配置文件。`./conf/application.properties`,然后重启服务。
-
-```ini
-#https
-server.ssl.enabled=true
-server.ssl.key-store=classpath:server.p12
-server.ssl.key-store-password=123456
-server.ssl.keyStoreType=PKCS12
-server.ssl.keyAlias=weevent
 ```
 
 参数说明：
@@ -62,21 +51,6 @@ server.ssl.keyAlias=weevent
 
   `mqtt`访问用户密码，为空则不校验用户密码。
 
-- server.ssl.enabled
-
-  开启`https`功能。
-
-- server.ssl.key-store
-
-  证书文件路径。安装包里自带了默认证书`./conf/server.p12` ，可以直接使用。用户也可以选择使用包里的`./gen-cert-key.sh`脚本重新生成证书。
-
-- server.ssl.key-store-password
-
-  证书密码。
-
-- server.ssl.keyAlias
-
-  `key`别名。
 ### 注意事项
 
 - 因区块链必须确保消息成功上链暂不支持QOS-0和QOS-2消息级别。
