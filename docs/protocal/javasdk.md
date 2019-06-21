@@ -20,15 +20,13 @@ implement 'com.webank.weevent:weevent-client:1.0.0'
 
 ### API接口
 ```java
-
-    /**
+   /**
      * Get the client handler of weevent's broker with default url, http://localhost:8080/weevent.
      *
      * @throws BrokerException broker exception
      */
-    public WeEventClient() throws BrokerException {
-        buildRpc(defaultJsonRpcUrl);
-        buildJms(WeEventConnectionFactory.defaultBrokerUrl, "", "");
+    public static IWeEventClient build() throws BrokerException {
+        return new WeEventClient();
     }
 
     /**
@@ -37,10 +35,8 @@ implement 'com.webank.weevent:weevent-client:1.0.0'
      * @param brokerUrl weevent's broker url, like http://localhost:8080/weevent
      * @throws BrokerException broker exception
      */
-    public WeEventClient(String brokerUrl) throws BrokerException {
-        validateParam(brokerUrl);
-        buildRpc(brokerUrl + "/jsonrpc");
-        buildJms(getStompUrl(brokerUrl), "", "");
+    public static IWeEventClient build(String brokerUrl) throws BrokerException {
+        return new WeEventClient();
     }
 
     /**
@@ -51,13 +47,9 @@ implement 'com.webank.weevent:weevent-client:1.0.0'
      * @param password password
      * @throws BrokerException broker exception
      */
-    public WeEventClient(String brokerUrl, String userName, String password) throws BrokerException {
-        validateParam(brokerUrl);
-        validateUser(userName, password);
-        buildRpc(brokerUrl);
-        buildJms(getStompUrl(brokerUrl), userName, password);
+    public static IWeEventClient build(String brokerUrl, String userName, String password) throws BrokerException {
+        return new WeEventClient();
     }
-
     /**
      * Publish an event to topic.
      *
@@ -66,11 +58,7 @@ implement 'com.webank.weevent:weevent-client:1.0.0'
      * @return send result, SendResult.SUCCESS if success, and SendResult.eventId
      * @throws BrokerException broker exception
      */
-    public SendResult publish(String topic, byte[] content) throws BrokerException {
-        validateParam(topic);
-        return this.brokerRpc.publish(topic, content);
-    }
-
+    public SendResult publish(String topic, byte[] content) throws BrokerException;
     /**
      * Subscribe events from topic.
      *
@@ -80,86 +68,7 @@ implement 'com.webank.weevent:weevent-client:1.0.0'
      * @return subscription Id
      * @throws BrokerException invalid input param
      */
-    public String subscribe(String topic, String groupId, String offset, EventListener listener) throws BrokerException {
-        try {
-            validateParam(topic);
-            validateParam(offset);
-            TopicSession session = this.connection.createTopicSession(false, Session.AUTO_ACKNOWLEDGE);
-            // create topic
-            Topic destination = session.createTopic(topic);
-
-            // create subscriber
-            ((WeEventTopic) destination).setOffset(offset);
-            ((WeEventTopic) destination).setGroupId(groupId);//if not set default 1
-            WeEventTopicSubscriber subscriber = (WeEventTopicSubscriber) session.createSubscriber(destination);
-
-            // create listener
-            subscriber.setMessageListener(new MessageListener() {
-                public void onMessage(Message message) {
-                    if (message instanceof BytesMessage) {
-                        try {
-                            BytesMessage bytesMessage = (BytesMessage) message;
-                            ObjectMapper mapper = new ObjectMapper();
-                            byte[] body = new byte[(int) bytesMessage.getBodyLength()];
-                            bytesMessage.readBytes(body);
-                            WeEvent event = mapper.readValue(body, WeEvent.class);
-                            listener.onEvent(event);
-                        } catch (IOException | JMSException e) {
-                            log.error("onMessage exception", e);
-                            listener.onException(e);
-                        }
-                    }
-                }
-            });
-
-            this.sessionMap.put(subscriber.getSubscriptionId(), session);
-            return subscriber.getSubscriptionId();
-        } catch (JMSException e) {
-            log.error("jms exception", e);
-            throw jms2BrokerException(e);
-        }
-    }
-
-
-    public String subscribe(String topic, String offset, EventListener listener) throws BrokerException {
-        try {
-            validateParam(topic);
-            validateParam(offset);
-            TopicSession session = this.connection.createTopicSession(false, Session.AUTO_ACKNOWLEDGE);
-            // create topic
-            Topic destination = session.createTopic(topic);
-
-            // create subscriber
-            ((WeEventTopic) destination).setOffset(offset);
-            WeEventTopicSubscriber subscriber = (WeEventTopicSubscriber) session.createSubscriber(destination);
-
-            // create listener
-            subscriber.setMessageListener(new MessageListener() {
-                public void onMessage(Message message) {
-                    if (message instanceof BytesMessage) {
-                        try {
-                            BytesMessage bytesMessage = (BytesMessage) message;
-                            ObjectMapper mapper = new ObjectMapper();
-                            byte[] body = new byte[(int) bytesMessage.getBodyLength()];
-                            bytesMessage.readBytes(body);
-                            WeEvent event = mapper.readValue(body, WeEvent.class);
-                            listener.onEvent(event);
-                        } catch (IOException | JMSException e) {
-                            log.error("onMessage exception", e);
-                            listener.onException(e);
-                        }
-                    }
-                }
-            });
-
-            this.sessionMap.put(subscriber.getSubscriptionId(), session);
-            return subscriber.getSubscriptionId();
-        } catch (JMSException e) {
-            log.error("jms exception", e);
-            throw jms2BrokerException(e);
-        }
-    }
-
+    public String subscribe(String topic, String offset, WeEventClient.EventListener listener) throws BrokerException;
     /**
      * Unsubscribe an exist subscription subscribed by subscribe interface.
      * The consumer will no longer receive messages from broker after this.
@@ -168,24 +77,8 @@ implement 'com.webank.weevent:weevent-client:1.0.0'
      * @return success if true
      * @throws BrokerException broker exception
      */
-    public boolean unSubscribe(String subscriptionId) throws BrokerException {
-        validateParam(subscriptionId);
 
-        if (this.sessionMap.containsKey(subscriptionId)) {
-            TopicSession session = this.sessionMap.get(subscriptionId);
-            try {
-                session.unsubscribe(subscriptionId);
-            } catch (JMSException e) {
-                log.error("jms exception", e);
-                throw jms2BrokerException(e);
-            }
-
-            this.sessionMap.remove(subscriptionId);
-            return true;
-        }
-
-        return false;
-    }
+    public boolean unSubscribe(String subscriptionId) throws BrokerException;
 
 
     /**
@@ -195,12 +88,7 @@ implement 'com.webank.weevent:weevent-client:1.0.0'
      * @return true if success
      * @throws BrokerException broker exception
      */
-
-    public boolean open(String topic) throws BrokerException {
-        validateParam(topic);
-        return this.brokerRpc.open(topic);
-    }
-
+    public boolean open(String topic) throws BrokerException;
 
     /**
      * Close a topic.
@@ -209,11 +97,7 @@ implement 'com.webank.weevent:weevent-client:1.0.0'
      * @return true if success
      * @throws BrokerException broker exception
      */
-    public boolean close(String topic) throws BrokerException {
-        validateParam(topic);
-        return this.brokerRpc.close(topic);
-    }
-
+    public boolean close(String topic) throws BrokerException;
 
     /**
      * Check a topic is exist or not.
@@ -222,11 +106,7 @@ implement 'com.webank.weevent:weevent-client:1.0.0'
      * @return true if exist
      * @throws BrokerException broker exception
      */
-    public boolean exist(String topic) throws BrokerException {
-        validateParam(topic);
-        return this.brokerRpc.exist(topic);
-    }
-
+    public boolean exist(String topic) throws BrokerException;
 
     /**
      * List all topics in weevent's broker.
@@ -236,10 +116,7 @@ implement 'com.webank.weevent:weevent-client:1.0.0'
      * @return topic list
      * @throws BrokerException broker exception
      */
-    public TopicPage list(Integer pageIndex, Integer pageSize) throws BrokerException {
-        return this.brokerRpc.list(pageIndex, pageSize);
-    }
-
+    public TopicPage list(Integer pageIndex, Integer pageSize) throws BrokerException;
 
     /**
      * Get a topic information.
@@ -248,11 +125,7 @@ implement 'com.webank.weevent:weevent-client:1.0.0'
      * @return topic information
      * @throws BrokerException broker exception
      */
-    public TopicInfo state(String topic) throws BrokerException {
-        validateParam(topic);
-        return this.brokerRpc.state(topic);
-    }
-
+    public TopicInfo state(String topic) throws BrokerException;
 
     /**
      * Get an event information.
@@ -261,11 +134,7 @@ implement 'com.webank.weevent:weevent-client:1.0.0'
      * @return weevent
      * @throws BrokerException broker exception
      */
-    public WeEvent getEvent(String eventId) throws BrokerException {
-        validateParam(eventId);
-        return this.brokerRpc.getEvent(eventId);
-    }
-
+    public WeEvent getEvent(String eventId) throws BrokerException;
 
     /**
      * Publish an event to topic.
@@ -275,11 +144,7 @@ implement 'com.webank.weevent:weevent-client:1.0.0'
      * @return send result, SendResult.SUCCESS if success, and SendResult.eventId
      * @throws BrokerException broker exception
      */
-    public SendResult publish(String topic, String groupId, byte[] content, Map<String, String> extensions) throws BrokerException {
-        validateParam(topic);
-        validateParam(groupId);
-        return this.brokerRpc.publish(topic, groupId, content, extensions);
-    }
+    public SendResult publish(String topic, String groupId, byte[] content, Map<String, String> extensions) throws BrokerException;
 
     /**
      * Publish an event to topic.
@@ -289,10 +154,7 @@ implement 'com.webank.weevent:weevent-client:1.0.0'
      * @return send result, SendResult.SUCCESS if success, and SendResult.eventId
      * @throws BrokerException broker exception
      */
-    public SendResult publish(String topic, byte[] content, Map<String, String> extensions) throws BrokerException {
-        validateParam(topic);
-        return this.brokerRpc.publish(topic, content, extensions);
-    }
+    public SendResult publish(String topic, byte[] content, Map<String, String> extensions) throws BrokerException;
 
     /**
      * Close a topic.
@@ -302,11 +164,7 @@ implement 'com.webank.weevent:weevent-client:1.0.0'
      * @return true if success
      * @throws BrokerException broker exception
      */
-    public boolean close(String topic, String groupId) throws BrokerException {
-        validateParam(topic);
-        validateParam(groupId);
-        return this.brokerRpc.close(topic, groupId);
-    }
+    public boolean close(String topic, String groupId) throws BrokerException;
 
     /**
      * Check a topic is exist or not.
@@ -316,12 +174,7 @@ implement 'com.webank.weevent:weevent-client:1.0.0'
      * @return true if exist
      * @throws BrokerException broker exception
      */
-    public boolean exist(String topic, String groupId) throws BrokerException {
-        validateParam(topic);
-        validateParam(groupId);
-        return this.brokerRpc.exist(topic, groupId);
-    }
-
+    public boolean exist(String topic, String groupId) throws BrokerException;
 
     /**
      * Open a topic.
@@ -331,11 +184,7 @@ implement 'com.webank.weevent:weevent-client:1.0.0'
      * @return true if success
      * @throws BrokerException broker exception
      */
-    public boolean open(String topic, String groupId) throws BrokerException {
-        validateParam(topic);
-        validateParam(groupId);
-        return this.brokerRpc.open(topic, groupId);
-    }
+    public boolean open(String topic, String groupId) throws BrokerException;
 
     /**
      * List all topics in weevent's broker.
@@ -345,10 +194,7 @@ implement 'com.webank.weevent:weevent-client:1.0.0'
      * @return topic list
      * @throws BrokerException broker exception
      */
-    public TopicPage list(Integer pageIndex, Integer pageSize, String groupId) throws BrokerException {
-        validateParam(groupId);
-        return this.brokerRpc.list(pageIndex, pageSize, groupId);
-    }
+    public TopicPage list(Integer pageIndex, Integer pageSize, String groupId) throws BrokerException;
 
     /**
      * Get a topic information.
@@ -357,12 +203,7 @@ implement 'com.webank.weevent:weevent-client:1.0.0'
      * @return topic information
      * @throws BrokerException broker exception
      */
-    public TopicInfo state(String topic, String groupId) throws BrokerException {
-        validateParam(topic);
-        validateParam(groupId);
-        return this.brokerRpc.state(topic, groupId);
-    }
-
+    public TopicInfo state(String topic, String groupId) throws BrokerException;
 
     /**
      * Get an event information.
@@ -371,11 +212,8 @@ implement 'com.webank.weevent:weevent-client:1.0.0'
      * @return weevent
      * @throws BrokerException broker exception
      */
-    public WeEvent getEvent(String eventId, String groupId) throws BrokerException {
-        validateParam(groupId);
-        validateParam(eventId);
-        return this.brokerRpc.getEvent(eventId, groupId);
-    }
+    public WeEvent getEvent(String eventId, String groupId) throws BrokerException;
+
 
 ```
 
