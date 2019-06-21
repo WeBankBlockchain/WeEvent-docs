@@ -237,8 +237,10 @@ public static void main(String[] args) {
         e.printStackTrace();
     }
 }
+```
 
 - WeEvent 1.0.0 版本
+
 ```java
 public static void main(String[] args) {
     try {
