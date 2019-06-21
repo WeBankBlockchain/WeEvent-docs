@@ -46,7 +46,10 @@ public class JsonRPC {
             rpc.open("com.weevent.test");
 
             // 发布事件，主题“com.weevent.test”，事件内容为"hello weevent"
-            SendResult sendResult = rpc.publish("com.weevent.test", "hello weevent".getBytes(StandardCharsets.UTF_8));
+            String groupId = "1";
+            Map<String,String> extensions = new HashMap<>();
+            extensions.put("weevent-format","json");
+            SendResult sendResult = rpc.publish("com.weevent.test", groupId, "hello weevent".getBytes(StandardCharsets.UTF_8), extensions);
             System.out.println(sendResult.getStatus());
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -65,8 +68,8 @@ public class JsonRPC {
 
 #### 创建Topic
 - 请求
-```bash
-$ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":"open","params":{"topic":"com.weevent.test"}}' http://localhost:8080/weevent/jsonrpc
+```shell
+$ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":"open","params":{"topic":"com.weevent.test","groupId":"1"}}' http://localhost:8080/weevent/jsonrpc
 ```
 - 应答
 ```json
@@ -79,15 +82,18 @@ $ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":
 
 - 说明
 
-  topic：主题，`ascii`值在`[32,128]`之间的都为有效字符。
-  可以重复`open`，也是返回`true`
+  - topic：主题，`ascii`值在`[32,128]`之间，除了'+'、'#'都为有效字符。'+'、'#'作为是订阅通配符使用。
+  
+  - groupId：群组`Id`，`fisco-bcos 2.0+`版本支持多群组功能，2.0以下版本不支持该功能可以不传。
+  
+    可以重复`open`，也是返回`true`
 
 
 #### 关闭Topic
 
 - 请求
-```
-$ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":"close","params":{"topic":"com.weevent.test"}}' http://localhost:8080/weevent/jsonrpc
+```shell
+$ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":"close","params":{"topic":"com.weevent.test","groupId":"1"}}' http://localhost:8080/weevent/jsonrpc
 ```
 - 应答
 ```json
@@ -102,7 +108,7 @@ $ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":
 #### 检查Topic是否存在
 - 请求
 ```shell
-$ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":"exist","params":{"topic":"com.weevent.test"}}' http://localhost:8080/weevent/jsonrpc
+$ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":"exist","params":{"topic":"com.weevent.test","groupId":"1"}}' http://localhost:8080/weevent/jsonrpc
 ```
 - 应答
 ```json
@@ -116,7 +122,7 @@ $ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":
 #### 发布事件
 - 请求
 ```shell
-$ curl -H "Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":"publish","params":{"topic":"com.weevent.test","content":"MTIzNDU2"}}' http://localhost:8082/weevent/jsonrpc 
+$ curl -H "Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":"publish","params":{"topic":"com.weevent.test","groupId":"1","content":"MTIzNDU2","extensions":{"weevent-url": "https://github.com/WeBankFinTech/WeEvent","userId":"3924261998"}}}' http://localhost:8080/weevent/jsonrpc 
 ```
 - 应答
 ```json
@@ -131,18 +137,25 @@ $ curl -H "Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method"
 }
 ```
 - 说明：
+  
   - content：`MTIzNDU2`是`123456`进行`Base64`编码后的值。
+  
+  - extensions：用户自定义数据以`weevent-`开头。可选参数。
+  
   - result ： 返回字段`result` ，是一个`WeEvent`对象的序列化，可查看WeEvent对象。
-
-       status：“SUCCESS”表示成功。
-
-       eventId：发布成功事件ID。
+  
+  ```
+  status：“SUCCESS”表示成功。
+   
+  eventId：发布成功事件ID。
+  ```
+  
 
 #### 订阅事件  
 
 - 请求
 ```shell
-$ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":"subscribe","params":{"topic":"com.weevent.test","subscriptionId":"df68c385-f62d-437f-b32c-669211d51d88","url":"http://localhost/weevent/onsubscribe"}}' http://localhost:8080/weevent/jsonrpc
+$ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":"subscribe","params":{"topic":"com.weevent.test","groupId":"1","subscriptionId":"df68c385-f62d-437f-b32c-669211d51d88","url":"http://localhost/weevent/onsubscribe"}}' http://localhost:8080/weevent/jsonrpc
 ```
 - 应答
 ```json
@@ -154,6 +167,7 @@ $ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":
 ```
 
 - 说明
+  - topic：事件主题。支持通配符按层次订阅，参见[MQTT通配符](http://public.dhe.ibm.com/software/dw/webservices/ws-mqtt/mqtt-v3r1.html) 。
   - url：事件通知回调`CGI `，当有生产者发布事件时，所有的事件都会通知到这个`URL`。 
   - subscriptionId：第一次订阅使用空字符串""。继续上一次订阅，`subscriptionId`是上次订阅ID。
   - result：是订阅ID。
@@ -180,7 +194,7 @@ $ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":
 ####  获取Event详情
 - 请求
 ```shell
-$ curl -H"Content-Type: application/json" -d '{"id":"1","jsonrpc":"2.0","method":"getEvent","params":{"eventId":"2cf24dba-59-1124"}}' http://localhost:8082/weevent/jsonrpc
+$ curl -H"Content-Type: application/json" -d '{"id":"1","jsonrpc":"2.0","method":"getEvent","params":{"eventId":"2cf24dba-59-1124","groupId":"1"}}' http://localhost:8080/weevent/jsonrpc
 ```
 - 应答
 ```json
@@ -203,7 +217,7 @@ $ curl -H"Content-Type: application/json" -d '{"id":"1","jsonrpc":"2.0","method"
 #### 当前Topic列表
 - 请求
 ```shell
-$ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":"list","params":{"pageIndex":1，"pageSize":10}}' http://localhost:8080/weevent/jsonrpc
+$ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":"list","params":{"pageIndex":0,"pageSize":10,"groupId":"1"}}' http://localhost:8080/weevent/jsonrpc
 ```
 - 应答
 ```json
@@ -236,7 +250,7 @@ $ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":
 #### 查询某个Topic详情
 - 请求
 ```shell
-$ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":"state","params":{"topic":"com.weevent.test"}' http://localhost:8080/weevent/jsonrpc
+$ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":"state","params":{"topic":"com.weevent.test","groupId":"1"}}' http://localhost:8080/weevent/jsonrpc
 ```
 - 应答
 ```json

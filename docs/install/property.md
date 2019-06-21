@@ -62,7 +62,7 @@ web3sdk.keep-alive-seconds=60
 
 - version
 
-  连接`FISCO-BCOS`节点的版本，支持2.0和1.3两个版本。
+  连接`FISCO-BCOS`节点的版本，支持1.3和2.0两个版本。
 
 - topic-controller.address
 
@@ -70,7 +70,7 @@ web3sdk.keep-alive-seconds=60
 
 - orgid
 
-  机构名。
+  机构名，按机构实际名称填写即可。
 
 - nodes
 
@@ -82,7 +82,7 @@ web3sdk.keep-alive-seconds=60
 
 - web3sdk.*
 
-  `Web3SDK`连接池选项。
+  `Web3SDK`连接池选项，一般不需要修改。
 
 - 证书文件
 

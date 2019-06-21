@@ -6,18 +6,22 @@
 ### 协议说明
 
 - 支持STOMP协议的`1.1`、`1.2`版本。暂时不支持消息确认`ACK`和事务`Transaction`语义。 
-- 传输协议方面，同时支持`STOMP Over WebSocket`和`STOMP Over SockJS`。
+
+- 传输协议方面，同时支持`STOMP Over WebSocket`(访问URL为ws://localhost:8080/weevent/stomp
+
+  )和`STOMP Over SockJS`（访问URL为ws://localhost:8080/weevent/sockjs）。
 
 ### JavaScript语言
 前端面直接访问`WeEvent`，推荐使用开源库[stompjs](https://github.com/stomp-js/stompjs)，该库支持STOMP协议的`1.1`、`1.2`的版本。使用`stompjs` +` sockjs`的组合效果更好。
 
 ### Java语言
 #### Spring Boot 环境
-- Spring对STOMP的支持需要依赖，以`gradle` 为例：  
+加入`Spring Boot`的依赖，以`gradle` 为例：  
 
-  ```groovy
-  implementation("org.springframework.boot:spring-boot-starter-websocket")
-  ```
+```groovy
+implementation("org.springframework.boot:spring-boot-starter-websocket")
+```
+`Spring`从4.0开始引入`spring-websocket`模块，支持`STOMP`，建议使用`Spring Boot` 2.0.0以上版本。
 
 #### 代码样例
 
@@ -48,16 +52,28 @@
 **第二步：发布事件**
 
 ```java
-StompSession.Receiptable receiptable = stompSession.send("com.weevent.test", "hello world, from web socket");
+StompHeaders header = new StompHeaders();
+header.setDestination("com.weevent.test");
+header.set("groupId","1");
+header.set("weevent-eventId", "2-1");
+header.set("weevent-url","https://github.com/WeBankFinTech/WeEvent")
+StompSession.Receiptable receiptable = stompSession.send(header, "hello world, from web socket");
 log.info("send result, receipt id: {}", receiptable.getReceiptId());
 ```
 
 `Topic` 为`com.weevent.test`。用户可以获取到`Receiptable`，并且通过`receiptable.getReceiptId()`，可以获取相应的回执。
 
+`groupId`为群组`Id`，`fisco-bcos 2.0+`版本支持多群组功能，2.0以下版本不支持该功能可以不传。
+
+`weevent-url`为用户自定义拓展默认以`weevent-`开头。可选参数。
+
 **第三步：订阅事件**
 
 ```java
-StompSession.Subscription subscription = stompSession.subscribe(topic, new StompFrameHandler() {
+StompHeaders header = new StompHeaders();
+header.setDestination("com.weevent.test");
+header.set("groupId","1");
+StompSession.Subscription subscription = stompSession.subscribe(header, new StompFrameHandler() {
 	@Override
 	public Type getPayloadType(StompHeaders headers) {
 		return String.class;
@@ -72,8 +88,8 @@ StompSession.Subscription subscription = stompSession.subscribe(topic, new Stomp
 
 说明
 
-- `topic`  订阅的主题
-- `StompFrameHandler`  ，对`StompFrame`和`StompHeaders`进行处理的方法。
+- `topic`  订阅的主题。支持通配符按层次订阅，参见[MQTT通配符](http://public.dhe.ibm.com/software/dw/webservices/ws-mqtt/mqtt-v3r1.html) 。
+- `StompFrameHandler`  ，对`StompFrame`和`StompHeaders`进行处理的方法。 
 
 
 **订阅事件扩展**
@@ -86,6 +102,7 @@ StompSession.Subscription subscription = stompSession.subscribe(topic, new Stomp
     header.setLogin("root");
     header.setPasscode("123456");
     header.set("eventId","2cf24dba-59-1124");
+	header.set("groupId","1");
     header.setDestination(topic);
 
     StompSession.Subscription subscription = stompSession.subscribe(header, new StompFrameHandler() {
