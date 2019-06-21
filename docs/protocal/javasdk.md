@@ -36,7 +36,7 @@ implement 'com.webank.weevent:weevent-client:1.0.0'
      * @throws BrokerException broker exception
      */
     public static IWeEventClient build(String brokerUrl) throws BrokerException {
-        return new WeEventClient();
+        return new WeEventClient(brokerUrl);
     }
 
     /**
@@ -48,8 +48,9 @@ implement 'com.webank.weevent:weevent-client:1.0.0'
      * @throws BrokerException broker exception
      */
     public static IWeEventClient build(String brokerUrl, String userName, String password) throws BrokerException {
-        return new WeEventClient();
+        return new WeEventClient(brokerUrl, userName, password);
     }
+
     /**
      * Publish an event to topic.
      *
@@ -59,6 +60,7 @@ implement 'com.webank.weevent:weevent-client:1.0.0'
      * @throws BrokerException broker exception
      */
     public SendResult publish(String topic, byte[] content) throws BrokerException;
+
     /**
      * Subscribe events from topic.
      *
@@ -69,6 +71,7 @@ implement 'com.webank.weevent:weevent-client:1.0.0'
      * @throws BrokerException invalid input param
      */
     public String subscribe(String topic, String offset, WeEventClient.EventListener listener) throws BrokerException;
+
     /**
      * Unsubscribe an exist subscription subscribed by subscribe interface.
      * The consumer will no longer receive messages from broker after this.
@@ -147,6 +150,17 @@ implement 'com.webank.weevent:weevent-client:1.0.0'
     public SendResult publish(String topic, String groupId, byte[] content, Map<String, String> extensions) throws BrokerException;
 
     /**
+     * Subscribe events from topic.
+     *
+     * @param topic topic name
+     * @param offset, from next event after this offset(an event id), WeEvent.OFFSET_FIRST if from head of queue, WeEvent.OFFSET_LAST if from tail of queue
+     * @param listener callback
+     * @return subscription Id
+     * @throws BrokerException invalid input param
+     */
+    public String subscribe(String topic, String groupId, String offset, WeEventClient.EventListener listener) throws BrokerException;
+
+    /**
      * Publish an event to topic.
      *
      * @param topic topic name
@@ -213,6 +227,7 @@ implement 'com.webank.weevent:weevent-client:1.0.0'
      * @throws BrokerException broker exception
      */
     public WeEvent getEvent(String eventId, String groupId) throws BrokerException;
+
 
 
 ```
