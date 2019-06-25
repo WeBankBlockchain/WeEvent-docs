@@ -56,3 +56,25 @@ mqtt.user.passcode=
 - 因区块链必须确保消息成功上链暂不支持QOS-0和QOS-2消息级别。
 
 - 暂不支持断连后会话恢复功能。
+
+### 样例演示
+
+样例演示需依赖`Mosquitto`客户端，请根据链接(`https://mosquitto.org/download/`)进行下载安装。
+
+```shell
+$ tar -zxvf mosquitto-xxxx.tar.gz
+$ make 
+$ make install
+```
+
+- IoT设备发布事件
+
+  ```shell
+  $ mosquitto_pub -h localhost -p 8083 -u ${user} -P ${password} -t "com.weevent.test" -m "{\"timestamp\":133345566,\"key\":\"temperature\",\"value\":10.0}"
+  ```
+
+- IoT设备订阅事件
+
+  ```shell
+  $ mosquitto_sub -h localhost -p 8083 -u ${user} -P ${password} -t "com.weevent.test"
+  ```
