@@ -61,12 +61,6 @@ mqtt.user.passcode=
 
 样例演示需依赖`Mosquitto`客户端，请根据链接(`https://mosquitto.org/download/`)进行下载安装。
 
-```shell
-$ tar -zxvf mosquitto-xxxx.tar.gz
-$ make 
-$ make install
-```
-
 - IoT设备发布事件
 
   ```shell
