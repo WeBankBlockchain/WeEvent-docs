@@ -74,7 +74,7 @@ http://localhost:8080/weevent/rest/publish?topic=com.weevent.test&groupId=1&cont
 
 
 - 说明
-  `topic`: `Topic`名称，最大长度32字节。`ascii`值在`[32,128]`之间，除了‘+’、‘#’都有效。‘+’、‘#’作为订阅通配符使用。
+  `topic`: `Topic`名称，最大长度64字节。`ascii`值在`[32,128]`之间，除了‘+’、‘#’都有效。‘+’、‘#’作为订阅通配符使用。
 
   `groupId`: 群组`Id`，`fisco-bcos 2.0+`版本支持多群组功能。2.0以下版本不支持该功能，可以不传，其他接口类似。
 

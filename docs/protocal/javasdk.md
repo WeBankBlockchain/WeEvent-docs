@@ -224,6 +224,7 @@ public interface IWeEventClient {
 
 ### 代码样例
 - WeEvent 0.9版本
+
 ```java
 public static void main(String[] args) {
     try {
@@ -240,7 +241,6 @@ public static void main(String[] args) {
 ```
 
 - WeEvent 1.0.0 版本
-
 ```java
 public static void main(String[] args) {
     try {
