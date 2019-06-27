@@ -223,22 +223,6 @@ public interface IWeEventClient {
 ```
 
 ### 代码样例
-- WeEvent 0.9版本
-
-```java
-public static void main(String[] args) {
-    try {
-        String url = "http://localhost:8080/weevent";
-        IWeEventClient client =  IWeEventClient.build(url);
-        //publish接口的参数分别是主题Topic、事件内容Content
-        
-        SendResult sendResult = client.publish("com.weevent.test", "hello wolrd".getBytes());
-        System.out.println(sendResult);
-    } catch (BrokerException e) {
-        e.printStackTrace();
-    }
-}
-```
 
 - WeEvent 1.0.0 版本
 ```java
