@@ -55,7 +55,7 @@ implementation("org.springframework.boot:spring-boot-starter-websocket")
 StompHeaders header = new StompHeaders();
 header.setDestination("com.weevent.test");
 header.set("groupId","1");
-header.set("weevent-eventId", "2-1");
+header.set("eventId", "8ee829fd-35-1818");
 header.set("weevent-url","https://github.com/WeBankFinTech/WeEvent")
 StompSession.Receiptable receiptable = stompSession.send(header, "hello world, from web socket");
 log.info("send result, receipt id: {}", receiptable.getReceiptId());
@@ -99,8 +99,6 @@ StompSession.Subscription subscription = stompSession.subscribe(header, new Stom
 
 ```java
     StompHeaders header = new StompHeaders();
-    header.setLogin("root");
-    header.setPasscode("123456");
     header.set("eventId","2cf24dba-59-1124");
 	header.set("groupId","1");
     header.setDestination(topic);
