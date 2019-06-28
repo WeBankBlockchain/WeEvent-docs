@@ -70,7 +70,7 @@ log.info("send result, receipt id: {}", receiptable.getReceiptId());
     StompHeaders header = new StompHeaders();
     header.set("eventId","2cf24dba-59-1124");
 	header.set("groupId","1");
-	header.set("weevent-format","json")
+	header.set("weevent-format","json");
     header.setDestination(topic);
 
     StompSession.Subscription subscription = stompSession.subscribe(header, new StompFrameHandler() {
