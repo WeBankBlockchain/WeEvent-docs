@@ -55,54 +55,22 @@ implementation("org.springframework.boot:spring-boot-starter-websocket")
 StompHeaders header = new StompHeaders();
 header.setDestination("com.weevent.test");
 header.set("groupId","1");
-header.set("weevent-eventId", "2-1");
-header.set("weevent-url","https://github.com/WeBankFinTech/WeEvent")
 StompSession.Receiptable receiptable = stompSession.send(header, "hello world, from web socket");
 log.info("send result, receipt id: {}", receiptable.getReceiptId());
 ```
 
-`Topic` 为`com.weevent.test`。用户可以获取到`Receiptable`，并且通过`receiptable.getReceiptId()`，可以获取相应的回执。
+说明：
 
-`groupId`为群组`Id`，`fisco-bcos 2.0+`版本支持多群组功能，2.0以下版本不支持该功能可以不传。
-
-`weevent-url`为用户自定义拓展默认以`weevent-`开头。可选参数。
+- `Topic` 为`com.weevent.test`。用户可以获取到`Receiptable`，并且通过`receiptable.getReceiptId()`，可以获取相应的回执。
+- `groupId`为群组`Id`，`fisco-bcos 2.0+`版本支持多群组功能，2.0以下版本不支持该功能可以不传。
 
 **第三步：订阅事件**
 
 ```java
-StompHeaders header = new StompHeaders();
-header.setDestination("com.weevent.test");
-header.set("groupId","1");
-StompSession.Subscription subscription = stompSession.subscribe(header, new StompFrameHandler() {
-	@Override
-	public Type getPayloadType(StompHeaders headers) {
-		return String.class;
-	}
-
-	@Override
-	public void handleFrame(StompHeaders headers, Object payload) {
-	    logger.info("subscribe handleFrame, header: {} payload: {}", headers, payload);
-	}
-});
-```
-
-说明
-
-- `topic`  订阅的主题。支持通配符按层次订阅，参见[MQTT通配符](http://public.dhe.ibm.com/software/dw/webservices/ws-mqtt/mqtt-v3r1.html) 。
-- `StompFrameHandler`  ，对`StompFrame`和`StompHeaders`进行处理的方法。 
-
-
-**订阅事件扩展**
-
-- 通过修改配置，进行`header`扩展。
-- 配置`eventId`，提高订阅的效率。如果不设置，则默认为取最新内容。
-
-```java
     StompHeaders header = new StompHeaders();
-    header.setLogin("root");
-    header.setPasscode("123456");
     header.set("eventId","2cf24dba-59-1124");
 	header.set("groupId","1");
+	header.set("weevent-format","json")
     header.setDestination(topic);
 
     StompSession.Subscription subscription = stompSession.subscribe(header, new StompFrameHandler() {
@@ -118,6 +86,12 @@ StompSession.Subscription subscription = stompSession.subscribe(header, new Stom
     });
 ```
 
+说明：
+
+- `topic`  订阅的主题。支持通配符按层次订阅，参见[MQTT通配符](http://public.dhe.ibm.com/software/dw/webservices/ws-mqtt/mqtt-v3r1.html) 。
+- 配置`eventId`，提高订阅的效率。如果不设置，则默认为取最新内容。
+- `weevent-format`为用户自定义拓展默认以`weevent-`开头。可选参数。
+- `StompFrameHandler`  ，对`StompFrame`和`StompHeaders`进行处理的方法。 
 
 上述样例完整的代码，请参见[STOMP代码样例](https://github.com/WeBankFinTech/WeEvent/blob/master/weevent-broker/src/test/java/com/webank/weevent/sample/Stomp.java) 。
 
