@@ -9,7 +9,7 @@
 
 ```ini
 #web container
-server.port=8080
+server.port=8081
 server.servlet.context-path=/weevent
 #https
 server.ssl.enabled=true
@@ -32,14 +32,10 @@ management.endpoint.shutdown.enabled=false
 #performance
 spring.application.admin.enabled=false
 ```
-
 以上是`Spring Boot`标准配置文件，一般不需要修改。细节请参见[Spring Boot文档](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#appendix) 。
 
 #### 区块链`FISCO-BCOS`节点配置
-
-
 配置文件链接[fisco.properties](https://github.com/WeBankFinTech/WeEvent/blob/master/weevent-broker/src/main/resources/fisco.properties) 。
-
 ```ini
 #fisco
 version=2.0
@@ -120,22 +116,14 @@ stomp.user.passcode=
 #server heartbeats
 stomp.heartbeats=30
 
-#MQTT Broker
-#客户端使用MQTT协议访问MQTT Broker端口
+#mqtt brokerserver
 mqtt.brokerserver.port=8083
-#服务器请求处理线程全满时，用于临时存放已完成tcp三次握手请求的队列的最大长度
 mqtt.brokerserver.sobacklog=511
-#是否开启连接检测以此判断服务是否可用
 mqtt.brokerserver.sokeepalive=true
-#心跳时间 单位:秒
 mqtt.brokerserver.keepalive=60
-#客户端使用WebSocket协议访问MQTT Broker链接
 mqtt.websocketserver.path=/weevent/mqtt
-#客户端使用WebSocket访问MQTT Broker端口
 mqtt.websocketserver.port=8084
-#MQTT Broker访问用户名
 mqtt.user.login=
-#MQTT Broker访问密码
 mqtt.user.passcode=
 ```
 
@@ -173,7 +161,6 @@ mqtt.user.passcode=
    - mqtt.websocketserver.port：客户端使用`WebSocket`访问`MQTT Broker`端口。
    - mqtt.user.login：`MQTT Broker`访问用户名。
    - mqtt.user.passcode：`MQTT Broker`访问密码。
-
 - Zookeeper配置broker.zookeeper.*
 
    - broker.zookeeper.ip：`Zookeeper`的服务IP列表。
@@ -185,6 +172,15 @@ mqtt.user.passcode=
    - stomp.user.login/passcode：建议用户开启`STOMP`协议的账号/密码校验，以增强安全性。默认为空，表示不校验。
    - stomp.heartbeats：配置心跳时间间隔。默认时间间隔30秒，一般不用修改。
 
+- MQTT配置
+
+  - mqtt.brokerserver.port：`mqtt`访问端口。
+  - mqtt.brokerserver.sobacklog：服务器请求处理线程全满时，用于临时存放已完成`tcp`三次握手请求的队列的最大长度。
+  - mqtt.brokerserver.sokeepalive：是否开启连接检测以此判断服务是否可用。
+  - mqtt.websocketserver.path：`websocket`访问链接。
+  - mqtt.websocketserver.port：`websocket`访问端口。
+  - mqtt.user.login：`mqtt`访问用户名，为空则不校验用户名。
+  - mqtt.user.passcode：`mqtt`访问用户密码，为空则不校验用户密码。
 ### Governance
 
 `Governance`的配置都在文件`application-prod.yml `中，配置文件链接[application-prod.yml](https://github.com/WeBankFinTech/WeEvent/blob/master/weevent-governance/src/main/resources/application-prod.yml) 。
@@ -208,50 +204,42 @@ spring:
       min-idle: 5
       initial-size: 5
       validation-query: SELECT 'x'
+    mail:
+        default-encoding: UTF-8
+        host: smtp.163.com
+        username: mailusername@163.com
+        password: mailpwd
   pid:
     fail-on-write-error: true
     file: ./logs/governance.pid
+http:
+  client:
+    max-total: 200
+    max-per-route: 500
+    connection-request-timeout: 3000
+    connection-timeout: 3000
+    socket-timeout: 5000
+https: 
+  read-timeout: 5000
+  connect-timeout: 15000     
 
-weevent:
-  # broker服务的url地址
-  url: http://127.0.0.1:8080/weevent
-governance:
-  influxdb:
-    # 如果有配influxdb 填true，如果没有填写false
-    enabled: false
-    # 用户名
-    username: admin
-    # 密码
-    password: admin
-    # influxdb的url
-    openurl: http://127.0.0.1:8306
-    # 使用的数据库
-    database: telegraf
-logging:
-  config: classpath:log4j2.xml
+
 ```
-配置说明:
-- datasource：数据库的`JDBC`访问串。
-- weevent：`broker`服务的访问地址。
-
+- 配置说明:
+    - datasource：数据库的`JDBC`访问字符串。
+    - mail.username：用于发送给用户发送邮件的邮件地址。
 
 ### Nginx 配置说明
 #### 反向代理映射
 
-这个文件`./conf/conf.d/http.conf `主要配置反向代理的映射，一般不需修改。配置文件链接[http.conf](https://github.com/WeBankFinTech/WeEvent/blob/master/weevent-build/modules/nginx/conf/conf.d/http.conf) 。
+`./conf/conf.d/http.conf `主要配置反向代理的映射，一般不需修改。配置文件链接[http.conf](https://github.com/WeBankFinTech/WeEvent/blob/master/weevent-build/modules/nginx/conf/conf.d/http.conf) 。
 
 ```nginx
-$ cat ./conf/conf.d/http.conf 
 add_header X-Frame-Options "SAMEORIGIN";
 
 server {
-    listen          8888;
+    listen          8080;
     server_name     localhost;
-
-    location / {
-        root   html;
-        index  index.html index.htm;
-    }
 
     location /weevent/ {
         proxy_pass          http://broker_backend/weevent/;
@@ -268,12 +256,71 @@ server {
     location /weevent-governance/ {
         proxy_pass          http://governance_backend/weevent-governance/;
         
-        proxy_set_header    Host $host:8080;
+        proxy_set_header    Host $http_host;
         proxy_set_header    X-Real-IP $remote_addr;
         proxy_set_header    X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_http_version  1.1;
     }
+    
+    location /webase-node-mgr/ {
+        proxy_pass          http://webase_backend/webase-node-mgr/;
+        
+        proxy_set_header    Host $host;
+        proxy_set_header    X-Real-IP $remote_addr;
+        proxy_set_header    X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_http_version  1.1;
+    }    
 }
+
+```
+
+`./conf/conf.d/https.conf `主要配置反向代理的映射，一般不需修改。配置文件链接[https.conf](https://github.com/WeBankFinTech/WeEvent/blob/master/weevent-build/modules/nginx/conf/conf.d/https.conf) 。
+
+```shell
+add_header X-Frame-Options "SAMEORIGIN";
+
+server {
+    listen          443 ssl;
+    server_name     localhost;
+
+    ssl_certificate              cert.pem;
+    ssl_certificate_key          cert.key;
+    ssl_session_cache            shared:SSL:1m;
+    ssl_session_timeout          5m;
+    ssl_ciphers                  HIGH:!aNULL:!MD5;
+    ssl_prefer_server_ciphers    on;
+
+    location /weevent/ {
+        proxy_pass          https://broker_backend/weevent/;
+        
+        proxy_set_header    Host $host;
+        proxy_set_header    X-Real-IP $remote_addr;
+        proxy_set_header    X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_http_version  1.1;
+        
+        proxy_set_header    Upgrade $http_upgrade;
+        proxy_set_header    Connection "upgrade";
+    }
+    
+    location /weevent-governance/ {
+        proxy_pass          https://governance_backend/weevent-governance/;
+        
+        proxy_set_header    Host $http_host;
+        proxy_set_header    X-Real-IP $remote_addr;
+        proxy_set_header    X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_http_version  1.1;
+    }
+    
+    location /webase-node-mgr/ {
+        proxy_pass          http://webase_backend/webase-node-mgr/;
+        
+        proxy_set_header    Host $host;
+        proxy_set_header    X-Real-IP $remote_addr;
+        proxy_set_header    X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_http_version  1.1;
+    } 
+}
+
 ```
 
 #### 后端子模块配置
@@ -281,21 +328,26 @@ server {
 配置文件链接[rs.conf](https://github.com/WeBankFinTech/WeEvent/blob/master/weevent-build/modules/nginx/conf/conf.d/rs.conf) 。
 
 ```shell
-$ cat ./conf/conf.d/rs.conf 
 upstream broker_backend{
-    server 127.0.0.1:8081 weight=100 max_fails=3;
-    server 127.0.0.2:8081 weight=100 max_fails=3;
+    server localhost:8081 weight=100 max_fails=3;
     
     ip_hash;
     keepalive 1024;
 }
 
 upstream governance_backend{
-    server 127.0.0.1:8082 weight=100 max_fails=3;
-    server 127.0.0.2:8082 weight=100 max_fails=3;
+    server localhost:8082 weight=100 max_fails=3;
     
     ip_hash;
     keepalive 1024;
 }
+
+upstream webase_backend{
+    server localhost:8083 weight=100 max_fails=3;
+    
+    ip_hash;
+    keepalive 1024;
+}
+
 ```
 `Nginx`配置文件说明，请参见[Nginx配置](https://www.nginx.com/resources/wiki/start/topics/examples/full/) 。
