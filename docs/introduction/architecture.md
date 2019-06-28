@@ -18,7 +18,7 @@
 
   `WeEvent`的事件治理模块，提供一个`Web`管理端。
 
-  其中，使用`Mysql`数据库存储`Topic`的统计数据，使用[WeBase](https://github.com/WeBankFinTech/WeBASE)访问区块链管理类接口。
+  其中，使用`Mysql`数据库存储`Topic`的统计数据，根据业务需要使用[WeBase](https://github.com/WeBankFinTech/WeBASE)进行区块链管理。
   
 - FISCO-BCOS
   

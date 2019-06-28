@@ -31,11 +31,12 @@ public class Rest {
             System.out.println(result);
 
             // publish event to topic "com.weevent.test"
-            SendResult sendResult = rest.getForEntity("http://localhost:8080/weevent/rest/publish?topic={}&groupId={}&content={}",
+            SendResult sendResult = rest.getForEntity("http://localhost:8080/weevent/rest/publish?topic={}&groupId={}&content={}&weevent-format={}",
                     SendResult.class,
                     "com.weevent.test",
                     "1",
-                    "hello weevent".getBytes(StandardCharsets.UTF_8)).getBody();
+                    "hello weevent".getBytes(StandardCharsets.UTF_8),
+                    "json").getBody();
 
             System.out.println(sendResult.getStatus());
             System.out.println(sendResult.getEventId());
@@ -112,7 +113,7 @@ http://localhost:8080/weevent/rest/publish?topic=com.weevent.test&groupId=1&cont
 - 请求
 
   ```shell
-  $ curl http://localhost:8080/weevent/rest/publish?topic=com.weevent.test&groupId=1&content=123456&weevent-url=https://github.com/WeBankFinTech/WeEvent
+  $ curl http://localhost:8080/weevent/rest/publish?topic=com.weevent.test&groupId=1&content=123456&weevent-format=json
   ```
 
 
@@ -131,7 +132,7 @@ http://localhost:8080/weevent/rest/publish?topic=com.weevent.test&groupId=1&cont
 
   `content` ：`123456` ，需要特别注意两点：1、`content`的`UrlEncode`编码；2、`GET`方法支持的`QueryString`最大长度为1024字节。
 
-  `weevent-url`:用户自定义拓展，以`weevent-`开头。可选参数。
+  `weevent-json`:用户自定义拓展，以`weevent-`开头。可选参数。
 
   status：`SUCCESS`，说明是发布成功，`eventId`是对应的事件ID。
 
@@ -139,7 +140,7 @@ http://localhost:8080/weevent/rest/publish?topic=com.weevent.test&groupId=1&cont
 - 请求
 
   ```shell
-  $ curl http://localhost:8080/weevent/rest/subscribe?topic=com.weevent.test&groupId=1&subscriptionId=c8a600c0-61a7-4077-90f6-3aa39fc9cdd5&url=http%3a%2f%2flocalhost%3a8080%2fweevent%2fonsubscribe
+  $ curl http://localhost:8080/weevent/rest/subscribe?topic=com.weevent.test&groupId=1&subscriptionId=c8a600c0-61a7-4077-90f6-3aa39fc9cdd5&url=http%3a%2f%2flocalhost%3a8080%2fweevent%2fmock%2frest%2fonEvent
   ```
 
 
@@ -193,13 +194,14 @@ http://localhost:8080/weevent/rest/publish?topic=com.weevent.test&groupId=1&cont
   {
       "topic": "hello",
       "content": "MTIzNDU2",
+      "extensions":{"weevent-format":"json"},
       "eventId": "2cf24dba-59-1124"
   }
   ```
 - 说明
   - eventId：事件ID
   - content：事件内容，`MTIzNDU2`是`123456`的`Base64`之后的值。
-    ​
+  - extensions：用户自定义拓展数据。
 
 **注意** 
 
@@ -255,7 +257,9 @@ http://localhost:8080/weevent/rest/publish?topic=com.weevent.test&groupId=1&cont
       "topicName": "com.weevent.test",
       "topicAddress": "0x171befab4c1c7e0d33b5c3bd932ce0112d4caecd",
       "senderAddress": "0x64fa644d2a694681bd6addd6c5e36cccd8dcdde3",
-      "createdTimestamp": 1548328570965
+      "createdTimestamp": 1548328570965,
+      "sequenceNumber": 9,
+      "blockNumber": 2475
   }
   ```
 
@@ -264,30 +268,9 @@ http://localhost:8080/weevent/rest/publish?topic=com.weevent.test&groupId=1&cont
   - topicName ：  事件名称
   - topicAddress ：  `Topic` 区块链上的合约地址
   - createdTimestamp  ：`Topic` 创建的时间
+  - sequenceNumber：已发布事件数。
+  - blockNumber：最新已发布事件的区块高度。
 
-#### 区块链节点信息
-- 请求 
-
-  ```shell
-  $ curl http://localhost:8080/weevent/admin/blockchaininfo
-  ```
-
-
-- 应答
-
-  ```json
-  {
-      "blockNumber": 17056,
-      "nodeIdList": [
-         "7c79f9fb09366f1b872d8c6fffa888754e61e5dcddb8ed8e49a4b294c6d652111a65dfa4163910abe9d08f842e5cb700e3d981f51dd07e460caa29699033b82f"
-      ],
-      "nodeIpList": [
-          "[127.0.0.1:30306]",
-          "[127.0.0.1:30305]",
-          "[127.0.0.1:30304]"
-      ]
-  }
-  ```
 #### 获取订阅列表 
 - 请求
     ```shell
