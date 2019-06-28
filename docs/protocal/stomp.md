@@ -55,8 +55,8 @@ implementation("org.springframework.boot:spring-boot-starter-websocket")
 StompHeaders header = new StompHeaders();
 header.setDestination("com.weevent.test");
 header.set("groupId","1");
-header.set("weevent-eventId", "2-1");
-header.set("weevent-url","https://github.com/WeBankFinTech/WeEvent")
+header.set("eventId", "2-1");
+header.set("weevent-format","json")
 StompSession.Receiptable receiptable = stompSession.send(header, "hello world, from web socket");
 log.info("send result, receipt id: {}", receiptable.getReceiptId());
 ```
@@ -65,7 +65,7 @@ log.info("send result, receipt id: {}", receiptable.getReceiptId());
 
 `groupId`为群组`Id`，`fisco-bcos 2.0+`版本支持多群组功能，2.0以下版本不支持该功能可以不传。
 
-`weevent-url`为用户自定义拓展默认以`weevent-`开头。可选参数。
+`weevent-format`为用户自定义拓展默认以`weevent-`开头。可选参数。
 
 **第三步：订阅事件**
 

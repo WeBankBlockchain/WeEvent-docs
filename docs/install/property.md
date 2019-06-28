@@ -105,21 +105,12 @@ ip.check.white-table=
 redis.server.ip=
 redis.server.port=
 redis.server.password=weevent
-#lru.cache.capacity=65536
+lru.cache.capacity=65536
 #restful cgi timeout
 restful.subscribe.callback.timeout=5000
 
-#mqtt broker
-#mqtt.broker.url=tcp://127.0.0.1:1883
-mqtt.broker.user=iot
-mqtt.broker.password=123456
-mqtt.broker.qos=2
-mqtt.broker.timeout=5000
-#mosquitto default 20s
-mqtt.broker.keep-alive=15
-
 #zookeeper
-#broker.zookeeper.ip=127.0.0.1:2181
+broker.zookeeper.ip=127.0.0.1:2181
 broker.zookeeper.path=/event_broker
 broker.zookeeper.timeout=3000
 
@@ -128,6 +119,24 @@ stomp.user.login=
 stomp.user.passcode=
 #server heartbeats
 stomp.heartbeats=30
+
+#MQTT Broker
+#客户端使用MQTT协议访问MQTT Broker端口
+mqtt.brokerserver.port=8083
+#服务器请求处理线程全满时，用于临时存放已完成tcp三次握手请求的队列的最大长度
+mqtt.brokerserver.sobacklog=511
+#是否开启连接检测以此判断服务是否可用
+mqtt.brokerserver.sokeepalive=true
+#心跳时间 单位:秒
+mqtt.brokerserver.keepalive=60
+#客户端使用WebSocket协议访问MQTT Broker链接
+mqtt.websocketserver.path=/weevent/mqtt
+#客户端使用WebSocket访问MQTT Broker端口
+mqtt.websocketserver.port=8084
+#MQTT Broker访问用户名
+mqtt.user.login=
+#MQTT Broker访问密码
+mqtt.user.passcode=
 ```
 
 参数说明：
@@ -154,10 +163,16 @@ stomp.heartbeats=30
 
    - restful.subscribe.callback.timeout：事件通知回调的超时时间，默认为5000毫秒。一般不用修改。
 
-- MQTT桥接配置mqtt.broker.*
+- MQTT Broker配置mqtt.*
 
-   - mqtt.broker.url：`MQTT`服务的访问地址（一般是指`Mosquitto`的访问地址）。
-   - mqtt.broker.user/password：`MQTT`服务的访问权限（没有可以不用填）。
+   - mqtt.brokerserver.port：客户端使用`MQTT`协议访问`MQTT Broker`端口。
+   - mqtt.brokerserver.sobacklog：服务器请求处理线程全满时，用于临时存放已完成tcp三次握手请求的队列的最大长度。
+   - mqtt.brokerserver.sokeepalive：是否开启连接检测以此判断服务是否可用。
+   - mqtt.brokerserver.keepalive：是否开启连接检测以此判断服务是否可用。
+   - mqtt.websocketserver.path：客户端使用`WebSocket`协议访问`MQTT Broker`链接。
+   - mqtt.websocketserver.port：客户端使用`WebSocket`访问`MQTT Broker`端口。
+   - mqtt.user.login：`MQTT Broker`访问用户名。
+   - mqtt.user.passcode：`MQTT Broker`访问密码。
 
 - Zookeeper配置broker.zookeeper.*
 
