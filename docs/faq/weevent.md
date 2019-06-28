@@ -52,3 +52,5 @@
 
   建议为`WeEvent`配置2个属于不同网段的`FISCO-BCOS`节点。这样`WeEvent`服务会随机选用一个可用的节点使用，做到一定程度的网络容灾。
 
+- 怎么使用通配符进行订阅
+  `topic`  订阅的主题。支持通配符按层次订阅，参见[MQTT通配符](http://public.dhe.ibm.com/software/dw/webservices/ws-mqtt/mqtt-v3r1.html)。例如客户端使用通配符`test/#`进行订阅，那么当用户对`test/weevent`进行发布消息时，则客户端订阅过`test/#`则可以收到消息。
