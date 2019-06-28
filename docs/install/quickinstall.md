@@ -8,7 +8,7 @@
 
 ### 获取安装包
 
-下载安装包[WeEvent快速安装包](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.0.0/weevent-0.9.0.tar.gz)，并且解压到`/tmp/` 。
+下载安装包[WeEvent快速安装包](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.0.0/weevent-1.0.0.tar.gz)，并且解压到`/tmp/` 。
 
 ```shell
 $ cd /tmp/
@@ -47,7 +47,7 @@ $ tree -L 2
 ```ini
 # Required module
 [fisco-bcos]
-# support 1.3 and 2.0
+# support 2.0 and 1.3
 version=2.0
 # FISCO-BCOS node channel, eg: 127.0.0.1:8821;127.0.0.2:8821
 channel=127.0.0.1:8821

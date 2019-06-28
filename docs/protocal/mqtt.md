@@ -25,7 +25,7 @@ mqtt.user.passcode=
 
 - mqtt.brokerserver.port
 
-  `mqtt`访问端口。
+  客户端使用`MQTT`协议访问`MQTT Broker`端口。
 
 - mqtt.brokerserver.sobacklog
 
@@ -35,13 +35,17 @@ mqtt.user.passcode=
 
   是否开启连接检测以此判断服务是否可用。
 
+- mqtt.brokerserver.keepalive
+
+  心跳时间 单位：秒。
+
 - mqtt.websocketserver.path
 
-  `websocket`访问链接。
+  客户端使用`WebSocket`协议访问`MQTT Broker`链接。
 
 - mqtt.websocketserver.port
 
-  `websocket`访问端口。
+  客户端使用`WebSocket`协议访问`MQTT Broker`端口。
 
 - mqtt.user.login
 

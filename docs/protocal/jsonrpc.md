@@ -122,7 +122,7 @@ $ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":
 #### 发布事件
 - 请求
 ```shell
-$ curl -H "Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":"publish","params":{"topic":"com.weevent.test","groupId":"1","content":"MTIzNDU2","extensions":{"weevent-url": "https://github.com/WeBankFinTech/WeEvent","userId":"3924261998"}}}' http://localhost:8080/weevent/jsonrpc 
+$ curl -H "Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":"publish","params":{"topic":"com.weevent.test","groupId":"1","content":"MTIzNDU2","extensions":{"weevent-format": "json","userId":"3924261998"}}}' http://localhost:8080/weevent/jsonrpc 
 ```
 - 应答
 ```json
@@ -155,7 +155,7 @@ $ curl -H "Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method"
 
 - 请求
 ```shell
-$ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":"subscribe","params":{"topic":"com.weevent.test","groupId":"1","subscriptionId":"df68c385-f62d-437f-b32c-669211d51d88","url":"http://localhost/weevent/onsubscribe"}}' http://localhost:8080/weevent/jsonrpc
+$ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":"subscribe","params":{"topic":"com.weevent.test","groupId":"1","subscriptionId":"df68c385-f62d-437f-b32c-669211d51d88","url":"http://localhost:8080/weevent/mock/rest/onEvent"}}' http://localhost:8080/weevent/jsonrpc
 ```
 - 应答
 ```json
@@ -204,6 +204,7 @@ $ curl -H"Content-Type: application/json" -d '{"id":"1","jsonrpc":"2.0","method"
     "result": {
         "topic": "hello",
         "content": "MTIzNDU2",
+        "extensions":{"weevent-format":"json"},
         "eventId": "2cf24dba-59-1124"
     }
 }
@@ -261,7 +262,9 @@ $ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":
         "topicName": "com.weevent.test",
         "topicAddress": "0x171befab4c1c7e0d33b5c3bd932ce0112d4caecd",
         "senderAddress": "0x64fa644d2a694681bd6addd6c5e36cccd8dcdde3",
-        "createdTimestamp": 1548328570965
+        "createdTimestamp": 1548328570965,
+    	"sequenceNumber": 9,
+    	"blockNumber": 2475
     }
 }
 ```
@@ -270,4 +273,6 @@ $ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":
 
 - topicAddress： `Topic`区块链上的合约地址。
 - createdTimestamp：`Topic`创建的时间。
+- sequenceNumber：已发布事件数。
+- blockNumber：最新已发布事件的区块高度。
 
