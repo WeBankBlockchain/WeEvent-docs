@@ -16,7 +16,7 @@
 
   必选配置，通过`WeBase`存取区块链的数据。
 
-  版本为0.6及以上。具体安装步骤，请参见[WeBase安装](https://github.com/WeBankFinTech/WeBase)。
+  版本为1.0及以上。具体安装步骤，请参见[WeBase安装](https://github.com/WeBankFinTech/WeBase)。
 
   **注意**：
 

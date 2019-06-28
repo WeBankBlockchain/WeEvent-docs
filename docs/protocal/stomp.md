@@ -55,23 +55,24 @@ implementation("org.springframework.boot:spring-boot-starter-websocket")
 StompHeaders header = new StompHeaders();
 header.setDestination("com.weevent.test");
 header.set("groupId","1");
+
 StompSession.Receiptable receiptable = stompSession.send(header, "hello world, from web socket");
 log.info("send result, receipt id: {}", receiptable.getReceiptId());
 ```
 
 说明：
-
 - `Topic` 为`com.weevent.test`。用户可以获取到`Receiptable`，并且通过`receiptable.getReceiptId()`，可以获取相应的回执。
 - `groupId`为群组`Id`，`fisco-bcos 2.0+`版本支持多群组功能，2.0以下版本不支持该功能可以不传。
+- `weevent-format`为用户自定义拓展默认以`weevent-`开头。可选参数。
 
 **第三步：订阅事件**
 
 ```java
     StompHeaders header = new StompHeaders();
+    header.setDestination(topic);
     header.set("eventId","2cf24dba-59-1124");
 	header.set("groupId","1");
 	header.set("weevent-format","json");
-    header.setDestination(topic);
 
     StompSession.Subscription subscription = stompSession.subscribe(header, new StompFrameHandler() {
         @Override

@@ -32,14 +32,10 @@ management.endpoint.shutdown.enabled=false
 #performance
 spring.application.admin.enabled=false
 ```
-
 以上是`Spring Boot`标准配置文件，一般不需要修改。细节请参见[Spring Boot文档](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#appendix) 。
 
 #### 区块链`FISCO-BCOS`节点配置
-
-
 配置文件链接[fisco.properties](https://github.com/WeBankFinTech/WeEvent/blob/master/weevent-broker/src/main/resources/fisco.properties) 。
-
 ```ini
 #fisco
 version=2.0
@@ -105,12 +101,12 @@ ip.check.white-table=
 redis.server.ip=
 redis.server.port=
 redis.server.password=weevent
-#lru.cache.capacity=65536
+lru.cache.capacity=65536
 #restful cgi timeout
 restful.subscribe.callback.timeout=5000
 
 #zookeeper
-#broker.zookeeper.ip=127.0.0.1:2181
+broker.zookeeper.ip=127.0.0.1:2181
 broker.zookeeper.path=/event_broker
 broker.zookeeper.timeout=3000
 
@@ -166,14 +162,16 @@ mqtt.user.passcode=
    - stomp.user.login/passcode：建议用户开启`STOMP`协议的账号/密码校验，以增强安全性。默认为空，表示不校验。
    - stomp.heartbeats：配置心跳时间间隔。默认时间间隔30秒，一般不用修改。
 
-- MQTT配置
-  - mqtt.brokerserver.port：`mqtt`访问端口。
-  - mqtt.brokerserver.sobacklog：服务器请求处理线程全满时，用于临时存放已完成`tcp`三次握手请求的队列的最大长度。
-  - mqtt.brokerserver.sokeepalive：是否开启连接检测以此判断服务是否可用。
-  - mqtt.websocketserver.path：`websocket`访问链接。
-  - mqtt.websocketserver.port：`websocket`访问端口。
-  - mqtt.user.login：`mqtt`访问用户名，为空则不校验用户名。
-  - mqtt.user.passcode：`mqtt`访问用户密码，为空则不校验用户密码。
+- MQTT Broker配置mqtt.*
+
+   - mqtt.brokerserver.port：客户端使用`MQTT`协议访问`MQTT Broker`端口。
+   - mqtt.brokerserver.sobacklog：服务器请求处理线程全满时，用于临时存放已完成tcp三次握手请求的队列的最大长度。
+   - mqtt.brokerserver.sokeepalive：是否开启连接检测以此判断服务是否可用。
+   - mqtt.brokerserver.keepalive：是否开启连接检测以此判断服务是否可用。
+   - mqtt.websocketserver.path：客户端使用`WebSocket`协议访问`MQTT Broker`链接。
+   - mqtt.websocketserver.port：客户端使用`WebSocket`访问`MQTT Broker`端口。
+   - mqtt.user.login：`MQTT Broker`访问用户名。
+   - mqtt.user.passcode：`MQTT Broker`访问密码。
 ### Governance
 
 `Governance`的配置都在文件`application-prod.yml `中，配置文件链接[application-prod.yml](https://github.com/WeBankFinTech/WeEvent/blob/master/weevent-governance/src/main/resources/application-prod.yml) 。
