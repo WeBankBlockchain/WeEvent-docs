@@ -70,10 +70,10 @@ log.info("send result, receipt id: {}", receiptable.getReceiptId());
 
 ```java
     StompHeaders header = new StompHeaders();
+    header.setDestination(topic);
     header.set("eventId","2cf24dba-59-1124");
 	header.set("groupId","1");
-	header.set("weevent-format","json")
-    header.setDestination(topic);
+	header.set("weevent-format","json");
 
     StompSession.Subscription subscription = stompSession.subscribe(header, new StompFrameHandler() {
         @Override
