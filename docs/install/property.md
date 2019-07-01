@@ -221,124 +221,107 @@ https:
     - mail.username：用于发送给用户发送邮件的邮件地址。
 
 ### Nginx 配置说明
-#### 反向代理映射
+#### 修改后端子模块路由
 
-`./conf/conf.d/http.conf `主要配置反向代理的映射，一般不需修改。配置文件链接[http.conf](https://github.com/WeBankFinTech/WeEvent/blob/master/weevent-build/modules/nginx/conf/conf.d/http.conf) 。
+通过配置文件`nginx/conf/conf.d/http_rs.conf`里的`upstream`来增加和移除后端的业务机器。
 
 ```nginx
-add_header X-Frame-Options "SAMEORIGIN";
-
-server {
-    listen          8080;
-    server_name     localhost;
-
-    location /weevent/ {
-        proxy_pass          http://broker_backend/weevent/;
-        
-        proxy_set_header    Host $host;
-        proxy_set_header    X-Real-IP $remote_addr;
-        proxy_set_header    X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_http_version  1.1;
-        
-        proxy_set_header    Upgrade $http_upgrade;
-        proxy_set_header    Connection "upgrade";
-    }
-    
-    location /weevent-governance/ {
-        proxy_pass          http://governance_backend/weevent-governance/;
-        
-        proxy_set_header    Host $http_host;
-        proxy_set_header    X-Real-IP $remote_addr;
-        proxy_set_header    X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_http_version  1.1;
-    }
-    
-    location /webase-node-mgr/ {
-        proxy_pass          http://webase_backend/webase-node-mgr/;
-        
-        proxy_set_header    Host $host;
-        proxy_set_header    X-Real-IP $remote_addr;
-        proxy_set_header    X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_http_version  1.1;
-    }    
-}
-
-```
-
-`./conf/conf.d/https.conf `主要配置反向代理的映射，一般不需修改。配置文件链接[https.conf](https://github.com/WeBankFinTech/WeEvent/blob/master/weevent-build/modules/nginx/conf/conf.d/https.conf) 。
-
-```shell
-add_header X-Frame-Options "SAMEORIGIN";
-
-server {
-    listen          443 ssl;
-    server_name     localhost;
-
-    ssl_certificate              cert.pem;
-    ssl_certificate_key          cert.key;
-    ssl_session_cache            shared:SSL:1m;
-    ssl_session_timeout          5m;
-    ssl_ciphers                  HIGH:!aNULL:!MD5;
-    ssl_prefer_server_ciphers    on;
-
-    location /weevent/ {
-        proxy_pass          https://broker_backend/weevent/;
-        
-        proxy_set_header    Host $host;
-        proxy_set_header    X-Real-IP $remote_addr;
-        proxy_set_header    X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_http_version  1.1;
-        
-        proxy_set_header    Upgrade $http_upgrade;
-        proxy_set_header    Connection "upgrade";
-    }
-    
-    location /weevent-governance/ {
-        proxy_pass          https://governance_backend/weevent-governance/;
-        
-        proxy_set_header    Host $http_host;
-        proxy_set_header    X-Real-IP $remote_addr;
-        proxy_set_header    X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_http_version  1.1;
-    }
-    
-    location /webase-node-mgr/ {
-        proxy_pass          http://webase_backend/webase-node-mgr/;
-        
-        proxy_set_header    Host $host;
-        proxy_set_header    X-Real-IP $remote_addr;
-        proxy_set_header    X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_http_version  1.1;
-    } 
-}
-
-```
-
-#### 后端子模块配置
-
-配置文件链接[rs.conf](https://github.com/WeBankFinTech/WeEvent/blob/master/weevent-build/modules/nginx/conf/conf.d/rs.conf) 。
-
-```shell
 upstream broker_backend{
-    server localhost:8081 weight=100 max_fails=3;
+    server localhost:8090 weight=100 max_fails=3;
     
+    ip_hash;
+    keepalive 1024;
+}
+
+upstream broker_mqtt_websocket_backend {
+    server localhost:8092 weight=100 max_fails=3;
+
     ip_hash;
     keepalive 1024;
 }
 
 upstream governance_backend{
-    server localhost:8082 weight=100 max_fails=3;
+    server localhost:8099 weight=100 max_fails=3;
     
     ip_hash;
     keepalive 1024;
 }
-
-upstream webase_backend{
-    server localhost:8083 weight=100 max_fails=3;
-    
-    ip_hash;
-    keepalive 1024;
-}
-
 ```
+
+特别的，如果使用了基于`TCP`的`MQTT`协议。配置文件为`nginx/conf/conf.d/tcp_rs.conf`。
+
+#### 使用TLS加密传输
+
+`WeEvent`通过`Nginx`实现`TLS`加密传输。在`nginx/conf/nginx.conf `文件里，通过`include`不同的文件来选择是否支持`TSL`。
+
+如下面默认配置，不支持TLS。开启方式为对应行改为`include ./conf.d/https.conf`和`include ./conf.d/tcp_tls.conf`
+
+```nginx
+########################################################################################################################
+# This is nginx configuration for WeEvent's proxy access.
+# 1. Support tcp access in default.
+#   like web/restful/jsonrpc over http, stomp over websocket, and mqtt over tcp or websocket.
+# 2. For security access
+#   a. support web/restful/jsonrpc over https, stomp over wss, and mqtt over wss
+#       replace default include line to "include ./conf.d/https.conf"
+#   b. support mqtt over tls
+#       replace default include line to "include ./conf.d/tcp_tls.conf"
+########################################################################################################################
+
+#user  nobody;
+worker_processes  10;
+
+#error_log  logs/error.log;
+#error_log  logs/error.log  notice;
+#error_log  logs/error.log  info;
+
+pid         logs/nginx.pid;
+
+events {
+    use epoll;
+    worker_connections  10000;
+}
+worker_rlimit_nofile 10000;
+
+#support web/restful/jsonrpc/stomp
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+
+    #log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+    #                  '$status $body_bytes_sent "$http_referer" '
+    #                  '"$http_user_agent" "$http_x_forwarded_for"';
+
+    #access_log  logs/access.log  main;
+
+    sendfile        on;
+    #tcp_nopush     on;
+
+    #keepalive_timeout  0;
+    keepalive_timeout  65;
+
+    #gzip  on;
+    
+    #custom config
+    server_tokens           off;
+    client_body_temp_path   ./nginx_temp/client_body;
+    proxy_temp_path         ./nginx_temp/proxy;
+    fastcgi_temp_path       ./nginx_temp/fastcgi;
+    uwsgi_temp_path         ./nginx_temp/uwsgi;
+    scgi_temp_path          ./nginx_temp/scgi;
+
+    # http conf
+    include                 ./conf.d/http_rs.conf;
+    
+    include                 ./conf.d/http.conf;
+}
+
+#support mqtt over tcp
+stream {
+    include                 ./conf.d/tcp_rs.conf;
+    
+    include                 ./conf.d/tcp.conf;
+}
+```
+
 `Nginx`配置文件说明，请参见[Nginx配置](https://www.nginx.com/resources/wiki/start/topics/examples/full/) 。
