@@ -187,6 +187,6 @@ uninstall WeEvent success
 ### 注意事项
 
 - 快速安装脚本作为一种简易安装方式，所有子模块都是单实例的。  
-- 生产环境中建议对`Broker`和`Governance`进行多实例部署，然后添加到`Nginx`的路由配置里 `nginx/conf/conf.d/rs.conf`。  
+- 生产环境中建议对`Broker`和`Governance`进行多实例部署，然后添加到`Nginx`的路由配置里 `nginx/conf/conf.d/http_rs.conf`。  
 - 各子模块的部署细节参见[Broker模块部署](./module/broker.html)和[Governance模块部署](./module/governance.html)。
 
