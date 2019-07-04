@@ -23,7 +23,7 @@
 
 - 由Nginx负责处理安全传输TLS
 
-  客户端无论使用HTTP还是HTTPS访问，Nginx都是通过HTTP访问Broker和Governance，TCP/TLS也是类似处理。同一种功能，按是否通过`TLS`访问，`Nginx`端口有如下对应关系：
+  客户端无论使用`HTTP`还是`HTTPS`访问，`Nginx`都是通过`HTTP`访问`Broker`和`Governance`，`TCP`/`TLS`也是类似处理。同一种功能，按是否通过`TLS`访问，`Nginx`端口有如下对应关系：
 
   |                     | 普通传输 | TLS传输 |
   | ------------------- | -------- | ------- |
