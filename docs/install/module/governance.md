@@ -210,7 +210,7 @@ $ ./sbin/nginx -t
 $ ./sbin/nginx -s reload
 ```
 
-用户可以通过浏览器访问http://ip:8080/weevent-governance/。`Governance`页面如下：
+用户可以通过浏览器访问http://localhost:8080/weevent-governance/。`Governance`页面如下：
 
 ![](../../image/Governance-ui.png)
 
