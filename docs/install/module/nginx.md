@@ -26,15 +26,14 @@ $ tree -L 2
 .
 |-- build-nginx.sh
 |-- conf
-|   |-- cert.key
-|   |-- cert.pem
+|   |-- server.crt
+|   |-- server.key
 |   |-- conf.d
 |   `-- nginx.conf
 |-- nginx.sh
 `-- third-packages
     |-- nginx-1.14.2.tar.gz
     `-- pcre-8.20.tar.gz
-
 ```
 
 `WeEvent`既支持`HTTP`访问，也支持`HTTPS`访问，可通过配置文件切换。
@@ -68,31 +67,31 @@ nginx install complete!
 
 - 修改WeEvent子模块反向代理
 
-  在配置文件`./conf.d/rs.conf` 里设置子模块`Broker`和`Governance`的实例。
+  在配置文件`./conf.d/http_rs.conf` 里设置子模块`Broker`和`Governance`的实例。
 
   每增加一个实例，在这个配置文件里对应加一行`server`项，比如：
 
   ```nginx
   upstream broker_backend{
-      server 127.0.0.1:8081 weight=100 max_fails=3;
-      server 127.0.0.2:8081 weight=100 max_fails=3;
-    
+      server 1.1.1.1:8090 weight=100 max_fails=3;
+      server 2.2.2.2:8090 weight=100 max_fails=3;
+      
       ip_hash;
       keepalive 1024;
   }
-
+  
+upstream broker_mqtt_websocket_backend {
+      server 1.1.1.1:8092 weight=100 max_fails=3;
+      server 2.2.2.2:8092 weight=100 max_fails=3;
+  
+      ip_hash;
+      keepalive 1024;
+  }
+  
   upstream governance_backend{
-      server 127.0.0.1:8082 weight=100 max_fails=3;
-      server 127.0.0.2:8082 weight=100 max_fails=3;
-    
-      ip_hash;
-      keepalive 1024;
-  }
-
-  upstream grafana_backend{
-      server 127.0.0.1:3000 weight=100 max_fails=3;
-      server 127.0.0.2:3000 weight=100 max_fails=3;
-    
+      server 1.1.1.1:8099 weight=100 max_fails=3;
+      server 2.2.2.2:8099 weight=100 max_fails=3;
+      
       ip_hash;
       keepalive 1024;
   }

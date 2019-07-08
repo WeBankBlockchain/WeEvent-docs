@@ -75,45 +75,40 @@ $ tree  -L 2
 
     更详细的配置文件说明，请参见[Web3sdk配置说明](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/sdk/sdk.html)。
 
-- 修改合约地址
+- 部署和修改合约地址
 
   - 部署Topic合约  
 
-    运行脚本`./deploy-topic-control.sh `，部署合约并得到合约地址（`FISCO-BCOS 2.0+` 版本可在脚本后配置`groupId`如不填默认为`1`），例如:
+    运行脚本`./deploy-topic-control.sh `，部署合约并得到合约地址。例如:
 
     ```shell
-    #FISCO-BCOS 2.0+版本未配置groupId默认为group 1，FISCO-BCOS 1.3+版本无需配置groupId
-    $ ./deploy-topic-control.sh
-    deploy contract[TopicController] success, address: 0xd99253697e61bf19206ceb4704fc9914d0a4116c
-    
-    #FISCO-BCOS 2.0+版本配置groupId
     $ ./deploy-topic-control.sh 1
     deploy contract[TopicController] success, address: 0xd99253697e61bf19206ceb4704fc9914d0a4116c
     ```
-
+    
   - 修改配置文件
-
+  
       在配置文件`./conf/fisco.properties`中，替换为生成的合约地址。例如：
-
-      2.0版本每个群组都有自己的合约地址（建议使用2.0版本），多个地址用`;`分号分割。格式为
-
-      ```ini
-      topic-controller.address=1:0xd99253697e61bf19206ceb4704fc9914d0a4116c;2:0xd99253697e61bf19206ceb4704fc9914d0a4116d
-      ```
-
-      1.3版本不支持`groupId`合约地址设置如下:
-
-      ```ini
-      topic-controller.address=0xd99253697e61bf19206ceb4704fc9914d0a4116c
-      ```
-
+  
+    ```ini
+  topic-controller.address=1:0xd99253697e61bf19206ceb4704fc9914d0a4116c;
+    ```
+    
+    1.3版本的合约地址设置如下:
+  
+    ```ini
+  topic-controller.address=0xd99253697e61bf19206ceb4704fc9914d0a4116c
+    ```
+    
+    更多关于群组和合约部署的细节，请参考[多群组](../../advanced/group.html)。
+    
   -  **注意**
-
-      每部署一个新合约，使用新的合约地址相当于切换了数据视图，原来合约地址关联的数据都无法继续访问（除非切回原合约地址）。  
-
+    
+        每部署一个新合约，使用新的合约地址相当于切换了数据视图，原来合约地址关联的数据都无法继续访问（除非切回原合约地址）。  
+  
 - 配置Broker监听端口
 
-  配置文件./conf/application-prod.properties中server.port配置项，默认监听端口8081，根据业务需要配置。
+  配置文件`./conf/application-prod.properties`中`server.port`配置项，默认监听端口8081，根据业务需要配置。
 - 配置Redis缓存
 
   可选配置，为了提高`WeEvent`的通知性能。建议修改配置文件`./conf/weevent.properties`中`redis.*`配置项 。
