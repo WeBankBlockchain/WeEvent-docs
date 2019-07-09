@@ -156,7 +156,7 @@ upstream governance_backend{
     server 127.0.0.2:8099 weight=100 max_fails=3;
     
     ip_hash;
-    keepalive 1024;
+    keepalive 1024; 
 }
 ```
 
