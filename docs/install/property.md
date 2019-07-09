@@ -9,7 +9,7 @@
 
 ```ini
 #web container
-server.port=8080
+server.port=8081
 server.servlet.context-path=/weevent
 #https
 server.ssl.enabled=true
@@ -32,14 +32,10 @@ management.endpoint.shutdown.enabled=false
 #performance
 spring.application.admin.enabled=false
 ```
-
 以上是`Spring Boot`标准配置文件，一般不需要修改。细节请参见[Spring Boot文档](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#appendix) 。
 
 #### 区块链`FISCO-BCOS`节点配置
-
-
 配置文件链接[fisco.properties](https://github.com/WeBankFinTech/WeEvent/blob/master/weevent-broker/src/main/resources/fisco.properties) 。
-
 ```ini
 #fisco
 version=2.0
@@ -105,21 +101,12 @@ ip.check.white-table=
 redis.server.ip=
 redis.server.port=
 redis.server.password=weevent
-#lru.cache.capacity=65536
+lru.cache.capacity=65536
 #restful cgi timeout
 restful.subscribe.callback.timeout=5000
 
-#mqtt broker
-#mqtt.broker.url=tcp://127.0.0.1:1883
-mqtt.broker.user=iot
-mqtt.broker.password=123456
-mqtt.broker.qos=2
-mqtt.broker.timeout=5000
-#mosquitto default 20s
-mqtt.broker.keep-alive=15
-
 #zookeeper
-#broker.zookeeper.ip=127.0.0.1:2181
+broker.zookeeper.ip=127.0.0.1:2181
 broker.zookeeper.path=/event_broker
 broker.zookeeper.timeout=3000
 
@@ -128,6 +115,16 @@ stomp.user.login=
 stomp.user.passcode=
 #server heartbeats
 stomp.heartbeats=30
+
+#mqtt brokerserver
+mqtt.brokerserver.port=8083
+mqtt.brokerserver.sobacklog=511
+mqtt.brokerserver.sokeepalive=true
+mqtt.brokerserver.keepalive=60
+mqtt.websocketserver.path=/weevent/mqtt
+mqtt.websocketserver.port=8084
+mqtt.user.login=
+mqtt.user.passcode=
 ```
 
 参数说明：
@@ -154,11 +151,6 @@ stomp.heartbeats=30
 
    - restful.subscribe.callback.timeout：事件通知回调的超时时间，默认为5000毫秒。一般不用修改。
 
-- MQTT桥接配置mqtt.broker.*
-
-   - mqtt.broker.url：`MQTT`服务的访问地址（一般是指`Mosquitto`的访问地址）。
-   - mqtt.broker.user/password：`MQTT`服务的访问权限（没有可以不用填）。
-
 - Zookeeper配置broker.zookeeper.*
 
    - broker.zookeeper.ip：`Zookeeper`的服务IP列表。
@@ -170,6 +162,16 @@ stomp.heartbeats=30
    - stomp.user.login/passcode：建议用户开启`STOMP`协议的账号/密码校验，以增强安全性。默认为空，表示不校验。
    - stomp.heartbeats：配置心跳时间间隔。默认时间间隔30秒，一般不用修改。
 
+- MQTT Broker配置mqtt.*
+
+   - mqtt.brokerserver.port：客户端使用`MQTT`协议访问`MQTT Broker`端口。
+   - mqtt.brokerserver.sobacklog：服务器请求处理线程全满时，用于临时存放已完成tcp三次握手请求的队列的最大长度。
+   - mqtt.brokerserver.sokeepalive：是否开启连接检测以此判断服务是否可用。
+   - mqtt.brokerserver.keepalive：是否开启连接检测以此判断服务是否可用。
+   - mqtt.websocketserver.path：客户端使用`WebSocket`协议访问`MQTT Broker`链接。
+   - mqtt.websocketserver.port：客户端使用`WebSocket`访问`MQTT Broker`端口。
+   - mqtt.user.login：`MQTT Broker`访问用户名。
+   - mqtt.user.passcode：`MQTT Broker`访问密码。
 ### Governance
 
 `Governance`的配置都在文件`application-prod.yml `中，配置文件链接[application-prod.yml](https://github.com/WeBankFinTech/WeEvent/blob/master/weevent-governance/src/main/resources/application-prod.yml) 。
@@ -193,94 +195,133 @@ spring:
       min-idle: 5
       initial-size: 5
       validation-query: SELECT 'x'
+    mail:
+        default-encoding: UTF-8
+        host: smtp.163.com
+        username: mailusername@163.com
+        password: mailpwd
   pid:
     fail-on-write-error: true
     file: ./logs/governance.pid
+http:
+  client:
+    max-total: 200
+    max-per-route: 500
+    connection-request-timeout: 3000
+    connection-timeout: 3000
+    socket-timeout: 5000
+https: 
+  read-timeout: 5000
+  connect-timeout: 15000     
 
-weevent:
-  # broker服务的url地址
-  url: http://127.0.0.1:8080/weevent
-governance:
-  influxdb:
-    # 如果有配influxdb 填true，如果没有填写false
-    enabled: false
-    # 用户名
-    username: admin
-    # 密码
-    password: admin
-    # influxdb的url
-    openurl: http://127.0.0.1:8306
-    # 使用的数据库
-    database: telegraf
-logging:
-  config: classpath:log4j2.xml
+
 ```
-配置说明:
-- datasource：数据库的`JDBC`访问串。
-- weevent：`broker`服务的访问地址。
-
+- 配置说明:
+    - datasource：数据库的`JDBC`访问字符串。
+    - mail.username：用于发送给用户发送邮件的邮件地址。
 
 ### Nginx 配置说明
-#### 反向代理映射
+#### 修改后端子模块路由
 
-这个文件`./conf/conf.d/http.conf `主要配置反向代理的映射，一般不需修改。配置文件链接[http.conf](https://github.com/WeBankFinTech/WeEvent/blob/master/weevent-build/modules/nginx/conf/conf.d/http.conf) 。
+通过配置文件`nginx/conf/conf.d/http_rs.conf`里的`upstream`来增加和移除后端的业务机器。
 
 ```nginx
-$ cat ./conf/conf.d/http.conf 
-add_header X-Frame-Options "SAMEORIGIN";
-
-server {
-    listen          8888;
-    server_name     localhost;
-
-    location / {
-        root   html;
-        index  index.html index.htm;
-    }
-
-    location /weevent/ {
-        proxy_pass          http://broker_backend/weevent/;
-        
-        proxy_set_header    Host $host;
-        proxy_set_header    X-Real-IP $remote_addr;
-        proxy_set_header    X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_http_version  1.1;
-        
-        proxy_set_header    Upgrade $http_upgrade;
-        proxy_set_header    Connection "upgrade";
-    }
-    
-    location /weevent-governance/ {
-        proxy_pass          http://governance_backend/weevent-governance/;
-        
-        proxy_set_header    Host $host:8080;
-        proxy_set_header    X-Real-IP $remote_addr;
-        proxy_set_header    X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_http_version  1.1;
-    }
-}
-```
-
-#### 后端子模块配置
-
-配置文件链接[rs.conf](https://github.com/WeBankFinTech/WeEvent/blob/master/weevent-build/modules/nginx/conf/conf.d/rs.conf) 。
-
-```shell
-$ cat ./conf/conf.d/rs.conf 
 upstream broker_backend{
-    server 127.0.0.1:8081 weight=100 max_fails=3;
-    server 127.0.0.2:8081 weight=100 max_fails=3;
+    server localhost:8090 weight=100 max_fails=3;
     
+    ip_hash;
+    keepalive 1024;
+}
+
+upstream broker_mqtt_websocket_backend {
+    server localhost:8092 weight=100 max_fails=3;
+
     ip_hash;
     keepalive 1024;
 }
 
 upstream governance_backend{
-    server 127.0.0.1:8082 weight=100 max_fails=3;
-    server 127.0.0.2:8082 weight=100 max_fails=3;
+    server localhost:8099 weight=100 max_fails=3;
     
     ip_hash;
     keepalive 1024;
 }
 ```
+
+特别的，如果使用了基于`TCP`的`MQTT`协议。配置文件为`nginx/conf/conf.d/tcp_rs.conf`。
+
+#### 使用TLS加密传输
+
+`WeEvent`通过`Nginx`实现`TLS`加密传输。在`nginx/conf/nginx.conf `文件里，通过`include`不同的文件来选择是否支持`TSL`。
+
+如下面默认配置，不支持TLS。开启方式为对应行改为`include ./conf.d/https.conf`和`include ./conf.d/tcp_tls.conf`
+
+```nginx
+########################################################################################################################
+# This is nginx configuration for WeEvent's proxy access.
+# 1. Support tcp access in default.
+#   like web/restful/jsonrpc over http, stomp over websocket, and mqtt over tcp or websocket.
+# 2. For security access
+#   a. support web/restful/jsonrpc over https, stomp over wss, and mqtt over wss
+#       replace default include line to "include ./conf.d/https.conf"
+#   b. support mqtt over tls
+#       replace default include line to "include ./conf.d/tcp_tls.conf"
+########################################################################################################################
+
+#user  nobody;
+worker_processes  10;
+
+#error_log  logs/error.log;
+#error_log  logs/error.log  notice;
+#error_log  logs/error.log  info;
+
+pid         logs/nginx.pid;
+
+events {
+    use epoll;
+    worker_connections  10000;
+}
+worker_rlimit_nofile 10000;
+
+#support web/restful/jsonrpc/stomp
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+
+    #log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+    #                  '$status $body_bytes_sent "$http_referer" '
+    #                  '"$http_user_agent" "$http_x_forwarded_for"';
+
+    #access_log  logs/access.log  main;
+
+    sendfile        on;
+    #tcp_nopush     on;
+
+    #keepalive_timeout  0;
+    keepalive_timeout  65;
+
+    #gzip  on;
+    
+    #custom config
+    server_tokens           off;
+    client_body_temp_path   ./nginx_temp/client_body;
+    proxy_temp_path         ./nginx_temp/proxy;
+    fastcgi_temp_path       ./nginx_temp/fastcgi;
+    uwsgi_temp_path         ./nginx_temp/uwsgi;
+    scgi_temp_path          ./nginx_temp/scgi;
+
+    # http conf
+    include                 ./conf.d/http_rs.conf;
+    
+    include                 ./conf.d/http.conf;
+}
+
+#support mqtt over tcp
+stream {
+    include                 ./conf.d/tcp_rs.conf;
+    
+    include                 ./conf.d/tcp.conf;
+}
+```
+
 `Nginx`配置文件说明，请参见[Nginx配置](https://www.nginx.com/resources/wiki/start/topics/examples/full/) 。

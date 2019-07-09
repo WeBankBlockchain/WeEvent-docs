@@ -5,14 +5,12 @@
 
 ![](../image/WeventTopView.png)  
 
-生产者`Producer`和消费者`Consumer`是多对多`N:M`的关系（`N>=1，M>=1`）。
-
 多机构之间的合作，一般每个机构都会部署自己的`WeEvent`服务。例如：机构A通过属于A的`WeEvent`服务发布事件，机构B通过自己的`WeEvent`服务订阅事件。如果生产者和发布者属于同一机构，可以使用同一套`WeEvent`服务。
 
 ### 事件（Event）  
 事件`Event`可以简单理解成业务层面的一个消息。一般是终端用户或设备触发。
 
-一个事件分为三部分，关联的主题、事件内容、事件ID`EventID`。`Java`映射类参见[WeEvent.java](https://github.com/WeBankFinTech/WeEvent/blob/master/weevent-client/src/main/java/com/webank/weevent/sdk/WeEvent.java)。
+一个事件分为四部分，关联的主题、事件内容、事件ID`EventID`和可选的自定义属性。`Java`映射类参见[WeEvent.java](https://github.com/WeBankFinTech/WeEvent/blob/master/weevent-client/src/main/java/com/webank/weevent/sdk/WeEvent.java)。
 
 事件内容是一个字节数组`byte[]`，对`WeEvent`是透明的。业务可以存放任何数据，例如字符型的`Json`、`XML` ，或者二进制的`Protocol Buffer`等。
 

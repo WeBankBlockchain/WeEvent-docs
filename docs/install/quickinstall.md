@@ -8,7 +8,7 @@
 
 ### 获取安装包
 
-下载安装包[WeEvent快速安装包](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.0.0/weevent-0.9.0.tar.gz)，并且解压到`/tmp/` 。
+下载安装包[WeEvent快速安装包](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.0.0/weevent-1.0.0.tar.gz)，并且解压到`/tmp/` 。
 
 ```shell
 $ cd /tmp/
@@ -47,7 +47,7 @@ $ tree -L 2
 ```ini
 # Required module
 [fisco-bcos]
-# support 1.3 and 2.0
+# support 2.0 and 1.3
 version=2.0
 # FISCO-BCOS node channel, eg: 127.0.0.1:8821;127.0.0.2:8821
 channel=127.0.0.1:8821
@@ -187,6 +187,6 @@ uninstall WeEvent success
 ### 注意事项
 
 - 快速安装脚本作为一种简易安装方式，所有子模块都是单实例的。  
-- 生产环境中建议对`Broker`和`Governance`进行多实例部署，然后添加到`Nginx`的路由配置里 `nginx/conf/conf.d/rs.conf`。  
+- 生产环境中建议对`Broker`和`Governance`进行多实例部署，然后添加到`Nginx`的路由配置里 `nginx/conf/conf.d/http_rs.conf`。  
 - 各子模块的部署细节参见[Broker模块部署](./module/broker.html)和[Governance模块部署](./module/governance.html)。
 

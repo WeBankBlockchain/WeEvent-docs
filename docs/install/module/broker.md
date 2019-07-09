@@ -44,7 +44,6 @@ $ tar -zxf weevent-broker-1.0.0.tar.gz
 $ cd ./weevent-broker-1.0.0
 $ tree  -L 2
 |-- apps
-|   |-- weevent-client-1.0.0.jar
 |   `-- weevent-broker-1.0.0.jar
 |-- broker.sh
 |-- check-service.sh
@@ -70,39 +69,46 @@ $ tree  -L 2
 
   - 访问节点的证书文件
 
-    1.3版本的证书文件`ca.crt`和`client.keystore`放在`./conf`目录下。
-
     2.0版本的证书文件`ca.crt`和`node.crt`、`node.key`放在`./conf/v2`目录下。
+
+    1.3版本的证书文件`ca.crt`和`client.keystore`放在`./conf`目录下。
 
     更详细的配置文件说明，请参见[Web3sdk配置说明](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/sdk/sdk.html)。
 
-- 修改合约地址
+- 部署和修改合约地址
 
   - 部署Topic合约  
 
-    运行脚本`./deploy-topic-control.sh`，部署合约并得到合约地址（2.0版本需要在脚本后添加参数，群组ID），例如:
+    运行脚本`./deploy-topic-control.sh `，部署合约并得到合约地址。例如:
 
     ```shell
-    $ ./deploy-topic-control.sh
+    $ ./deploy-topic-control.sh 1
     deploy contract[TopicController] success, address: 0xd99253697e61bf19206ceb4704fc9914d0a4116c
     ```
-
+    
   - 修改配置文件
-
+  
       在配置文件`./conf/fisco.properties`中，替换为生成的合约地址。例如：
-
-      ```ini
-      topic-controller.address=0xd99253697e61bf19206ceb4704fc9914d0a4116c
-      ```
-      2.0版本每个群组都有自己的合约地址，多个地址用`;`分号分割。格式为`1:0xd99253697e61bf19206ceb4704fc9914d0a4116c;2:0xd99253697e61bf19206ceb4704fc9914d0a4116d`
-
+  
+    ```ini
+  topic-controller.address=1:0xd99253697e61bf19206ceb4704fc9914d0a4116c;
+    ```
+    
+    1.3版本的合约地址设置如下:
+  
+    ```ini
+  topic-controller.address=0xd99253697e61bf19206ceb4704fc9914d0a4116c
+    ```
+    
+    更多关于群组和合约部署的细节，请参考[多群组](../../advanced/group.html)。
+    
   -  **注意**
-
-      每部署一个新合约，使用新的合约地址相当于切换了数据视图，原来合约地址关联的数据都无法继续访问（除非切回原合约地址）。  
-
+    
+        每部署一个新合约，使用新的合约地址相当于切换了数据视图，原来合约地址关联的数据都无法继续访问（除非切回原合约地址）。  
+  
 - 配置Broker监听端口
 
-  配置文件./conf/application-prod.properties中server.port配置项，默认监听端口8081，根据业务需要配置。
+  配置文件`./conf/application-prod.properties`中`server.port`配置项，默认监听端口8081，根据业务需要配置。
 - 配置Redis缓存
 
   可选配置，为了提高`WeEvent`的通知性能。建议修改配置文件`./conf/weevent.properties`中`redis.*`配置项 。
@@ -156,21 +162,27 @@ $ tree  -L 2
   ```
   注意：`login/passcode` 默认为空，表示不校验`Stomp`请求不进行账号和密码校验。`heartbeats为30`表示
 
-- 配置Mosquitto代理
+- 配置`MQTT Broker`
 
-  配置文件`./conf/weevent.properties`中`mqtt.broker.*`配置项。
+  配置文件`./conf/weevent.properties`中`mqtt.*`配置项。
 
   ```ini
-  #mqtt代理访问链接 示例：tcp://127.0.0.1:1883
-  mqtt.broker.url=tcp://${ip}:${port}
-  #mqtt代理访问用户名
-  mqtt.broker.user=${username}
-  #mqtt代理访问密码
-  mqtt.broker.password=${password}
-  #消息质量0,1,2三种配置 详情见:https://www.hivemq.com/blog/mqtt-essentials-part-6-mqtt-quality-of-service-levels/
-  mqtt.broker.qos=2
-  #访问超时时间 单位:毫秒
-  mqtt.broker.timeout=5000
+  #客户端使用MQTT协议访问MQTT Broker端口
+  mqtt.brokerserver.port=8083
+  #服务器请求处理线程全满时，用于临时存放已完成tcp三次握手请求的队列的最大长度
+  mqtt.brokerserver.sobacklog=511
+  #是否开启连接检测以此判断服务是否可用
+  mqtt.brokerserver.sokeepalive=true
+  #心跳时间 单位:秒
+  mqtt.brokerserver.keepalive=60
+  #客户端使用WebSocket协议访问MQTT Broker链接
+  mqtt.websocketserver.path=/weevent/mqtt
+  #客户端使用WebSocket协议访问MQTT Broker端口
+  mqtt.websocketserver.port=8084
+  #MQTT Broker访问用户名
+  mqtt.user.login=
+  #MQTT Broker访问密码
+  mqtt.user.passcode=
   ```
 
 - 开启HTTPS功能
@@ -270,6 +282,7 @@ upstream broker_backend{
 ```
 
 `Nginx`重启命令说明
+
 ```shell
 $ ./nginx -t
 $ ./nginx -s reload

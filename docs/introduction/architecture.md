@@ -6,11 +6,11 @@
 
 - Nginx
 
-  `WeEvent`服务对外统一的访问入口，负责服务请求的负载均衡。
+  `WeEvent`服务对外统一的访问入口，负责服务请求的负载均衡。支持`RESTful`、`JsonRPC`、`STOMP`、`MQTT`等协议，以及`Java SDK`。
 
 - Broker
 
-  `WeEvent`的事件代理模块，提供核心的事件发布订阅`Publish/Subscribe`和`Topic`管理功能。
+  `WeEvent`的事件代理模块，提供核心的事件发布订阅`Publish`/`Subscribe`和`Topic`管理功能。
 
   其中，使用`Redis`缓存事件，使用`Zookeeper`主备切换。
 
@@ -18,18 +18,13 @@
 
   `WeEvent`的事件治理模块，提供一个`Web`管理端。
 
-  其中，使用`Mysql`数据库存储`Topic`的统计数据，使用`Grafana`展示数据。
-
+  其中，使用`Mysql`数据库存储`Topic`的统计数据，根据业务需要使用[WeBase](https://github.com/WeBankFinTech/WeBASE)进行区块链管理。
+  
 - FISCO-BCOS
-
-  `WeEvent`的事件永久存储在区块链`FISCO-BCOS`上，同时通过区块链来连接各个`WeEvent`服务。
-
-- MQTT代理Mosquitto
-
-  `WeEvent`通过`Mosquitto`（[官方地址](https://mosquitto.org/) ）代理`MQTT`协议，实现物联网`IoT`设备的接入。
-
-  `Mosquitto`是`MQTT`协议的一个开源实现。
+  
+    `WeEvent`的事件永久存储在区块链[FISCO-BCOS](https://github.com/FISCO-BCOS/FISCO-BCOS)上，一个区块链可以对应一个或者多个`WeEvent`服务。
 
 ### 架构设计
 
 ![](../image/WeEventArchitecture.png)
+
