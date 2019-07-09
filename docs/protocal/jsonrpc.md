@@ -82,7 +82,7 @@ $ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":
 
 - 说明
 
-  - topic：主题，`ascii`值在`[32,128]`之间，除了'+'、'#'都为有效字符。'+'、'#'作为是订阅通配符使用。
+  - topic：主题，`ascii`值在`[32,128]`之间。支持通配符按层次订阅，参见[MQTT通配符](http://public.dhe.ibm.com/software/dw/webservices/ws-mqtt/mqtt-v3r1.html) 。
   
   - groupId：群组`Id`，`fisco-bcos 2.0+`版本支持多群组功能，2.0以下版本不支持该功能可以不传。
   
@@ -142,13 +142,8 @@ $ curl -H "Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method"
   
   - extensions：用户自定义数据以`weevent-`开头。可选参数。
   
-  - result ： 返回字段`result` ，是一个`WeEvent`对象的序列化，可查看WeEvent对象。
+  - result ： 返回字段`result` ，是一个`WeEvent`对象的序列化，可查看WeEvent对象。“status”：“SUCCESS”表示成功。”eventId“："10-123"表示发布事件成功ID。
   
-  ```
-  status：“SUCCESS”表示成功。
-   
-  eventId：发布成功事件ID。
-  ```
   
 
 #### 订阅事件  
@@ -169,8 +164,8 @@ $ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":
 - 说明
   - topic：事件主题。支持通配符按层次订阅，参见[MQTT通配符](http://public.dhe.ibm.com/software/dw/webservices/ws-mqtt/mqtt-v3r1.html) 。
   - url：事件通知回调`CGI `，当有生产者发布事件时，所有的事件都会通知到这个`URL`。 
-  - subscriptionId：第一次订阅使用空字符串""。继续上一次订阅，`subscriptionId`是上次订阅ID。
-  - result：是订阅ID。
+  - subscriptionId：第一次订阅可以不填。继续上一次订阅`subscriptionId`为上次订阅ID。
+  - result：订阅ID。
 
 #### 取消订阅
 

@@ -2,13 +2,13 @@
 
 ### 配置说明
 
-| 配置   | 最低配置                 | 推荐配置         |
-| ---- | -------------------- | ------------ |
-| CPU  | 2核 1.5GHz            | 4核 2.4GHz    |
-| 内存   | 2GB                  | 4GB          |
-| 带宽   | 1M                   | 5M           |
-| 操作系统 | CentOS、Ubuntu、RedHat | CentOS       |
-| Java | Java(TM) 1.8         | Java(TM) 1.8 |
+| 配置     | 最低配置               | 推荐配置     |
+| -------- | ---------------------- | ------------ |
+| CPU      | 2核 1.5GHz             | 4核 2.4GHz   |
+| 内存     | 2GB                    | 4GB          |
+| 带宽     | 1M                     | 5M           |
+| 操作系统 | CentOS、Ubuntu、RedHat | CentOS7.2+   |
+| Java     | Java(TM) 1.8           | Java(TM) 1.8 |
 
 ### 第三方软件
 
@@ -19,4 +19,5 @@
 | Mysql      | 5.6.x    | 可选     |
 | Redis      | 5.x.x    | 可选     |
 | Zookeeper  | 3.5.x    | 可选     |
-| WeBase     | 1.0      | 可选     |
+| WeBase     | 1.0.x    | 可选     |
+

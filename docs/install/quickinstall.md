@@ -16,7 +16,7 @@ $ wget https://github.com/WeBankFinTech/WeEvent/releases/download/v1.0.0/weevent
 $ tar -zxf weevent-1.0.0.tar.gz
 ```
 
-如果机器无法访问外网`wget`执行失败，可以通过别的方式下载再`rz`上传。也可以通过[打包脚本package.sh](https://github.com/WeBankFinTech/WeEvent/blob/master/weevent-build/package.sh)生成最新安装包。
+如果机器无法访问外网`wget`执行失败，可以通过别的方式下载再`rz`上传。
 
 解压后目录结构如下：
 
@@ -35,7 +35,6 @@ $ tree -L 2
 |-- start-all.sh
 |-- stop-all.sh
 |-- third-packages
-|   |-- crudini-0.9.tar.gz
 |   |-- nginx-1.14.2.tar.gz
 |   `-- pcre-8.20.tar.gz
 `-- uninstall-all.sh
@@ -51,7 +50,7 @@ fisco-bcos.version=2.0
 # FISCO-BCOS node channel, eg: 127.0.0.1:8821;127.0.0.2:8821
 cfisco-bcos.hannel=127.0.0.1:8821
 # FISCO-BCOS's node path
-fisco-bcos.node_path=/data/FISCO-BCOS/119.29.246.185/node0
+fisco-bcos.node_path=/data/FISCO-BCOS/127.0.0.1/node0
 
 # Required module
 nginx.port=8080
@@ -74,7 +73,7 @@ governance.mysql_password=yyy
 
   - fisco-bcos.version
 
-    `FISCO-BCOS`1.3和2.0版本都支持，推荐使用`2.0`及以上版本。
+    `FISCO-BCOS`2.0和1.3版本都支持，推荐使用`2.0`及以上版本。
 
 
   - fisco-bcos.channel
@@ -93,7 +92,7 @@ governance.mysql_password=yyy
 
   - `governance.enable`是否安装Governance模块，默认false不安装
   - 监听端口`governance.port`
-  - Mysql配置`mysql_*`
+  - Mysql配置`governance.mysql.*`
 
 ### 一键安装
 
@@ -126,7 +125,6 @@ $ tree -L 2
   |   |-- check-service.sh
   |   |-- conf
   |   |-- deploy-topic-control.sh
-  |   |-- gen-cert-key.sh
   |   |-- lib  
   |   `-- logs
   |-- check-service.sh				
@@ -183,6 +181,5 @@ uninstall WeEvent success
 ### 注意事项
 
 - 快速安装脚本作为一种简易安装方式，所有子模块都是单实例的。  
-- 生产环境中建议对`Broker`和`Governance`进行多实例部署，然后添加到`Nginx`的路由配置里 `nginx/conf/conf.d/http_rs.conf`。  
 - 各子模块的部署细节参见[Broker模块部署](./module/broker.html)和[Governance模块部署](./module/governance.html)。
 

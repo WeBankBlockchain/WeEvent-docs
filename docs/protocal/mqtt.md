@@ -1,9 +1,9 @@
 ## MQTT
-`WeEvent`服务支持`MQTT Broker`功能。任何支持`MQTT`协议的IoT设备及客户端都能连接到`WeEvent`进行消息发布及订阅。
+`WeEvent`服务支持`MQTT Broker`功能。任何支持`MQTT`协议的IoT设备及客户端都能连接到`WeEvent`,并进行消息发布及订阅。
 
 ### 协议介绍
 
-- `MQTT`是物联网`IoT`中的主流接入协议，协议具体内容参见[http://mqtt.org/](http://mqtt.org/) 
+- `MQTT`是物联网`IoT`中的主流接入协议，协议具体内容参见[http://mqtt.org/](http://mqtt.org/) 。
 - `WeEvent`支持`MQTT 3.1.1`
 ### 配置MQTT服务
 
@@ -11,33 +11,23 @@
 
 ```ini
 #mqtt brokerserver
-mqtt.brokerserver.port=8083
-mqtt.brokerserver.sobacklog=511
-mqtt.brokerserver.sokeepalive=true
-mqtt.brokerserver.keepalive=60
-mqtt.websocketserver.path=/weevent/mqtt
-mqtt.websocketserver.port=8084
+mqtt.broker.port=8083
+mqtt.broker.keepalive=60
+mqtt.websocket.path=/weevent/mqtt
+mqtt.websocket.port=8084
 mqtt.user.login=
 mqtt.user.passcode=
 ```
 
 参数说明：
 
-- mqtt.brokerserver.port
+- mqtt.broker.port
 
-  客户端使用`MQTT`协议访问`MQTT Broker`端口。
-
-- mqtt.brokerserver.sobacklog
-
-  服务器请求处理线程全满时，用于临时存放已完成`tcp`三次握手请求的队列的最大长度。
-
-- mqtt.brokerserver.sokeepalive
-
-  是否开启连接检测以此判断服务是否可用。
+  客户端使用`MQTT`协议访问`MQTT Broker`。
 
 - mqtt.brokerserver.keepalive
 
-  心跳时间 单位：秒。
+  发送心跳时间。单位为秒。
 
 - mqtt.websocketserver.path
 
@@ -45,7 +35,7 @@ mqtt.user.passcode=
 
 - mqtt.websocketserver.port
 
-  客户端使用`WebSocket`协议访问`MQTT Broker`端口。
+  客户端使用`WebSocket`协议访问`MQTT Broker`。
 
 - mqtt.user.login
 
@@ -57,9 +47,9 @@ mqtt.user.passcode=
 
 ### 注意事项
 
-- 因区块链必须确保消息成功上链暂不支持QOS-0和QOS-2消息级别。
+- 因区块链必须确保消息成功上链，暂不支持QoS-0和QoS-2消息级别。
 
-- 暂不支持断连后会话恢复功能。
+- 不支持断连后会话恢复功能。
 
 ### 样例演示
 
@@ -68,11 +58,11 @@ mqtt.user.passcode=
 - IoT设备发布事件
 
   ```shell
-  $ mosquitto_pub -h localhost -p 8083 -u ${user} -P ${password} -t "com.weevent.test" -m "{\"timestamp\":133345566,\"key\":\"temperature\",\"value\":10.0}"
+  $ mosquitto_pub -h localhost -p 8091 -u ${user} -P ${password} -t "com.weevent.test" -m "{\"timestamp\":133345566,\"key\":\"temperature\",\"value\":10.0}"
   ```
 
 - IoT设备订阅事件
 
   ```shell
-  $ mosquitto_sub -h localhost -p 8083 -u ${user} -P ${password} -t "com.weevent.test"
+  $ mosquitto_sub -h localhost -p 8091 -u ${user} -P ${password} -t "com.weevent.test"
   ```

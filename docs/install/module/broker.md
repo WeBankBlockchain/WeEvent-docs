@@ -22,7 +22,7 @@
 
 - Zookeeper服务
 
-  可选配置。当用户使用了`JsonRPC`或者`RESTful`的订阅功能时，必须要配置`Zookeeper`服务。
+  可选配置。`Broker`多节点安装时`jsonrpc`，`restful`协议`subscribe`接口使用Zookeeper同步监听数据。
 
   推荐安装`Zookeeper`3.4+版本。具体安装步骤，请参见[Zookeeper安装](http://zookeeper.apache.org/doc/r3.4.13/zookeeperStarted.html)。
 
@@ -59,7 +59,6 @@ $ tree  -L 2
 |   |-- server.p12
 |   `-- weevent.properties
 |-- deploy-topic-control.sh
-`-- gen-cert-key.sh
 ```
 
 ### 修改配置文件
@@ -69,11 +68,11 @@ $ tree  -L 2
 
   - 访问节点的证书文件
 
-    2.0版本的证书文件`ca.crt`和`node.crt`、`node.key`放在`./conf/v2`目录下。
+    2.0版本的证书文件`ca.crt`、`node.crt`、`node.key`放在`./conf/v2`目录下。
 
-    1.3版本的证书文件`ca.crt`和`client.keystore`放在`./conf`目录下。
+    1.3版本的证书文件`ca.crt`、`client.keystore`放在`./conf`目录下。
 
-    更详细的配置文件说明，请参见[Web3sdk配置说明](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/sdk/sdk.html)。
+    证书文件生成及获取请参见[FISCO-BCOS 2.0安装](https://fisco-bcos-documentation.readthedocs.io/zh_CN/release-2.0/docs/installation.html)
 
 - 部署和修改合约地址
 
@@ -94,7 +93,7 @@ $ tree  -L 2
   topic-controller.address=1:0xd99253697e61bf19206ceb4704fc9914d0a4116c;
     ```
     
-    1.3版本的合约地址设置如下:
+      1.3版本的合约地址设置如下:
   
     ```ini
   topic-controller.address=0xd99253697e61bf19206ceb4704fc9914d0a4116c
@@ -108,7 +107,7 @@ $ tree  -L 2
   
 - 配置Broker监听端口
 
-  配置文件`./conf/application-prod.properties`中`server.port`配置项，默认监听端口8081，根据业务需要配置。
+  配置文件`./conf/application-prod.properties`中`server.port`配置项，默认监听端口8090，根据业务需要配置。
 - 配置Redis缓存
 
   可选配置，为了提高`WeEvent`的通知性能。建议修改配置文件`./conf/weevent.properties`中`redis.*`配置项 。
@@ -131,8 +130,10 @@ $ tree  -L 2
   ```ini
   #zookeeper服务访问链接 示例：127.0.0.1:8080
   broker.zookeeper.ip=${ip}:${port}
+  
   #zookeeper上数据存储路径
   broker.zookeeper.path=/event_broker
+  
   #连接zookeeper超时时间 单位：毫秒
   broker.zookeeper.timeout=3000
   ```
@@ -155,12 +156,14 @@ $ tree  -L 2
   ```ini
   #stomp协议访问用户名
   stomp.user.login=${username}
+  
   #stomp协议访问密码
   stomp.user.passcode=${password}
+  
   #发送心跳时间间隔 单位:秒
   stomp.heartbeats=30
   ```
-  注意：`login/passcode` 默认为空，表示不校验`Stomp`请求不进行账号和密码校验。`heartbeats为30`表示
+  注意：`login/passcode` 默认为空，表示不校验`Stomp`请求不进行账号和密码校验。`heartbeats为30`表示配置心跳时间间隔。默认时间间隔30秒，一般不用修改。
 
 - 配置`MQTT Broker`
 
@@ -169,71 +172,22 @@ $ tree  -L 2
   ```ini
   #客户端使用MQTT协议访问MQTT Broker端口
   mqtt.broker.port=8083
-  #服务器请求处理线程全满时，用于临时存放已完成tcp三次握手请求的队列的最大长度
-  mqtt.broker.sobacklog=511
-  #是否开启连接检测以此判断服务是否可用
-  mqtt.broker.sokeepalive=true
+  
   #心跳时间 单位:秒
   mqtt.broker.keepalive=60
+  
   #客户端使用WebSocket协议访问MQTT Broker链接
   mqtt.websocket.path=/weevent/mqtt
+  
   #客户端使用WebSocket协议访问MQTT Broker端口
   mqtt.websocket.port=8084
+  
   #MQTT Broker访问用户名
   mqtt.user.login=
+  
   #MQTT Broker访问密码
   mqtt.user.passcode=
   ```
-
-- 开启HTTPS功能
-
-  可选配置，为了安全起见，建议通过`HTTPS`方式访问`Broker`服务，需要配置一个访问证书。服务采用[PKCS12格式](https://tools.ietf.org/html/rfc7292) 。
-
-  安装包里自带了默认证书`./conf/server.p12` ，可以直接使用。用户也可以选择使用包里的`./gen-cert-key.sh`脚本重新生成证书。使用新证书过程如下：
-
-  - 生成证书
-
-    ```shell	
-    $ cd ./conf
-    $ rm server.p12
-    $ ../gen-cert-key.sh
-    Enter keystore password:  
-    Re-enter new password: 
-    What is your first and last name?
-      [Unknown]:  zhangsan
-    What is the name of your organizational unit?
-      [Unknown]:  org1       
-    What is the name of your organization?
-      [Unknown]:  orgname
-    What is the name of your City or Locality?
-      [Unknown]:  shenzhen
-    What is the name of your State or Province?
-      [Unknown]:  guangdong
-    What is the two-letter country code for this unit?
-      [Unknown]:  cn
-    Is CN=zhangsan, OU=org1, O=orgname, L=shenzhen, ST=guangdong, C=cn correct?
-      [no]:  y
-     $ cd ..
-    ```
-
-    根据提示填写证书主题信息和证书密码，生成成功会替换当前证书文件`./conf/server.p12`。
-
-  - 修改配置文件
-
-    参见`./conf/application-prod.properties`中`server.ssl.*`配置项。
-
-    ```ini
-    #开启https功能
-    server.ssl.enabled=true
-    #证书文件路径
-    server.ssl.key-store=classpath:server.p12
-    #证书密码
-    server.ssl.key-store-password=123456
-    #证书文件类型
-    server.ssl.keyStoreType=PKCS12
-    #key别名
-    server.ssl.keyAlias=weevent
-    ```
 
 ### 服务启停
 
