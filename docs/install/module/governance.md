@@ -10,19 +10,18 @@
 - Broker模块
 
    必选配置，通过`Broker`访问区块链。
-   版本1.0.0。具体安装步骤，请参见[Broker模块安装](./broker.html)。
+   具体安装步骤，请参见[Broker模块安装](./broker.html)。
 
 - WeBase模块
 
-  必选配置，通过`WeBase`存取区块链的数据。
+  必选配置，通过`WeBase`查询区块和交易信息。
 
-  版本为1.0及以上。具体安装步骤，请参见[WeBase安装](https://github.com/WeBankFinTech/WeBase)。
+  推荐版本1.0.4。具体安装步骤，请参见[WeBase安装](https://github.com/WeBankFinTech/WeBase)。
 
   **注意**：
 
   - 修改`webase-node-mgr`服务中的`conf/application.yml`文件。
-
-    将`isUseSecurity`配置成`false`，`isDeleteInfo`配置成`false`
+- 将`isUseSecurity`配置成`false`，`isDeleteInfo`配置成`false`
 
 
 - Mysql数据库
