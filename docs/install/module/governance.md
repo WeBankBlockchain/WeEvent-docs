@@ -54,19 +54,19 @@ $ tree -L 2
 |   `-- weevent-governance-1.0.0.jar
 |-- check-service.sh
 |-- conf
-|   |-- application-dev.yml
 |   |-- application-prod.yml
 |   |-- application.yml
+|   |-- banner.txt
 |   |-- log4j2.xml
 |   |-- mappers
-|   |-- server.p12
-|   `-- sso.client.properties
+|   `-- server.p12
 |-- gen-cert-key.sh
 |-- governance.sh
 |-- html
 |   |-- index.html
+|   |-- README
 |   `-- static
-`-- init-governance.sh
+|-- init-governance.sh
 ```
 
 ### 修改配置文件
@@ -96,52 +96,23 @@ $ tree -L 2
     ```
     初始化系统，执行脚本`init-governance.sh` ，成功输出如下。否则，用户需要检查配置项是否正常。
 
+    **注意**：数据库要赋予`username`通过其它机器进行数据库增删操作的权限
+
     ```
     $ ./init-governance.sh
     init governance db success
     ```
 
-- 生成HTTPS证书
+- 配置发送邮箱的地址
 
-  通过`HTTPS`方式访问`Governance`服务，需要配置一个访问证书。服务采用[PKCS12格式](https://tools.ietf.org/html/rfc7292) 。
-
-  安装包里自带了默认证书`./conf/server.p12` ，可以直接使用。用户也可以选择使用包里的`./gen-cert-key.sh`脚本重新生成证书。使用新证书过程如下：
-
-  - 生成证书
-
-    ```shell	
-    $ ./gen-cert-key.sh
-    Enter keystore password:  
-    Re-enter new password: 
-    What is your first and last name?
-      [Unknown]:  zhangsan
-    What is the name of your organizational unit?
-      [Unknown]:  org1       
-    What is the name of your organization?
-      [Unknown]:  orgname
-    What is the name of your City or Locality?
-      [Unknown]:  shenzhen
-    What is the name of your State or Province?
-      [Unknown]:  guangdong
-    What is the two-letter country code for this unit?
-      [Unknown]:  cn
-    Is CN=zhangsan, OU=org1, O=orgname, L=shenzhen, ST=guangdong, C=cn correct?
-      [no]:  y
-    ```
-
-    根据提示填写证书主题信息和密码，生成的证书`server.p12`已更新到`./weevent-governance-1.0.0/conf/server.p12`。
-
-  - 修改证书配置
-
-    参见`./conf/application.yml`中`ssl`配置项  
+    在配置文件`./conf/application-prod.yml`中，修改`mail`中的`host配置、`username`、`password` 。
 
     ```ini
-      ssl: 
-        enabled: true
-        key-store: classpath:server.p12
-        key-store-password: 123456
-        keyStoreType: PKCS12
-        keyAlias: weevent
+    mail:
+        default-encoding: UTF-8
+        host: smtp.163.com
+        username: mailusername@163.com
+        password: mailpwd
     ```
 
 ### 服务启停
@@ -181,21 +152,9 @@ $ tree -L 2
 
 ```nginx
 upstream governance_backend{
-    server 127.0.0.1:8082 weight=100 max_fails=3;
-    server 127.0.0.2:8082 weight=100 max_fails=3;
-  
-    ip_hash;
-    keepalive 1024;
-}
-```
-
-`Nginx`配置文件`./conf/conf.d/rs.conf`中，以下为配置2个`webase-node-mgr`进程的样例
-
-```nginx
-upstream webase_backend{
-    server 127.0.0.1:8083 weight=100 max_fails=3;
-    server 127.0.0.2:8083 weight=100 max_fails=3;
-  
+    server 127.0.0.1:8099 weight=100 max_fails=3;
+    server 127.0.0.2:8099 weight=100 max_fails=3;
+    
     ip_hash;
     keepalive 1024;
 }
