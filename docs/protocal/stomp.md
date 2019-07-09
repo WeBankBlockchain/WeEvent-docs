@@ -36,7 +36,7 @@ implementation("org.springframework.boot:spring-boot-starter-websocket")
         stompClient.setMessageConverter(new StringMessageConverter());
         stompClient.setTaskScheduler(taskScheduler); // for heartbeats
 
-        ListenableFuture<StompSession> f = stompClient.connect("ws://localhost:8080/weevent/stomp", getWebsocketSessionHandlerAdapter());
+        ListenableFuture<StompSession> f = 		         stompClient.connect("ws://localhost:8080/weevent/stomp", getWebsocketSessionHandlerAdapter());
 
         StompSession stompSession = f.get();
 ```
@@ -55,7 +55,7 @@ implementation("org.springframework.boot:spring-boot-starter-websocket")
 StompHeaders header = new StompHeaders();
 header.setDestination("com.weevent.test");
 header.set("groupId","1");
-
+header.set("weevent-format","json")
 StompSession.Receiptable receiptable = stompSession.send(header, "hello world, from web socket");
 log.info("send result, receipt id: {}", receiptable.getReceiptId());
 ```
