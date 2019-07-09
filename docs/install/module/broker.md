@@ -168,17 +168,17 @@ $ tree  -L 2
 
   ```ini
   #客户端使用MQTT协议访问MQTT Broker端口
-  mqtt.brokerserver.port=8083
+  mqtt.broker.port=8083
   #服务器请求处理线程全满时，用于临时存放已完成tcp三次握手请求的队列的最大长度
-  mqtt.brokerserver.sobacklog=511
+  mqtt.broker.sobacklog=511
   #是否开启连接检测以此判断服务是否可用
-  mqtt.brokerserver.sokeepalive=true
+  mqtt.broker.sokeepalive=true
   #心跳时间 单位:秒
-  mqtt.brokerserver.keepalive=60
+  mqtt.broker.keepalive=60
   #客户端使用WebSocket协议访问MQTT Broker链接
-  mqtt.websocketserver.path=/weevent/mqtt
+  mqtt.websocket.path=/weevent/mqtt
   #客户端使用WebSocket协议访问MQTT Broker端口
-  mqtt.websocketserver.port=8084
+  mqtt.websocket.port=8084
   #MQTT Broker访问用户名
   mqtt.user.login=
   #MQTT Broker访问密码
