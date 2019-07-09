@@ -16,8 +16,6 @@ $ wget https://github.com/WeBankFinTech/WeEvent/releases/download/v1.0.0/weevent
 $ tar -zxf weevent-nginx-1.0.0.tar.gz
 ```
 
-如果机器无法访问外网`wget`执行失败，可以通过别的方式下载再`rz`上传。
-
 解压后目录结构如下：
 
 ```shell
@@ -36,9 +34,7 @@ $ tree -L 2
     `-- pcre-8.20.tar.gz
 ```
 
-`WeEvent`既支持`HTTP`访问，也支持`HTTPS`访问，可通过配置文件切换。
-
-安装`Nginx`，操作如下
+编译安装`Nginx`，操作如下
 
 ```shell
 $ ./build-nginx.sh -p /user/local/nginx
@@ -47,13 +43,11 @@ build & install nginx
 nginx install complete!
 ```
 
-进入目录，进行相关配置进行修改。
-
-#### Nginx配置HTTP访问
+### Nginx常见配置
 
 - 修改Nginx监听端口
 
-  在配置文件`./conf.d/http.conf`里修改`Nginx`监听端口。其他配置项一般不需要修改。
+  在配置文件`./conf/conf.d/http.conf`里修改`Nginx`监听端口。其他配置项一般不需要修改。
 
   ```nginx
   server {
@@ -67,7 +61,7 @@ nginx install complete!
 
 - 修改WeEvent子模块反向代理
 
-  在配置文件`./conf.d/http_rs.conf` 里设置子模块`Broker`和`Governance`的实例。
+  在配置文件`./conf/conf.d/http_rs.conf` 里设置子模块`Broker`和`Governance`的实例。
 
   每增加一个实例，在这个配置文件里对应加一行`server`项，比如：
 
@@ -80,37 +74,54 @@ nginx install complete!
       keepalive 1024;
   }
   
-upstream broker_mqtt_websocket_backend {
+  upstream broker_mqtt_websocket_backend {
       server 1.1.1.1:8092 weight=100 max_fails=3;
       server 2.2.2.2:8092 weight=100 max_fails=3;
-  
-      ip_hash;
-      keepalive 1024;
+  	ip_hash;
+    	keepalive 1024;
   }
   
   upstream governance_backend{
-      server 1.1.1.1:8099 weight=100 max_fails=3;
-      server 2.2.2.2:8099 weight=100 max_fails=3;
-      
-      ip_hash;
-      keepalive 1024;
+  	server 1.1.1.1:8099 weight=100 max_fails=3;
+  	server 2.2.2.2:8099 weight=100 max_fails=3;
+  	ip_hash;
+   	keepalive 1024;
   }
   ```
+  
+### Nginx配置TLS访问
 
-#### Nginx配置HTTPS访问
-
-- 修改Nginx监听端口
-
-  在配置文件`./conf.d/https.conf`里修改`Nginx`监听端口。其他配置项一般不需要修改。
-
+- 切换到TLS访问
+  
+  默认的配置支持`HTTP`和`TCP`访问。通过`./conf/nginx.conf`文件配置`TLS`访问，将
+  
   ```nginx
-  server {
-      listen          443 ssl;
-      server_name     localhost;
-      ...
+  include                 ./conf.d/http.conf;
+  ...
+  include                 ./conf.d/tcp.conf;
+  ```
+  
+  对应改成
+  
+  ```nginx
+  include                 ./conf.d/http_rs.conf;
+...
+  include                 ./conf.d/tcp_rs.conf;
+  ```
+  
+- 修改Nginx监听端口
+  
+  在配置文件`./conf/conf.d/https.conf`里修改`Nginx`监听端口。其他配置项一般不需要修改。
+  
+  ```nginx
+  nginx
+  	server {
+  		listen          443 ssl;
+  		server_name     localhost;
+  		...
   }
   ```
-
+  
 - 修改WeEvent子模块反向代理
 
   和上面`HTTP`访问的修改步骤一致。
@@ -130,3 +141,4 @@ add the crontab job success
 `./nginx.sh start`命令会启动进程，并且将进程监控命令`./broker.sh monitor`添加到`crontab`里。
 
 `./broker.sh stop`命令在进程成功停止后会移除`crontab`监控任务。
+
