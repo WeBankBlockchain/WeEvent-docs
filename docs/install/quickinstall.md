@@ -25,7 +25,7 @@ $ cd weevent-1.0.0/
 $ tree -L 2
 .
 |-- check-service.sh
-|-- config.ini
+|-- config.properties
 |-- install-all.sh
 |-- modules
 |   |-- broker
@@ -42,34 +42,30 @@ $ tree -L 2
 ```
 ### 修改配置
 
-默认配置文件`./config.ini`如下：
+默认配置文件`./config.properties`如下：
 
 ```ini
 # Required module
-[fisco-bcos]
 # support 2.0 and 1.3
-version=2.0
+fisco-bcos.version=2.0
 # FISCO-BCOS node channel, eg: 127.0.0.1:8821;127.0.0.2:8821
-channel=127.0.0.1:8821
+cfisco-bcos.hannel=127.0.0.1:8821
 # FISCO-BCOS's node path
-node_path=/data/FISCO-BCOS/127.0.0.1/node0
+fisco-bcos.node_path=/data/FISCO-BCOS/127.0.0.1/node0
 
 # Required module
-[nginx]
-port=8080
+nginx.port=8080
 
 # Required module
-[broker]
-port=8081
+broker.port=8081
 
 # Optional module
-[governance]
-enable=false
-port=8082
-mysql_ip=127.0.0.1
-mysql_port=3306
-mysql_user=xxx
-mysql_password=yyy
+governance.enable=false
+governance.governance.port=8082
+governance.mysql_ip=127.0.0.1
+governance.mysql_port=3306
+governance.mysql_user=xxx
+governance.mysql_password=yyy
 ```
 
 配置说明：  
