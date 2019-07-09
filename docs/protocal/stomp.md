@@ -36,7 +36,7 @@ implementation("org.springframework.boot:spring-boot-starter-websocket")
         stompClient.setMessageConverter(new StringMessageConverter());
         stompClient.setTaskScheduler(taskScheduler); // for heartbeats
 
-        ListenableFuture<StompSession> f = 		         stompClient.connect("ws://localhost:8080/weevent/stomp", getWebsocketSessionHandlerAdapter());
+        ListenableFuture<StompSession> f = stompClient.connect("ws://localhost:8080/weevent/stomp", getWebsocketSessionHandlerAdapter());
 
         StompSession stompSession = f.get();
 ```
@@ -72,7 +72,6 @@ log.info("send result, receipt id: {}", receiptable.getReceiptId());
     header.setDestination(topic);
     header.set("eventId","2cf24dba-59-1124");
 	header.set("groupId","1");
-	header.set("weevent-format","json");
 
     StompSession.Subscription subscription = stompSession.subscribe(header, new StompFrameHandler() {
         @Override
@@ -99,6 +98,11 @@ log.info("send result, receipt id: {}", receiptable.getReceiptId());
 #### Spring环境
 
 - 依赖说明
+
+```
+compile group: 'org.springframework', name: 'spring-messaging', version: '5.1.2.RELEASE'
+compile group: 'org.springframework', name: 'spring-websocket', version: '5.1.2.RELEASE'
+```
 - 代码实现和上面`spring boot`一样
 
 #### 其他语言的适配
