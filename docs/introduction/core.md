@@ -5,8 +5,6 @@
 
 ![](../image/WeventTopView.png)  
 
-生产者`Producer`和消费者`Consumer`是多对多`N:M`的关系（`N>=1，M>=1`）。
-
 多机构之间的合作，一般每个机构都会部署自己的`WeEvent`服务。例如：机构A通过属于A的`WeEvent`服务发布事件，机构B通过自己的`WeEvent`服务订阅事件。如果生产者和发布者属于同一机构，可以使用同一套`WeEvent`服务。
 
 ### 事件（Event）  
