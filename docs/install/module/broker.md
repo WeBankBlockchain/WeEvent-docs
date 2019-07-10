@@ -57,7 +57,6 @@ $ tree  -L 2
 |   |-- server.p12
 |   `-- weevent.properties
 |-- deploy-topic-control.sh
-`-- gen-cert-key.sh
 ```
 
 ### 修改配置文件
@@ -67,11 +66,11 @@ $ tree  -L 2
 
   - 访问节点的证书文件
 
-    2.0版本的证书文件`ca.crt`和`node.crt`、`node.key`放在`./conf/v2`目录下。
+    2.0版本的证书文件`ca.crt`、`node.crt`、`node.key`放在`./conf/v2`目录下。
 
-    1.3版本的证书文件`ca.crt`和`client.keystore`放在`./conf`目录下。
+    1.3版本的证书文件`ca.crt`、`client.keystore`放在`./conf`目录下。
 
-    更详细的`FISCO-BCOS`配置文件说明，请参见[Web3sdk配置说明](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/sdk/sdk.html)。
+    证书文件生成及获取请参见[FISCO-BCOS 2.0安装](https://fisco-bcos-documentation.readthedocs.io/zh_CN/release-2.0/docs/installation.html)
 
 - 部署和修改合约地址
 
@@ -92,7 +91,7 @@ $ tree  -L 2
   topic-controller.address=1:0xd99253697e61bf19206ceb4704fc9914d0a4116c;
     ```
     
-    1.3版本的合约地址设置如下:
+      1.3版本的合约地址设置如下:
   
     ```ini
   topic-controller.address=0xd99253697e61bf19206ceb4704fc9914d0a4116c
@@ -106,7 +105,7 @@ $ tree  -L 2
   
 - 配置Broker监听端口
 
-  配置文件`./conf/application-prod.properties`中`server.port`配置项，默认监听端口8081，根据业务需要配置。
+  配置文件`./conf/application-prod.properties`中`server.port`配置项，默认监听端口8090，根据业务需要配置。
 - 配置Redis缓存
 
   可选配置，为了提高`WeEvent`的通知性能。建议修改配置文件`./conf/weevent.properties`中`redis.*`配置项 。
@@ -129,8 +128,10 @@ $ tree  -L 2
   ```ini
   # zookeeper服务访问链接 示例：127.0.0.1:8080
   broker.zookeeper.ip=${ip}:${port}
+  
   # zookeeper上数据存储路径
   broker.zookeeper.path=/event_broker
+  
   # 连接zookeeper超时时间 单位：毫秒
   broker.zookeeper.timeout=3000
   ```
@@ -140,7 +141,7 @@ $ tree  -L 2
   可选配置，为了安全起见，建议修改配置文件`./conf/weevent.properties`中`ip.check.white-table`配置项。
 
   ```ini
-  #配置ip白名单,多个ip使用分号分割 示例:127.0.0.1;127.0.0.2
+  # 配置ip白名单,多个ip使用分号分割 示例:127.0.0.1;127.0.0.2
   ip.check.white-table=${ip}
   ```
 
@@ -151,14 +152,16 @@ $ tree  -L 2
   可选配置，为了安全起见，建议修改配置文件`./conf/weevent.properties`中`stomp.*`配置项。
 
   ```ini
-  #stomp协议访问用户名
+  # stomp协议访问用户名
   stomp.user.login=${username}
-  #stomp协议访问密码
+  
+  # stomp协议访问密码
   stomp.user.passcode=${password}
-  #发送心跳时间间隔 单位:秒
+  
+  # 发送心跳时间间隔 单位:秒
   stomp.heartbeats=30
   ```
-  注意：`login/passcode` 默认为空，表示不校验`Stomp`请求不进行账号和密码校验。`heartbeats为30`表示
+  注意：`login/passcode` 默认为空，表示不校验`Stomp`请求不进行账号和密码校验。`heartbeats为30`表示配置心跳时间间隔。默认时间间隔30秒，一般不用修改。
 
 - 配置`MQTT Broker`
 
@@ -167,22 +170,22 @@ $ tree  -L 2
   ```ini
   # 客户端使用MQTT协议访问MQTT Broker端口
   mqtt.broker.port=8083
-  # 服务器请求处理线程全满时，用于临时存放已完成tcp三次握手请求的队列的最大长度
-  mqtt.broker.sobacklog=511
-  # 是否开启连接检测以此判断服务是否可用
-  mqtt.broker.sokeepalive=true
+  
   # 心跳时间 单位:秒
   mqtt.broker.keepalive=60
+  
   # 客户端使用WebSocket协议访问MQTT Broker链接
   mqtt.websocket.path=/weevent/mqtt
+  
   # 客户端使用WebSocket协议访问MQTT Broker端口
   mqtt.websocket.port=8084
+  
   # MQTT Broker访问用户名
   mqtt.user.login=
+  
   # MQTT Broker访问密码
   mqtt.user.passcode=
   ```
-
 
 ### 服务启停
 
