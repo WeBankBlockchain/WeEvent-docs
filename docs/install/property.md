@@ -152,7 +152,7 @@ mqtt.user.passcode=
 - MQTT Broker配置mqtt.*
 
    - mqtt.broker.port：客户端使用`MQTT`协议访问`MQTT Broker`端口。
-   - mqtt.broker.keepalive：是否开启连接检测以此判断服务是否可用。
+   - mqtt.broker.keepalive：发送心跳时间。单位为秒。
    - mqtt.websocket.path：客户端使用`WebSocket`协议访问`MQTT Broker`链接。
    - mqtt.websocket.port：客户端使用`WebSocket`访问`MQTT Broker`端口。
    - mqtt.user.login：`MQTT Broker`访问用户名，为空则不校验用户名。
