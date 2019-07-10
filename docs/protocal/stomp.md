@@ -52,12 +52,12 @@ implementation("org.springframework.boot:spring-boot-starter-websocket")
 **第二步：发布事件**
 
 ```java
-StompHeaders header = new StompHeaders();
-header.setDestination("com.weevent.test");
-header.set("groupId","1");
-header.set("weevent-format","json")
-StompSession.Receiptable receiptable = stompSession.send(header, "hello world, from web socket");
-log.info("send result, receipt id: {}", receiptable.getReceiptId());
+    StompHeaders header = new StompHeaders();
+    header.setDestination("com.weevent.test");
+    header.set("groupId","1");
+    header.set("weevent-format","json")
+    StompSession.Receiptable receiptable = stompSession.send(header, "hello world, from web socket");
+    log.info("send result, receipt id: {}", receiptable.getReceiptId());
 ```
 
 说明：
@@ -71,7 +71,7 @@ log.info("send result, receipt id: {}", receiptable.getReceiptId());
     StompHeaders header = new StompHeaders();
     header.setDestination(topic);
     header.set("eventId","2cf24dba-59-1124");
-	header.set("groupId","1");
+    header.set("groupId","1");
 
     StompSession.Subscription subscription = stompSession.subscribe(header, new StompFrameHandler() {
         @Override
@@ -100,8 +100,8 @@ log.info("send result, receipt id: {}", receiptable.getReceiptId());
 - 依赖说明
 
 ```
-compile group: 'org.springframework', name: 'spring-messaging', version: '5.1.2.RELEASE'
-compile group: 'org.springframework', name: 'spring-websocket', version: '5.1.2.RELEASE'
+implementation("org.springframework:spring-messaging:5.1.2.RELEASE")
+implementation("org.springframework:spring-websocket:5.1.2.RELEASE")
 ```
 - 代码实现和上面`spring boot`一样
 
