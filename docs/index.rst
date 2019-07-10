@@ -24,15 +24,8 @@ WeEvent由微众银行自主研发并完全开源，秉承分布式商业模式�
 
 WeEvent提供事件发布订阅功能，同时包含一个事件治理Web管理端。支持RESTful、JsonRPC、STOMP、MQTT等多种协议访问。
 
-1. `快速安装 <./install/quickinstall.html>`_
 
-2.  `应用接入 <https://github.com/WeBankFinTech/WeEvent/blob/master/src/test/java/com/webank/weevent/sample>`_
-
-3.  `github地址 <https://github.com/WeBankFinTech/WeEvent>`_
-
-4. 👏 欢迎大家贡献和分享  `如何贡献 <https://github.com/WeBankFinTech/WeEvent/blob/master/CONTRIBUTING.md>`_ 
-
-5.   联系我们：weevent@webank.com
+ 👏 欢迎大家贡献和分享  `github地址 <https://github.com/WeBankFinTech/WeEvent/blob/master/CONTRIBUTING.md>`_ 
 
 
 .. toctree::
@@ -45,5 +38,3 @@ WeEvent提供事件发布订阅功能，同时包含一个事件治理Web管理�
    /advanced/index
    /history/changelog.md
    /faq/index
-
-
