@@ -252,16 +252,17 @@ public interface IWeEventClient {
 public static void main(String[] args) {
     try {
         String url = "http://localhost:8080/weevent";
-         IWeEventClient client =  IWeEventClient.build(url);
+        IWeEventClient client =  IWeEventClient.build(url);
         String groupId = "1";
         String topicName = "com.weevent.test";
-        //用户自定义拓展必须以weevent-开头，可选参数。
+        // open 一个"com.weevent.test"的主题
+        client.open(topicName,groupId);
+        // 用户自定义拓展必须以weevent-开头，可选参数。
         Map<String, String> extensions = mew HashMap<>();
         extensions.put("weevent-format","json");
-        client.open(topicName);
         
-        //publish接口的参数分别是主题Topic、群组Id、事件内容Content、扩展字段
-        SendResult sendResult = client.publish(topicName, groupId, "hello wolrd".getBytes(), extensions);
+        // publish接口的参数分别是主题Topic、群组Id、事件内容Content、扩展字段
+        client.publish(topicName, groupId,  "{\"hello\":\" wolrd\"}".getBytes(), extensions);
         System.out.println(sendResult);
     } catch (BrokerException e) {
         e.printStackTrace();
