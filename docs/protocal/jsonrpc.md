@@ -82,7 +82,7 @@ $ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":
 
 - 说明
 
-  - topic：主题，`ascii`值在`[32,128]`之间。支持通配符按层次订阅，参见[MQTT通配符](http://public.dhe.ibm.com/software/dw/webservices/ws-mqtt/mqtt-v3r1.html) 。
+  - topic：主题。`ascii`值在`[32,128]`之间。支持通配符按层次订阅，因'+'、'#'为通配符的关键字故不能为topic的一部分，详情参见[MQTT通配符](http://public.dhe.ibm.com/software/dw/webservices/ws-mqtt/mqtt-v3r1.html) 。
   
   - groupId：群组`Id`，`fisco-bcos 2.0+`版本支持多群组功能，2.0以下版本不支持该功能可以不传。
   
@@ -162,7 +162,7 @@ $ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":
 ```
 
 - 说明
-  - topic：事件主题。支持通配符按层次订阅，参见[MQTT通配符](http://public.dhe.ibm.com/software/dw/webservices/ws-mqtt/mqtt-v3r1.html) 。
+  - topic：主题。`ascii`值在`[32,128]`之间。支持通配符按层次订阅，因'+'、'#'为通配符的关键字故不能为topic的一部分，详情参见[MQTT通配符](http://public.dhe.ibm.com/software/dw/webservices/ws-mqtt/mqtt-v3r1.html) 。
   - url：事件通知回调`CGI `，当有生产者发布事件时，所有的事件都会通知到这个`URL`。 
   - subscriptionId：第一次订阅可以不填。继续上一次订阅`subscriptionId`为上次订阅ID。
   - result：订阅ID。

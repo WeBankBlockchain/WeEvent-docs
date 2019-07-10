@@ -22,7 +22,7 @@
 
 - Zookeeper服务
 
-  可选配置。`Broker`多节点安装时`jsonrpc`，`restful`协议`subscribe`接口使用Zookeeper同步监听数据。
+  可选配置。当用户使用了`JsonRPC`或者`RESTful`的订阅功能时，才需要配置`Zookeeper`服务。
 
   推荐安装`Zookeeper`3.4+版本。具体安装步骤，请参见[Zookeeper安装](http://zookeeper.apache.org/doc/r3.4.13/zookeeperStarted.html)。
 
@@ -129,10 +129,10 @@ $ tree  -L 2
   # zookeeper服务访问链接 示例：127.0.0.1:8080
   broker.zookeeper.ip=${ip}:${port}
   
-  #zookeeper上数据存储路径
+  # zookeeper上数据存储路径
   broker.zookeeper.path=/event_broker
   
-  #连接zookeeper超时时间 单位：毫秒
+  # 连接zookeeper超时时间 单位：毫秒
   broker.zookeeper.timeout=3000
   ```
 
@@ -141,7 +141,7 @@ $ tree  -L 2
   可选配置，为了安全起见，建议修改配置文件`./conf/weevent.properties`中`ip.check.white-table`配置项。
 
   ```ini
-  #配置ip白名单,多个ip使用分号分割 示例:127.0.0.1;127.0.0.2
+  # 配置ip白名单,多个ip使用分号分割 示例:127.0.0.1;127.0.0.2
   ip.check.white-table=${ip}
   ```
 
@@ -152,13 +152,13 @@ $ tree  -L 2
   可选配置，为了安全起见，建议修改配置文件`./conf/weevent.properties`中`stomp.*`配置项。
 
   ```ini
-  #stomp协议访问用户名
+  # stomp协议访问用户名
   stomp.user.login=${username}
   
-  #stomp协议访问密码
+  # stomp协议访问密码
   stomp.user.passcode=${password}
   
-  #发送心跳时间间隔 单位:秒
+  # 发送心跳时间间隔 单位:秒
   stomp.heartbeats=30
   ```
   注意：`login/passcode` 默认为空，表示不校验`Stomp`请求不进行账号和密码校验。`heartbeats为30`表示配置心跳时间间隔。默认时间间隔30秒，一般不用修改。
@@ -171,19 +171,19 @@ $ tree  -L 2
   # 客户端使用MQTT协议访问MQTT Broker端口
   mqtt.broker.port=8083
   
-  #心跳时间 单位:秒
+  # 心跳时间 单位:秒
   mqtt.broker.keepalive=60
   
-  #客户端使用WebSocket协议访问MQTT Broker链接
+  # 客户端使用WebSocket协议访问MQTT Broker链接
   mqtt.websocket.path=/weevent/mqtt
   
-  #客户端使用WebSocket协议访问MQTT Broker端口
+  # 客户端使用WebSocket协议访问MQTT Broker端口
   mqtt.websocket.port=8084
   
-  #MQTT Broker访问用户名
+  # MQTT Broker访问用户名
   mqtt.user.login=
   
-  #MQTT Broker访问密码
+  # MQTT Broker访问密码
   mqtt.user.passcode=
   ```
 

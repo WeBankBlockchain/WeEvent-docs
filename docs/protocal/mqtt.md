@@ -58,11 +58,11 @@ mqtt.user.passcode=
 - IoT设备发布事件
 
   ```shell
-  $ mosquitto_pub -h localhost -p 8091 -u ${user} -P ${password} -t "com.weevent.test" -m "{\"timestamp\":133345566,\"key\":\"temperature\",\"value\":10.0}"
+  $ mosquitto_pub -h localhost -p 8081 -u ${user} -P ${password} -t "com.weevent.test" -m "{\"timestamp\":133345566,\"key\":\"temperature\",\"value\":10.0}"
   ```
 
 - IoT设备订阅事件
 
   ```shell
-  $ mosquitto_sub -h localhost -p 8091 -u ${user} -P ${password} -t "com.weevent.test"
+  $ mosquitto_sub -h localhost -p 8081 -u ${user} -P ${password} -t "com.weevent.test"
   ```
