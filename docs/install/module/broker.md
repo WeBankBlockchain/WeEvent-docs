@@ -36,8 +36,6 @@ $ cd /usr/local/weevent/
 $ wget https://github.com/WeBankFinTech/WeEvent/releases/download/v1.0.0/weevent-broker-1.0.0.tar.gz
 $ tar -zxf weevent-broker-1.0.0.tar.gz
 ```
-如果机器无法访问外网`wget`执行失败，可以通过别的方式下载再`rz`上传。
-
 解压后的目录如下：
 
 ```
@@ -113,13 +111,13 @@ $ tree  -L 2
   可选配置，为了提高`WeEvent`的通知性能。建议修改配置文件`./conf/weevent.properties`中`redis.*`配置项 。
 
   ```ini
-  #redis服务访问链接
+  # redis服务访问链接
   redis.server.ip=${ip}
-  #redis服务访问端口
+  # redis服务访问端口
   redis.server.port=${port}
-  #redis服务访问密码 为了安全，必须使用密码访问
+  # redis服务访问密码 为了安全，必须使用密码访问
   redis.server.password=${password}
-  #基于redis的broker进程缓存容量，当缓存数据大于这个值时，使用LRU淘汰策略
+  # 基于redis的broker进程缓存容量，当缓存数据大于这个值时，使用LRU淘汰策略
   lru.cache.capacity=65536
   ```
 
@@ -128,7 +126,7 @@ $ tree  -L 2
   配置文件`./conf/weevent.properties`中`broker.zookeeper.*`配置项。
 
   ```ini
-  #zookeeper服务访问链接 示例：127.0.0.1:8080
+  # zookeeper服务访问链接 示例：127.0.0.1:8080
   broker.zookeeper.ip=${ip}:${port}
   
   #zookeeper上数据存储路径
@@ -170,7 +168,7 @@ $ tree  -L 2
   配置文件`./conf/weevent.properties`中`mqtt.*`配置项。
 
   ```ini
-  #客户端使用MQTT协议访问MQTT Broker端口
+  # 客户端使用MQTT协议访问MQTT Broker端口
   mqtt.broker.port=8083
   
   #心跳时间 单位:秒
@@ -223,7 +221,7 @@ $ tree  -L 2
 
 如果需要部署多个进程实例，将上述步骤安装好的`Broker`目录打包拷贝到其他机器上，解压启动即可。
 
-`Nginx`配置文件`./conf/conf.d/rs.conf`中， 下面为两个`Broker`进程的样例，然后通过`Nginx`重新加载配置生效。
+`Nginx`配置文件`./conf/conf.d/http_rs.conf`中， 下面为两个`Broker`进程的样例，然后通过`Nginx`重新加载配置生效。
 
 ```nginx
 upstream broker_backend{

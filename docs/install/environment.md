@@ -5,9 +5,9 @@
 | 配置     | 最低配置               | 推荐配置     |
 | -------- | ---------------------- | ------------ |
 | CPU      | 2核 1.5GHz             | 4核 2.4GHz   |
-| 内存     | 2GB                    | 4GB          |
+| 内存     | 2G                     | 4GB          |
 | 带宽     | 1M                     | 5M           |
-| 操作系统 | CentOS、Ubuntu、RedHat | CentOS7.2+   |
+| 操作系统 | CentOS、Ubuntu、RedHat | CentOS 7.2   |
 | Java     | Java(TM) 1.8           | Java(TM) 1.8 |
 
 ### 第三方软件
@@ -20,4 +20,3 @@
 | Redis      | 5.x.x    | 可选     |
 | Zookeeper  | 3.5.x    | 可选     |
 | WeBase     | 1.0.x    | 可选     |
-
