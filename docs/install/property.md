@@ -11,12 +11,6 @@
 #web container
 server.port=8081
 server.servlet.context-path=/weevent
-#https
-server.ssl.enabled=true
-server.ssl.key-store=classpath:server.p12
-server.ssl.key-store-password=123456
-server.ssl.keyStoreType=PKCS12
-server.ssl.keyAlias=weevent
 #force to utf8
 server.tomcat.uri-encoding=UTF-8
 spring.http.encoding.charset=UTF-8
@@ -80,11 +74,6 @@ web3sdk.keep-alive-seconds=60
 
   `Web3SDK`连接池选项，一般不需要修改。
 
-- 证书文件
-
-  1.3版本的证书文件`ca.crt`和`client.keystore`放在`./conf`目录下。
-
-  2.0版本的证书文件`ca.crt`和`node.crt`、`node.key`放在`./conf/v2`目录下。
 
 区块链节点详细配置，参见[Web3SDK配置文件](https://fisco-bcos-documentation.readthedocs.io/zh_CN/release-2.0/docs/sdk/sdk.html) 。
 
@@ -117,12 +106,10 @@ stomp.user.passcode=
 stomp.heartbeats=30
 
 #mqtt brokerserver
-mqtt.brokerserver.port=8083
-mqtt.brokerserver.sobacklog=511
-mqtt.brokerserver.sokeepalive=true
-mqtt.brokerserver.keepalive=60
-mqtt.websocketserver.path=/weevent/mqtt
-mqtt.websocketserver.port=8084
+mqtt.broker.port=8091
+mqtt.broker.keepalive=60
+mqtt.websocket.path=/weevent/mqtt
+mqtt.websocket.port=8092
 mqtt.user.login=
 mqtt.user.passcode=
 ```
@@ -151,16 +138,6 @@ mqtt.user.passcode=
 
    - restful.subscribe.callback.timeout：事件通知回调的超时时间，默认为5000毫秒。一般不用修改。
 
-- MQTT Broker配置mqtt.*
-
-   - mqtt.brokerserver.port：客户端使用`MQTT`协议访问`MQTT Broker`端口。
-   - mqtt.brokerserver.sobacklog：服务器请求处理线程全满时，用于临时存放已完成tcp三次握手请求的队列的最大长度。
-   - mqtt.brokerserver.sokeepalive：是否开启连接检测以此判断服务是否可用。
-   - mqtt.brokerserver.keepalive：是否开启连接检测以此判断服务是否可用。
-   - mqtt.websocketserver.path：客户端使用`WebSocket`协议访问`MQTT Broker`链接。
-   - mqtt.websocketserver.port：客户端使用`WebSocket`访问`MQTT Broker`端口。
-   - mqtt.user.login：`MQTT Broker`访问用户名。
-   - mqtt.user.passcode：`MQTT Broker`访问密码。
 - Zookeeper配置broker.zookeeper.*
 
    - broker.zookeeper.ip：`Zookeeper`的服务IP列表。
@@ -174,12 +151,10 @@ mqtt.user.passcode=
 
 - MQTT Broker配置mqtt.*
 
-   - mqtt.brokerserver.port：客户端使用`MQTT`协议访问`MQTT Broker`端口。
-   - mqtt.brokerserver.sobacklog：服务器请求处理线程全满时，用于临时存放已完成tcp三次握手请求的队列的最大长度。
-   - mqtt.brokerserver.sokeepalive：是否开启连接检测以此判断服务是否可用。
-   - mqtt.brokerserver.keepalive：是否开启连接检测以此判断服务是否可用。
-   - mqtt.websocketserver.path：客户端使用`WebSocket`协议访问`MQTT Broker`链接。
-   - mqtt.websocketserver.port：客户端使用`WebSocket`访问`MQTT Broker`端口。
+   - mqtt.broker.port：客户端使用`MQTT`协议访问`MQTT Broker`端口。
+   - mqtt.broker.keepalive：发送心跳时间。单位为秒。
+   - mqtt.websocket.path：客户端使用`WebSocket`协议访问`MQTT Broker`链接。
+   - mqtt.websocket.port：客户端使用`WebSocket`访问`MQTT Broker`端口。
    - mqtt.user.login：`MQTT Broker`访问用户名，为空则不校验用户名。
    - mqtt.user.passcode：`MQTT Broker`访问密码，为空则不校验用户密码。
 
