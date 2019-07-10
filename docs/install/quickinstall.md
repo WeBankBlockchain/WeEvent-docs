@@ -47,12 +47,11 @@
   |-- start-all.sh
   |-- stop-all.sh
   |-- third-packages
-  |   |-- crudini-0.9.tar.gz
   |   |-- nginx-1.14.2.tar.gz
   |   `-- pcre-8.20.tar.gz
   `-- uninstall-all.sh
   ```
-
+  
 - 修改配置
 
   默认配置文件`./config.properties`如下：
@@ -64,7 +63,7 @@
   # FISCO-BCOS node channel, eg: 127.0.0.1:8821;127.0.0.2:8821
   cfisco-bcos.hannel=127.0.0.1:8821
   # FISCO-BCOS's node path
-  fisco-bcos.node_path=/data/FISCO-BCOS/119.29.246.185/node0
+  fisco-bcos.node_path=/data/FISCO-BCOS/127.0.0.1/node0
   
   # Required module
   nginx.port=8080
@@ -75,17 +74,17 @@
   # Optional module
   governance.enable=false
   governance.governance.port=8082
-  governance.mysql_ip=127.0.0.1
-  governance.mysql_port=3306
-  governance.mysql_user=xxx
-  governance.mysql_password=yyy
+  governance.mysql.ip=127.0.0.1
+  governance.mysql.port=3306
+  governance.mysql.user=xxx
+  governance.mysql.password=yyy
   ```
 
   配置说明：  
 
   - fisco-bcos.version
 
-    `FISCO-BCOS`1.3和2.0版本都支持，推荐使用`2.0`及以上版本。
+    `FISCO-BCOS`2.0和1.3版本都支持，推荐使用`2.0`及以上版本。
 
     - fisco-bcos.channel
 
@@ -103,7 +102,7 @@
 
     - `governance.enable`是否安装Governance模块，默认false不安装
     - 监听端口`governance.port`
-    - Mysql配置`mysql_*`
+    - Mysql配置`governance.mysql.*`
 
 
 - 自动安装
@@ -137,7 +136,6 @@
     |   |-- check-service.sh
     |   |-- conf
     |   |-- deploy-topic-control.sh
-    |   |-- gen-cert-key.sh
     |   |-- lib  
     |   `-- logs
     |-- check-service.sh				
@@ -152,7 +150,7 @@
     |-- stop-all.sh				    
     `-- uninstall-all.sh
   ```
-
+  
 - 启停服务
   - 启动服务
 
@@ -193,3 +191,4 @@
 
 - 注意事项
   一键安装脚本作为一种简易安装方式，所有子模块都是单实例的。生产环境中建议对`Broker`和`Governance`进行多实例部署。各子模块的部署细节参见[Broker模块部署](./module/broker.html)和[Governance模块部署](./module/governance.html)。
+  
