@@ -6,4 +6,3 @@
 例如，A公司的`IoT`设备可以直接在终端通过接入`WeEvent`发布事件，任何其他感兴趣公司的`IoT`设备直接在终端上通过接入`WeEvent`订阅该事件。通过`WeEvent`的`Event Processor`加入业务的权限控制或者自定义事件流。
 
 ![IoTScarino.png](../image/IoTScarino.png)
-
