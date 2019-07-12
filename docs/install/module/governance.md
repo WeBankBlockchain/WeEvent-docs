@@ -20,8 +20,9 @@
 
   **注意**：
 
-  - 修改`webase-node-mgr`服务中的[`conf/application.yml`](https://github.com/WeBankFinTech/WeBASE-Node-Manager/blob/master/src/main/resources/application.yml)文件。
-- 将`isUseSecurity`配置成`false`，`isDeleteInfo`配置成`false`
+  - 修改`webase-node-mgr`服务中的`conf/application.yml`文件。
+
+    将`isUseSecurity`配置成`false`，`isDeleteInfo`配置成`false`
 
 
 - Mysql数据库
