@@ -69,10 +69,11 @@ public class Rest {
 
 
 - 说明
-  topic：主题。`ascii`值在`[32,128]`之间。支持通配符按层次订阅，因'+'、'#'为通配符的关键字故不能为topic的一部分，详情参见[MQTT通配符](http://public.dhe.ibm.com/software/dw/webservices/ws-mqtt/mqtt-v3r1.html) 。
-
-  groupId： 群组`Id`，`fisco-bcos 2.0+`版本支持多群组功能。2.0以下版本不支持该功能，可以不传，其他接口类似。
-
+  
+- topic：主题。`ascii`值在`[32,128]`之间。支持通配符按层次订阅，因'+'、'#'为通配符的关键字故不能为topic的一部分，详情参见[MQTT通配符](http://public.dhe.ibm.com/software/dw/webservices/ws-mqtt/mqtt-v3r1.html) 。
+  
+- groupId： 群组`Id`，`fisco-bcos 2.0+`版本支持多群组功能。2.0以下版本不支持该功能，可以不传，其他接口类似。
+  
   重复`open`返回`true` 。
 
 #### 关闭Topic
@@ -124,11 +125,11 @@ public class Rest {
 
 - 说明 
 
-  content ：用户自定义数据。需要特别注意`content`需进行`UrlEncode`编码，`GET`方法支持的`QueryString`最大长度为1024字节。
+  - content ：用户自定义数据。需要特别注意`content`需进行`UrlEncode`编码，`GET`方法支持的`QueryString`最大长度为1024字节。
 
-  weevent-json:可选参数。用户自定义拓展，以`weevent-`开头。
+  - weevent-json:可选参数。用户自定义拓展，以`weevent-`开头。
 
-  status：`SUCCESS`，说明是发布成功，`eventId`是对应的事件ID。
+  - status：`SUCCESS`，说明是发布成功，`eventId`是对应的事件ID。
 
 #### 订阅事件
 - 请求
