@@ -16,20 +16,20 @@
 
 - Redis缓存
 
-  可选配置。当多个消费者订阅同一个`Topic`时，`Redis`缓存能及时事件通知。
+  可选配置。
 
   推荐安装`Redis`5.0+版本。具体安装步骤，请参见[Redis安装](https://redis.io/download)。
 
 - Zookeeper服务
 
-  可选配置。当用户使用了`JsonRPC`或者`RESTful`的订阅功能时，才需要配置`Zookeeper`服务。
+  可选配置。当用户使用了`JsonRPC`或者`RESTful`的订阅功能时必选配置。
 
   推荐安装`Zookeeper`3.4+版本。具体安装步骤，请参见[Zookeeper安装](http://zookeeper.apache.org/doc/r3.4.13/zookeeperStarted.html)。
 
 
 ### 获取安装包
 
-下载安装包[weevent-broker安装包](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.0.0/weevent-broker-1.0.0.tar.gz)，并且解压到`/usr/local/weevent/`下。
+下载安装包[weevent-broker-1.0.0.tar.gz](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.0.0/weevent-broker-1.0.0.tar.gz)，并且解压到`/usr/local/weevent/`下。
 
 ``` shell
 $ cd /usr/local/weevent/
@@ -63,6 +63,8 @@ $ tree  -L 2
 - 区块链FISCO-BCOS节点
 
   - 区块链节点配置文件fisco.properties
+
+    修改nodes=127.0.0.1:8501配置项，nodes为区块链节点访问IP及channelport访问端口。
 
   - 访问节点的证书文件
 
@@ -169,7 +171,7 @@ $ tree  -L 2
 
   ```ini
   # 客户端使用MQTT协议访问MQTT Broker端口
-  mqtt.broker.port=8083
+  mqtt.broker.port=8091
   
   # 心跳时间 单位:秒
   mqtt.broker.keepalive=60
@@ -178,7 +180,7 @@ $ tree  -L 2
   mqtt.websocket.path=/weevent/mqtt
   
   # 客户端使用WebSocket协议访问MQTT Broker端口
-  mqtt.websocket.port=8084
+  mqtt.websocket.port=8092
   
   # MQTT Broker访问用户名
   mqtt.user.login=
@@ -186,6 +188,7 @@ $ tree  -L 2
   # MQTT Broker访问密码
   mqtt.user.passcode=
   ```
+  
 
 ### 服务启停
 
@@ -225,8 +228,15 @@ $ tree  -L 2
 
 ```nginx
 upstream broker_backend{
-    server 127.0.0.1:8081 weight=100 max_fails=3;
-    server 127.0.0.2:8081 weight=100 max_fails=3;
+    server 127.0.0.1:8090 weight=100 max_fails=3;
+    server 127.0.0.2:8090 weight=100 max_fails=3;
+
+    ip_hash;
+    keepalive 1024;
+}
+
+upstream broker_mqtt_websocket_backend {
+    server localhost:8092 weight=100 max_fails=3;
 
     ip_hash;
     keepalive 1024;
