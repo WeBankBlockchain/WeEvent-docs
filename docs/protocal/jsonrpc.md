@@ -236,12 +236,15 @@ $ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":
 }
 ```
 
-说明
+- 说明
 
-- total：`Topic`的总数量
-- pageIndex:：查询第几页，从0开始  
-- pageSize： 分页大小（0,100），默认每页10条数据。
-- topicInfoList：`Topic` 详细信息列表
+  - total：`Topic`的总数量
+
+  - pageIndex:：查询第几页，从0开始  
+
+  - pageSize： 分页大小（0,100），默认每页10条数据。
+
+  - topicInfoList：`Topic` 详细信息列表
 
 #### 查询某个Topic详情
 - 请求
@@ -264,10 +267,13 @@ $ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":
 }
 ```
 
-返回值说明
+- 说明
 
-- topicAddress： `Topic`区块链上的合约地址。
-- createdTimestamp：`Topic`创建的时间。
-- sequenceNumber：已发布事件数。
-- blockNumber：最新已发布事件的区块高度。
+  - topicAddress： `Topic`区块链上的合约地址。
+
+  - createdTimestamp：`Topic`创建的时间。
+
+  - sequenceNumber：已发布事件数。
+
+  - blockNumber：最新已发布事件的区块高度。
 
