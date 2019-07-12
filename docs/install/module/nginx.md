@@ -138,7 +138,5 @@ add the crontab job success
 
 通过`./nginx.sh stop`停止`Nginx`。
 
-`./nginx.sh start`命令会启动进程，并且将进程监控命令`./broker.sh monitor`添加到`crontab`里。
-
-`./broker.sh stop`命令在进程成功停止后会移除`crontab`监控任务。
+进程启动后，会自动添加`crontab`监控任务`./broker.sh monitor`。
 

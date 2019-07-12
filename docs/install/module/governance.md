@@ -21,7 +21,8 @@
   **注意**：
 
   - 修改`webase-node-mgr`服务中的`conf/application.yml`文件。
-- 将`isUseSecurity`配置成`false`，`isDeleteInfo`配置成`false`
+
+    将`isUseSecurity`配置成`false`，`isDeleteInfo`配置成`false`
 
 
 - Mysql数据库
@@ -33,8 +34,7 @@
 
 ### 获取安装包
 
-下载安装包[weevent-governance安装包](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.0.0/weevent-governance-1.0.0.tar.gz
-)，并且解压到`/usr/local/weevent/`下。
+下载安装包[weevent-governance安装包](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.0.0/weevent-governance-1.0.0.tar.gz)，并且解压到`/usr/local/weevent/`下。
 
 ```shell
 $ cd /usr/local/weevent/
@@ -59,7 +59,6 @@ $ tree -L 2
 |   |-- log4j2.xml
 |   |-- mappers
 |   `-- server.p12
-|-- gen-cert-key.sh
 |-- governance.sh
 |-- html
 |   |-- index.html
@@ -72,7 +71,7 @@ $ tree -L 2
 
 - 配置端口
 
-  在配置文件`./conf/application-prod.yml`中，`Governance` 的服务端口`server:port` ,默认`8082`。
+  在配置文件`./conf/application-prod.yml`中，`Governance` 的服务端口`server:port` ，默认`8099`。
 
   ```
   server:
@@ -95,20 +94,21 @@ $ tree -L 2
     ```
     初始化系统，执行脚本`init-governance.sh` ，成功输出如下。否则，用户需要检查配置项是否正常。
 
-    **注意**：数据库要赋予`username`通过其它机器进行数据库增删操作的权限
-
     ```
     $ ./init-governance.sh
     init governance db success
     ```
 
+    **注意**：数据库要赋予该角色通过其他机器进行数据库表增删操作的权限。
+
 - 配置发送邮箱的地址
 
-    在配置文件`./conf/application-prod.yml`中，修改`mail`中的`host配置、`username`、`password` 。
+    在配置文件`./conf/application-prod.yml`中，修改`mail`中的`host`、`username`、`password` 配置。
 
     ```ini
     mail:
         default-encoding: UTF-8
+        # smtp服务器地址 ex: smtp.163.com,smtp.qq.com,smtp.sohu.com
         host: smtp.163.com
         username: mailusername@163.com
         password: mailpwd
@@ -147,7 +147,7 @@ $ tree -L 2
 
 如果需要部署多个进程实例，将上述步骤安装好的`Governance `目录打包拷贝到其他机器上，解压启动即可。
 
-`Nginx`配置文件`./conf/conf.d/rs.conf`中，以下为配置2个`Governance`进程的样例。
+`Nginx`配置文件`./conf/conf.d/http_rs.conf`中，以下为配置2个`Governance`进程的样例。
 
 ```nginx
 upstream governance_backend{
@@ -159,13 +159,11 @@ upstream governance_backend{
 }
 ```
 
-通过`Nginx`重新加载配置后生效，进入`Nginx`安装路径，执行以下命令。
+`Nginx`重启命令说明。
 
 ```
-$ ./sbin/nginx -t
-.../nginx/conf/nginx.conf syntax is ok
-.../nginx/conf/nginx.conf test is successful
-$ ./sbin/nginx -s reload
+$ ./nginx -t
+$ ./nginx -s reload
 ```
 
 用户可以通过浏览器访问http://localhost:8080/weevent-governance/。`Governance`页面如下：
