@@ -2,14 +2,16 @@
 
 ### FISCO-BCOS
 
-`FISCO-BCOS`从2.0版本开始支持群组特性，解决用户隐私问题。之前的1.3等版本不支持群组功能。
+`FISCO-BCOS`从2.0版本开始支持群组特性，解决用户隐私问题。1.3版本不支持群组功能。
+
+系统合约[TopicController.sol]([TopicController.sol](https://github.com/WeBankFinTech/WeEvent/blob/master/weevent-broker/contract/TopicController.sol))是`WeEvent`访问区块链数据的入口合约。每个群组有各自独立的系统合约。
 
 - 1.3版本部署合约
 
-  - 部署`Topic Control`合约
+  - 部署系统合约
 
-    ```
-    $deploy-topic-control.sh
+    ```bash
+    $ deploy-topic-control.sh
     deploy contract[TopicController] success, address: 0x23df89a2893120f686a4aa03b41acf6836d11e5d
     ```
 
@@ -29,7 +31,7 @@
 
     部署`FISCO-BCOS`区块链网络的时候，默认第一个群组的`groupId`为1。
 
-    `WeEvent`快速安装时，一键安装脚本会自动调用脚本`deploy-topic-control.sh`在群组1上创建`Topic Control`合约。然后自动修改配置文件`broker/conf/fisco.properties`中的配置项如：
+    `WeEvent`快速安装时，一键安装脚本会自动调用脚本`deploy-topic-control.sh`在群组1上部署系统合约。然后自动修改配置文件`broker/conf/fisco.properties`中的配置项如：
 
     ```ini
     topic-controller.address=1:0x2811b5572d9160281787730ab1298f00a06f33b7
@@ -41,10 +43,10 @@
 
     - 部署合约
 
-      假设用户新建的群组`groupId`为2，在新群组上创建创建`Topic Control`合约。
+      假设用户新建的群组`groupId`为2，在新群组上部署系统合约。
 
-      ```
-      $deploy-topic-control.sh 2
+      ```bash
+      $ deploy-topic-control.sh 2
       deploy contract[TopicController] success, address: 0x23df89a2893120f686a4aa03b41acf6836d11e5d
       ```
 

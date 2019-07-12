@@ -1,327 +1,194 @@
 ## 配置说明
 ### Broker 配置
 
-主要有三类配置，`Spring Boot `进程配置、区块链`FISCO-BCOS`节点配置、`WeEvent`服务配置。
+`Broker`服务主要有三类配置，`Spring Boot `进程配置、区块链`FISCO-BCOS`节点配置、`WeEvent`服务配置。
 
-#### Spring Boot进程配置
+- Spring Boot进程配置
 
-配置文件链接[application-prod.properties](https://github.com/WeBankFinTech/WeEvent/blob/master/weevent-broker/src/main/resources/application-prod.properties) 。
+  配置文件`./broker/conf/application-prod.properties`，这个是`Spring Boot`标准配置文件，一般不需要修改。细节请参见[Spring Boot文档](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#appendix) 。
 
-```ini
-#web container
-server.port=8081
-server.servlet.context-path=/weevent
-#https
-server.ssl.enabled=true
-server.ssl.key-store=classpath:server.p12
-server.ssl.key-store-password=123456
-server.ssl.keyStoreType=PKCS12
-server.ssl.keyAlias=weevent
-#force to utf8
-server.tomcat.uri-encoding=UTF-8
-spring.http.encoding.charset=UTF-8
-spring.http.encoding.enabled=true
-spring.http.encoding.force=true
-spring.messages.encoding=UTF-8
-#change not found uri status from 404 to exception
-spring.mvc.throw-exception-if-no-handler-found=true
-spring.resources.add-mappings=false
-#actuator
-management.endpoints.web.exposure.include=info
-management.endpoint.shutdown.enabled=false
-#performance
-spring.application.admin.enabled=false
-```
-以上是`Spring Boot`标准配置文件，一般不需要修改。细节请参见[Spring Boot文档](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#appendix) 。
+  | 配置项                      | 默认值   | 配置说明         |
+  | --------------------------- | -------- | ---------------- |
+  | server.port                 | 8081     | spring监听端口   |
+  | server.servlet.context-path | /weevent | spring上下文路径 |
 
-#### 区块链`FISCO-BCOS`节点配置
-配置文件链接[fisco.properties](https://github.com/WeBankFinTech/WeEvent/blob/master/weevent-broker/src/main/resources/fisco.properties) 。
-```ini
-#fisco
-version=2.0
-topic-controller.address=1:0x23df89a2893120f686a4aa03b41acf6836d11e5d;
-#version=1.3
-#topic-controller.address=0xddddd42da68a40784f5f63ada7ead9b36a38d2e3
-orgid=fisco
-nodes=127.0.0.1:30701
-#account
-account=bcec428d5205abe0f0cc8a734083908d9eb8563e31f943d760786edf42ad67dd
-#web3sdk
-web3sdk.timeout=10000
-web3sdk.core-pool-size=100
-web3sdk.max-pool-size=200
-web3sdk.queue-capacity=1000
-web3sdk.keep-alive-seconds=60
-```
+- 区块链FISCO-BCOS节点配置
 
-参数说明：
+  配置文件`./broker/conf/fisco.properties`。
 
-- version
+  | 配置项                     | 默认值                                                       | 配置说明                                |
+  | -------------------------- | ------------------------------------------------------------ | --------------------------------------- |
+  | version                    | 2.0                                                          | FISCO-BCOS版本，支持2.0和1.3            |
+  | topic-controller.address   | 1:0x23df89a2893120f686a4aa03b41acf6836d11e5d;                | WeEvent系统合约地址。                   |
+  | orgid                      | fisco                                                        | 机构名，按机构实际名称填写即可          |
+  | nodes                      | 127.0.0.1:30701                                              | 区块链节点列表，多个地址以`;`分割       |
+  | account                    | bcec428d5205abe0f0cc8a734083908d9eb8563e31f943d760786edf42ad67dd | `WeEvent`执行交易的账号，一般不需要修改 |
+  | web3sdk.timeout            | 10000                                                        | 交易执行超时时间，单位毫秒              |
+  | web3sdk.core-pool-size     | 10                                                           | web3sdk最小线程数                       |
+  | web3sdk.max-pool-size      | 200                                                          | web3sdk最大线程数                       |
+  | web3sdk.queue-capacity     | 1000                                                         | web3sdk队列大小                         |
+  | web3sdk.keep-alive-seconds | 60                                                           | web3sdk线程空闲时间，单位秒             |
 
-  连接`FISCO-BCOS`节点的版本，支持1.3和2.0两个版本。
 
-- topic-controller.address
+  区块链节点详细配置，参见[Web3SDK配置文件](https://fisco-bcos-documentation.readthedocs.io/zh_CN/release-2.0/docs/sdk/sdk.html) 。
 
-  合约地址是`WeEvent`访问区块链访问数据的入口，需要用户在初始化`WeEvent`时部署合约并且修改。`Broker`安装包里带了部署合约的脚本`./deploy-topic-control.sh`。如果是`FISCO-BCOS`2.0，每个群组都有独立的地址，多个群组地址以`;`分割。
+- WeEvent服务配置
 
-- orgid
+  配置文件`./broker/conf/weevent.properties` 。
 
-  机构名，按机构实际名称填写即可。
+  | 配置项                             | 默认值        | 配置说明                                                     |
+  | ---------------------------------- | ------------- | ------------------------------------------------------------ |
+  | consumer.idle-time                 | 1000          | 消费者线程中检测区块链新增块事件的周期，单位毫秒             |
+  | ip.check.white-table               |               | IP白名单。默认为空时表示允许任何客户端访问。多个`IP`地址，以";"进行分割 |
+  | redis.server.ip                    |               | redis服务IP                                                  |
+  | redis.server.port                  | 6379          | redis服务端口                                                |
+  | redis.server.password              | weevent       | redis服务访问密码                                            |
+  | lru.cache.capacity                 | 65536         | 缓存大小，使用LRU策略淘汰                                    |
+  | restful.subscribe.callback.timeout | 5000          | 事件通知回调的超时时间，单位毫秒                             |
+  | broker.zookeeper.ip                |               | zookeeper服务                                                |
+  | broker.zookeeper.path              | /event_broker | zookeeper数据路径                                            |
+  | broker.zookeeper.timeout           | 3000          | zookeeper链接超时时间，单位秒                                |
+  | stomp.user.login                   |               | stomp访问账号，空为不开启校验                                |
+  | stomp.user.passcode                |               | stomp访问密码                                                |
+  | stomp.heartbeats                   | 30            | stomp心跳间隔，单位秒                                        |
+  | mqtt.broker.port                   | 8091          | mqtt协议TCP访问端口                                          |
+  | mqtt.broker.keepalive              | 60            | mqtt连接空闲时间，单位秒                                     |
+  | mqtt.websocket.path                | /weevent/mqtt | mqtt连接目录                                                 |
+  | mqtt.websocket.port                | 8092          | mqtt协议web socket访问端口                                   |
+  | mqtt.user.login                    |               | mqtt访问账号，空为不开启校验                                 |
+  | mqtt.user.passcode                 |               | mqtt访问密码                                                 |
 
-- nodes
-
-  区块链节点列表，多个地址以`;`分割。
-
-- account
-
-  `WeEvent`执行交易的账号，一般不需要修改。
-
-- web3sdk.*
-
-  `Web3SDK`连接池选项，一般不需要修改。
-
-- 证书文件
-
-  1.3版本的证书文件`ca.crt`和`client.keystore`放在`./conf`目录下。
-
-  2.0版本的证书文件`ca.crt`和`node.crt`、`node.key`放在`./conf/v2`目录下。
-
-区块链节点详细配置，参见[Web3SDK配置文件](https://fisco-bcos-documentation.readthedocs.io/zh_CN/release-2.0/docs/sdk/sdk.html) 。
-
-#### WeEvent服务配置
-
-配置文件链接[weevent.properties](https://github.com/WeBankFinTech/WeEvent/blob/master/weevent-broker/src/main/resources/weevent.properties) 。
-
-```ini
-#consumer
-consumer.idle-time=1000
-#ip white list
-ip.check.white-table=
-#redis server
-redis.server.ip=
-redis.server.port=
-redis.server.password=weevent
-lru.cache.capacity=65536
-#restful cgi timeout
-restful.subscribe.callback.timeout=5000
-
-#zookeeper
-broker.zookeeper.ip=127.0.0.1:2181
-broker.zookeeper.path=/event_broker
-broker.zookeeper.timeout=3000
-
-#user
-stomp.user.login=
-stomp.user.passcode=
-#server heartbeats
-stomp.heartbeats=30
-
-#mqtt brokerserver
-mqtt.brokerserver.port=8083
-mqtt.brokerserver.sobacklog=511
-mqtt.brokerserver.sokeepalive=true
-mqtt.brokerserver.keepalive=60
-mqtt.websocketserver.path=/weevent/mqtt
-mqtt.websocketserver.port=8084
-mqtt.user.login=
-mqtt.user.passcode=
-```
-
-参数说明：
-- consumer.idle-time
-
-    消费者线程中检测区块链新增块事件的周期，默认为1000毫秒。一般不用修改。
-
-- IP白名单ip.check.white-table
-
-   `WeEvent`授权访问的客户端`IP`列表 ，默认为空时表示允许任何客户端访问。
-
-   用户可以配置多个`IP`地址，以";"进行分割。如`ip.check.white-table=127.0.0.1;127.0.0.2`。 
-
-- Redis缓存配置redis.*
-
-   业务场景中如果有多个`Consumer`订阅同一个`Topic`的场景，建议使用`Redis`缓存来加快事件的通知。  
-
-   - redis.server.ip ： `Redis` 服务的IP地址
-   - redis.server.port ：`Redis` 服务占用的端口
-   - redis.server.password ：`Redis` 服务访问密码
-   - lru.cache.capacity：进程中缓存大小，当缓存数据大于这个值时，使用`LRU`策略淘汰。一般不用修改。
-
-- RESTful回调接口的超时时间
-
-   - restful.subscribe.callback.timeout：事件通知回调的超时时间，默认为5000毫秒。一般不用修改。
-
-- Zookeeper配置broker.zookeeper.*
-
-   - broker.zookeeper.ip：`Zookeeper`的服务IP列表。
-   - broker.zookeeper.path：`WeEvent`的数据存储路径。一般不用修改。
-   - broker.zookeeper.timeout：`Zookeeper`的`Session`超时时间。默认为3000毫秒，一般不用修改。
-
-- STOMP协议配置stomp.*
-
-   - stomp.user.login/passcode：建议用户开启`STOMP`协议的账号/密码校验，以增强安全性。默认为空，表示不校验。
-   - stomp.heartbeats：配置心跳时间间隔。默认时间间隔30秒，一般不用修改。
-
-- MQTT Broker配置mqtt.*
-
-   - mqtt.brokerserver.port：客户端使用`MQTT`协议访问`MQTT Broker`端口。
-   - mqtt.brokerserver.sobacklog：服务器请求处理线程全满时，用于临时存放已完成tcp三次握手请求的队列的最大长度。
-   - mqtt.brokerserver.sokeepalive：是否开启连接检测以此判断服务是否可用。
-   - mqtt.brokerserver.keepalive：是否开启连接检测以此判断服务是否可用。
-   - mqtt.websocketserver.path：客户端使用`WebSocket`协议访问`MQTT Broker`链接。
-   - mqtt.websocketserver.port：客户端使用`WebSocket`访问`MQTT Broker`端口。
-   - mqtt.user.login：`MQTT Broker`访问用户名。
-   - mqtt.user.passcode：`MQTT Broker`访问密码。
 ### Governance
 
-`Governance`的配置都在文件`application-prod.yml `中，配置文件链接[application-prod.yml](https://github.com/WeBankFinTech/WeEvent/blob/master/weevent-governance/src/main/resources/application-prod.yml) 。
+配置文件`./governance/conf/application-prod.yml `。
 
-```nginx
-server:
-  port: 8082
-spring:
-  # datasource
-  datasource: 
-    # mysql的jdbc访问串
-    url: jdbc:mysql://127.0.0.1:3306/demo?useUnicode=true&characterEncoding=utf-8&useSSL=false 
-    driver-class-name: org.mariadb.jdbc.Driver
-    # 数据库用户名
-    username: ${username}
-    # 数据库密码
-    password: ${password}
-    type: org.apache.commons.dbcp2.BasicDataSource
-    dbcp2:
-      max-wait-millis: 10000
-      min-idle: 5
-      initial-size: 5
-      validation-query: SELECT 'x'
-    mail:
-        default-encoding: UTF-8
-        host: smtp.163.com
-        username: mailusername@163.com
-        password: mailpwd
-  pid:
-    fail-on-write-error: true
-    file: ./logs/governance.pid
-http:
-  client:
-    max-total: 200
-    max-per-route: 500
-    connection-request-timeout: 3000
-    connection-timeout: 3000
-    socket-timeout: 5000
-https: 
-  read-timeout: 5000
-  connect-timeout: 15000     
-
-
-```
-- 配置说明:
-    - datasource：数据库的`JDBC`访问字符串。
-    - mail.username：用于发送给用户发送邮件的邮件地址。
+| 配置项                                        | 默认值                                                       | 配置说明         |
+| --------------------------------------------- | ------------------------------------------------------------ | ---------------- |
+| server.port                                   | 8082                                                         | spring监听端口   |
+| spring.datasource.url                         | jdbc:mysql://127.0.0.1:3306/demo?useUnicode=true&characterEncoding=utf-8&useSSL=false | 数据源           |
+| spring.datasource.driver-class-name           | org.mariadb.jdbc.Driver                                      | 驱动类           |
+| spring.datasource.username                    |                                                              | 数据库账号用户名 |
+| spring.datasource.password                    |                                                              | 数据库账号密码   |
+| spring.datasource.type                        |                                                              |                  |
+| spring.datasource.dbcp2.max-wait-millis       |                                                              |                  |
+| spring.datasource.dbcp2.min-idle              |                                                              |                  |
+| spring.datasource.dbcp2.initial-size          |                                                              |                  |
+| spring.datasource.dbcp2.validation-query      |                                                              |                  |
+| spring.datasource.mail.default-encoding       |                                                              |                  |
+| spring.datasource.mail.host                   |                                                              |                  |
+| spring.datasource.mail.username               |                                                              |                  |
+| spring.datasource.mail.password               |                                                              |                  |
+| spring.http.client.max-total                  | 200                                                          |                  |
+| spring.http.client.max-per-route              | 500                                                          |                  |
+| spring.http.client.connection-request-timeout | 3000                                                         |                  |
+| spring.http.client.connection-timeout         | 3000                                                         |                  |
+| spring.http.client.socket-timeout             | 5000                                                         |                  |
+| spring.https.client.read-timeout              | 5000                                                         |                  |
+| spring.https.client.connect-timeout           | 15000                                                        |                  |
 
 ### Nginx 配置说明
-#### 修改后端子模块路由
+- 修改后端子模块路由
 
-通过配置文件`nginx/conf/conf.d/http_rs.conf`里的`upstream`来增加和移除后端的业务机器。
+  通过配置文件`nginx/conf/conf.d/http_rs.conf`里的`upstream`来增加和移除后端的业务机器。
 
-```nginx
-upstream broker_backend{
-    server localhost:8090 weight=100 max_fails=3;
-    
-    ip_hash;
-    keepalive 1024;
-}
+  ```nginx
+  upstream broker_backend{
+      server localhost:8090 weight=100 max_fails=3;
+      
+      ip_hash;
+      keepalive 1024;
+  }
+  
+  upstream broker_mqtt_websocket_backend {
+      server localhost:8092 weight=100 max_fails=3;
+  
+      ip_hash;
+      keepalive 1024;
+  }
+  
+  upstream governance_backend{
+      server localhost:8099 weight=100 max_fails=3;
+      
+      ip_hash;
+      keepalive 1024;
+  }
+  ```
 
-upstream broker_mqtt_websocket_backend {
-    server localhost:8092 weight=100 max_fails=3;
+  特别的，如果使用了基于`TCP`的`MQTT`协议。配置文件为`nginx/conf/conf.d/tcp_rs.conf`。
 
-    ip_hash;
-    keepalive 1024;
-}
+- 使用TLS加密传输
 
-upstream governance_backend{
-    server localhost:8099 weight=100 max_fails=3;
-    
-    ip_hash;
-    keepalive 1024;
-}
-```
+  `WeEvent`通过`Nginx`实现`TLS`加密传输。在`nginx/conf/nginx.conf `文件里，通过`include`不同的文件来选择是否支持`TSL`。
 
-特别的，如果使用了基于`TCP`的`MQTT`协议。配置文件为`nginx/conf/conf.d/tcp_rs.conf`。
+  如下面默认配置，不支持TLS。开启方式为对应行改为`include ./conf.d/https.conf`和`include ./conf.d/tcp_tls.conf`
 
-#### 使用TLS加密传输
+  ```nginx
+  ########################################################################################################################
+  # This is nginx configuration for WeEvent's proxy access.
+  # 1. Support tcp access in default.
+  #   like web/restful/jsonrpc over http, stomp over websocket, and mqtt over tcp or websocket.
+  # 2. For security access
+  #   a. support web/restful/jsonrpc over https, stomp over wss, and mqtt over wss
+  #       replace default include line to "include ./conf.d/https.conf"
+  #   b. support mqtt over tls
+  #       replace default include line to "include ./conf.d/tcp_tls.conf"
+  ########################################################################################################################
+  
+  #user  nobody;
+  worker_processes  10;
+  
+  #error_log  logs/error.log;
+  #error_log  logs/error.log  notice;
+  #error_log  logs/error.log  info;
+  
+  pid         logs/nginx.pid;
+  
+  events {
+      use epoll;
+      worker_connections  10000;
+  }
+  worker_rlimit_nofile 10000;
+  
+  #support web/restful/jsonrpc/stomp
+  http {
+      include       mime.types;
+      default_type  application/octet-stream;
+  
+      #log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+      #                  '$status $body_bytes_sent "$http_referer" '
+      #                  '"$http_user_agent" "$http_x_forwarded_for"';
+  
+      #access_log  logs/access.log  main;
+  
+      sendfile        on;
+      #tcp_nopush     on;
+  
+      #keepalive_timeout  0;
+      keepalive_timeout  65;
+  
+      #gzip  on;
+      
+      #custom config
+      server_tokens           off;
+      client_body_temp_path   ./nginx_temp/client_body;
+      proxy_temp_path         ./nginx_temp/proxy;
+      fastcgi_temp_path       ./nginx_temp/fastcgi;
+      uwsgi_temp_path         ./nginx_temp/uwsgi;
+      scgi_temp_path          ./nginx_temp/scgi;
+  
+      # http conf
+      include                 ./conf.d/http_rs.conf;
+      
+      include                 ./conf.d/http.conf;
+  }
+  
+  #support mqtt over tcp
+  stream {
+      include                 ./conf.d/tcp_rs.conf;
+      
+      include                 ./conf.d/tcp.conf;
+  }
+  ```
 
-`WeEvent`通过`Nginx`实现`TLS`加密传输。在`nginx/conf/nginx.conf `文件里，通过`include`不同的文件来选择是否支持`TSL`。
+  更多`Nginx`配置文件说明，请参见[Nginx配置](https://www.nginx.com/resources/wiki/start/topics/examples/full/) 。
 
-如下面默认配置，不支持TLS。开启方式为对应行改为`include ./conf.d/https.conf`和`include ./conf.d/tcp_tls.conf`
-
-```nginx
-########################################################################################################################
-# This is nginx configuration for WeEvent's proxy access.
-# 1. Support tcp access in default.
-#   like web/restful/jsonrpc over http, stomp over websocket, and mqtt over tcp or websocket.
-# 2. For security access
-#   a. support web/restful/jsonrpc over https, stomp over wss, and mqtt over wss
-#       replace default include line to "include ./conf.d/https.conf"
-#   b. support mqtt over tls
-#       replace default include line to "include ./conf.d/tcp_tls.conf"
-########################################################################################################################
-
-#user  nobody;
-worker_processes  10;
-
-#error_log  logs/error.log;
-#error_log  logs/error.log  notice;
-#error_log  logs/error.log  info;
-
-pid         logs/nginx.pid;
-
-events {
-    use epoll;
-    worker_connections  10000;
-}
-worker_rlimit_nofile 10000;
-
-#support web/restful/jsonrpc/stomp
-http {
-    include       mime.types;
-    default_type  application/octet-stream;
-
-    #log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
-    #                  '$status $body_bytes_sent "$http_referer" '
-    #                  '"$http_user_agent" "$http_x_forwarded_for"';
-
-    #access_log  logs/access.log  main;
-
-    sendfile        on;
-    #tcp_nopush     on;
-
-    #keepalive_timeout  0;
-    keepalive_timeout  65;
-
-    #gzip  on;
-    
-    #custom config
-    server_tokens           off;
-    client_body_temp_path   ./nginx_temp/client_body;
-    proxy_temp_path         ./nginx_temp/proxy;
-    fastcgi_temp_path       ./nginx_temp/fastcgi;
-    uwsgi_temp_path         ./nginx_temp/uwsgi;
-    scgi_temp_path          ./nginx_temp/scgi;
-
-    # http conf
-    include                 ./conf.d/http_rs.conf;
-    
-    include                 ./conf.d/http.conf;
-}
-
-#support mqtt over tcp
-stream {
-    include                 ./conf.d/tcp_rs.conf;
-    
-    include                 ./conf.d/tcp.conf;
-}
-```
-
-`Nginx`配置文件说明，请参见[Nginx配置](https://www.nginx.com/resources/wiki/start/topics/examples/full/) 。
