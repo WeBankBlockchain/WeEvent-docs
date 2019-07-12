@@ -10,11 +10,35 @@
 
   `WeEvent`的镜像里包括了`FISCO-BCOS`网络，`WeEvent`的`Broker`和`Governance`服务。
 
-- 安装命令
+- 获取远端的镜像
 
-  ```bash
-  
-  ```
+```
+docker pull weevent:1.0
+```
+- 创建一个容器
+
+```
+docker run -t -i weevent:1.0 /bin/bash
+```
+- 配置环境变量
+
+进入容器，在命令行输入以下命令
+```
+export JAVA_HOME=/usr/java/default
+export PATH=$JAVA_HOME/bin:$PATH
+export CLASSPATH=.:$JAVA_HOME/bin/dt.jar:$JAVA_HOME/lib/tools.jar
+```
+- 启动区块链节点
+
+```
+$ cd /root/fisco/fisco/nodes/127.0.0.1/ && ./start_all.sh 
+```
+
+- 启动WeEvent服务
+```
+$ cd /usr/local/weevent/ && ./start_all.sh
+```
+
 
 ### 一键安装
 
