@@ -16,18 +16,18 @@
 
   配置文件`./broker/conf/fisco.properties`。
 
-  | 配置项                        | 默认值                                      | 配置说明                     |
-  | -------------------------- | ---------------------------------------- | ------------------------ |
-  | version                    | 2.0                                      | FISCO-BCOS版本，支持2.0和1.3   |
-  | topic-controller.address   | 1:0x23df89a2893120f686a4aa03b41acf6836d11e5d; | WeEvent系统合约地址。           |
-  | orgid                      | fisco                                    | 机构名，按机构实际名称填写即可          |
-  | nodes                      | 127.0.0.1:30701                          | 区块链节点列表，多个地址以`;`分割       |
-  | account                    | bcec428d5205abe0f0cc8a734083908d9eb8563e31f943d760786edf42ad67dd | `WeEvent`执行交易的账号，一般不需要修改 |
-  | web3sdk.timeout            | 10000                                    | 交易执行超时时间，单位毫秒            |
-  | web3sdk.core-pool-size     | 10                                       | web3sdk最小线程数             |
-  | web3sdk.max-pool-size      | 200                                      | web3sdk最大线程数             |
-  | web3sdk.queue-capacity     | 1000                                     | web3sdk队列大小              |
-  | web3sdk.keep-alive-seconds | 60                                       | web3sdk线程空闲时间，单位秒        |
+  | 配置项                     | 默认值                                        | 配置说明                                |
+  | -------------------------- | --------------------------------------------- | --------------------------------------- |
+  | version                    | 2.0                                           | FISCO-BCOS版本，支持2.0和1.3            |
+  | topic-controller.address   | 1:0x23df89a2893120f686a4aa03b41acf6836d11e5d; | WeEvent系统合约地址。                   |
+  | orgid                      | fisco                                         | 机构名，按机构实际名称填写即可          |
+  | nodes                      | 127.0.0.1:30701                               | 区块链节点列表，多个地址以`;`分割       |
+  | account                    | bcec428d5205abe0f0cc8a73408...                | `WeEvent`执行交易的账号，一般不需要修改 |
+  | web3sdk.timeout            | 10000                                         | 交易执行超时时间，单位毫秒              |
+  | web3sdk.core-pool-size     | 10                                            | web3sdk最小线程数                       |
+  | web3sdk.max-pool-size      | 200                                           | web3sdk最大线程数                       |
+  | web3sdk.queue-capacity     | 1000                                          | web3sdk队列大小                         |
+  | web3sdk.keep-alive-seconds | 60                                            | web3sdk线程空闲时间，单位秒             |
 
 
   区块链节点详细配置，参见[Web3SDK配置文件](https://fisco-bcos-documentation.readthedocs.io/zh_CN/release-2.0/docs/sdk/sdk.html) 。
@@ -36,27 +36,27 @@
 
   配置文件`./broker/conf/weevent.properties` 。
 
-  | 配置项                                | 默认值           | 配置说明                                     |
-  | ---------------------------------- | ------------- | ---------------------------------------- |
-  | consumer.idle-time                 | 1000          | 消费者线程中检测区块链新增块事件的周期，单位毫秒                 |
+  | 配置项                             | 默认值        | 配置说明                                                     |
+  | ---------------------------------- | ------------- | ------------------------------------------------------------ |
+  | consumer.idle-time                 | 1000          | 消费者线程中检测区块链新增块事件的周期，单位毫秒             |
   | ip.check.white-table               |               | IP白名单。默认为空时表示允许任何客户端访问。多个`IP`地址，以";"进行分割 |
-  | redis.server.ip                    |               | redis服务IP                                |
-  | redis.server.port                  | 6379          | redis服务端口                                |
-  | redis.server.password              | weevent       | redis服务访问密码                              |
-  | lru.cache.capacity                 | 65536         | 缓存大小，使用LRU策略淘汰                           |
-  | restful.subscribe.callback.timeout | 5000          | 事件通知回调的超时时间，单位毫秒                         |
-  | broker.zookeeper.ip                |               | zookeeper服务                              |
-  | broker.zookeeper.path              | /event_broker | zookeeper数据路径                            |
-  | broker.zookeeper.timeout           | 3000          | zookeeper链接超时时间，单位秒                      |
-  | stomp.user.login                   |               | stomp访问账号，空为不开启校验                        |
-  | stomp.user.passcode                |               | stomp访问密码                                |
-  | stomp.heartbeats                   | 30            | stomp心跳间隔，单位秒                            |
-  | mqtt.broker.port                   | 8091          | mqtt协议TCP访问端口                            |
-  | mqtt.broker.keepalive              | 60            | mqtt连接空闲时间，单位秒                           |
-  | mqtt.websocket.path                | /weevent/mqtt | mqtt连接目录                                 |
-  | mqtt.websocket.port                | 8092          | mqtt协议web socket访问端口                     |
-  | mqtt.user.login                    |               | mqtt访问账号，空为不开启校验                         |
-  | mqtt.user.passcode                 |               | mqtt访问密码                                 |
+  | redis.server.ip                    |               | redis服务IP                                                  |
+  | redis.server.port                  | 6379          | redis服务端口                                                |
+  | redis.server.password              | weevent       | redis服务访问密码                                            |
+  | lru.cache.capacity                 | 65536         | 缓存大小，使用LRU策略淘汰                                    |
+  | restful.subscribe.callback.timeout | 5000          | 事件通知回调的超时时间，单位毫秒                             |
+  | broker.zookeeper.ip                |               | zookeeper服务                                                |
+  | broker.zookeeper.path              | /event_broker | zookeeper数据路径                                            |
+  | broker.zookeeper.timeout           | 3000          | zookeeper链接超时时间，单位毫秒                              |
+  | stomp.user.login                   |               | stomp访问账号，空为不开启校验                                |
+  | stomp.user.passcode                |               | stomp访问密码                                                |
+  | stomp.heartbeats                   | 30            | stomp心跳间隔，单位秒                                        |
+  | mqtt.broker.port                   | 8091          | mqtt协议TCP访问端口                                          |
+  | mqtt.broker.keepalive              | 60            | mqtt连接空闲时间，单位秒                                     |
+  | mqtt.websocket.path                | /weevent/mqtt | mqtt连接目录                                                 |
+  | mqtt.websocket.port                | 8092          | mqtt协议web socket访问端口                                   |
+  | mqtt.user.login                    |               | mqtt访问账号，空为不开启校验                                 |
+  | mqtt.user.passcode                 |               | mqtt访问密码                                                 |
 
 ### Governance
 
@@ -118,12 +118,10 @@
 
 - 使用TLS加密传输
 
-  `WeEvent`通过`Nginx`实现`TLS`加密传输。在`nginx/conf/nginx.conf `文件里，通过`include`不同的文件来选择是否支持`TSL`。
-
-  如下面默认配置，不支持TLS。开启方式为对应行改为`include ./conf.d/https.conf`和`include ./conf.d/tcp_tls.conf`
+  `WeEvent`通过`Nginx`实现`TLS`加密传输。如下`./nginx/conf/nginx.conf`的默认配置不支持`TLS`。
 
   ```nginx
-  ########################################################################################################################
+########################################################################################################################
   # This is nginx configuration for WeEvent's proxy access.
   # 1. Support tcp access in default.
   #   like web/restful/jsonrpc over http, stomp over websocket, and mqtt over tcp or websocket.
@@ -133,41 +131,41 @@
   #   b. support mqtt over tls
   #       replace default include line to "include ./conf.d/tcp_tls.conf"
   ########################################################################################################################
-
+  
   #user  nobody;
-  worker_processes  10;
-
+worker_processes  10;
+  
   #error_log  logs/error.log;
-  #error_log  logs/error.log  notice;
+#error_log  logs/error.log  notice;
   #error_log  logs/error.log  info;
-
+  
   pid         logs/nginx.pid;
 
   events {
-      use epoll;
+    use epoll;
       worker_connections  10000;
   }
   worker_rlimit_nofile 10000;
-
+  
   #support web/restful/jsonrpc/stomp
-  http {
+http {
       include       mime.types;
       default_type  application/octet-stream;
-
+  
       #log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
-      #                  '$status $body_bytes_sent "$http_referer" '
+    #                  '$status $body_bytes_sent "$http_referer" '
       #                  '"$http_user_agent" "$http_x_forwarded_for"';
-
+  
       #access_log  logs/access.log  main;
 
       sendfile        on;
-      #tcp_nopush     on;
-
+    #tcp_nopush     on;
+  
       #keepalive_timeout  0;
-      keepalive_timeout  65;
-
+    keepalive_timeout  65;
+  
       #gzip  on;
-      
+    
       #custom config
       server_tokens           off;
       client_body_temp_path   ./nginx_temp/client_body;
@@ -175,20 +173,22 @@
       fastcgi_temp_path       ./nginx_temp/fastcgi;
       uwsgi_temp_path         ./nginx_temp/uwsgi;
       scgi_temp_path          ./nginx_temp/scgi;
-
+  
       # http conf
-      include                 ./conf.d/http_rs.conf;
+    include                 ./conf.d/http_rs.conf;
       
-      include                 ./conf.d/http.conf;
+      include                 ./conf.d/http.conf; #include ./conf.d/https.conf
   }
-
+  
   #support mqtt over tcp
-  stream {
+stream {
       include                 ./conf.d/tcp_rs.conf;
       
-      include                 ./conf.d/tcp.conf;
+      include                 ./conf.d/tcp.conf; #include ./conf.d/tcp_tls.conf
   }
   ```
+  
+  通过对应替换`include ./conf.d/https.conf`和`include ./conf.d/tcp_tls.conf`来支持`TLS`。
 
   更多`Nginx`配置文件说明，请参见[Nginx配置](https://www.nginx.com/resources/wiki/start/topics/examples/full/) 。
 
