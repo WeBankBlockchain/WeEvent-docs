@@ -135,7 +135,7 @@
 worker_processes  10;
   
   #error_log  logs/error.log;
-#error_log  logs/error.log  notice;
+  #error_log  logs/error.log  notice;
   #error_log  logs/error.log  info;
   
   pid         logs/nginx.pid;
@@ -176,11 +176,11 @@ http {
       # http conf
     include                 ./conf.d/http_rs.conf;
       
-      include                 ./conf.d/http.conf; #include ./conf.d/https.conf
+    include                 ./conf.d/http.conf; #include ./conf.d/https.conf
   }
   
   #support mqtt over tcp
-stream {
+  stream {
       include                 ./conf.d/tcp_rs.conf;
       
       include                 ./conf.d/tcp.conf; #include ./conf.d/tcp_tls.conf
@@ -190,4 +190,3 @@ stream {
   通过对应替换`include ./conf.d/https.conf`和`include ./conf.d/tcp_tls.conf`来支持`TLS`。
 
   更多`Nginx`配置文件说明，请参见[Nginx配置](https://www.nginx.com/resources/wiki/start/topics/examples/full/) 。
-
