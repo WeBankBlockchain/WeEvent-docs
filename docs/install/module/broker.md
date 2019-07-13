@@ -22,7 +22,7 @@
 
 - Zookeeper服务
 
-  可选配置。当用户使用了`JsonRPC`或者`RESTful`的订阅功能时必选配置。
+  可选配置。当用户使用了`JsonRPC`或者`RESTful`协议的订阅功能时才必须配置。
 
   推荐安装`Zookeeper`3.4+版本。具体安装步骤，请参见[Zookeeper安装](http://zookeeper.apache.org/doc/r3.4.13/zookeeperStarted.html)。
 
@@ -204,9 +204,7 @@ $ tree  -L 2
 
   通过`./broker.sh stop`命令停止服务。
 
-  `./broker.sh start`命令会启动进程，并且将进程监控命令`./broker.sh monitor`添加到`crontab`里。
-
-  `./broker.sh stop`命令在进程成功停止后会移除`crontab`监控任务。
+  进程启动，会自动添加`crontab`监控任务`./broker.sh monitor`。
 
 - 验证服务
 
