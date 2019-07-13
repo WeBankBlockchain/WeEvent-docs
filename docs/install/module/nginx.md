@@ -8,7 +8,7 @@
 
 ### 安装Nginx
 
-下载安装包[weevent-nginx安装包](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.0.0/weevent-nginx-1.0.0.tar.gz)，解压到`/usr/local/weevent/`下。 
+下载安装包[weevent-nginx-1.0.0.tar.gz](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.0.0/weevent-nginx-1.0.0.tar.gz)，解压到`/usr/local/weevent/`下。 
 
 ```shell
 $ cd /usr/local/weevent/
@@ -52,13 +52,11 @@ nginx install complete!
   ```nginx
   server {
     	#配置nginx的监听端口
-      listen          8080;
-      server_name     localhost;
-    
+      listen          8080; 
       ...
   }
   ```
-
+  
 - 修改WeEvent子模块反向代理
 
   在配置文件`./conf/conf.d/http_rs.conf` 里设置子模块`Broker`和`Governance`的实例。
@@ -119,10 +117,8 @@ nginx install complete!
   在配置文件`./conf/conf.d/https.conf`里修改`Nginx`监听端口。其他配置项一般不需要修改。
   
   ```nginx
-  nginx
-  	server {
+  server {
   		listen          443 ssl;
-  		server_name     localhost;
   		...
   }
   ```
@@ -141,7 +137,6 @@ start nginx success (PID=3643)
 add the crontab job success
 ```
 
-通过`./nginx.sh stop`停止`Nginx`。
+通过`./nginx.sh stop`命令停止。
 
-进程启动后，会自动添加`crontab`监控任务`./broker.sh monitor`。
-
+进程启动后，会自动添加`crontab`监控任务`./nginx.sh monitor`。
