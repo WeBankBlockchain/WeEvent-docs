@@ -18,11 +18,7 @@
 
   推荐版本1.0.4。具体安装步骤，请参见[WeBase安装](https://github.com/WeBankFinTech/WeBase)。
 
-  **注意**：
-
-  - 修改`webase-node-mgr`服务中的`conf/application.yml`文件。
-
-    将`isUseSecurity`配置成`false`，`isDeleteInfo`配置成`false`
+  **注意**：需要修改`webase-node-mgr`服务中的`conf/application.yml`文件。将`isUseSecurity`和`isDeleteInfo`都改成`false`。
 
 
 - Mysql数据库
@@ -34,15 +30,13 @@
 
 ### 获取安装包
 
-下载安装包[weevent-governance安装包](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.0.0/weevent-governance-1.0.0.tar.gz)，并且解压到`/usr/local/weevent/`下。
+下载安装包[weevent-governance-1.0.0.tar.gz](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.0.0/weevent-governance-1.0.0.tar.gz)，并且解压到`/usr/local/weevent/`下。
 
 ```shell
 $ cd /usr/local/weevent/
 $ wget https://github.com/WeBankFinTech/WeEvent/releases/download/v1.0.0/weevent-governance-1.0.0.tar.gz
 $ tar -xvf weevent-governance-1.0.0.tar.gz
 ```
-
-如果机器无法访问外网`wget`执行失败，可以通过别的方式下载再`rz`上传。
 
 解压后的目录结构如下
 
@@ -127,9 +121,7 @@ $ tree -L 2
 
   通过`./governance.sh stop`命令停止服务。
 
-  `./governance.sh start`命令会启动进程，并且将进程监控命令`./governance.sh monitor`添加到`crontab`里。
-
-  `./governance.sh stop`命令在进程成功停止后会移除`crontab`监控任务。
+  进程启动后，会自动添加`crontab`监控任务`./governance.sh monitor`。
 
 - 验证服务
 
