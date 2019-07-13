@@ -96,18 +96,23 @@ nginx install complete!
   默认的配置支持`HTTP`和`TCP`访问。通过`./conf/nginx.conf`文件配置`TLS`访问，将
   
   ```nginx
-  include                 ./conf.d/http.conf;
-  ...
-  include                 ./conf.d/tcp.conf;
+      include                 ./conf.d/http.conf;
+
+      ...
+
+      include                 ./conf.d/tcp.conf;
   ```
   
-  对应改成
   
-  ```nginx
-  include                 ./conf.d/http_rs.conf;
-...
-  include                 ./conf.d/tcp_rs.conf;
-  ```
+    对应改成
+  
+    ```nginx
+      include                 ./conf.d/http_rs.conf;
+
+      ...
+
+      include                 ./conf.d/tcp_rs.conf;
+    ```
   
 - 修改Nginx监听端口
   
