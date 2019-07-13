@@ -121,7 +121,7 @@
   `WeEvent`通过`Nginx`实现`TLS`加密传输。如下`./nginx/conf/nginx.conf`的默认配置不支持`TLS`。
 
   ```nginx
-########################################################################################################################
+
   # This is nginx configuration for WeEvent's proxy access.
   # 1. Support tcp access in default.
   #   like web/restful/jsonrpc over http, stomp over websocket, and mqtt over tcp or websocket.
@@ -129,10 +129,9 @@
   #   a. support web/restful/jsonrpc over https, stomp over wss, and mqtt over wss
   #       replace default include line to "include ./conf.d/https.conf"
   #   b. support mqtt over tls
-  #       replace default include line to "include ./conf.d/tcp_tls.conf"
-  ########################################################################################################################
-  
+  #       replace default include line to "include ./conf.d/tcp_tls.conf"  
   #user  nobody;
+  
 worker_processes  10;
   
   #error_log  logs/error.log;
