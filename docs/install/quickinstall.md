@@ -98,7 +98,7 @@ docker run -t -i weevent:1.0 /bin/bash
     
     - fisco-bcos.node_path
     
-      区块链节点的访问证书、私钥存放的位置。值为区块链节点的安装目录。
+      区块链节点的访问证书、私钥存放位置，值为区块链节点的安装目录。如节点与Bash安装脚本不在同一机器上需把目录拷贝到同一机器上。
 
   - Nginx监听端口`nginx.port`
 
@@ -122,17 +122,19 @@ docker run -t -i weevent:1.0 /bin/bash
   正常安装后，输出有如下关键字：
 
   ```
-  deploy contract success
-  contract_address:0x9392da80a7ae52fdbcd3698111b23f045cf0745c
-  broker install success
-  build & install pcre
-  build & install nginx
-  nginx install success
+  8081 port is okay
+  8080 port is okay
+  param ok
+  install module broker 
+  install broker success 
+  install module nginx 
+  install nginx success 
   ```
-
-  目标安装路径`/usr/local/weevent/`的结构如下
-
-  ```
+```
+  
+目标安装路径`/usr/local/weevent/`的结构如下
+  
+```
   $ cd /usr/local/weevent/
   $ tree -L 2
     .
@@ -168,7 +170,7 @@ docker run -t -i weevent:1.0 /bin/bash
     add the crontab job success
     start nginx success (PID=3643)
     add the crontab job success
-    ```
+  ```
 
   ​	停止所有服务的命令`./stop-all.sh`。
 
