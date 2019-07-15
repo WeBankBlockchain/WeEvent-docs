@@ -10,16 +10,16 @@
 - Broker模块
 
    必选配置，通过`Broker`访问区块链。
+
    具体安装步骤，请参见[Broker模块安装](./broker.html)。
 
 - WeBase模块
 
   必选配置，通过`WeBase`查询区块和交易信息。
 
-  推荐版本1.0.4。具体安装步骤，请参见[WeBase安装](https://github.com/WeBankFinTech/WeBase)。
+  推荐版本1.0.4。具体安装步骤，请参见[WeBase安装](https://webasedoc.readthedocs.io/zh_CN/latest/docs/WeBASE/install.html)。
 
   **注意**：需要修改`webase-node-mgr`服务中的`conf/application.yml`文件。将`isUseSecurity`和`isDeleteInfo`都改成`false`。
-
 
 - Mysql数据库
 
@@ -65,11 +65,11 @@ $ tree -L 2
 
 - 配置端口
 
-  在配置文件`./conf/application-prod.yml`中，`Governance` 的服务端口`server:port` ，默认`8099`。
+  在配置文件`./conf/application-prod.yml`中，`Governance` 的服务端口`server.port` ，默认`8099`。
 
   ```
   server:
-    port: ${server_port}
+    port: 8099
   ```
 
 

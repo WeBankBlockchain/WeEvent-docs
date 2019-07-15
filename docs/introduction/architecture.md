@@ -16,12 +16,12 @@
 
 - Governance
 
-  `WeEvent`的事件治理模块，提供一个`Web`管理端。
+  `WeEvent`的事件治理模块，提供一个`Web`管理端。支持事件治理、区块链节点分析、系统监控预警等。
 
   其中，使用`Mysql`数据库存储`Topic`的统计数据，根据业务需要使用[WeBase](https://github.com/WeBankFinTech/WeBASE)进行区块链管理。
-  
+
 - FISCO-BCOS
-  
+
     `WeEvent`的事件永久存储在区块链[FISCO-BCOS](https://github.com/FISCO-BCOS/FISCO-BCOS)上。
 
 ### 架构设计
