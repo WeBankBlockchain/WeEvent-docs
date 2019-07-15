@@ -1,6 +1,6 @@
 ## 快速安装
 
-快速安装是为了方便用户搭建开发和测试环境，在单台机器上快速部署`WeEvent`服务。提供`Docker`镜像、一键脚本两种安装方式，推荐使用`Docker`镜像。
+快速安装是为了方便用户搭建开发和测试环境，在单台机器上快速部署`WeEvent`服务。提供`Docker`镜像、Bash脚本两种安装方式，推荐使用`Docker`镜像。
 
 如果是第一次安装`WeEvent`，参见这里的[系统要求](./environment.html) 。
 
@@ -10,15 +10,19 @@
 
   `WeEvent`的镜像里包括了`FISCO-BCOS`网络，`WeEvent`的`Broker`和`Governance`服务。
 
-- 安装命令
+- 获取远端的镜像
+```
+docker pull weevent:1.0
+```
+- 创建一个容器
 
-  ```bash
-  
-  ```
+```
+docker run -t -i weevent:1.0 /bin/bash
+```
 
-### 一键安装
+### Bash安装
 
-为了简化配置，在一键安装时建议将`WeEvent`服务和区块链`FISCO-BCOS`节点安装在同一台机器上。
+为了简化配置，在Bash安装时建议将`WeEvent`服务和区块链`FISCO-BCOS`节点安装在同一台机器上。
 
 - 获取安装包
 
@@ -82,9 +86,11 @@
 
   配置说明：  
 
-  - fisco-bcos.version
+  - fisco-bcos
 
-    `FISCO-BCOS`2.0和1.3版本都支持，推荐使用`2.0`及以上版本。
+    - fisco-bcos.version
+
+      `FISCO-BCOS`2.0和1.3版本都支持，推荐使用`2.0`及以上版本。
 
     - fisco-bcos.channel
 
@@ -99,13 +105,13 @@
   - Broker监听端口`broker.port`
 
   - Governance模块配置
-
+  
     - `governance.enable`是否安装Governance模块，默认false不安装
     - 监听端口`governance.port`
     - Mysql配置`governance.mysql.*`
 
 
-- 自动安装
+- 一键安装
 
   以安装到目录`/usr/local/weevent/`为例。
 
@@ -190,5 +196,5 @@
   ```
 
 - 注意事项
-  一键安装脚本作为一种简易安装方式，所有子模块都是单实例的。生产环境中建议对`Broker`和`Governance`进行多实例部署。各子模块的部署细节参见[Broker模块部署](./module/broker.html)和[Governance模块部署](./module/governance.html)。
+  安装脚本作为一种简易安装方式，所有子模块都是单实例的。生产环境中建议对`Broker`和`Governance`进行多实例部署。各子模块的部署细节参见[Broker模块部署](./module/broker.html)和[Governance模块部署](./module/governance.html)。
   

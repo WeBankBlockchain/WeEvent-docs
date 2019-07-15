@@ -11,10 +11,10 @@
 
 ```ini
 #mqtt brokerserver
-mqtt.broker.port=8083
+mqtt.broker.port=8091
 mqtt.broker.keepalive=60
 mqtt.websocket.path=/weevent/mqtt
-mqtt.websocket.port=8084
+mqtt.websocket.port=8092
 mqtt.user.login=
 mqtt.user.passcode=
 ```
@@ -25,15 +25,15 @@ mqtt.user.passcode=
 
   客户端使用`MQTT`协议访问`MQTT Broker`。
 
-- mqtt.brokerserver.keepalive
+- mqtt.broker.keepalive
 
   发送心跳时间。单位为秒。
 
-- mqtt.websocketserver.path
+- mqtt.websocket.path
 
   客户端使用`WebSocket`协议访问`MQTT Broker`链接。
 
-- mqtt.websocketserver.port
+- mqtt.websocket.port
 
   客户端使用`WebSocket`协议访问`MQTT Broker`。
 
@@ -47,7 +47,7 @@ mqtt.user.passcode=
 
 ### 注意事项
 
-- 因区块链必须确保消息成功上链，暂不支持QoS-0和QoS-2消息级别。
+- 区块链必须确保消息成功上链，暂不支持QoS-0和QoS-2消息级别。
 
 - 不支持断连后会话恢复功能。
 
@@ -57,12 +57,15 @@ mqtt.user.passcode=
 
 - IoT设备发布事件
 
+  发送消息前需创建`topic` (`com.weevent.test`)。详情请参照[创建Topic](./restful.html)
+
   ```shell
-  $ mosquitto_pub -h localhost -p 8081 -u ${user} -P ${password} -t "com.weevent.test" -m "{\"timestamp\":133345566,\"key\":\"temperature\",\"value\":10.0}"
+  $ mosquitto_pub -h localhost -p 8081 -q 1 -t "com.weevent.test" -m "{\"timestamp\":133345566,\"key\":\"temperature\",\"value\":10.0}"
   ```
 
 - IoT设备订阅事件
 
   ```shell
-  $ mosquitto_sub -h localhost -p 8081 -u ${user} -P ${password} -t "com.weevent.test"
+  $ mosquitto_sub -h localhost -p 8081 -q 1 -t "com.weevent.test"
+  {"eventId":"317e7c4c-1-24","extensions":{},"topic":"com.weevent.test","content":[123,34,116,105,109,101,115,116,97,109,112,34,58,49,51,51,51,52,53,53,54,54,44,34,107,101,121,34,58,34,116,101,109,112,101,114,97,116,117,114,101,34,44,34,118,97,108,117,101,34,58,49,48,46,48,125]}
   ```

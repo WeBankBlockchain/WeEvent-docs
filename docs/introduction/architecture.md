@@ -6,13 +6,13 @@
 
 - Nginx
 
-  `WeEvent`服务对外统一的访问入口，负责服务请求的负载均衡。支持`RESTful`、`JsonRPC`、`STOMP`、`MQTT`等协议，以及`Java SDK`。
+  `WeEvent`服务对外统一的访问入口，负责服务请求的负载均衡。
 
 - Broker
 
   `WeEvent`的事件代理模块，提供核心的事件发布订阅`Publish`/`Subscribe`和`Topic`管理功能。
 
-  其中，使用`Redis`缓存事件，使用`Zookeeper`主备切换。
+  该模块使用`Redis`来缓存事件，使用`Zookeeper`进行可能的主备服务切换。
 
 - Governance
 
@@ -22,7 +22,7 @@
   
 - FISCO-BCOS
   
-    `WeEvent`的事件永久存储在区块链[FISCO-BCOS](https://github.com/FISCO-BCOS/FISCO-BCOS)上，一个区块链可以对应一个或者多个`WeEvent`服务。
+    `WeEvent`的事件永久存储在区块链[FISCO-BCOS](https://github.com/FISCO-BCOS/FISCO-BCOS)上。
 
 ### 架构设计
 
