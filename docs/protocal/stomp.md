@@ -56,7 +56,7 @@ implementation("org.springframework.boot:spring-boot-starter-websocket")
     StompHeaders header = new StompHeaders();
     header.setDestination("com.weevent.test");
     header.set("groupId","1");
-    header.set("weevent-format","json")
+    header.set("weevent-url", "https://github.com/WeBankFinTech/WeEvent")
     StompSession.Receiptable receiptable = stompSession.send(header, "hello world, from web socket");
     log.info("send result, receipt id: {}", receiptable.getReceiptId());
 ```
