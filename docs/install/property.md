@@ -121,74 +121,72 @@
   `WeEvent`通过`Nginx`实现`TLS`加密传输。如下`./nginx/conf/nginx.conf`的默认配置不支持`TLS`。
 
   ```nginx
-########################################################################################################################
-  # This is nginx configuration for WeEvent's proxy access.
-  # 1. Support tcp access in default.
-  #   like web/restful/jsonrpc over http, stomp over websocket, and mqtt over tcp or websocket.
-  # 2. For security access
-  #   a. support web/restful/jsonrpc over https, stomp over wss, and mqtt over wss
-  #       replace default include line to "include ./conf.d/https.conf"
-  #   b. support mqtt over tls
-  #       replace default include line to "include ./conf.d/tcp_tls.conf"
-  ########################################################################################################################
-  
-  #user  nobody;
-worker_processes  10;
-  
-  #error_log  logs/error.log;
-#error_log  logs/error.log  notice;
-  #error_log  logs/error.log  info;
-  
-  pid         logs/nginx.pid;
 
-  events {
-    use epoll;
-      worker_connections  10000;
-  }
-  worker_rlimit_nofile 10000;
-  
-  #support web/restful/jsonrpc/stomp
-http {
-      include       mime.types;
-      default_type  application/octet-stream;
-  
-      #log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
-    #                  '$status $body_bytes_sent "$http_referer" '
-      #                  '"$http_user_agent" "$http_x_forwarded_for"';
-  
-      #access_log  logs/access.log  main;
+    # This is nginx configuration for WeEvent's proxy access.
+    # 1. Support tcp access in default.
+    #   like web/restful/jsonrpc over http, stomp over websocket, and mqtt over tcp or websocket.
+    # 2. For security access
+    #   a. support web/restful/jsonrpc over https, stomp over wss, and mqtt over wss
+    #       replace default include line to "include ./conf.d/https.conf"
+    #   b. support mqtt over tls
+    #       replace default include line to "include ./conf.d/tcp_tls.conf"  
+    #user  nobody;
 
-      sendfile        on;
-    #tcp_nopush     on;
-  
-      #keepalive_timeout  0;
-    keepalive_timeout  65;
-  
-      #gzip  on;
-    
-      #custom config
-      server_tokens           off;
-      client_body_temp_path   ./nginx_temp/client_body;
-      proxy_temp_path         ./nginx_temp/proxy;
-      fastcgi_temp_path       ./nginx_temp/fastcgi;
-      uwsgi_temp_path         ./nginx_temp/uwsgi;
-      scgi_temp_path          ./nginx_temp/scgi;
-  
-      # http conf
-    include                 ./conf.d/http_rs.conf;
-      
+  worker_processes  10;
+
+    #error_log  logs/error.log;
+    #error_log  logs/error.log  notice;
+    #error_log  logs/error.log  info;
+
+    pid         logs/nginx.pid;
+
+    events {
+      use epoll;
+        worker_connections  10000;
+    }
+    worker_rlimit_nofile 10000;
+
+    #support web/restful/jsonrpc/stomp
+  http {
+        include       mime.types;
+        default_type  application/octet-stream;
+
+        #log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+      #                  '$status $body_bytes_sent "$http_referer" '
+        #                  '"$http_user_agent" "$http_x_forwarded_for"';
+
+        #access_log  logs/access.log  main;
+
+        sendfile        on;
+      #tcp_nopush     on;
+
+        #keepalive_timeout  0;
+      keepalive_timeout  65;
+
+        #gzip  on;
+
+        #custom config
+        server_tokens           off;
+        client_body_temp_path   ./nginx_temp/client_body;
+        proxy_temp_path         ./nginx_temp/proxy;
+        fastcgi_temp_path       ./nginx_temp/fastcgi;
+        uwsgi_temp_path         ./nginx_temp/uwsgi;
+        scgi_temp_path          ./nginx_temp/scgi;
+
+        # http conf
+      include                 ./conf.d/http_rs.conf;
+
       include                 ./conf.d/http.conf; #include ./conf.d/https.conf
-  }
-  
-  #support mqtt over tcp
-stream {
-      include                 ./conf.d/tcp_rs.conf;
-      
-      include                 ./conf.d/tcp.conf; #include ./conf.d/tcp_tls.conf
-  }
+    }
+
+    #support mqtt over tcp
+    stream {
+        include                 ./conf.d/tcp_rs.conf;
+
+        include                 ./conf.d/tcp.conf; #include ./conf.d/tcp_tls.conf
+    }
   ```
   
   通过对应替换`include ./conf.d/https.conf`和`include ./conf.d/tcp_tls.conf`来支持`TLS`。
 
   更多`Nginx`配置文件说明，请参见[Nginx配置](https://www.nginx.com/resources/wiki/start/topics/examples/full/) 。
-
