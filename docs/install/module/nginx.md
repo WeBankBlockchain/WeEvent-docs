@@ -8,39 +8,34 @@
 
 ### 安装Nginx
 
-下载安装包[weevent-nginx-1.0.0.tar.gz](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.0.0/weevent-nginx-1.0.0.tar.gz)，解压到`/usr/local/weevent/`下。 
+对`Nginx`版本没有特别的要求。`HTTPS`访问时需要`--with-http_ssl_module`，`MQTT over TCP`访问时需要`--with-stream --with-stream_ssl_module`。如下：
 
-```shell
-$ cd /usr/local/weevent/
-$ wget https://github.com/WeBankFinTech/WeEvent/releases/download/v1.0.0/weevent-nginx-1.0.0.tar.gz
-$ tar -zxf weevent-nginx-1.0.0.tar.gz
+```bash
+$ ./nginx -V
+nginx version: nginx/1.14.2
+built by gcc 4.8.5 20150623 (Red Hat 4.8.5-36) (GCC) 
+built with OpenSSL 1.0.2k-fips  26 Jan 2017
+TLS SNI support enabled
+configure arguments: --with-http_ssl_module --with-stream --with-stream_ssl_module
 ```
 
-解压后目录结构如下：
+然后将`WeEvent`业务配置文件覆盖`./nginx/conf/`目录即可。
 
-```shell
-$ cd ./weevent-nginx-1.0.0
-$ tree -L 2
-.
-|-- build-nginx.sh
-|-- conf
-|   |-- server.crt
-|   |-- server.key
-|   |-- conf.d
-|   `-- nginx.conf
-|-- nginx.sh
-`-- third-packages
-    |-- nginx-1.14.2.tar.gz
-    `-- pcre-8.20.tar.gz
 ```
-
-编译安装`Nginx`，操作如下
-
-```shell
-$ ./build-nginx.sh -p /user/local/nginx
-build & install pcre
-build & install nginx
-nginx install complete!
+$ tree
+`-- conf
+    |-- conf.d
+    |   |-- http.conf
+    |   |-- http_rs.conf
+    |   |-- https.conf
+    |   |-- tcp.conf
+    |   |-- tcp_rs.conf
+    |   `-- tcp_tls.conf
+    |-- nginx.conf
+    |-- scgi_params
+    |-- server.crt
+    |-- server.key
+    `-- server.pem
 ```
 
 ### Nginx常见配置
@@ -51,7 +46,7 @@ nginx install complete!
 
   ```nginx
   server {
-    	#配置nginx的监听端口
+    	# 配置nginx的监听端口
       listen          8080; 
       ...
   }
@@ -75,6 +70,7 @@ nginx install complete!
   upstream broker_mqtt_websocket_backend {
       server 1.1.1.1:8092 weight=100 max_fails=3;
       server 2.2.2.2:8092 weight=100 max_fails=3;
+      
   	ip_hash;
     	keepalive 1024;
   }
@@ -82,6 +78,7 @@ nginx install complete!
   upstream governance_backend{
   	server 1.1.1.1:8099 weight=100 max_fails=3;
   	server 2.2.2.2:8099 weight=100 max_fails=3;
+      
   	ip_hash;
    	keepalive 1024;
   }
@@ -118,8 +115,8 @@ nginx install complete!
   
   ```nginx
   server {
-  		listen          443 ssl;
-  		...
+      listen          443 ssl;
+      ...
   }
   ```
   
@@ -140,3 +137,4 @@ add the crontab job success
 通过`./nginx.sh stop`命令停止。
 
 进程启动后，会自动添加`crontab`监控任务`./nginx.sh monitor`。
+
