@@ -10,11 +10,15 @@
 
   `WeEvent`的镜像里包括了`FISCO-BCOS`网络，`WeEvent`的`Broker`和`Governance`服务。
 
-- 安装命令
+- 获取远端的镜像
+```
+docker pull weevent:1.0
+```
+- 创建一个容器
 
-  ```bash
-  
-  ```
+```
+docker run -t -i weevent:1.0 /bin/bash
+```
 
 ### Bash安装
 
@@ -91,9 +95,9 @@
     - fisco-bcos.channel
 
       区块链节点的`channel`访问入口。配置多个节点时用`;`分割，如`127.0.0.1:8821;127.0.0.2:8821`。
-
+    
     - fisco-bcos.node_path
-
+    
       区块链节点的访问证书、私钥存放的位置。值为区块链节点的安装目录。
 
   - Nginx监听端口`nginx.port`

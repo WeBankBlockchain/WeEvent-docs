@@ -22,7 +22,7 @@
 
 - Zookeeper服务
 
-  可选配置。当用户使用了`JsonRPC`或者`RESTful`的订阅功能时必选配置。
+  可选配置。当用户使用了`JsonRPC`或者`RESTful`协议的订阅功能时必选配置。
 
   推荐安装`Zookeeper`3.4+版本。具体安装步骤，请参见[Zookeeper安装](http://zookeeper.apache.org/doc/r3.4.13/zookeeperStarted.html)。
 
@@ -115,10 +115,13 @@ $ tree  -L 2
   ```ini
   # redis服务访问链接
   redis.server.ip=${ip}
+  
   # redis服务访问端口
   redis.server.port=${port}
+  
   # redis服务访问密码 为了安全，必须使用密码访问
   redis.server.password=${password}
+  
   # 基于redis的broker进程缓存容量，当缓存数据大于这个值时，使用LRU淘汰策略
   lru.cache.capacity=65536
   ```
@@ -204,9 +207,7 @@ $ tree  -L 2
 
   通过`./broker.sh stop`命令停止服务。
 
-  `./broker.sh start`命令会启动进程，并且将进程监控命令`./broker.sh monitor`添加到`crontab`里。
-
-  `./broker.sh stop`命令在进程成功停止后会移除`crontab`监控任务。
+  进程启动，会自动添加`crontab`监控任务`./broker.sh monitor`。
 
 - 验证服务
 

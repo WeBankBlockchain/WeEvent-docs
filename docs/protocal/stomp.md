@@ -7,9 +7,7 @@
 
 - 支持STOMP协议的`1.1`、`1.2`版本。暂时不支持消息确认`ACK`和事务`Transaction`语义。 
 
-- 传输协议方面，同时支持`STOMP Over WebSocket`(访问URL为ws://localhost:8080/weevent/stomp
-
-  )和`STOMP Over SockJS`（访问URL为ws://localhost:8080/weevent/sockjs）。
+- 传输协议方面，同时支持`STOMP Over WebSocket`和`STOMP Over SockJS`。
 
 ### JavaScript语言
 前端面直接访问`WeEvent`，推荐使用开源库[stompjs](https://github.com/stomp-js/stompjs)，该库支持STOMP协议的`1.1`、`1.2`的版本。使用`stompjs` +` sockjs`的组合效果更好。
@@ -41,13 +39,16 @@ implementation("org.springframework.boot:spring-boot-starter-websocket")
         StompSession stompSession = f.get();
 ```
 
-心跳说明
+- 心跳说明
 
-- `WeEvent`使用单向心跳机制，客户端发送心跳，服务端不发心跳。默认时间间隔为`30s` 。
+ `WeEvent`使用单向心跳机制，客户端发送心跳，服务端不发心跳。默认时间间隔为`30s` 。
 
 - 修改心跳方案。
 
   配置心跳时间间隔：修改配置文件`./broker/conf/weevent.properties`，`stomp.heartbeats=30`。
+- 传输协议方面
+    `STOMP Over WebSocket`使用[ws://localhost:8080/weevent/stomp](ws://localhost:8080/weevent/stomp)
+    `STOMP Over SockJS`使用[ws://localhost:8080/weevent/sockjs](ws://localhost:8080/weevent/sockjs)
 
 **第二步：发布事件**
 
@@ -89,7 +90,7 @@ implementation("org.springframework.boot:spring-boot-starter-websocket")
 说明：
 
 - `topic`  订阅的主题。支持通配符按层次订阅，参见[MQTT通配符](http://public.dhe.ibm.com/software/dw/webservices/ws-mqtt/mqtt-v3r1.html) 。
-- 配置`eventId`，提高订阅的效率。如果不设置，则默认为取最新内容。
+- 配置`eventId`，如需要取历史数据，则需要设置。如果不设置，则默认为取最新内容。
 - `weevent-format`为用户自定义拓展默认以`weevent-`开头。可选参数。
 - `StompFrameHandler`  ，对`StompFrame`和`StompHeaders`进行处理的方法。 
 
