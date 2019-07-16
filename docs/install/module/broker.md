@@ -22,7 +22,7 @@
 
 - Zookeeper服务
 
-  可选配置。当用户使用了`JsonRPC`或者`RESTful`协议的订阅功能时才必须配置。
+  可选配置。当用户使用了`JsonRPC`或者`RESTful`协议的订阅功能时必选配置。
 
   推荐安装`Zookeeper`3.4+版本。具体安装步骤，请参见[Zookeeper安装](http://zookeeper.apache.org/doc/r3.4.13/zookeeperStarted.html)。
 
@@ -115,10 +115,13 @@ $ tree  -L 2
   ```ini
   # redis服务访问链接
   redis.server.ip=${ip}
+  
   # redis服务访问端口
   redis.server.port=${port}
+  
   # redis服务访问密码 为了安全，必须使用密码访问
   redis.server.password=${password}
+  
   # 基于redis的broker进程缓存容量，当缓存数据大于这个值时，使用LRU淘汰策略
   lru.cache.capacity=65536
   ```
@@ -190,6 +193,8 @@ $ tree  -L 2
   ```
   
 
+更多系统详细配置参见[配置说明](../property.html)
+
 ### 服务启停
 
 - 启动服务
@@ -218,32 +223,6 @@ $ tree  -L 2
 
 ### 加入Nginx反向代理
 
-`WeEvent`服务的所有请求都通过`Nginx`负载均衡接入，`Nginx`子模块的安装参见[Nginx模块安装](./nginx.html) 。
+`WeEvent`服务的所有请求都通过`Nginx`负载均衡接入，`Nginx`子模块的安装及详细配置参见[Nginx模块安装及配置](./nginx.html) 。
 
-如果需要部署多个进程实例，将上述步骤安装好的`Broker`目录打包拷贝到其他机器上，解压启动即可。
-
-`Nginx`配置文件`./conf/conf.d/http_rs.conf`中， 下面为两个`Broker`进程的样例，然后通过`Nginx`重新加载配置生效。
-
-```nginx
-upstream broker_backend{
-    server 127.0.0.1:8090 weight=100 max_fails=3;
-    server 127.0.0.2:8090 weight=100 max_fails=3;
-
-    ip_hash;
-    keepalive 1024;
-}
-
-upstream broker_mqtt_websocket_backend {
-    server localhost:8092 weight=100 max_fails=3;
-
-    ip_hash;
-    keepalive 1024;
-}
-```
-
-`Nginx`重启命令说明
-
-```shell
-$ ./nginx -t
-$ ./nginx -s reload
-```
+如需部署多进程实例，将上述步骤安装好的`Broker`目录打包拷贝到其他机器上，解压启动即可。
