@@ -65,11 +65,11 @@ docker run -t -i weevent:1.0 /bin/bash
   # support 2.0 and 1.3
   fisco-bcos.version=2.0
   
-  # FISCO-BCOS node channel, eg: 127.0.0.1:8821;127.0.0.2:8821
-  cfisco-bcos.hannel=127.0.0.1:8821
+  # FISCO-BCOS node channel, eg: 127.0.0.1:20200;127.0.0.2:20200
+  fisco-bcos.channel=127.0.0.1:20200
   
   # FISCO-BCOS's node path
-  fisco-bcos.node_path=/data/FISCO-BCOS/127.0.0.1/node0
+  fisco-bcos.node_path=~/FISCO-BCOS/127.0.0.1/node0
   
   # Required module
   nginx.port=8080
@@ -83,7 +83,7 @@ docker run -t -i weevent:1.0 /bin/bash
   governance.mysql.ip=127.0.0.1
   governance.mysql.port=3306
   governance.mysql.user=xxx
-governance.mysql.password=yyy
+  governance.mysql.password=yyy
   ```
 
   配置说明：  
@@ -95,17 +95,17 @@ governance.mysql.password=yyy
       `FISCO-BCOS`2.0和1.3版本都支持，推荐使用`2.0`及以上版本。
 
     - fisco-bcos.channel
-  
+
       区块链节点的`channel`访问入口。配置多个节点时用`;`分割，如`127.0.0.1:8821;127.0.0.2:8821`。
     
     - fisco-bcos.node_path
-  
+
       区块链节点的访问证书、私钥存放位置，值为区块链节点的安装目录。如节点与Bash安装脚本不在同一机器上需把目录拷贝到同一机器上。
 
   - Nginx监听端口`nginx.port`
 
   - Broker监听端口`broker.port`
-  
+
   - Governance模块配置
   
     - `governance.enable`是否安装Governance模块，默认false不安装
