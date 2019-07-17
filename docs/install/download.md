@@ -1,5 +1,5 @@
 ## 安装包下载
-- [版本变更历史](./history/changelog.html)
+- [版本变更历史](../history/changelog.html)
 
 - v1.0.0版本安装包
 

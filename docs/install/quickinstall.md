@@ -130,35 +130,35 @@ docker run -t -i weevent:1.0 /bin/bash
   install module nginx 
   install nginx success 
   ```
-```
   
-目标安装路径`/usr/local/weevent/`的结构如下
-  
-```
+
+  目标安装路径`/usr/local/weevent/`的结构如下
+
+   ```shell
   $ cd /usr/local/weevent/
   $ tree -L 2
-    .
-    |-- broker					    
-    |   |-- apps
-    |   |-- broker.sh
-    |   |-- check-service.sh
-    |   |-- conf
-    |   |-- deploy-topic-control.sh
-    |   |-- lib  
-    |   `-- logs
-    |-- check-service.sh				
-    |-- nginx					    	
-    |   |-- conf
-    |   |-- html
-    |   |-- logs
-    |   |-- nginx.sh
-    |   |-- nginx_temp
-    |   `-- sbin   
-    |-- start-all.sh					
-    |-- stop-all.sh				    
-    `-- uninstall-all.sh
-  ```
-  
+  .
+  |-- broker					    
+  |   |-- apps
+  |   |-- broker.sh
+  |   |-- check-service.sh
+  |   |-- conf
+  |   |-- deploy-topic-control.sh
+  |   |-- lib  
+  |   `-- logs
+  |-- check-service.sh				
+  |-- nginx					    	
+  |   |-- conf
+  |   |-- html
+  |   |-- logs
+  |   |-- nginx.sh
+  |   |-- nginx_temp
+  |   `-- sbin   
+  |-- start-all.sh					
+  |-- stop-all.sh				    
+  `-- uninstall-all.sh
+   ```
+
 - 启停服务
   - 启动服务
 
@@ -170,12 +170,12 @@ docker run -t -i weevent:1.0 /bin/bash
     add the crontab job success
     start nginx success (PID=3643)
     add the crontab job success
-  ```
-
-  ​	停止所有服务的命令`./stop-all.sh`。
-
-  - 检查是否安装成功
-
+    ```
+  
+  - 停止所有服务的命令`./stop-all.sh`。
+  
+- 检查是否安装成功
+  
     ```shell
     $ ./check-service.sh
     check broker service 
