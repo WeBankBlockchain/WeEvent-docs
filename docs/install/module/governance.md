@@ -10,16 +10,28 @@
 - Broker模块
 
    必选配置，通过`Broker`访问区块链。
+
    具体安装步骤，请参见[Broker模块安装](./broker.html)。
 
 - WeBase模块
 
   必选配置，通过`WeBase`查询区块和交易信息。
 
-  推荐版本1.0.4。具体安装步骤，请参见[WeBase安装](https://github.com/WeBankFinTech/WeBase)。
+  推荐版本1.0.4。具体安装步骤，请参见[WeBase安装](https://webasedoc.readthedocs.io/zh_CN/latest/docs/WeBASE/install.html)。
 
-  **注意**：需要修改`webase-node-mgr`服务中的`conf/application.yml`文件。将`isUseSecurity`和`isDeleteInfo`都改成`false`。
+  - 注意
+    - 由于WeEvent和WeBase端口冲突，需修改WeBase一键部署源码包中的`common.properties`文件，配置已有的区块链和服务端口，具体如下。
+    ```
+        mgr.port=8182
+        front.port=8181
 
+        node.p2pPort=30300
+        node.channelPort=20200
+        node.rpcPort=8545
+
+        if.exist.fisco=yes
+    ```
+    - 需要修改`webase-node-mgr`服务中的`conf/application.yml`文件。将`isUseSecurity`和`isDeleteInfo`都改成`false`。
 
 - Mysql数据库
 
@@ -65,11 +77,11 @@ $ tree -L 2
 
 - 配置端口
 
-  在配置文件`./conf/application-prod.yml`中，`Governance` 的服务端口`server:port` ，默认`8099`。
+  在配置文件`./conf/application-prod.yml`中，`Governance` 的服务端口`server.port` ，默认`8099`。
 
   ```
   server:
-    port: ${server_port}
+    port: 8099
   ```
 
 
@@ -135,28 +147,9 @@ $ tree -L 2
 
 ### 加入Nginx反向代理
 
-`WeEvent`服务的所有请求都通过`Nginx`模块接入，`Nginx`模块的安装参见[Nginx模块安装](./nginx.html) 。
+`WeEvent`服务的所有请求都通过`Nginx`模块接入，`Nginx`子模块的安装及详细配置参见[Nginx模块安装及配置](./nginx.html) 。
 
 如果需要部署多个进程实例，将上述步骤安装好的`Governance `目录打包拷贝到其他机器上，解压启动即可。
-
-`Nginx`配置文件`./conf/conf.d/http_rs.conf`中，以下为配置2个`Governance`进程的样例。
-
-```nginx
-upstream governance_backend{
-    server 127.0.0.1:8099 weight=100 max_fails=3;
-    server 127.0.0.2:8099 weight=100 max_fails=3;
-    
-    ip_hash;
-    keepalive 1024; 
-}
-```
-
-`Nginx`重启命令说明。
-
-```
-$ ./nginx -t
-$ ./nginx -s reload
-```
 
 用户可以通过浏览器访问http://localhost:8080/weevent-governance/。`Governance`页面如下：
 

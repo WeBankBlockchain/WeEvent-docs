@@ -102,11 +102,11 @@ $ tree
     对应改成
   
     ```nginx
-      include                 ./conf.d/http_rs.conf;
+      include                 ./conf.d/https.conf;
 
       ...
 
-      include                 ./conf.d/tcp_rs.conf;
+      include                 ./conf.d/tcp_tls.conf;
     ```
   
 - 修改Nginx监听端口
