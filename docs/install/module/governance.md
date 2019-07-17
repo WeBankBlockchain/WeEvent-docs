@@ -19,7 +19,19 @@
 
   推荐版本1.0.4。具体安装步骤，请参见[WeBase安装](https://webasedoc.readthedocs.io/zh_CN/latest/docs/WeBASE/install.html)。
 
-  **注意**：需要修改`webase-node-mgr`服务中的`conf/application.yml`文件。将`isUseSecurity`和`isDeleteInfo`都改成`false`。
+  - 注意
+    - 由于WeEvent和WeBase端口冲突，需修改WeBase一键部署源码包中的`common.properties`文件，配置已有的区块链和服务端口，具体如下。
+    ```
+        mgr.port=8182
+        front.port=8181
+
+        node.p2pPort=30300
+        node.channelPort=20200
+        node.rpcPort=8545
+
+        if.exist.fisco=yes
+    ```
+    - 需要修改`webase-node-mgr`服务中的`conf/application.yml`文件。将`isUseSecurity`和`isDeleteInfo`都改成`false`。
 
 - Mysql数据库
 
