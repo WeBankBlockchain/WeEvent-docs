@@ -64,10 +64,12 @@ docker run -t -i weevent:1.0 /bin/bash
   # Required module
   # support 2.0 and 1.3
   fisco-bcos.version=2.0
-  # FISCO-BCOS node channel, eg: 127.0.0.1:8821;127.0.0.2:8821
-  cfisco-bcos.hannel=127.0.0.1:8821
+  
+  # FISCO-BCOS node channel, eg: 127.0.0.1:20200;127.0.0.2:20200
+  fisco-bcos.channel=127.0.0.1:20200
+  
   # FISCO-BCOS's node path
-  fisco-bcos.node_path=/data/FISCO-BCOS/127.0.0.1/node0
+  fisco-bcos.node_path=~/FISCO-BCOS/127.0.0.1/node0
   
   # Required module
   nginx.port=8080
@@ -97,7 +99,7 @@ docker run -t -i weevent:1.0 /bin/bash
       区块链节点的`channel`访问入口。配置多个节点时用`;`分割，如`127.0.0.1:8821;127.0.0.2:8821`。
     
     - fisco-bcos.node_path
-    
+
       区块链节点的访问证书、私钥存放位置，值为区块链节点的安装目录。如节点与Bash安装脚本不在同一机器上需把目录拷贝到同一机器上。
 
   - Nginx监听端口`nginx.port`
@@ -130,35 +132,35 @@ docker run -t -i weevent:1.0 /bin/bash
   install module nginx 
   install nginx success 
   ```
-```
   
-目标安装路径`/usr/local/weevent/`的结构如下
-  
-```
+
+  目标安装路径`/usr/local/weevent/`的结构如下
+
+   ```shell
   $ cd /usr/local/weevent/
   $ tree -L 2
-    .
-    |-- broker					    
-    |   |-- apps
-    |   |-- broker.sh
-    |   |-- check-service.sh
-    |   |-- conf
-    |   |-- deploy-topic-control.sh
-    |   |-- lib  
-    |   `-- logs
-    |-- check-service.sh				
-    |-- nginx					    	
-    |   |-- conf
-    |   |-- html
-    |   |-- logs
-    |   |-- nginx.sh
-    |   |-- nginx_temp
-    |   `-- sbin   
-    |-- start-all.sh					
-    |-- stop-all.sh				    
-    `-- uninstall-all.sh
-  ```
-  
+  .
+  |-- broker					    
+  |   |-- apps
+  |   |-- broker.sh
+  |   |-- check-service.sh
+  |   |-- conf
+  |   |-- deploy-topic-control.sh
+  |   |-- lib  
+  |   `-- logs
+  |-- check-service.sh				
+  |-- nginx					    	
+  |   |-- conf
+  |   |-- html
+  |   |-- logs
+  |   |-- nginx.sh
+  |   |-- nginx_temp
+  |   `-- sbin   
+  |-- start-all.sh					
+  |-- stop-all.sh				    
+  `-- uninstall-all.sh
+   ```
+
 - 启停服务
   - 启动服务
 
@@ -170,12 +172,12 @@ docker run -t -i weevent:1.0 /bin/bash
     add the crontab job success
     start nginx success (PID=3643)
     add the crontab job success
-  ```
-
-  ​	停止所有服务的命令`./stop-all.sh`。
-
-  - 检查是否安装成功
-
+    ```
+  
+  - 停止所有服务的命令`./stop-all.sh`。
+  
+- 检查是否安装成功
+  
     ```shell
     $ ./check-service.sh
     check broker service 
@@ -199,4 +201,3 @@ docker run -t -i weevent:1.0 /bin/bash
 
 - 注意事项
   安装脚本作为一种简易安装方式，所有子模块都是单实例的。生产环境中建议对`Broker`和`Governance`进行多实例部署。各子模块的部署细节参见[Broker模块部署](./module/broker.html)和[Governance模块部署](./module/governance.html)。
-  
