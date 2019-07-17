@@ -10,7 +10,7 @@
 
 - Broker
 
-  `WeEvent`的事件代理模块，提供核心的事件发布订阅`Publish`/`Subscribe`和`Topic`管理功能。
+  `WeEvent`的事件代理模块，提供核心的事件发布订阅`Pub`/`Sub`和`Topic`管理功能。
 
   该模块使用`Redis`来缓存事件，使用`Zookeeper`进行可能的主备服务切换。
 
@@ -18,7 +18,7 @@
 
   `WeEvent`的事件治理模块，提供一个`Web`管理端。支持事件治理、区块链节点分析、系统监控预警等。
 
-  其中，使用`Mysql`数据库存储`Topic`的统计数据，根据业务需要使用[WeBase](https://github.com/WeBankFinTech/WeBASE)进行区块链管理。
+  其中，使用`Mysql`数据库存储相关数据，使用[WeBase](https://github.com/WeBankFinTech/WeBASE)进行区块链管理。
 
 - FISCO-BCOS
 
