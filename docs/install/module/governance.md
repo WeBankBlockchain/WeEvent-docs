@@ -147,9 +147,9 @@ $ tree -L 2
 
 ### 加入Nginx反向代理
 
-`WeEvent`服务的所有请求都通过`Nginx`模块接入，`Nginx`子模块的安装及详细配置参见[Nginx模块安装及配置](./nginx.html) 。
+将部署好的`Governance`配置到`Nginx`对外提供服务。`Nginx`子模块的安装及详细配置参见[Nginx模块安装及配置](./nginx.html) 。
 
-如果需要部署多个进程实例，将上述步骤安装好的`Governance `目录打包拷贝到其他机器上，解压启动即可。
+如果需要部署更多实例，将上述步骤安装好的`Governance `目录拷贝到目标位置，启动即可。
 
 用户可以通过浏览器访问http://localhost:8080/weevent-governance/。`Governance`页面如下：
 
