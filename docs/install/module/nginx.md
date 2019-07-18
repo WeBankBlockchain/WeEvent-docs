@@ -1,10 +1,10 @@
 ## Nginx模块
 
-`WeEvent`通过`Nginx`实现负载均衡。
+本节介绍`WeEvent`服务`Nginx`模块的详细安装步骤。`WeEvent`服务的快速安装请参见[WeEvent快速安装](../quickinstall.html) 。
 
-`WeEvent`服务支持主流的`Linux`发行版，如`CentOS`、`Ubuntu` 、`Redhat`。本节介绍`WeEvent`服务`Nginx`模块的详细安装步骤。`WeEvent`服务的快速安装请参见[WeEvent快速安装](../quickinstall.html) 。
+`WeEvent`默认使用`Nginx`实现负载均衡。也可以换成`H5`等其他负载均衡服务。端口映射关系详见[服务访问](../../advanced/port.html)。
 
-以下安装以`CentOS` 7.2为例。
+如果是第一次安装`WeEvent`，参见这里的[系统要求](../environment.html) 。以下安装以`CentOS 7.2`为例。
 
 ### 安装Nginx
 
