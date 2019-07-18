@@ -47,8 +47,8 @@ implementation("org.springframework.boot:spring-boot-starter-websocket")
 
   配置心跳时间间隔：修改配置文件`./broker/conf/weevent.properties`，`stomp.heartbeats=30`。
 - 传输协议方面
-    `STOMP Over WebSocket`使用[ws://localhost:8080/weevent/stomp](ws://localhost:8080/weevent/stomp)
-    `STOMP Over SockJS`使用[ws://localhost:8080/weevent/sockjs](ws://localhost:8080/weevent/sockjs)
+    `STOMP Over WebSocket`使用`ws://localhost:8080/weevent/stomp`
+    `STOMP Over SockJS`使用`ws://localhost:8080/weevent/sockjs`
 
 **第二步：发布事件**
 
