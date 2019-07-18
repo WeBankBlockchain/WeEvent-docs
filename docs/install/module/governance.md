@@ -147,28 +147,9 @@ $ tree -L 2
 
 ### 加入Nginx反向代理
 
-`WeEvent`服务的所有请求都通过`Nginx`模块接入，`Nginx`模块的安装参见[Nginx模块安装](./nginx.html) 。
+将部署好的`Governance`配置到`Nginx`对外提供服务。`Nginx`子模块的安装及详细配置参见[Nginx模块安装及配置](./nginx.html) 。
 
-如果需要部署多个进程实例，将上述步骤安装好的`Governance `目录打包拷贝到其他机器上，解压启动即可。
-
-`Nginx`配置文件`./conf/conf.d/http_rs.conf`中，以下为配置2个`Governance`进程的样例。
-
-```nginx
-upstream governance_backend{
-    server 127.0.0.1:8099 weight=100 max_fails=3;
-    server 127.0.0.2:8099 weight=100 max_fails=3;
-    
-    ip_hash;
-    keepalive 1024; 
-}
-```
-
-`Nginx`重启命令说明。
-
-```
-$ ./nginx -t
-$ ./nginx -s reload
-```
+如果需要部署更多实例，将上述步骤安装好的`Governance `目录拷贝到目标位置，启动即可。
 
 用户可以通过浏览器访问http://localhost:8080/weevent-governance/。`Governance`页面如下：
 

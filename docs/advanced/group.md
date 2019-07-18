@@ -39,7 +39,7 @@
 
   - 自定义群组
 
-    一般业务新建自定义群组的时候，都已经有默认群组1。新建群组的操作请参见`FISCO-BCOS`用户手册。
+    一般业务新建自定义群组的时候，都已经有默认群组1。新建群组操作请参见[部署多群组架构](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/tutorial/group_use_cases.html)用户手册。
 
     - 部署合约
 
