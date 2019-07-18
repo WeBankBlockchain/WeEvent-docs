@@ -10,6 +10,14 @@
 | 操作系统 | CentOS、Ubuntu、RedHat | CentOS 7.2   |
 | Java     | Java(TM) 1.8           | Java(TM) 1.8 |
 
+注意：
+
+在`CentOS`系统中，如果使用 `Open JDK` 1.9以下版本，`WeEvent`启动时会出现以下异常。请升级`Open JDK`版本到1.9或者使用`Oracle JDK`。
+
+```
+javax.net.ssl.SSLException: Failed to initialize the client-side SSLContext: Input stream not contain valid certificates
+```
+
 ### 第三方软件
 
 | 软件名     | 推荐版本 | 是否可选 |
@@ -18,5 +26,5 @@
 | FISCO-BCOS | 2.0.0    | 必选     |
 | Mysql      | 5.6.x    | 可选     |
 | Redis      | 5.x.x    | 可选     |
-| Zookeeper  | 3.5.x    | 可选     |
+| Zookeeper  | 3.5.5    | 可选     |
 | WeBase     | 1.0.x    | 可选     |
