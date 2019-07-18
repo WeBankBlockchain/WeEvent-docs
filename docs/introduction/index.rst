@@ -8,4 +8,5 @@ WeEvent简介
 
    /introduction/core.md
    /introduction/architecture.md
- 
+   /introduction/getting-start.md
+   

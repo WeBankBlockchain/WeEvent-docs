@@ -1,10 +1,10 @@
 ## Broker模块
 
+本节介绍`WeEvent`的子模块`Broker`的详细安装步骤。快速安装请参见[WeEvent快速安装](../quickinstall.html) 。
+
 `Broker`是`WeEvent`的核心子模块，负责事件的发布订阅以及对区块链`FISCO-BCOS`的访问。支持`RESTful`、`JsonRPC`、`STOMP`、`MQTT`多种接入协议，也提供了`Java SDK`。
 
-本节介绍`WeEvent`的子模块`Broker`的详细安装步骤，部署系统之前请确认[系统要求](../environment.html) 。快速安装请参见[WeEvent快速安装](../quickinstall.html) 。
-
-以下安装以`CentOS 7.2`为例。
+如果是第一次安装`WeEvent`，参见这里的[系统要求](../environment.html) 。以下安装以`CentOS 7.2`为例。
 
 ### 前置条件
 
