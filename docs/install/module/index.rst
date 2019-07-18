@@ -1,7 +1,6 @@
 详细安装
 ----------
-本章节主要介绍模块详细安装，用户可以根据自身需要，继续探索和学习详细模块。 WeEvent推荐安装顺序为 Broker、Governance、Nginx。
-
+本章节主要介绍WeEvent模块的详细安装，用户可以根据自身需要，继续探索和学习详细模块，一般在生产环境需实例部署，需要使用该方式安装。
 Broker是WeEvent的核心子模块，负责事件的发布订阅以及对区块链FISCO-BCOS的访问。支持RESTful、JsonRPC、STOMP、MQTT多种接入协议，也提供了Java SDK。
 
 

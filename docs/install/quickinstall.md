@@ -136,30 +136,30 @@ docker run -t -i weevent:1.0 /bin/bash
 
   目标安装路径`/usr/local/weevent/`的结构如下
 
-   ```shell
-  $ cd /usr/local/weevent/
-  $ tree -L 2
-  .
-  |-- broker					    
-  |   |-- apps
-  |   |-- broker.sh
-  |   |-- check-service.sh
-  |   |-- conf
-  |   |-- deploy-topic-control.sh
-  |   |-- lib  
-  |   `-- logs
-  |-- check-service.sh				
-  |-- nginx					    	
-  |   |-- conf
-  |   |-- html
-  |   |-- logs
-  |   |-- nginx.sh
-  |   |-- nginx_temp
-  |   `-- sbin   
-  |-- start-all.sh					
-  |-- stop-all.sh				    
-  `-- uninstall-all.sh
-   ```
+  ```shell
+    $ cd /usr/local/weevent/
+    $ tree -L 2
+    .
+    |-- broker					    
+    |   |-- apps
+    |   |-- broker.sh
+    |   |-- check-service.sh
+    |   |-- conf
+    |   |-- deploy-topic-control.sh
+    |   |-- lib  
+    |   `-- logs
+    |-- check-service.sh				
+    |-- nginx					    	
+    |   |-- conf
+    |   |-- html
+    |   |-- logs
+    |   |-- nginx.sh
+    |   |-- nginx_temp
+    |   `-- sbin   
+    |-- start-all.sh					
+    |-- stop-all.sh				    
+    `-- uninstall-all.sh
+```
 
 - 启停服务
   - 启动服务
