@@ -70,8 +70,8 @@
   fisco-bcos.channel=127.0.0.1:20200
   
   # FISCO-BCOS's node path  
-  # FISCO-BCOS verison is 1.3x node_path must config ~/FISCO-BCOS/127.0.0.1/build, 2.0x must config ~/FISCO-BCOS/127.0.0.1/node0
-  fisco-bcos.node_path=~/FISCO-BCOS/127.0.0.1/node0
+  # The path of FISCO-BCOS 2.0 that contain certificate file ca.crt/node.crt/node.key OR FISCO-BCOS 1.3 that contain ca.crt/client.keystore
+  fisco-bcos.node_path=~/FISCO-BCOS/127.0.0.1/node0/conf
   
   # Required module
   nginx.port=8080
@@ -102,7 +102,7 @@
     
   - fisco-bcos.node_path
   
-    区块链节点的访问证书、私钥存放位置，值为区块链节点的安装目录。如节点与Bash安装脚本不在同一机器上需把目录拷贝到同一机器上。
+    区块链节点的访问证书、私钥存放位置，值为区块链节点的安装目录。如节点与Bash安装脚本不在同一机器上需把目录拷贝到同一机器上。`FISCO-BCOS 2.0x`版本需拷贝该配置目录下的`ca.crt`、`node.crt`、`node.key`,`1.3x`版本需拷贝该配置目录下的`ca.crt`、`client.keystore`。
   
 - Nginx监听端口`nginx.port`
   
