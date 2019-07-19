@@ -1,9 +1,9 @@
 ## Governance模块
+本节介绍`Governance`子模块的详细安装步骤。 `WeEvent`服务的快速安装请参见[快速安装](../quickinstall.html) 。
+
 `Governance`为用户提供一个事件治理的`Web`管理端。支持事件治理、区块链节点分析、系统监控预警等。
 
-本节介绍`Governance`子模块的详细安装步骤，部署系统之前请确认[系统要求](../environment.html) 。 `WeEvent`服务的快速安装请参见[快速安装](../quickinstall.html) 。
-
-以下安装以`CentOS 7.2`为例。
+如果是第一次安装`WeEvent`，参见这里的[系统要求](../environment.html) 。以下安装以`CentOS 7.2`为例。
 
 ### 前置条件
 
