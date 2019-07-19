@@ -4,7 +4,7 @@
 
 快速安装作为一种简易安装方式，所有子模块都是单实例的。生产环境中建议对`Broker`和`Governance`进行多实例部署。各子模块的部署细节参见[Broker模块部署](./module/broker.html)和[Governance模块部署](./module/governance.html)。
 
-如果是第一次安装`WeEvent`，参见这里的[系统要求](./environment.html) 。
+如果是第一次安装`WeEvent`，参见这里的[系统要求](./environment.html) 。以下安装过程以`Centos 7.2`为例。
 
 ### Docker安装
 
@@ -19,10 +19,12 @@
 - 创建一个容器
 
   ```bash
-  $ docker run -t -i weevent:1.0.0 /bin/bash
+  $ docker run -d -p 8080:8080 weevent:1.0.0 /bin/bash
   ```
 
 ### Bash安装
+
+需要的一些基础工具`yum install wget tree tar gcc openssl-devel pcre-devel`。
 
 - 获取安装包
 
@@ -50,8 +52,7 @@
   |-- start-all.sh
   |-- stop-all.sh
   |-- third-packages
-  |   |-- nginx-1.14.2.tar.gz
-  |   `-- pcre-8.20.tar.gz
+  |   `-- nginx-1.14.2.tar.gz
   `-- uninstall-all.sh
   ```
   
@@ -63,10 +64,8 @@
   # Required module
   # support 2.0 and 1.3
   fisco-bcos.version=2.0
-  
   # FISCO-BCOS node channel, eg: 127.0.0.1:20200;127.0.0.2:20200
   fisco-bcos.channel=127.0.0.1:20200
-  
   # The path of FISCO-BCOS 2.0 that contain certificate file ca.crt/node.crt/node.key OR FISCO-BCOS 1.3 that contain ca.crt/client.keystore
   fisco-bcos.node_path=~/FISCO-BCOS/127.0.0.1/node0/conf
   
