@@ -24,7 +24,7 @@
 
 ### Bash安装
 
-需要的一些基础工具`yum install wget tree tar gcc openssl-devel pcre-devel`。
+需要的一些基础工具`yum install wget tree tar dos2unix lsof gcc openssl-devel pcre-devel `。
 
 - 获取安装包
 
