@@ -70,7 +70,7 @@
   fisco-bcos.channel=127.0.0.1:20200
   
   # FISCO-BCOS's node path  
-  # when FISCO-BCOS verison is 1.3 node_path must config ~/FISCO-BCOS/127.0.0.1/build 
+  # FISCO-BCOS verison is 1.3x node_path must config ~/FISCO-BCOS/127.0.0.1/build, 2.0x must config ~/FISCO-BCOS/127.0.0.1/node0
   fisco-bcos.node_path=~/FISCO-BCOS/127.0.0.1/node0
   
   # Required module
