@@ -77,7 +77,7 @@
   # Required module
   broker.port=8081
   
-# Optional module
+  # Optional module
   governance.enable=false
   governance.governance.port=8082
   governance.mysql.ip=127.0.0.1
@@ -103,16 +103,16 @@
       区块链节点的访问证书、私钥存放目录。`FISCO-BCOS` 2.0的证书文件为`ca.crt`、`node.crt`、`node.key`，`1.3`版本的证书文件为`ca.crt`、`client.keystore`。
       如果`WeEvent`服务和区块链节点不在同一态机器上，需要把证书文件拷贝到`WeEvent`机器的当前目录，修改`fisco-bcos.node_path=./`。
   
-- Nginx监听端口`nginx.port`
-
-- Broker监听端口`broker.port`
-
+  - Nginx监听端口`nginx.port`
+  
+  - Broker监听端口`broker.port`
+  
   - Governance模块配置
-
+  
     - `governance.enable`是否安装Governance模块，默认false不安装
     - 监听端口`governance.port`
     - Mysql配置`governance.mysql.*`
-
+  
 - 一键安装
 
   以安装到目录`/usr/local/weevent/`为例。
