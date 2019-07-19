@@ -6,6 +6,14 @@
 
 - 下载[github源码](https://github.com/WeBankFinTech/WeEvent)
 
+  ```bash
+  $ git clone https://github.com/WeBankFinTech/WeEvent.git
+  ```
+
+- 运行代码样例
+
+  通过IDE（推荐IDEA）打开项目工程，目录`./weevent-broker/src/test/java/com/webank/weevent/sample`下的样例可以直接运行。
+  
 - 在weevent-build子模块下编译打包
 
   ```bash
@@ -24,3 +32,4 @@
 
 
 欢迎参与`WeEvent`项目[issues](https://github.com/WeBankFinTech/WeEvent/issues)。
+

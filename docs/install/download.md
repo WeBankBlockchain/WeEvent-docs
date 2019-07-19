@@ -1,14 +1,14 @@
 ## 安装包下载
 
-`WeEvent`特性变化请参见[版本变更历史](../history/changelog.html)。
+`WeEvent`特性变化请参见[版本变更历史](https://github.com/WeBankFinTech/WeEvent/releases)。
 
 - v1.0.0版本安装包
 
 | 版本     | 链接 | md5 |
 | ---------- | -------- | -------- |
-| 快速安装包 |  |    |
-| Broker模块 | | |
-| Governance模块 | | |
+| 快速安装包 | [weevent-1.0.0.tar.gz](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.0.0/weevent-1.0.0.tar.gz) |    |
+| Broker模块 | [weevent-broker-1.0.0.tar.gz](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.0.0/weevent-1.0.0.tar.gz) |  |
+| Governance模块 | [weevent-governance-1.0.0.tar.gz](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.0.0/weevent-governance-1.0.0.tar.gz) | |
 
 
 
