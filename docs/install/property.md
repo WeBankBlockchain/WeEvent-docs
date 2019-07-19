@@ -7,9 +7,9 @@
 
   配置文件`./broker/conf/application-prod.properties`，这个是`Spring Boot`标准配置文件，一般不需要修改。细节请参见[Spring Boot文档](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#appendix) 。
 
-  | 配置项                         | 默认值      | 配置说明        |
-  | --------------------------- | -------- | ----------- |
-  | server.port                 | 8081     | spring监听端口  |
+  | 配置项                      | 默认值   | 配置说明         |
+  | --------------------------- | -------- | ---------------- |
+  | server.port                 | 8090     | spring监听端口   |
   | server.servlet.context-path | /weevent | spring上下文路径 |
 
 - 区块链FISCO-BCOS节点配置
