@@ -91,24 +91,18 @@ $ tree
   默认的配置支持`HTTP`和`TCP`访问。通过`./conf/nginx.conf`文件配置`TLS`访问，将
   
   ```nginx
-      include                 ./conf.d/http.conf;
-
-      ...
-
-      include                 ./conf.d/tcp.conf;
+  include                 ./conf.d/http.conf;
+  ...
+  include                 ./conf.d/tcp.conf;
   ```
   
+  对应修改成
   
-    对应改成
-  
-    ```nginx
-      include                 ./conf.d/https.conf;
-
-      ...
-
-      include                 ./conf.d/tcp_tls.conf;
-    ```
-  
+  ```nginx
+  include                 ./conf.d/https.conf;
+  ...
+  include                 ./conf.d/tcp_tls.conf;
+  ```
 - 修改Nginx监听端口
   
   在配置文件`./conf/conf.d/https.conf`里修改`Nginx`监听端口。其他配置项一般不需要修改。
