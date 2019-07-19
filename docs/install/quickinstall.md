@@ -85,24 +85,24 @@
   governance.mysql.user=xxx
   governance.mysql.password=yyy
   ```
-
-配置说明： 
-
-- fisco-bcos
-
-  - fisco-bcos.version
-
-    `FISCO-BCOS`2.0和1.3版本都支持，推荐使用`2.0`及以上版本。
-
-  - fisco-bcos.channel
-
+  
+  配置说明 :
+  
+  - fisco-bcos
+  
+    - fisco-bcos.version
+  
+      `FISCO-BCOS`2.0和1.3版本都支持，推荐使用`2.0`及以上版本。
+  
+    - fisco-bcos.channel
+  
       区块链节点的`channel`访问入口。配置多个节点时用`;`分割，如`127.0.0.1:8821;127.0.0.2:8821`。
-
-  - fisco-bcos.node_path
-
-    区块链节点的访问证书、私钥存放目录。`FISCO-BCOS` 2.0的证书文件为`ca.crt`、`node.crt`、`node.key`，`1.3`版本的证书文件为`ca.crt`、`client.keystore`。
-如果`WeEvent`服务和区块链节点不在同一态机器上，需要把证书文件拷贝到`WeEvent`机器的当前目录，修改`fisco-bcos.node_path=./`。
-
+  
+    - fisco-bcos.node_path
+  
+      区块链节点的访问证书、私钥存放目录。`FISCO-BCOS` 2.0的证书文件为`ca.crt`、`node.crt`、`node.key`，`1.3`版本的证书文件为`ca.crt`、`client.keystore`。
+      如果`WeEvent`服务和区块链节点不在同一态机器上，需要把证书文件拷贝到`WeEvent`机器的当前目录，修改`fisco-bcos.node_path=./`。
+  
 - Nginx监听端口`nginx.port`
 
 - Broker监听端口`broker.port`
@@ -172,7 +172,7 @@
     start nginx success (PID=3643)
     add the crontab job success
     ```
-  
+
   - 停止所有服务的命令`./stop-all.sh`。
 
 - 检查是否安装成功
