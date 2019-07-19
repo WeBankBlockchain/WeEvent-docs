@@ -15,6 +15,7 @@
   ```
 
   `WeEvent`的镜像里包括了`FISCO-BCOS`网络，`WeEvent`的`Broker`和`Governance`服务。
+
 - 创建一个容器
 
   ```bash
@@ -22,8 +23,6 @@
   ```
 
 ### Bash安装
-
-为了简化配置，在Bash安装时建议将`WeEvent`服务和区块链`FISCO-BCOS`节点安装在同一台机器上。
 
 - 获取安装包
 
@@ -37,7 +36,7 @@
 
   解压后目录结构如下：
 
-  ```
+  ```shell
   $ cd weevent-1.0.0/ 
   $ tree -L 2
   .
@@ -56,7 +55,7 @@
   |   `-- pcre-8.20.tar.gz
   `-- uninstall-all.sh
   ```
-  
+
 - 修改配置
 
   默认配置文件`./config.properties`如下：
@@ -69,7 +68,6 @@
   # FISCO-BCOS node channel, eg: 127.0.0.1:20200;127.0.0.2:20200
   fisco-bcos.channel=127.0.0.1:20200
   
-  # FISCO-BCOS's node path  
   # The path of FISCO-BCOS 2.0 that contain certificate file ca.crt/node.crt/node.key OR FISCO-BCOS 1.3 that contain ca.crt/client.keystore
   fisco-bcos.node_path=~/FISCO-BCOS/127.0.0.1/node0/conf
   
@@ -79,41 +77,41 @@
   # Required module
   broker.port=8081
   
-  # Optional module
+# Optional module
   governance.enable=false
   governance.governance.port=8082
   governance.mysql.ip=127.0.0.1
   governance.mysql.port=3306
   governance.mysql.user=xxx
   governance.mysql.password=yyy
-```
-  
-配置说明：  
-  
+  ```
+
+配置说明： 
+
 - fisco-bcos
-  
+
   - fisco-bcos.version
-  
+
     `FISCO-BCOS`2.0和1.3版本都支持，推荐使用`2.0`及以上版本。
-  
+
   - fisco-bcos.channel
-  
+
       区块链节点的`channel`访问入口。配置多个节点时用`;`分割，如`127.0.0.1:8821;127.0.0.2:8821`。
-    
+
   - fisco-bcos.node_path
-  
-    区块链节点的访问证书、私钥存放位置，值为区块链节点的安装目录。如节点与Bash安装脚本不在同一机器上需把目录拷贝到同一机器上。`FISCO-BCOS 2.0x`版本需拷贝该配置目录下的`ca.crt`、`node.crt`、`node.key`,`1.3x`版本需拷贝该配置目录下的`ca.crt`、`client.keystore`。
-  
+
+    区块链节点的访问证书、私钥存放目录。`FISCO-BCOS` 2.0的证书文件为`ca.crt`、`node.crt`、`node.key`，`1.3`版本的证书文件为`ca.crt`、`client.keystore`。
+如果`WeEvent`服务和区块链节点不在同一态机器上，需要把证书文件拷贝到`WeEvent`机器的当前目录，修改`fisco-bcos.node_path=./`。
+
 - Nginx监听端口`nginx.port`
-  
+
 - Broker监听端口`broker.port`
-  
+
   - Governance模块配置
-  
+
     - `governance.enable`是否安装Governance模块，默认false不安装
     - 监听端口`governance.port`
     - Mysql配置`governance.mysql.*`
-
 
 - 一键安装
 
@@ -134,11 +132,10 @@
   install module nginx 
   install nginx success 
   ```
-  
 
   目标安装路径`/usr/local/weevent/`的结构如下
 
-   ```shell
+  ```shell
   $ cd /usr/local/weevent/
   $ tree -L 2
   .
@@ -161,7 +158,7 @@
   |-- start-all.sh					
   |-- stop-all.sh				    
   `-- uninstall-all.sh
-   ```
+  ```
 
 - 启停服务
   - 启动服务
@@ -177,9 +174,9 @@
     ```
   
   - 停止所有服务的命令`./stop-all.sh`。
-  
+
 - 检查是否安装成功
-  
+
     ```shell
     $ ./check-service.sh
     check broker service 
