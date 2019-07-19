@@ -121,55 +121,46 @@
   `WeEvent`通过`Nginx`实现`TLS`加密传输。如下`./nginx/conf/nginx.conf`的默认配置不支持`TLS`。
 
   ```nginx
-# This is nginx configuration for WeEvent's proxy access.
-  # 1. Support tcp access in default.
-  #   like web/restful/jsonrpc over http, stomp over websocket, and mqtt over tcp or websocket.
-  # 2. For security access
-  #   a. support web/restful/jsonrpc over https, stomp over wss, and mqtt over wss
-  #       replace default include line to "include ./conf.d/https.conf"
-  #   b. support mqtt over tls
-  #       replace default include line to "include ./conf.d/tcp_tls.conf"  
-  ###############################################################################
-  
-worker_processes  10;
+  worker_processes  10;
   pid         logs/nginx.pid;
-
+  
   events {
-  	use epoll;
+  	  use epoll;
       worker_connections  10000;
-}
+  }
   worker_rlimit_nofile 10000;
-
+  
   #support web/restful/jsonrpc/stomp
   http {
       include       mime.types;
-      default_type  application/octet-stream;
+    default_type  application/octet-stream;
       keepalive_timeout  65;
-
+  
       # custom config
       server_tokens           off;
       client_body_temp_path   ./nginx_temp/client_body;
-      proxy_temp_path         ./nginx_temp/proxy;
-    fastcgi_temp_path       ./nginx_temp/fastcgi;
+    proxy_temp_path         ./nginx_temp/proxy;
+      fastcgi_temp_path       ./nginx_temp/fastcgi;
       uwsgi_temp_path         ./nginx_temp/uwsgi;
       scgi_temp_path          ./nginx_temp/scgi;
   
-    # http conf
-      include                 ./conf.d/http_rs.conf;
-
+      # http conf
+    include                 ./conf.d/http_rs.conf;
+  
       # include ./conf.d/https.conf
       include                 ./conf.d/http.conf;
-}
+  }
   
   # support mqtt over tcp
-stream {
+  stream {
       include                 ./conf.d/tcp_rs.conf;
     
       #include ./conf.d/tcp_tls.conf
-      include                 ./conf.d/tcp.conf;
+    include                 ./conf.d/tcp.conf;
   }
   ```
   
   通过对应替换`include ./conf.d/https.conf`和`include ./conf.d/tcp_tls.conf`来支持`TLS`。
   
+
 更多`Nginx`配置文件说明，请参见[Nginx配置](https://www.nginx.com/resources/wiki/start/topics/examples/full/) 。
