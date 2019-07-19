@@ -47,7 +47,6 @@
   |   |-- broker
   |   |-- governance
   |   `-- nginx
-  |-- README.md
   |-- start-all.sh
   |-- stop-all.sh
   |-- third-packages
@@ -55,7 +54,7 @@
   |   `-- pcre-8.20.tar.gz
   `-- uninstall-all.sh
   ```
-
+  
 - 修改配置
 
   默认配置文件`./config.properties`如下：
@@ -75,11 +74,11 @@
   nginx.port=8080
   
   # Required module
-  broker.port=8081
+  broker.port=8090
   
   # Optional module
   governance.enable=false
-  governance.governance.port=8082
+  governance.governance.port=9099
   governance.mysql.ip=127.0.0.1
   governance.mysql.port=3306
   governance.mysql.user=xxx
