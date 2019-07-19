@@ -4,7 +4,7 @@
 
 `FISCO-BCOS`从2.0版本开始支持群组特性，解决用户隐私问题。1.3版本不支持群组功能。
 
-系统合约[TopicController.sol]([TopicController.sol](https://github.com/WeBankFinTech/WeEvent/blob/master/weevent-broker/contract/TopicController.sol))是`WeEvent`访问区块链数据的入口合约。每个群组有各自独立的系统合约。
+系统合约[TopicController.sol](https://github.com/WeBankFinTech/WeEvent/blob/master/weevent-broker/contract/TopicController.sol)是`WeEvent`访问区块链数据的入口合约。每个群组有各自独立的系统合约。
 
 - 1.3版本部署合约
 
