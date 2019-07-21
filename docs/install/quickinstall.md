@@ -1,8 +1,6 @@
 ## 快速安装
 
-快速安装是为了方便用户搭建开发和测试环境，在单台机器上快速部署`WeEvent`服务。提供`Docker`镜像、Bash脚本两种安装方式，推荐使用`Docker`镜像。
-
-快速安装作为一种简易安装方式，所有子模块都是单实例的。生产环境中建议对`Broker`和`Governance`进行多实例部署。各子模块的部署细节参见[Broker模块部署](./module/broker.html)和[Governance模块部署](./module/governance.html)。
+快速安装是为了方便用户搭建开发和测试环境，在单台机器上快速部署`WeEvent`服务。提供`Docker`镜像、Bash脚本两种安装方式。
 
 如果是第一次安装`WeEvent`，参见这里的[系统要求](./environment.html) 。以下安装过程以`Centos 7.2`为例。
 
@@ -14,7 +12,7 @@
   $ docker pull weevent:1.0.0
   ```
 
-  `WeEvent`的镜像里包括了`FISCO-BCOS`网络，`WeEvent`的`Broker`和`Governance`服务。
+  `WeEvent`的镜像里包括了`FISCO-BCOS`网络，`WeEvent`服务的子模块`Broker`和`Governance`，以及各种依赖。
 
 - 创建一个容器
 
@@ -86,7 +84,7 @@
   
   配置说明 :
   
-  - fisco-bcos
+  - 区块链FISCO-BCOS
   
     - fisco-bcos.version
   
@@ -99,7 +97,7 @@
     - fisco-bcos.node_path
   
       区块链节点的访问证书、私钥存放目录。`FISCO-BCOS` 2.0的证书文件为`ca.crt`、`node.crt`、`node.key`，`1.3`版本的证书文件为`ca.crt`、`client.keystore`。
-      如果`WeEvent`服务和区块链节点不在同一态机器上，需要把证书文件拷贝到`WeEvent`机器的当前目录，修改`fisco-bcos.node_path=./`。
+      如果`WeEvent`服务和区块链节点不在同一台机器上，需要把证书文件拷贝到`WeEvent`机器的当前目录，修改`fisco-bcos.node_path=./`。
   
   - Nginx监听端口`nginx.port`
   
@@ -119,7 +117,7 @@
   $ ./install-all.sh -p /usr/local/weevent/
   ```
 
-  正常安装后，输出有如下关键字：
+  正常安装后，输出有如下关键字:
 
   ```
   8081 port is okay
@@ -130,6 +128,8 @@
   install module nginx 
   install nginx success 
   ```
+
+  如果安装失败，可以在安装日志`./install.log`中查看更多细节。
 
   目标安装路径`/usr/local/weevent/`的结构如下
 
@@ -161,7 +161,7 @@
 - 启停服务
   - 启动服务
 
-    通过`start-all.sh`命令启动所有服务 ，正常启动如下：
+    在服务安装目录下`/usr/local/weevent`，通过`start-all.sh`命令启动所有服务 ，正常启动如下：
 
     ```shell
     $ ./start-all.sh
@@ -187,11 +187,13 @@
 
   ```shell
   $ ./uninstall-all.sh
-  WeEvent is running, stop it first? [Y/N]Y
+  WeEvent is running, stop it first? [Y/N]Y 
   stop broker success
   remove the crontab job success
   stop nginx success
   remove the crontab job success
-  Please confirm if you remove the WeEvent? [Y/N]Y
+  really want to uninstall WeEvent? [Y/N]Y
   uninstall WeEvent success 
   ```
+
+快速安装作为一种简易安装方式，所有子模块都是单实例的。生产环境中建议对`Broker`和`Governance`进行多实例部署。各子模块详细部署参见[Broker模块部署](./module/broker.html)和[Governance模块部署](./module/governance.html)。
