@@ -88,7 +88,7 @@
   
     - fisco-bcos.version
   
-      `FISCO-BCOS`2.0和1.3版本都支持，推荐使用`2.0`及以上版本。
+      `FISCO-BCOS 2.0`和`1.3`版本都支持，推荐使用`2.0`及以上版本。
   
     - fisco-bcos.channel
   
@@ -96,7 +96,7 @@
   
     - fisco-bcos.node_path
   
-      区块链节点的访问证书、私钥存放目录。`FISCO-BCOS` 2.0的证书文件为`ca.crt`、`node.crt`、`node.key`，`1.3`版本的证书文件为`ca.crt`、`client.keystore`。
+      区块链节点的访问证书、私钥存放目录。`FISCO-BCOS 2.0`的证书文件为`ca.crt`、`node.crt`、`node.key`，`1.3`版本的证书文件为`ca.crt`、`client.keystore`。
       如果`WeEvent`服务和区块链节点不在同一台机器上，需要把证书文件拷贝到`WeEvent`机器的当前目录，修改`fisco-bcos.node_path=./`。
   
   - Nginx监听端口`nginx.port`
