@@ -19,7 +19,7 @@
 ```groovy
 implementation("org.springframework.boot:spring-boot-starter-websocket")
 ```
-`Spring`从4.0开始引入`spring-websocket`模块，支持`STOMP`，建议使用`Spring Boot` 2.0.0以上版本。
+`Spring`从`4.0`开始引入`spring-websocket`模块，支持`STOMP`，建议使用`Spring Boot 2.0.0`以上版本。
 
 #### 代码样例
 
@@ -100,13 +100,14 @@ implementation("org.springframework.boot:spring-boot-starter-websocket")
 
 - 依赖说明
 
-```
-implementation("org.springframework:spring-messaging:5.1.2.RELEASE")
-implementation("org.springframework:spring-websocket:5.1.2.RELEASE")
-```
+  ```groovy
+  implementation("org.springframework:spring-messaging:5.1.2.RELEASE")
+  implementation("org.springframework:spring-websocket:5.1.2.RELEASE")
+  ```
+
 - 代码实现和上面`spring boot`一样
 
 #### 其他语言的适配
 
-各种语言的开源STOMP客户端，参见[https://stomp.github.io/implementations.html](https://stomp.github.io/implementations.html)。
+各种语言的开源`STOMP`客户端，参见[https://stomp.github.io/implementations.html](https://stomp.github.io/implementations.html)。
 
