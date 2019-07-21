@@ -144,11 +144,7 @@ $ tree -L 2
 
 `Governance`支持同时管理多个`WeEvent`服务和区块链网络， 配置界面如下。
 
-<<<<<<< HEAD
-![multi-views](../../image/multi-views.png)
-=======
 ![Governance-multi-view.png](../../image/Governance-multi-view.png)
->>>>>>> b0380e7922d4546af2b883b15aaeb6c3e64f9a6f
 
 推荐安装`WeBase 1.0.4`。具体安装步骤，请参见[WeBase安装](https://webasedoc.readthedocs.io/zh_CN/latest/docs/WeBASE/install.html)。
 
