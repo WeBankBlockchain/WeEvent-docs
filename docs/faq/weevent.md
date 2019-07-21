@@ -61,6 +61,6 @@
   javax.net.ssl.SSLException: Failed to initialize the client-side SSLContext: Input stream not contain valid certificates
   ```
   
-  这个问题涉及到`JDK`加密算法的实现。`Oracle JDK`里带了这个算法实现，`Open JDK`直到 1.9版本才有。所以在`CentOS`系统中，如果使用 `Open JDK` 1.9以下版本，`WeEvent`启动时会出现以下异常。请升级`Open JDK`版本到1.9或者使用`Oracle JDK`。
+  这个问题涉及到`JDK`加密算法的实现。`Oracle JDK`里带了这个算法实现，`Open JDK`直到 1.9版本才有。所以在`CentOS`系统中，如果使用 `Open JDK 1.9`以下版本，`WeEvent`启动时会出现以下异常。请升级`Open JDK`版本到1.9或者使用`Oracle JDK`。
   
 - TODO
