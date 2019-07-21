@@ -90,13 +90,13 @@ $ tree  -L 2
       在配置文件`./conf/fisco.properties`中，替换为生成的合约地址。例如：
   
     ```ini
-  topic-controller.address=1:0xd99253697e61bf19206ceb4704fc9914d0a4116c;
+      topic-controller.address=1:0xd99253697e61bf19206ceb4704fc9914d0a4116c;
     ```
     
       1.3版本的合约地址设置如下:
   
     ```ini
-  topic-controller.address=0xd99253697e61bf19206ceb4704fc9914d0a4116c
+      topic-controller.address=0xd99253697e61bf19206ceb4704fc9914d0a4116c
     ```
     
     更多关于群组和合约部署的细节，请参考[多群组](../../advanced/group.html)。
