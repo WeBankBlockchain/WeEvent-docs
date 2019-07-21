@@ -12,19 +12,19 @@
 
    必选配置。Broker通过区块链`FISCO-BCOS`持久化数据。
 
-   推荐使用`FISCO-BCOS` 2.0版本。具体安装步骤，请参见[FISCO-BCOS 2.0安装](https://fisco-bcos-documentation.readthedocs.io/zh_CN/release-2.0/docs/installation.html)。
+   推荐使用`FISCO-BCOS 2.0`版本。具体安装步骤，请参见[FISCO-BCOS 2.0安装](https://fisco-bcos-documentation.readthedocs.io/zh_CN/release-2.0/docs/installation.html)。
 
 - Redis缓存
 
   可选配置。
 
-  推荐使用`Redis`5.0+版本。具体安装步骤，请参见[Redis安装](https://redis.io/download)。
+  推荐使用`Redis 5.0+`版本。具体安装步骤，请参见[Redis安装](https://redis.io/download)。
 
 - Zookeeper服务
 
   可选配置。当使用了`JsonRPC`或者`RESTful`协议的订阅功能起来`Zookeeper`主备切换。
 
-  推荐使用`Zookeeper`3.5+版本。具体安装步骤，请参见[Zookeeper安装](http://zookeeper.apache.org/doc/r3.4.13/zookeeperStarted.html)。
+  推荐使用`Zookeeper 3.5.5`版本。具体安装步骤，请参见[Zookeeper安装](http://zookeeper.apache.org/doc/r3.4.13/zookeeperStarted.html)。
 
 
 ### 获取安装包
@@ -64,7 +64,7 @@ $ tree  -L 2
 
   - 区块链节点配置文件fisco.properties
 
-    修改nodes=127.0.0.1:8501配置项，nodes为区块链节点访问IP及channelport访问端口。
+    修改`nodes=127.0.0.1:8501`配置项，`nodes`为区块链节点`channel`访问入口。
 
   - 访问节点的证书文件
 
@@ -74,9 +74,9 @@ $ tree  -L 2
 
     证书文件生成及获取请参见[FISCO-BCOS 2.0安装](https://fisco-bcos-documentation.readthedocs.io/zh_CN/release-2.0/docs/installation.html)
 
-- 部署和修改合约地址
+- 部署和修改系统合约
 
-  - 部署Topic合约  
+  - 部署系统合约  
 
     运行脚本`./deploy-topic-control.sh `，部署合约并得到合约地址。例如:
 
@@ -107,7 +107,7 @@ $ tree  -L 2
   
 - 配置Broker监听端口
 
-  可选配置。`./conf/application-prod.properties`中`server.port`配置项，默认监听端口8090，根据业务需要配置。
+  可选配置。`./conf/application-prod.properties`中`server.port`配置项，默认监听端口`8090`，根据业务需要配置。
   
 - 配置Redis缓存
 

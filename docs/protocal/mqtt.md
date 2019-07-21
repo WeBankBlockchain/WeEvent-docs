@@ -53,7 +53,7 @@ mqtt.user.passcode=
 
 ### 样例演示
 
-样例演示需依赖`Mosquitto`客户端，请根据链接(`https://mosquitto.org/download/`)进行下载安装。
+样例演示需依赖`Mosquitto`客户端，请根据链接(`https://mosquitto.org/download/`)进行下载安装。更多客户端参见[MQTT第三方库](https://github.com/mqtt/mqtt.github.io/wiki/libraries)。
 
 - IoT设备发布事件
 

@@ -17,7 +17,7 @@
 
   必选配置。`Governance`通过`Mysql`存储数据。
 
-  推荐安装`Mysql` 5.6+版本。具体安装步骤，安装请参见[Mysql安装](http://dev.mysql.com/downloads/mysql/) 。
+  推荐安装`Mysql 5.6+`版本。具体安装步骤，安装请参见[Mysql安装](http://dev.mysql.com/downloads/mysql/) 。
 
 
 ### 获取安装包
@@ -74,18 +74,23 @@ $ tree -L 2
       datasource:
         url: jdbc:mysql://127.0.0.1:3306/governance?useUnicode=true&characterEncoding=utf-8&useSSL=false
         driver-class-name: org.mariadb.jdbc.Driver
-        username: xxxx
-        password: yyyy
+        username: test
+        password: 123456
         type: org.apache.commons.dbcp2.BasicDataSource
     ```
+    **注意**：数据库要赋予配置账号创建库表的权限。
+
+    ```mysql
+    >> grant all privileges on *.* to 'test'@'%' identified by '123456';
+    >> flush privileges;
+    ```
+
     初始化系统，执行脚本`init-governance.sh` ，成功输出如下。否则，用户需要检查配置项是否正常。
 
-    ```
+    ```shell
     $ ./init-governance.sh
     init governance db success
     ```
-
-    **注意**：数据库要赋予该角色通过其他机器进行数据库表增删操作的权限。
 
 - 配置发送邮箱的地址
 
@@ -131,17 +136,17 @@ $ tree -L 2
 
 如果需要部署更多实例，将上述步骤安装好的`Governance `目录拷贝到目标位置，启动即可。
 
-用户可以通过浏览器访问http://localhost:8080/weevent-governance/。`Governance`页面如下：
+用户可以通过浏览器访问http://localhost:8080/weevent-governance/。显示如下登陆页面说明安装成功。
 
-![](../../image/Governance-ui.png)
+![Governance-ui.png](../../image/Governance-ui.png)
 
 ### 多视图管理
 
 `Governance`支持同时管理多个`WeEvent`服务和区块链网络， 配置界面如下。
 
-![1563681038347](C:\Users\matthewliu\AppData\Roaming\Typora\typora-user-images\1563681038347.png)
+![Governance-multi-view.png](../../image/Governance-multi-view.png)
 
-推荐安装`WeBase`1.0.4。具体安装步骤，请参见[WeBase安装](https://webasedoc.readthedocs.io/zh_CN/latest/docs/WeBASE/install.html)。
+推荐安装`WeBase 1.0.4`。具体安装步骤，请参见[WeBase安装](https://webasedoc.readthedocs.io/zh_CN/latest/docs/WeBASE/install.html)。
 
 以下两点需要特别注意：
 
