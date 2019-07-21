@@ -18,7 +18,7 @@
 
 - 配置区块链
 
-  支持`FISCO-BCOS` 1.3和2.0。
+  支持`FISCO-BCOS 1.3`和`2.0`。
   
   - FISCO-BCOS 2.0
   
@@ -54,7 +54,7 @@
       package local: ./package.sh --tag local --version 1.0.0
   ```
 
-  编译环境依赖`git`，`git bash`， `gradle` 4.10，`java` 1.8，`nodejs` 10.16。
+  编译环境依赖`git`，`git bash`， `gradle 4.10`，`java 1.8`，`nodejs 10.16`。
 
 - 安装包一键安装服务
 
