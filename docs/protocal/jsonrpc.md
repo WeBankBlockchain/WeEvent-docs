@@ -41,12 +41,10 @@ public class JsonRPC {
             JsonRpcHttpClient client = new JsonRpcHttpClient(remote);
             // 实例化rpc对象
             IBrokerRpc rpc = ProxyUtil.createClientProxy(client.getClass().getClassLoader(), IBrokerRpc.class, client);
-
-            // 确认主题存在
-            rpc.open("com.weevent.test");
-
             // 发布事件，主题“com.weevent.test”，事件内容为"hello weevent"
             String groupId = "1";
+            // 确认主题存在
+            rpc.open("com.weevent.test",groupId);
             Map<String,String> extensions = new HashMap<>();
             extensions.put("weevent-format","json");
             SendResult sendResult = rpc.publish("com.weevent.test", groupId, "hello weevent".getBytes(StandardCharsets.UTF_8), extensions);

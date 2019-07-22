@@ -76,7 +76,7 @@
   
   # Optional module
   governance.enable=false
-  governance.governance.port=9099
+  governance.governance.port=8099
   governance.mysql.ip=127.0.0.1
   governance.mysql.port=3306
   governance.mysql.user=xxx
