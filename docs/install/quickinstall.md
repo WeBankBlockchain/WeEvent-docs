@@ -64,7 +64,8 @@
   fisco-bcos.version=2.0
   # FISCO-BCOS node channel, eg: 127.0.0.1:20200;127.0.0.2:20200
   fisco-bcos.channel=127.0.0.1:20200
-  # The path of FISCO-BCOS 2.0 that contain certificate file ca.crt/node.crt/node.key OR FISCO-BCOS 1.3 that contain ca.crt/client.keystore
+  # The path of FISCO-BCOS 2.0 that contain certificate file ca.crt/node.crt/node.key,
+  # OR FISCO-BCOS 1.3 that contain ca.crt/client.keystore
   fisco-bcos.node_path=~/FISCO-BCOS/127.0.0.1/node0/conf
   
   # Required module
@@ -105,7 +106,7 @@
   
   - Governance模块配置
   
-    - `governance.enable`是否安装Governance模块，默认false不安装
+    - `governance.enable`是否安装`Governance`模块，默认为`false`不安装
     - 监听端口`governance.port`
     - Mysql配置`governance.mysql.*`
   

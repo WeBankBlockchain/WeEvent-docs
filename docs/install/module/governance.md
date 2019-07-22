@@ -92,9 +92,9 @@ $ tree -L 2
     init governance db success
     ```
 
-- 配置发送邮箱的地址
+- 重置密码的邮件设置
 
-    在配置文件`./conf/application-prod.yml`中，修改`mail`中的`host`、`username`、`password` 配置。
+    可选配置。在配置文件`./conf/application-prod.yml`中，修改`mail`中的`host`、`username`、`password` 配置。
 
     ```ini
     mail:
