@@ -26,7 +26,7 @@
 
 - 获取安装包
 
-  从`github`下载安装包[weevent-1.0.0.tar.gz](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.0.0/weevent-1.0.0.tar.gz)，并且解压到`/tmp/` 。
+  下载安装包[weevent-1.0.0.tar.gz](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.0.0/weevent-1.0.0.tar.gz)，并且解压到`/tmp/` 。
 
   ```shell
   $ cd /tmp/
@@ -34,25 +34,27 @@
   $ tar -zxf weevent-1.0.0.tar.gz
   ```
 
-  如果`github`下载速度慢，可以尝试[国内下载链接](https://fisco.com.cn/cdn/WeEvent/releases/download/v1.0.0/weevent-1.0.0.tar.gz)。
-解压后目录结构如下：
-  
+  解压后目录结构如下：
+
   ```shell
   $ cd weevent-1.0.0/ 
   $ tree -L 2
   .
-  |-- check-service.sh
-  |-- config.properties
-  |-- install-all.sh
-  |-- modules
-  |   |-- broker
-  |   |-- governance
-  |   `-- nginx
-  |-- start-all.sh
-  |-- stop-all.sh
-  |-- third-packages
-  |   `-- nginx-1.14.2.tar.gz
-  `-- uninstall-all.sh
+  ├── bin
+  │   ├── check-service.sh
+  │   ├── start-all.sh
+  │   ├── stop-all.sh
+  │   └── uninstall-all.sh
+  ├── build
+  │   └── nginx-1.14.2
+  ├── config.properties
+  ├── install-all.sh
+  ├── modules
+  │   ├── broker
+  │   ├── governance
+  │   └── nginx
+  └── third-packages
+      └── nginx-1.14.2.tar.gz
   ```
   
 - 修改配置
