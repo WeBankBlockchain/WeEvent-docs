@@ -19,7 +19,7 @@ TLS SNI support enabled
 configure arguments: --with-http_ssl_module --with-stream --with-stream_ssl_module
 ```
 
-然后将`WeEvent`业务配置文件覆盖`./nginx/conf/`目录即可。
+然后将`WeEvent`的[Nginx配置文件](https://github.com/WeBankFinTech/WeEvent/tree/master/weevent-build/modules/nginx/conf)，覆盖`./nginx/conf/`目录即可。另外：快速安装包`weevent-1.0.0.tar.gz`的`./modules/nginx/conf`目录中也包含这些配置文件。
 
 ```
 $ tree
