@@ -16,18 +16,18 @@
 
   配置文件`./broker/conf/fisco.properties`。
 
-  | 配置项                     | 默认值                                        | 配置说明                                |
-  | -------------------------- | --------------------------------------------- | --------------------------------------- |
-  | version                    | 2.0                                           | FISCO-BCOS版本，支持2.0和1.3            |
-  | topic-controller.address   | 1:0x23df89a2893120f686a4aa03b41acf6836d11e5d; | WeEvent系统合约地址。                   |
-  | orgid                      | fisco                                         | 机构名，按机构实际名称填写即可          |
-  | nodes                      | 127.0.0.1:30701                               | 区块链节点列表，多个地址以`;`分割       |
-  | account                    | bcec428d5205abe0f0cc8a73408...                | `WeEvent`执行交易的账号，一般不需要修改 |
-  | web3sdk.timeout            | 10000                                         | 交易执行超时时间，单位毫秒              |
-  | web3sdk.core-pool-size     | 10                                            | web3sdk最小线程数                       |
-  | web3sdk.max-pool-size      | 200                                           | web3sdk最大线程数                       |
-  | web3sdk.queue-capacity     | 1000                                          | web3sdk队列大小                         |
-  | web3sdk.keep-alive-seconds | 60                                            | web3sdk线程空闲时间，单位秒             |
+  | 配置项                     | 默认值                         | 配置说明                                |
+  | -------------------------- | ------------------------------ | --------------------------------------- |
+  | version                    | 2.0                            | FISCO-BCOS版本，支持2.0和1.3            |
+  | topic-controller.address   | 1:0x23df89a2893120f686a4aa...; | WeEvent系统合约地址。                   |
+  | orgid                      | fisco                          | 机构名，按机构实际名称填写即可          |
+  | nodes                      | 127.0.0.1:30701                | 区块链节点列表，多个地址以`;`分割       |
+  | account                    | bcec428d5205abe0f0cc8a73408... | `WeEvent`执行交易的账号，一般不需要修改 |
+  | web3sdk.timeout            | 10000                          | 交易执行超时时间，单位毫秒              |
+  | web3sdk.core-pool-size     | 10                             | web3sdk最小线程数                       |
+  | web3sdk.max-pool-size      | 200                            | web3sdk最大线程数                       |
+  | web3sdk.queue-capacity     | 1000                           | web3sdk队列大小                         |
+  | web3sdk.keep-alive-seconds | 60                             | web3sdk线程空闲时间，单位秒             |
 
 
   区块链节点详细配置，参见[Web3SDK配置文件](https://fisco-bcos-documentation.readthedocs.io/zh_CN/release-2.0/docs/sdk/sdk.html) 。
@@ -121,72 +121,46 @@
   `WeEvent`通过`Nginx`实现`TLS`加密传输。如下`./nginx/conf/nginx.conf`的默认配置不支持`TLS`。
 
   ```nginx
-
-    # This is nginx configuration for WeEvent's proxy access.
-    # 1. Support tcp access in default.
-    #   like web/restful/jsonrpc over http, stomp over websocket, and mqtt over tcp or websocket.
-    # 2. For security access
-    #   a. support web/restful/jsonrpc over https, stomp over wss, and mqtt over wss
-    #       replace default include line to "include ./conf.d/https.conf"
-    #   b. support mqtt over tls
-    #       replace default include line to "include ./conf.d/tcp_tls.conf"  
-    #user  nobody;
-
   worker_processes  10;
-
-    #error_log  logs/error.log;
-    #error_log  logs/error.log  notice;
-    #error_log  logs/error.log  info;
-
-    pid         logs/nginx.pid;
-
-    events {
-      use epoll;
-        worker_connections  10000;
-    }
-    worker_rlimit_nofile 10000;
-
-    #support web/restful/jsonrpc/stomp
+  pid         logs/nginx.pid;
+  
+  events {
+  	  use epoll;
+      worker_connections  10000;
+  }
+  worker_rlimit_nofile 10000;
+  
+  #support web/restful/jsonrpc/stomp
   http {
-        include       mime.types;
-        default_type  application/octet-stream;
-
-        #log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
-      #                  '$status $body_bytes_sent "$http_referer" '
-        #                  '"$http_user_agent" "$http_x_forwarded_for"';
-
-        #access_log  logs/access.log  main;
-
-        sendfile        on;
-      #tcp_nopush     on;
-
-        #keepalive_timeout  0;
+      include       mime.types;
+    default_type  application/octet-stream;
       keepalive_timeout  65;
-
-        #gzip  on;
-
-        #custom config
-        server_tokens           off;
-        client_body_temp_path   ./nginx_temp/client_body;
-        proxy_temp_path         ./nginx_temp/proxy;
-        fastcgi_temp_path       ./nginx_temp/fastcgi;
-        uwsgi_temp_path         ./nginx_temp/uwsgi;
-        scgi_temp_path          ./nginx_temp/scgi;
-
-        # http conf
-      include                 ./conf.d/http_rs.conf;
-
-      include                 ./conf.d/http.conf; #include ./conf.d/https.conf
-    }
-
-    #support mqtt over tcp
-    stream {
-        include                 ./conf.d/tcp_rs.conf;
-
-        include                 ./conf.d/tcp.conf; #include ./conf.d/tcp_tls.conf
-    }
+  
+      # custom config
+      server_tokens           off;
+      client_body_temp_path   ./nginx_temp/client_body;
+    proxy_temp_path         ./nginx_temp/proxy;
+      fastcgi_temp_path       ./nginx_temp/fastcgi;
+      uwsgi_temp_path         ./nginx_temp/uwsgi;
+      scgi_temp_path          ./nginx_temp/scgi;
+  
+      # http conf
+    include                 ./conf.d/http_rs.conf;
+  
+      # include ./conf.d/https.conf
+      include                 ./conf.d/http.conf;
+  }
+  
+  # support mqtt over tcp
+  stream {
+      include                 ./conf.d/tcp_rs.conf;
+    
+      #include ./conf.d/tcp_tls.conf
+    include                 ./conf.d/tcp.conf;
+  }
   ```
   
   通过对应替换`include ./conf.d/https.conf`和`include ./conf.d/tcp_tls.conf`来支持`TLS`。
+  
 
-  更多`Nginx`配置文件说明，请参见[Nginx配置](https://www.nginx.com/resources/wiki/start/topics/examples/full/) 。
+更多`Nginx`配置文件说明，请参见[Nginx配置](https://www.nginx.com/resources/wiki/start/topics/examples/full/) 。

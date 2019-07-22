@@ -54,3 +54,13 @@
 
 - 怎么使用通配符进行订阅
   `WeEvent`支持通配符按层次订阅，和`MQTT`的定义完全一致。包括层次分隔符"/"，单层通配符"+"，多层通配符"#"。例如，“#”可以订阅到系统内所有的主题。“com/+”可以订阅到主题“com/weevent”和“com/webank“，但是无法订阅到“com/weevent/abc”。“com/#”则可以订阅到上述三个主题。详情请参见[MQTT协议](http://public.dhe.ibm.com/software/dw/webservices/ws-mqtt/mqtt-v3r1.html)。
+  
+- 服务启动时为什么会出现Failed to initialize the client-side SSLContext错误？
+  
+  ```
+  javax.net.ssl.SSLException: Failed to initialize the client-side SSLContext: Input stream not contain valid certificates
+  ```
+  
+  这个问题涉及到`JDK`加密算法的实现。`Oracle JDK`里带了这个算法实现，`Open JDK`直到 1.9版本才有。所以在`CentOS`系统中，如果使用 `Open JDK 1.9`以下版本，`WeEvent`启动时会出现以下异常。请升级`Open JDK`版本到1.9或者使用`Oracle JDK`。
+  
+- TODO
