@@ -41,18 +41,19 @@
   $ cd weevent-1.0.0/ 
   $ tree -L 2
   .
-  |-- check-service.sh
-  |-- config.properties
-  |-- install-all.sh
-  |-- modules
-  |   |-- broker
-  |   |-- governance
-  |   `-- nginx
-  |-- start-all.sh
-  |-- stop-all.sh
-  |-- third-packages
-  |   `-- nginx-1.14.2.tar.gz
-  `-- uninstall-all.sh
+  ├── bin
+  │   ├── check-service.sh
+  │   ├── start-all.sh
+  │   ├── stop-all.sh
+  │   └── uninstall-all.sh
+  ├── config.properties
+  ├── install-all.sh
+  ├── modules
+  │   ├── broker
+  │   ├── governance
+  │   └── nginx
+  └── third-packages
+      └── nginx-1.14.2.tar.gz
   ```
   
 - 修改配置
@@ -77,7 +78,7 @@
   
   # Optional module
   governance.enable=false
-  governance.governance.port=9099
+  governance.governance.port=8099
   governance.mysql.ip=127.0.0.1
   governance.mysql.port=3306
   governance.mysql.user=xxx
