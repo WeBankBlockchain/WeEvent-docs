@@ -46,8 +46,6 @@
   │   ├── start-all.sh
   │   ├── stop-all.sh
   │   └── uninstall-all.sh
-  ├── build
-  │   └── nginx-1.14.2
   ├── config.properties
   ├── install-all.sh
   ├── modules
