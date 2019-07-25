@@ -26,7 +26,7 @@
 
 - 获取安装包
 
-  下载安装包[weevent-1.0.0.tar.gz](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.0.0/weevent-1.0.0.tar.gz)，并且解压到`/tmp/` 。
+  从`github`下载安装包[weevent-1.0.0.tar.gz](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.0.0/weevent-1.0.0.tar.gz)，并且解压到`/tmp/` 。
 
   ```shell
   $ cd /tmp/
@@ -34,24 +34,26 @@
   $ tar -zxf weevent-1.0.0.tar.gz
   ```
 
-  解压后目录结构如下：
-
+  如果`github`下载速度慢，可以尝试[国内下载链接](https://fisco.com.cn/cdn/WeEvent/releases/download/v1.0.0/weevent-1.0.0.tar.gz)。
+解压后目录结构如下：
+  
   ```shell
   $ cd weevent-1.0.0/ 
   $ tree -L 2
   .
-  |-- check-service.sh
-  |-- config.properties
-  |-- install-all.sh
-  |-- modules
-  |   |-- broker
-  |   |-- governance
-  |   `-- nginx
-  |-- start-all.sh
-  |-- stop-all.sh
-  |-- third-packages
-  |   `-- nginx-1.14.2.tar.gz
-  `-- uninstall-all.sh
+  ├── bin
+  │   ├── check-service.sh
+  │   ├── start-all.sh
+  │   ├── stop-all.sh
+  │   └── uninstall-all.sh
+  ├── config.properties
+  ├── install-all.sh
+  ├── modules
+  │   ├── broker
+  │   ├── governance
+  │   └── nginx
+  └── third-packages
+      └── nginx-1.14.2.tar.gz
   ```
   
 - 修改配置
@@ -64,7 +66,8 @@
   fisco-bcos.version=2.0
   # FISCO-BCOS node channel, eg: 127.0.0.1:20200;127.0.0.2:20200
   fisco-bcos.channel=127.0.0.1:20200
-  # The path of FISCO-BCOS 2.0 that contain certificate file ca.crt/node.crt/node.key OR FISCO-BCOS 1.3 that contain ca.crt/client.keystore
+  # The path of FISCO-BCOS 2.0 that contain certificate file ca.crt/node.crt/node.key,
+  # OR FISCO-BCOS 1.3 that contain ca.crt/client.keystore
   fisco-bcos.node_path=~/FISCO-BCOS/127.0.0.1/node0/conf
   
   # Required module
@@ -75,7 +78,7 @@
   
   # Optional module
   governance.enable=false
-  governance.governance.port=9099
+  governance.governance.port=8099
   governance.mysql.ip=127.0.0.1
   governance.mysql.port=3306
   governance.mysql.user=xxx
@@ -105,7 +108,7 @@
   
   - Governance模块配置
   
-    - `governance.enable`是否安装Governance模块，默认false不安装
+    - `governance.enable`是否安装`Governance`模块，默认为`false`不安装
     - 监听端口`governance.port`
     - Mysql配置`governance.mysql.*`
   
