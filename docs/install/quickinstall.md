@@ -6,8 +6,6 @@
 
 ### Docker镜像安装
 
-- 安装
-
   ```bash
   $ docker pull weevent/weevent:1.0.0; docker run -d -p 8080:8080 weevent/weevent:1.0.0 /root/run.sh
   ```
