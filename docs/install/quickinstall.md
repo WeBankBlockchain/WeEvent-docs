@@ -4,7 +4,7 @@
 
 如果是第一次安装`WeEvent`，参见这里的[系统要求](./environment.html) 。以下安装过程以`Centos 7.2`为例。
 
-### 镜像安装
+### Docker镜像安装
 
 - 安装
 
