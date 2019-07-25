@@ -8,7 +8,8 @@
 | ---------- | -------- | -------- | -------- |
 | 快速安装包 | [weevent-1.0.0.tar.gz](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.0.0/weevent-1.0.0.tar.gz) | [weevent-1.0.0.tar.gz](https://www.fisco.com.cn/cdn/weevent/download/releases/v1.0.0/weevent-1.0.0.tar.gz) | 14832bab6a435ff3897d79c5f28fd9d0 |
 | Broker模块 | [weevent-broker-1.0.0.tar.gz](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.0.0/weevent-1.0.0.tar.gz) | [weevent-broker-1.0.0.tar.gz](https://www.fisco.com.cn/cdn/weevent/download/releases/v1.0.0/weevent-broker-1.0.0.tar.gz) | 8fb02d9431dbcaaab662871d806cb5f6 |
-| Governance模块 | [weevent-governance-1.0.0.tar.gz](https://www.fisco.com.cn/cdn/weevent/download/releases/v1.0.0/weevent-governance-1.0.0.tar.gz) | [weevent-governance-1.0.0.tar.gz](https://fisco.com.cn/cdn/WeEvent/releases/download/v1.0.0/weevent-governance-1.0.0.tar.gz) | 14907289586d7c22915c698908996ef2 |
+| Governance模块 | [weevent-governance-1.0.0.tar.gz](https://www.fisco.com.cn/cdn/weevent/download/releases/v1.0.0/weevent-governance-1.0.0.tar.gz) | [weevent-governance-1.0.0.tar.gz](https://www.fisco.com.cn/cdn/weevent/download/releases/v1.0.0/weevent-governance-1.0.0.tar.gz) | 14907289586d7c22915c698908996ef2 |
+
 
 
 
