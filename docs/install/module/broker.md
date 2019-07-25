@@ -29,13 +29,15 @@
 
 ### 获取安装包
 
-下载安装包[weevent-broker-1.0.0.tar.gz](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.0.0/weevent-broker-1.0.0.tar.gz)，并且解压到`/usr/local/weevent/`下。
+从`github`下载安装包[weevent-broker-1.0.0.tar.gz](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.0.0/weevent-broker-1.0.0.tar.gz)，并且解压到`/usr/local/weevent/`下。
 
 ``` shell
 $ cd /usr/local/weevent/
 $ wget https://github.com/WeBankFinTech/WeEvent/releases/download/v1.0.0/weevent-broker-1.0.0.tar.gz
 $ tar -zxf weevent-broker-1.0.0.tar.gz
 ```
+如果`github`下载速度慢，可以尝试[国内下载链接](https://fisco.com.cn/cdn/WeEvent/releases/download/v1.0.0/weevent-broker-1.0.0.tar.gz)。
+
 解压后的目录如下：
 
 ```
