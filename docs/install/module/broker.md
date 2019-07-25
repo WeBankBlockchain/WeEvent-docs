@@ -36,7 +36,7 @@ $ cd /usr/local/weevent/
 $ wget https://github.com/WeBankFinTech/WeEvent/releases/download/v1.0.0/weevent-broker-1.0.0.tar.gz
 $ tar -zxf weevent-broker-1.0.0.tar.gz
 ```
-如果`github`下载速度慢，可以尝试[国内下载链接](https://fisco.com.cn/cdn/WeEvent/releases/download/v1.0.0/weevent-broker-1.0.0.tar.gz)。
+如果`github`下载速度慢，可以尝试[国内下载链接](https://www.fisco.com.cn/cdn/weevent/download/releases/v1.0.0/weevent-broker-1.0.0.tar.gz)。
 
 解压后的目录如下：
 
