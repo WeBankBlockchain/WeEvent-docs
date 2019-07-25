@@ -66,7 +66,7 @@ $ tree  -L 2
 
   - 区块链节点配置文件fisco.properties
 
-    修改`nodes=127.0.0.1:8501`配置项，`nodes`为区块链节点`channel`访问入口。
+    修改`nodes=127.0.0.1:20200`配置项，`nodes`为区块链节点`channel`访问入口。
 
   - 访问节点的证书文件
 
