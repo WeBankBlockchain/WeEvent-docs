@@ -1,10 +1,10 @@
 ## Getting Start
 
-### 使用`WeEvent`服务
+### 使用WeEvent服务
 
 选好所需要的版本，一般推荐[最新版本](https://github.com/WeBankFinTech/WeEvent/releases)。选择`Docker`镜像或者通过`Bash`脚本一键安装。详情参见[WeEvent快速安装](../install/quickinstall.html)。
 
-### 参与`WeEvent`开发
+### 参与WeEvent开发
 
 想参与`WeEvent`开发或者体验未正式发布的特性，需要从源码开始，流程如下：
 

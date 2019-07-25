@@ -27,7 +27,7 @@
   $ tar -zxf weevent-1.0.0.tar.gz
   ```
 
-  如果`github`下载速度慢，可以尝试[国内下载链接](https://fisco.com.cn/cdn/WeEvent/releases/download/v1.0.0/weevent-1.0.0.tar.gz)。
+  如果`github`下载速度慢，可以尝试[国内下载链接](https://www.fisco.com.cn/cdn/weevent/download/releases/v1.0.0/weevent-1.0.0.tar.gz)。
 解压后目录结构如下：
   
   ```shell
