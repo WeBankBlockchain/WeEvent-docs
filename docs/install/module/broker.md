@@ -36,7 +36,7 @@ $ cd /usr/local/weevent/
 $ wget https://github.com/WeBankFinTech/WeEvent/releases/download/v1.0.0/weevent-broker-1.0.0.tar.gz
 $ tar -zxf weevent-broker-1.0.0.tar.gz
 ```
-如果`github`下载速度慢，可以尝试[国内下载链接](https://fisco.com.cn/cdn/WeEvent/releases/download/v1.0.0/weevent-broker-1.0.0.tar.gz)。
+如果`github`下载速度慢，可以尝试[国内下载链接](https://www.fisco.com.cn/cdn/weevent/download/releases/v1.0.0/weevent-broker-1.0.0.tar.gz)。
 
 解压后的目录如下：
 
@@ -66,7 +66,7 @@ $ tree  -L 2
 
   - 区块链节点配置文件fisco.properties
 
-    修改`nodes=127.0.0.1:8501`配置项，`nodes`为区块链节点`channel`访问入口。
+    修改`nodes=127.0.0.1:20200`配置项，`nodes`为区块链节点`channel`访问入口。
 
   - 访问节点的证书文件
 

@@ -4,21 +4,14 @@
 
 如果是第一次安装`WeEvent`，参见这里的[系统要求](./environment.html) 。以下安装过程以`Centos 7.2`为例。
 
-### Docker安装
-
-- 获取镜像
+### Docker镜像安装
 
   ```bash
-  $ docker pull weevent:1.0.0
+  $ docker pull weevent/weevent:1.0.0; docker run -d -p 8080:8080 weevent/weevent:1.0.0 /root/run.sh
   ```
 
   `WeEvent`的镜像里包括了`FISCO-BCOS`网络，`WeEvent`服务的子模块`Broker`和`Governance`，以及各种依赖。
 
-- 创建一个容器
-
-  ```bash
-  $ docker run -d -p 8080:8080 weevent:1.0.0 /bin/bash
-  ```
 
 ### Bash安装
 
@@ -34,7 +27,7 @@
   $ tar -zxf weevent-1.0.0.tar.gz
   ```
 
-  如果`github`下载速度慢，可以尝试[国内下载链接](https://fisco.com.cn/cdn/WeEvent/releases/download/v1.0.0/weevent-1.0.0.tar.gz)。
+  如果`github`下载速度慢，可以尝试[国内下载链接](https://www.fisco.com.cn/cdn/weevent/download/releases/v1.0.0/weevent-1.0.0.tar.gz)。
 解压后目录结构如下：
   
   ```shell
