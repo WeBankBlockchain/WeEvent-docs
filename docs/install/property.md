@@ -60,7 +60,7 @@
 
 ### Governance
 
-配置文件`./governance/conf/application-prod.yml `。
+配置文件`./governance/conf/application-prod.properties `。
 
 | 配置项                                      | 默认值                                      | 配置说明               |
 | ---------------------------------------- | ---------------------------------------- | ------------------ |
