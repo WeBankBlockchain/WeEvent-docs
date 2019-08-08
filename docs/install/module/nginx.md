@@ -1,6 +1,6 @@
 ## Nginx模块
 
-本节介绍`WeEvent`服务`Nginx`模块的详细安装步骤。`WeEvent`服务的快速安装请参见[WeEvent快速安装](../quickinstall.html) 。
+本节介绍`WeEvent`服务`Nginx`模块的详细安装步骤。`WeEvent`服务的快速安装请参见[WeEvent快速安装](../quickinstall.html) 。在一台机器上详细安装，和通过快速安装然后把目标路径中的`nginx`子目录打包拷贝到这台机器，效果是一样的。
 
 `WeEvent`默认使用`Nginx`实现负载均衡。也可以换成`H5`等其他负载均衡服务。端口映射关系详见[服务访问](../../advanced/port.html)。
 

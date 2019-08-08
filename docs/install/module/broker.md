@@ -1,6 +1,6 @@
 ## Broker模块
 
-本节介绍`WeEvent`的子模块`Broker`的详细安装步骤。快速安装请参见[WeEvent快速安装](../quickinstall.html) 。
+本节介绍`WeEvent`的子模块`Broker`的详细安装步骤。快速安装请参见[WeEvent快速安装](../quickinstall.html) 。在一台机器上详细安装，和通过快速安装然后把目标路径中的`broker`子目录打包拷贝到这台机器，效果是一样的。
 
 `Broker`是`WeEvent`的核心子模块，负责事件的发布订阅以及对区块链`FISCO-BCOS`的访问。支持`RESTful`、`JsonRPC`、`STOMP`、`MQTT`多种接入协议，也提供了`Java SDK`。
 
