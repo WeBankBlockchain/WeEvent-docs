@@ -60,24 +60,24 @@ $ tree
 
   ```nginx
   upstream broker_backend{
-      server 1.1.1.1:8090 weight=100 max_fails=3;
-      server 2.2.2.2:8090 weight=100 max_fails=3;
+      server 1.1.1.1:7000 weight=100 max_fails=3;
+      server 2.2.2.2:7000 weight=100 max_fails=3;
       
       ip_hash;
       keepalive 1024;
   }
   
   upstream broker_mqtt_websocket_backend {
-      server 1.1.1.1:8092 weight=100 max_fails=3;
-      server 2.2.2.2:8092 weight=100 max_fails=3;
+      server 1.1.1.1:7002 weight=100 max_fails=3;
+      server 2.2.2.2:7002 weight=100 max_fails=3;
       
   	ip_hash;
     	keepalive 1024;
   }
   
   upstream governance_backend{
-  	server 1.1.1.1:8099 weight=100 max_fails=3;
-  	server 2.2.2.2:8099 weight=100 max_fails=3;
+  	server 1.1.1.1:7009 weight=100 max_fails=3;
+  	server 2.2.2.2:7009 weight=100 max_fails=3;
       
   	ip_hash;
    	keepalive 1024;
