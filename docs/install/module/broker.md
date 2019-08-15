@@ -109,7 +109,7 @@ $ tree  -L 2
   
 - 配置Broker监听端口
 
-  可选配置。`./conf/application-prod.properties`中`server.port`配置项，默认监听端口`8090`，根据业务需要配置。
+  可选配置。`./conf/application-prod.properties`中`server.port`配置项，默认监听端口`7000`，根据业务需要配置。
   
 - 配置Redis缓存
 
@@ -169,13 +169,13 @@ $ tree  -L 2
 
   ```ini
   # 客户端使用MQTT协议访问MQTT Broker端口
-  mqtt.broker.port=8091
+  mqtt.broker.port=7001
   # 心跳时间 单位:秒
   mqtt.broker.keepalive=60
   # 客户端使用WebSocket协议访问MQTT Broker链接
   mqtt.websocket.path=/weevent/mqtt
   # 客户端使用WebSocket协议访问MQTT Broker端口
-  mqtt.websocket.port=8092
+  mqtt.websocket.port=7002
   # MQTT Broker访问用户名
   mqtt.user.login=
   # MQTT Broker访问密码

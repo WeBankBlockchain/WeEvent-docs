@@ -18,8 +18,8 @@
 
 - MQTT协议的访问端口有别于以上协议
 
-  基于`TCP`的访问`Host`为`localhost:8081/weevent/mqtt`。
-  基于`WebSocket`的访问`URL`为`ws://localhost:8083/weevent/mqtt`。
+  基于`TCP`的访问`Host`为`localhost:7081/weevent/mqtt`。
+  基于`WebSocket`的访问`URL`为`ws://localhost:7083/weevent/mqtt`。
 
 - 由Nginx负责处理安全传输TLS
 
@@ -28,8 +28,8 @@
   |                     | 普通传输 | TLS传输 |
   | ------------------- | -------- | ------- |
   | HTTP/STOMP          | 8080     | 443     |
-  | MQTT over TCP       | 8081     | 8082    |
-  | MQTT over WebSocket | 8083     | 8084    |
+  | MQTT over TCP       | 7081     | 7082    |
+  | MQTT over WebSocket | 7083     | 7084    |
 
 - 以上说明全是指默认端口，  所有端口都支持自定义配置
 
