@@ -59,11 +59,11 @@ $ tree -L 2
 
 - 配置端口
 
-  在配置文件`./conf/application-prod.yml`中，`Governance` 的服务端口`server.port` ，默认`8099`。
+  在配置文件`./conf/application-prod.yml`中，`Governance` 的服务端口`server.port` ，默认`7009`。
 
   ```
   server:
-    port: 8099
+    port: 7009
   ```
 
 

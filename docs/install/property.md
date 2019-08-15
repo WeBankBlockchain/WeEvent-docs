@@ -9,7 +9,7 @@
 
   | 配置项                      | 默认值   | 配置说明         |
   | --------------------------- | -------- | ---------------- |
-  | server.port                 | 8090     | spring监听端口   |
+  | server.port                 | 7000     | spring监听端口   |
   | server.servlet.context-path | /weevent | spring上下文路径 |
 
 - 区块链FISCO-BCOS节点配置
@@ -52,10 +52,10 @@
   | stomp.user.login                   |               | stomp访问账号，空为不开启校验                                |
   | stomp.user.passcode                |               | stomp访问密码                                                |
   | stomp.heartbeats                   | 30            | stomp心跳间隔，单位秒                                        |
-  | mqtt.broker.port                   | 8091          | mqtt协议TCP访问端口                                          |
+  | mqtt.broker.port                   | 7001          | mqtt协议TCP访问端口，默认不开启                              |
   | mqtt.broker.keepalive              | 60            | mqtt连接空闲时间，单位秒                                     |
   | mqtt.websocket.path                | /weevent/mqtt | mqtt连接目录                                                 |
-  | mqtt.websocket.port                | 8092          | mqtt协议web socket访问端口                                   |
+  | mqtt.websocket.port                | 7002          | mqtt协议web socket访问端口，默认不开启                       |
   | mqtt.user.login                    |               | mqtt访问账号，空为不开启校验                                 |
   | mqtt.user.passcode                 |               | mqtt访问密码                                                 |
 
@@ -65,7 +65,7 @@
 
 | 配置项                                      | 默认值                                      | 配置说明               |
 | ---------------------------------------- | ---------------------------------------- | ------------------ |
-| server.port                              | 8099                                     | spring监听端口         |
+| server.port                              | 7009                                     | spring监听端口         |
 | spring.datasource.url                    | jdbc:mysql://127.0.0.1:3306/governance?useUnicode=true&characterEncoding=utf-8&useSSL=false | 数据源                |
 | spring.datasource.driver-class-name      | org.mariadb.jdbc.Driver                  | 驱动类                |
 | spring.datasource.username               | xxxx                                     | 数据库账号用户名           |
@@ -94,21 +94,21 @@
 
   ```nginx
   upstream broker_backend{
-      server localhost:8090 weight=100 max_fails=3;
+      server localhost:7000 weight=100 max_fails=3;
       
       ip_hash;
       keepalive 1024;
   }
 
   upstream broker_mqtt_websocket_backend {
-      server localhost:8092 weight=100 max_fails=3;
+      server localhost:7002 weight=100 max_fails=3;
 
       ip_hash;
       keepalive 1024;
   }
 
   upstream governance_backend{
-      server localhost:8099 weight=100 max_fails=3;
+      server localhost:7009 weight=100 max_fails=3;
       
       ip_hash;
       keepalive 1024;
@@ -134,21 +134,21 @@
   #support web/restful/jsonrpc/stomp
   http {
       include       mime.types;
-    default_type  application/octet-stream;
+      default_type  application/octet-stream;
       keepalive_timeout  65;
   
-      # custom config
+      #custom config
       server_tokens           off;
       client_body_temp_path   ./nginx_temp/client_body;
-    proxy_temp_path         ./nginx_temp/proxy;
+      proxy_temp_path         ./nginx_temp/proxy;
       fastcgi_temp_path       ./nginx_temp/fastcgi;
       uwsgi_temp_path         ./nginx_temp/uwsgi;
       scgi_temp_path          ./nginx_temp/scgi;
   
-      # http conf
-    include                 ./conf.d/http_rs.conf;
+      #http conf
+      include                 ./conf.d/http_rs.conf;
   
-      # include ./conf.d/https.conf
+      #include ./conf.d/https.conf
       include                 ./conf.d/http.conf;
   }
   
@@ -157,7 +157,7 @@
       include                 ./conf.d/tcp_rs.conf;
     
       #include ./conf.d/tcp_tls.conf
-    include                 ./conf.d/tcp.conf;
+      include                 ./conf.d/tcp.conf;
   }
   ```
   
