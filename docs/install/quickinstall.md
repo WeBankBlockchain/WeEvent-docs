@@ -67,11 +67,11 @@
   nginx.port=8080
   
   # Required module
-  broker.port=8090
+  broker.port=7000
   
   # Optional module
   governance.enable=false
-  governance.governance.port=8099
+  governance.governance.port=7009
   governance.mysql.ip=127.0.0.1
   governance.mysql.port=3306
   governance.mysql.user=xxx
@@ -88,7 +88,7 @@
   
     - fisco-bcos.channel
   
-      区块链节点的`channel`访问入口。配置多个节点时用`;`分割，如`127.0.0.1:8821;127.0.0.2:8821`。
+      区块链节点的`channel`访问入口。配置多个节点时用`;`分割，如`127.0.0.1:20200;127.0.0.2:20200`。
   
     - fisco-bcos.node_path
   
@@ -116,7 +116,7 @@
   正常安装后，输出有如下关键字:
 
   ```
-  8081 port is okay
+  7081 port is okay
   8080 port is okay
   param ok
   install module broker 
