@@ -1,6 +1,6 @@
 ## Nginx模块
 
-本节介绍`WeEvent`服务`Nginx`模块的详细安装步骤。`WeEvent`服务的快速安装请参见[WeEvent快速安装](../quickinstall.html) 。
+本节介绍`WeEvent`服务`Nginx`模块的详细安装步骤。`WeEvent`服务的快速安装请参见[WeEvent快速安装](../quickinstall.html) 。在一台机器上详细安装，和通过快速安装然后把目标路径中的`nginx`子目录打包拷贝到这台机器，效果是一样的。
 
 `WeEvent`默认使用`Nginx`实现负载均衡。也可以换成`H5`等其他负载均衡服务。端口映射关系详见[服务访问](../../advanced/port.html)。
 
@@ -60,24 +60,24 @@ $ tree
 
   ```nginx
   upstream broker_backend{
-      server 1.1.1.1:8090 weight=100 max_fails=3;
-      server 2.2.2.2:8090 weight=100 max_fails=3;
+      server 1.1.1.1:7000 weight=100 max_fails=3;
+      server 2.2.2.2:7000 weight=100 max_fails=3;
       
       ip_hash;
       keepalive 1024;
   }
   
   upstream broker_mqtt_websocket_backend {
-      server 1.1.1.1:8092 weight=100 max_fails=3;
-      server 2.2.2.2:8092 weight=100 max_fails=3;
+      server 1.1.1.1:7002 weight=100 max_fails=3;
+      server 2.2.2.2:7002 weight=100 max_fails=3;
       
   	ip_hash;
     	keepalive 1024;
   }
   
   upstream governance_backend{
-  	server 1.1.1.1:8099 weight=100 max_fails=3;
-  	server 2.2.2.2:8099 weight=100 max_fails=3;
+  	server 1.1.1.1:7009 weight=100 max_fails=3;
+  	server 2.2.2.2:7009 weight=100 max_fails=3;
       
   	ip_hash;
    	keepalive 1024;
