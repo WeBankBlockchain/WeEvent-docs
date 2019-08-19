@@ -19,9 +19,9 @@
   | 配置项                       | 默认值                | 配置说明                                |
   | ---------------------------- | --------------------- | --------------------------------------- |
   | version                      | 2.0                   | FISCO-BCOS版本，支持2.0和1.3            |
-  | topic-controller.address     | 1:0x23df89a289312...; | WeEvent系统合约地址。                   |
   | orgid                        | fisco                 | 机构名，按机构实际名称填写即可          |
   | nodes                        | 127.0.0.1:30701       | 区块链节点列表，多个地址以`;`分割       |
+  | proxy.address                | 0xfff77de6c1a76022... | 1.3版本的proxy系统合约地址              |
   | account                      | bcec428d5205abe0f...  | `WeEvent`执行交易的账号，一般不需要修改 |
   | web3sdk.timeout              | 10000                 | 交易执行超时时间，单位毫秒              |
   | web3sdk.core-pool-size       | 10                    | web3sdk最小线程数                       |
