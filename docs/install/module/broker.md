@@ -83,8 +83,8 @@ $ tree  -L 2
   ```shell
 $ ./deploy-topic-control.sh
   2019-08-19 17:59:31 topic control address in every group:
-  1	0xc6fc72f0fe6ebf9881a2103f2829d0e98d020062
-  2	0xd85d3345f8a21f4fd6197c72266ae3e3106e5e1c
+  1	0xc6fc72f0fe6ebf9881a2103f2829d0e98d020062	new
+  2	0xd85d3345f8a21f4fd6197c72266ae3e3106e5e1c	new 
   ```
   
   脚本会检查之前是否部署过合约，重复执行不影响。
