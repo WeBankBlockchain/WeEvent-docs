@@ -260,7 +260,7 @@ public static void main(String[] args) {
         client.open(topicName,groupId);
         
         // 用户自定义拓展必须以weevent-开头，可选参数。
-        Map<String, String> extensions = mew HashMap<>();
+        Map<String, String> extensions = new HashMap<>();
         extensions.put("weevent-format", "json");        
         // publish接口的参数分别是主题Topic、群组Id、事件内容Content、扩展字段
         client.publish(topicName, groupId,  "{\"hello\":\" wolrd\"}".getBytes(), extensions);
