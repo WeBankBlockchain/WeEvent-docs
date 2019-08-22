@@ -1,5 +1,7 @@
 ## RESTful
-`RESTful`作为一种软件架构风格、设计风格，在Web应用上非常流行。基于这个风格设计的软件可以更简洁，`REST` 接口可以直接在浏览器上测试，给开发和测试过程带来很多便利。`WeEvent`的所有功能都支持`RESTful`协议访问。
+`RESTful`作为一种软件架构风格、设计风格，在Web应用上非常流行。基于这个风格设计的软件可以更简洁，`REST` 接口可以直接在浏览器上测试，给开发和测试过程带来很多便利。
+
+`RESTful`都是对`STOMP`协议的一个补充，支持`WeEvent`主题的`CRUD`管理等功能以及事件发布。
 
 ### 协议说明
 
@@ -49,7 +51,7 @@ public class Rest {
 
 ### 接口说明
 
-`RESTful`接口包括两大类功能：一类是主题`Topic`的`CRUD`管理，包括`open`、`close`、`exist`、`state`、`list`；一类是事件的发布和订阅，包括`publish`、`subscribe`、`unsubscribe` 。
+`RESTful`接口包括两大类功能：一类是主题`Topic`的`CRUD`管理，包括`open`、`close`、`exist`、`state`、`list`；一类是事件发布`publish`。
 
 #### 创建Topic
 - 请求
@@ -128,48 +130,6 @@ public class Rest {
   - weevent-json:可选参数。用户自定义拓展，以`weevent-`开头。
 
   - status：`SUCCESS`，说明是发布成功，`eventId`是对应的事件ID。
-
-#### 订阅事件
-- 请求
-
-  ```shell
-  $ curl http://localhost:8080/weevent/rest/subscribe?topic=com.weevent.test&groupId=1&subscriptionId=c8a600c0-61a7-4077-90f6-3aa39fc9cdd5&url=http%3a%2f%2flocalhost%3a8080%2fweevent%2fmock%2frest%2fonEvent
-  ```
-
-
-- 应答
-
-  ```
-  c8a600c0-61a7-4077-90f6-3aa39fc9cdd5
-  ```
-
-
-- 说明  
-
-  - topic：主题。`ascii`值在`[32,128]`之间。支持通配符按层次订阅，因'+'、'#'为通配符的关键字故不能为topic的一部分，详情参见[MQTT通配符](http://public.dhe.ibm.com/software/dw/webservices/ws-mqtt/mqtt-v3r1.html) 。
-  - url：事件通知回调`CGI `，当有生产者发布事件时，所有的事件都会通知到这个`url`。 
-  - subscriptionId：第一次订阅可以不填。继续上一次订阅`subscriptionId`为上次订阅ID。
-
-#### 取消订阅
-
-
-- 请求
-
-  ```shell
-  $ curl http://localhost:8080/weevent/rest/unSubscribe?subscriptionId=c8a600c0-61a7-4077-90f6-3aa39fc9cdd5
-  ```
-
-
-- 应答
-
-  ```shell
-   true
-  ```
-
-
-- 说明
-
-  - subscriptionId：`Subscribe`成功订阅后，返回的订阅ID。
 
 #### 获取Event详情
 
