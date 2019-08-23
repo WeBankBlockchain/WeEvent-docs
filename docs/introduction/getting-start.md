@@ -34,9 +34,7 @@
   
 - 部署系统合约
 
-  运行`./weevent-broker/src/main/java/com/webank/weevent/broker/fisco/util/Web3sdkUtils.java`得到合约地址。
-  
-  将合约地址配置到`./weevent-broker/src/main/resources/fisco.properties#topic-controller.address`。
+  通过运行`./weevent-broker/src/main/java/com/webank/weevent/broker/fisco/util/Web3sdkUtils.java`来部署合约。
   
 - 运行服务及代码样例
 

@@ -9,25 +9,27 @@
 
   | 配置项                      | 默认值   | 配置说明         |
   | --------------------------- | -------- | ---------------- |
-  | server.port                 | 8090     | spring监听端口   |
+  | server.port                 | 7000     | spring监听端口   |
   | server.servlet.context-path | /weevent | spring上下文路径 |
 
 - 区块链FISCO-BCOS节点配置
 
   配置文件`./broker/conf/fisco.properties`。
 
-  | 配置项                     | 默认值                | 配置说明                                |
-  | -------------------------- | --------------------- | --------------------------------------- |
-  | version                    | 2.0                   | FISCO-BCOS版本，支持2.0和1.3            |
-  | topic-controller.address   | 1:0x23df89a289312...; | WeEvent系统合约地址。                   |
-  | orgid                      | fisco                 | 机构名，按机构实际名称填写即可          |
-  | nodes                      | 127.0.0.1:30701       | 区块链节点列表，多个地址以`;`分割       |
-  | account                    | bcec428d5205abe0f...  | `WeEvent`执行交易的账号，一般不需要修改 |
-  | web3sdk.timeout            | 10000                 | 交易执行超时时间，单位毫秒              |
-  | web3sdk.core-pool-size     | 10                    | web3sdk最小线程数                       |
-  | web3sdk.max-pool-size      | 200                   | web3sdk最大线程数                       |
-  | web3sdk.queue-capacity     | 1000                  | web3sdk队列大小                         |
-  | web3sdk.keep-alive-seconds | 60                    | web3sdk线程空闲时间，单位秒             |
+  | 配置项                       | 默认值                | 配置说明                                |
+  | ---------------------------- | --------------------- | --------------------------------------- |
+  | version                      | 2.0                   | FISCO-BCOS版本，支持2.0和1.3            |
+  | orgid                        | fisco                 | 机构名，按机构实际名称填写即可          |
+  | nodes                        | 127.0.0.1:30701       | 区块链节点列表，多个地址以`;`分割       |
+  | proxy.address                | 0xfff77de6c1a76022... | 1.3版本的proxy系统合约地址              |
+  | account                      | bcec428d5205abe0f...  | `WeEvent`执行交易的账号，一般不需要修改 |
+  | web3sdk.timeout              | 10000                 | 交易执行超时时间，单位毫秒              |
+  | web3sdk.core-pool-size       | 10                    | web3sdk最小线程数                       |
+  | web3sdk.max-pool-size        | 200                   | web3sdk最大线程数                       |
+  | web3sdk.queue-capacity       | 1000                  | web3sdk队列大小                         |
+  | web3sdk.keep-alive-seconds   | 60                    | web3sdk线程空闲时间，单位秒             |
+  | consumer.idle-time           | 1000                  | 区块链新增块事件检测周期，单位毫秒      |
+  | consumer.history_merge_block | 8                     | 事件过滤的区块范围                      |
 
 
   区块链节点详细配置，参见[Web3SDK配置文件](https://fisco-bcos-documentation.readthedocs.io/zh_CN/release-2.0/docs/sdk/sdk.html) 。
@@ -38,7 +40,6 @@
 
   | 配置项                             | 默认值        | 配置说明                                                     |
   | ---------------------------------- | ------------- | ------------------------------------------------------------ |
-  | consumer.idle-time                 | 1000          | 区块链新增块事件检测周期，单位毫秒                           |
   | ip.check.white-table               |               | IP白名单。多个`IP`地址，以";"分割。<br />默认为空时表示允许任何客户端访问。 |
   | redis.server.ip                    |               | redis服务IP                                                  |
   | redis.server.port                  | 6379          | redis服务端口                                                |
@@ -51,10 +52,10 @@
   | stomp.user.login                   |               | stomp访问账号，空为不开启校验                                |
   | stomp.user.passcode                |               | stomp访问密码                                                |
   | stomp.heartbeats                   | 30            | stomp心跳间隔，单位秒                                        |
-  | mqtt.broker.port                   | 8091          | mqtt协议TCP访问端口                                          |
+  | mqtt.broker.port                   | 7001          | mqtt协议TCP访问端口，默认不开启                              |
   | mqtt.broker.keepalive              | 60            | mqtt连接空闲时间，单位秒                                     |
   | mqtt.websocket.path                | /weevent/mqtt | mqtt连接目录                                                 |
-  | mqtt.websocket.port                | 8092          | mqtt协议web socket访问端口                                   |
+  | mqtt.websocket.port                | 7002          | mqtt协议web socket访问端口，默认不开启                       |
   | mqtt.user.login                    |               | mqtt访问账号，空为不开启校验                                 |
   | mqtt.user.passcode                 |               | mqtt访问密码                                                 |
 
@@ -64,7 +65,7 @@
 
 | 配置项                                      | 默认值                                      | 配置说明               |
 | ---------------------------------------- | ---------------------------------------- | ------------------ |
-| server.port                              | 8099                                     | spring监听端口         |
+| server.port                              | 7009                                     | spring监听端口         |
 | spring.datasource.url                    | jdbc:mysql://127.0.0.1:3306/governance?useUnicode=true&characterEncoding=utf-8&useSSL=false | 数据源                |
 | spring.datasource.driver-class-name      | org.mariadb.jdbc.Driver                  | 驱动类                |
 | spring.datasource.username               | xxxx                                     | 数据库账号用户名           |
@@ -93,21 +94,21 @@
 
   ```nginx
   upstream broker_backend{
-      server localhost:8090 weight=100 max_fails=3;
+      server localhost:7000 weight=100 max_fails=3;
       
       ip_hash;
       keepalive 1024;
   }
 
   upstream broker_mqtt_websocket_backend {
-      server localhost:8092 weight=100 max_fails=3;
+      server localhost:7002 weight=100 max_fails=3;
 
       ip_hash;
       keepalive 1024;
   }
 
   upstream governance_backend{
-      server localhost:8099 weight=100 max_fails=3;
+      server localhost:7009 weight=100 max_fails=3;
       
       ip_hash;
       keepalive 1024;
@@ -133,21 +134,21 @@
   #support web/restful/jsonrpc/stomp
   http {
       include       mime.types;
-    default_type  application/octet-stream;
+      default_type  application/octet-stream;
       keepalive_timeout  65;
   
-      # custom config
+      #custom config
       server_tokens           off;
       client_body_temp_path   ./nginx_temp/client_body;
-    proxy_temp_path         ./nginx_temp/proxy;
+      proxy_temp_path         ./nginx_temp/proxy;
       fastcgi_temp_path       ./nginx_temp/fastcgi;
       uwsgi_temp_path         ./nginx_temp/uwsgi;
       scgi_temp_path          ./nginx_temp/scgi;
   
-      # http conf
-    include                 ./conf.d/http_rs.conf;
+      #http conf
+      include                 ./conf.d/http_rs.conf;
   
-      # include ./conf.d/https.conf
+      #include ./conf.d/https.conf
       include                 ./conf.d/http.conf;
   }
   
@@ -156,7 +157,7 @@
       include                 ./conf.d/tcp_rs.conf;
     
       #include ./conf.d/tcp_tls.conf
-    include                 ./conf.d/tcp.conf;
+      include                 ./conf.d/tcp.conf;
   }
   ```
   
