@@ -55,6 +55,7 @@ $ tree  -L 2
 |   |-- ca.crt
 |   |-- client.keystore
 |   |-- fisco.properties
+|   |-- git.properties
 |   |-- log4j2.xml
 |   |-- server.p12
 |   `-- weevent.properties
