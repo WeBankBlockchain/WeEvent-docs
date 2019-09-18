@@ -286,10 +286,10 @@ public class Rest {
     {
      "code":"0",
      "message":"success",
-     "result": 
+     "data": 
             {
                 "weEventVersion": "1.0.0",
-                "buildTimeStamp": "2019-09-16 18:01:23",
+                "gitCommitTimeStamp": "2019-09-16 18:01:23",
                 "gitBranch": "master",
                 "gitCommitHash": "a5b022b"
             }
@@ -297,7 +297,7 @@ public class Rest {
     ```
 - 说明
     - weEventVersion：WeEvent版本号。
-    - buildTimeStamp：WeEvent最近一次构建时间。
+    - gitCommitTimeStamp：WeEvent最近一次提交git的时间。
     - gitBranch：WeEvent构建分支。
     - gitCommitHash：WeEvent最近一次提交git的CommitHash。
 
