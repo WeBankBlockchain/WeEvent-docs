@@ -59,6 +59,8 @@ $ tree  -L 2
 |   |-- server.p12
 |   `-- weevent.properties
 |-- deploy-topic-control.sh
+|-- gen-cert-key.sh
+`-- lib
 ```
 
 ### 修改配置文件

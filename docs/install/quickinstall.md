@@ -44,6 +44,7 @@
   ├── modules
   │   ├── broker
   │   ├── governance
+  │   ├── lib
   │   └── nginx
   └── third-packages
       └── nginx-1.14.2.tar.gz
@@ -139,9 +140,11 @@
   |   |-- check-service.sh
   |   |-- conf
   |   |-- deploy-topic-control.sh
+  |   |-- gen-cert-key.sh
   |   |-- lib  
   |   `-- logs
-  |-- check-service.sh				
+  |-- check-service.sh
+  |-- lib				
   |-- nginx					    	
   |   |-- conf
   |   |-- html
