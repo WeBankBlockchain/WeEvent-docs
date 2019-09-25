@@ -53,6 +53,7 @@ $ tree -L 2
 |   |-- README
 |   `-- static
 |-- init-governance.sh
+`-- lib
 ```
 
 ### 修改配置文件
