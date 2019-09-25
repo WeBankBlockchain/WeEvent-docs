@@ -44,6 +44,7 @@
   ├── modules
   │   ├── broker
   │   ├── governance
+  │   ├── lib
   │   └── nginx
   └── third-packages
       └── nginx-1.14.2.tar.gz
@@ -54,6 +55,8 @@
   默认配置文件`./config.properties`如下：
 
   ```properties
+  #java jdk environment
+  JAVA_HOME=
   # Required module
   # support 2.0 and 1.3
   fisco-bcos.version=2.0
@@ -79,6 +82,8 @@
   ```
   
   配置说明 :
+  
+  - jdk环境变量`JAVA_HOME`
   
   - 区块链FISCO-BCOS
   
@@ -139,9 +144,11 @@
   |   |-- check-service.sh
   |   |-- conf
   |   |-- deploy-topic-control.sh
+  |   |-- gen-cert-key.sh
   |   |-- lib  
   |   `-- logs
-  |-- check-service.sh				
+  |-- check-service.sh
+  |-- lib				
   |-- nginx					    	
   |   |-- conf
   |   |-- html
