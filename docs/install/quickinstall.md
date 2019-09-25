@@ -55,6 +55,8 @@
   默认配置文件`./config.properties`如下：
 
   ```properties
+  #java jdk environment
+  JAVA_HOME=
   # Required module
   # support 2.0 and 1.3
   fisco-bcos.version=2.0
@@ -80,6 +82,8 @@
   ```
   
   配置说明 :
+  
+  - jdk环境变量`JAVA_HOME`
   
   - 区块链FISCO-BCOS
   
