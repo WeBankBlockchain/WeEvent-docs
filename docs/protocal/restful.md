@@ -221,6 +221,20 @@ public class Rest {
   - createdTimestamp  ：`Topic` 创建的时间
   - sequenceNumber：已发布事件数。
   - blockNumber：最新已发布事件的区块高度。
+  
+#### 获取群组列表
+- 请求
+
+  ```shell
+  $ curl http://localhost:8080/weevent/rest/listGroup
+  ```
+
+
+- 应答
+
+  ```json
+  ["1","2"]
+  ```
 
 #### 获取订阅列表 
 - 请求
@@ -259,4 +273,33 @@ public class Rest {
     - notifyTimeStamp：最近通知事件时间戳。
     - subscribeId：订阅ID
     - topicName ：事件主题。
+    
+#### 获取版本信息
+- 请求
+    ```shell
+    $ curl http://localhost:8080/weevent/admin/getVersion
+    ```
+
+- 应答
+
+    ```json
+    {
+     "code":"0",
+     "message":"success",
+     "totalCount":null,
+     "data": 
+            {
+                "weEventVersion": "1.0.0",
+                "gitCommitTimeStamp": "2019-09-16 18:01:23",
+                "gitBranch": "master",
+                "gitCommitHash": "a5b022b"
+            }
+    }
+    ```
+- 说明
+    - weEventVersion：WeEvent版本号。
+    - gitCommitTimeStamp：WeEvent最近一次提交git的时间。
+    - gitBranch：WeEvent构建分支。
+    - gitCommitHash：WeEvent最近一次提交git的CommitHash。
+
 
