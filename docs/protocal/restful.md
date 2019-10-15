@@ -286,7 +286,6 @@ public class Rest {
     {
      "code":"0",
      "message":"success",
-     "totalCount":null,
      "data": 
             {
                 "weEventVersion": "1.0.0",
@@ -315,7 +314,6 @@ public class Rest {
     {
      "code":"0",
      "message":"success",
-     "totalCount":null,
      "data": 
             {
                 "nodeCount": "4",
@@ -341,7 +339,6 @@ public class Rest {
     {
      "code":"0",
      "message":"success",
-     "totalCount":1,
      "data": 
             [{
                "blockNumber": 5364,
@@ -362,7 +359,6 @@ public class Rest {
     - transFrom： 发送者的地址。
     - transHash：交易哈希。
     - transTo： 接收者的地址。
-    - totalCount：总条数。
     
    
 #### 获取 交易哈希列表
@@ -377,7 +373,6 @@ public class Rest {
     {
      "code":"0",
      "message":"success",
-     "totalCount":1,
      "data": 
             [{
                 "blockNumber": 5364,
@@ -400,7 +395,6 @@ public class Rest {
     - sealer：共识节点序号。
     - sealerIndex：节点序号为index的nodeId。
     - transCount：交易次数。
-    - totalCount：总条数。
         
  #### 获取 节点列表
  - 请求
@@ -414,7 +408,6 @@ public class Rest {
      {
       "code":"0",
       "message":"success",
-      "totalCount":1,
       "data": 
              [{
    
@@ -436,4 +429,3 @@ public class Rest {
      - nodeActive 运行状态。
      - createTime：创建时间。
      - modifyTime：修改时间。
-     - totalCount：总条数。
