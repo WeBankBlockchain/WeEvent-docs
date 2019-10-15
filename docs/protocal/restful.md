@@ -332,7 +332,7 @@ public class Rest {
 #### 获取 区块链交易列表
 - 请求
     ```shell
-    $ curl http://localhost:8080/weevent/admin/transaction/transList/1/1/10
+    $ curl http://localhost:8080/weevent/admin/transaction/transList?groupId=1&pageNumber=1&pageSize=10
     ```
 
 - 应答
