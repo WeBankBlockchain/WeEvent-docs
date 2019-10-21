@@ -286,7 +286,6 @@ public class Rest {
     {
      "code":"0",
      "message":"success",
-     "totalCount":null,
      "data": 
             {
                 "weEventVersion": "1.0.0",
@@ -303,3 +302,130 @@ public class Rest {
     - gitCommitHash：WeEvent最近一次提交git的CommitHash。
 
 
+#### 获取 节点个数、区块数量、交易数量
+- 请求
+    ```shell
+    $ curl http://localhost:8080/weevent/admin/group/general?groupId=1
+    ```
+
+- 应答
+
+    ```json
+    {
+     "code":"0",
+     "message":"success",
+     "data": 
+            {
+                "nodeCount": "4",
+                "latestBlock": "100",
+                "transactionCount": "5260"
+            }
+    }
+    ```
+- 说明
+    - nodeCount：节点个数。
+    - latestBlock：区块数量。
+    - transactionCount：交易数量。
+
+#### 获取 区块链交易列表
+- 请求
+    ```shell
+    $ curl http://localhost:8080/weevent/admin/transaction/transList?groupId=1&pageNumber=1&pageSize=10
+    ```
+
+- 应答
+
+    ```json
+    {
+     "code":"0",
+     "message":"success",
+     "data": 
+            [{
+               "blockNumber": 5364,
+               "blockTimestamp": "2019-10-15 14:48:01",
+               "createTime": null,
+               "modifyTime": null,
+               "transFrom": "0x64fa644d2a694681bd6addd6c5e36cccd8dcdde3",
+               "transHash": "0xb3585cf385a595e5af425d360693e6759d8db5c1a98ebb46277b38c014ec8626",
+               "transTo": "0xa40c864c28ee8b07dc2eeab4711e3161fc87e1e2"
+            }]
+    }
+    ```
+- 说明
+    - blockNumber：区块高度。
+    - blockTimestamp 区块交易时间。
+    - createTime：创建时间。
+    - modifyTime：修改时间。
+    - transFrom： 发送者的地址。
+    - transHash：交易哈希。
+    - transTo： 接收者的地址。
+    
+   
+#### 获取 交易哈希列表
+- 请求
+    ```shell
+    $ curl http://localhost:8080/weevent/admin/block/blockList?groupId=1&pageNumber=1&pageSize=10
+    ```
+
+- 应答
+
+    ```json
+    {
+     "code":"0",
+     "message":"success",
+     "data": 
+            [{
+                "blockNumber": 5364,
+                "blockTimestamp": "2019-10-15 14:48:01",
+                "createTime": null,
+                "modifyTime": null,
+                "pkHash": "0x382d17374619233978c2f5c8dfc88fea1bb70af52ea824c8ec99982d66b455cd",
+                "sealer": "0x3",
+                "sealerIndex": 1,
+                "transCount": 1
+            }]
+    }
+    ```
+- 说明
+    - blockNumber：区块高度。
+    - blockTimestamp 区块交易时间。
+    - createTime：创建时间。
+    - modifyTime：修改时间。
+    - pkHash：区块哈希。
+    - sealer：共识节点序号。
+    - sealerIndex：节点序号为index的nodeId。
+    - transCount：交易次数。
+        
+ #### 获取 节点列表
+ - 请求
+     ```shell
+     $ curl http://localhost:8080/weevent/admin/node/nodeList?groupId=1&pageNumber=1&pageSize=10
+     ```
+ 
+ - 应答
+ 
+     ```json
+     {
+      "code":"0",
+      "message":"success",
+      "data": 
+             [{
+   
+            "nodeId": "543095f2a4a7ec910c4d62fcde2754871c559d375fba9a11aab94cb7c7ae8eef8f55250558a7412d14f11faeb7d31c55cec36746ce5644c749a4674888fe46eb",
+            "nodeName": "543095f2a4a7ec910c4d62fcde2754871c559d375fba9a11aab94cb7c7ae8eef8f55250558a7412d14f11faeb7d31c55cec36746ce5644c749a467",
+            "pbftView": 23,
+            "blockNumber": 5364,
+            "createTime": null,
+            "modifyTime": null,
+            "nodeActive": 1
+             }]
+     }
+     ```
+ - 说明
+     - nodeId：节点id。
+     - nodeName：节点名称。
+     - pbftView：PBFT视图。
+     - blockNumber：区块高度。
+     - nodeActive 运行状态。
+     - createTime：创建时间。
+     - modifyTime：修改时间。
