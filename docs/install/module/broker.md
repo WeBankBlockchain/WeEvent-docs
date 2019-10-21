@@ -139,10 +139,6 @@ $ ./deploy-topic-control.sh
   可选配置。`./conf/weevent.properties`中`stomp.*`配置项。
 
   ```ini
-  # stomp协议访问用户名
-  stomp.user.login=${username}
-  # stomp协议访问密码
-  stomp.user.passcode=${password}
   # 发送心跳时间间隔 单位:秒
   stomp.heartbeats=30
   ```
@@ -154,16 +150,12 @@ $ ./deploy-topic-control.sh
   ```ini
   # 客户端使用MQTT协议访问MQTT Broker端口
   mqtt.broker.port=7001
+  # 客户端使用WebSocket协议访问MQTT Broker端口
+  mqtt.websocket.port=7002
   # 心跳时间 单位:秒
   mqtt.broker.keepalive=60
   # 客户端使用WebSocket协议访问MQTT Broker链接
   mqtt.websocket.path=/weevent/mqtt
-  # 客户端使用WebSocket协议访问MQTT Broker端口
-  mqtt.websocket.port=7002
-  # MQTT Broker访问用户名
-  mqtt.user.login=
-  # MQTT Broker访问密码
-  mqtt.user.passcode=
   ```
   
 
