@@ -7,10 +7,17 @@
 
   配置文件`./broker/conf/application-prod.properties`，这个是`Spring Boot`标准配置文件，一般不需要修改。细节请参见[Spring Boot文档](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#appendix) 。
 
-  | 配置项                      | 默认值   | 配置说明         |
-  | --------------------------- | -------- | ---------------- |
-  | server.port                 | 7000     | spring监听端口   |
-  | server.servlet.context-path | /weevent | spring上下文路径 |
+  | 配置项                        | 默认值                                                       | 配置说明         |
+  | ----------------------------- | ------------------------------------------------------------ | ---------------- |
+  | server.port                   | 7000                                                         | spring监听端口   |
+  | server.servlet.context-path   | /weevent                                                     | spring上下文路径 |
+  | spring.autoconfigure.exclude  | org.springframework.boot.autoconfigure.<br />security.servlet.SecurityAutoConfiguration | 默认不开启       |
+  | spring.security.user.name     | user                                                         | 默认不开启       |
+  | spring.security.user.password | 123456                                                       | 默认不开启       |
+
+  用户密码`spring.security.user`配置，对所有的接入协议`RESTFul`、`Json RPC`、`STOMP`、`MQTT`都会生效。
+
+  配置项生效后，`RESTFul`和`Json RPC`需要是使用`http base authorization`访问。`STOMP`访问需要设置`header`项`login`和`passcode`，`MQTT`访问需要设置`username`和`password`。
 
 - 区块链FISCO-BCOS节点配置
 
@@ -49,15 +56,11 @@
   | broker.zookeeper.ip                |               | zookeeper服务                                                |
   | broker.zookeeper.path              | /event_broker | zookeeper数据路径                                            |
   | broker.zookeeper.timeout           | 3000          | zookeeper链接超时时间，单位毫秒                              |
-  | stomp.user.login                   |               | stomp访问账号，空为不开启校验                                |
-  | stomp.user.passcode                |               | stomp访问密码                                                |
   | stomp.heartbeats                   | 30            | stomp心跳间隔，单位秒                                        |
   | mqtt.broker.port                   | 7001          | mqtt协议TCP访问端口，默认不开启                              |
   | mqtt.broker.keepalive              | 60            | mqtt连接空闲时间，单位秒                                     |
   | mqtt.websocket.path                | /weevent/mqtt | mqtt连接目录                                                 |
   | mqtt.websocket.port                | 7002          | mqtt协议web socket访问端口，默认不开启                       |
-  | mqtt.user.login                    |               | mqtt访问账号，空为不开启校验                                 |
-  | mqtt.user.passcode                 |               | mqtt访问密码                                                 |
 
 ### Governance
 
