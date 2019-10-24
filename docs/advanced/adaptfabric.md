@@ -23,7 +23,7 @@
 
   - 区块链节点配置文件fabric.properties
 
-    修改`chain.organizations.user.keyfile=fabric/crypto-config/peerOrganizations/~/msp/keystore/16ffb906b44bedbd23cb987b23f7f2e7e29018a6d460c2388c7986e0dcc121c9_sk`配置项，只需要修改该配置路径的最后文件名(从上一步的`crypto-config`,找到对应的文件名即可)。
+    修改`chain.organizations.user.keyfile`配置项，只需要修改该配置路径的最后文件名(从上一步的`crypto-config`,找到对应的文件名即可)。
     
     修改`chain.peer.address=grpcs://127.0.0.1:7051`配置项，替换`127.0.0.1`为部署Fabric节点的ip
     
