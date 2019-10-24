@@ -1,9 +1,11 @@
 ## 核心概念
 
-`WeEvent`是一个基于区块链实现的事件中间件，面向用户提供事件发布订阅`Publish/Subscribe`功能。发布到`WeEvent`上的事件永久存储，不可篡改，支持事后跟踪和审计。
-生产者`Producer`通过`WeEvent`服务发布事件，事件内容会被记录到区块链`FISCO-BCOS`上，消费者`Consumer`从`WeEvent`服务订阅事件。订阅成功后，只要生产者发布事件，消费者都会及时得到通知。
+`WeEvent`是一个基于区块链实现的事件中间件服务，面向用户提供事件发布订阅`Publish/Subscribe`功能。发布到`WeEvent`上的事件永久存储，不可篡改，支持事后跟踪和审计。
+生产者`Producer`通过`WeEvent`代理服务发布事件，事件内容会被记录到区块链`FISCO-BCOS`上，消费者`Consumer`从`WeEvent`订阅事件。订阅成功后，只要生产者发布事件，消费者都会及时得到通知。
 
 ![](../image/WeventTopView.png)  
+
+`WeEvent`提供了多种接入方式，`Producer`和`Consumer`可以是后台服务、前端网页，甚至是`IoT`设备。
 
 多机构之间的合作，一般每个机构都会部署自己的`WeEvent`服务。例如：
 

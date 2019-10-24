@@ -1,5 +1,7 @@
 ## RESTful
-`RESTful`作为一种软件架构风格、设计风格，在Web应用上非常流行。基于这个风格设计的软件可以更简洁，`REST` 接口可以直接在浏览器上测试，给开发和测试过程带来很多便利。`WeEvent`的所有功能都支持`RESTful`协议访问。
+`RESTful`作为一种软件架构风格、设计风格，在Web应用上非常流行。基于这个风格设计的软件可以更简洁，`REST` 接口可以直接在浏览器上测试，给开发和测试过程带来很多便利。
+
+`RESTful`都是对`STOMP`协议的一个补充，支持`WeEvent`主题的`CRUD`管理等功能以及事件发布。
 
 ### 协议说明
 
@@ -49,7 +51,7 @@ public class Rest {
 
 ### 接口说明
 
-`RESTful`接口包括两大类功能：一类是主题`Topic`的`CRUD`管理，包括`open`、`close`、`exist`、`state`、`list`；一类是事件的发布和订阅，包括`publish`、`subscribe`、`unsubscribe` 。
+`RESTful`接口包括两大类功能：一类是主题`Topic`的`CRUD`管理，包括`open`、`close`、`exist`、`state`、`list`；一类是事件发布`publish`。
 
 #### 创建Topic
 - 请求
@@ -128,48 +130,6 @@ public class Rest {
   - weevent-json:可选参数。用户自定义拓展，以`weevent-`开头。
 
   - status：`SUCCESS`，说明是发布成功，`eventId`是对应的事件ID。
-
-#### 订阅事件
-- 请求
-
-  ```shell
-  $ curl http://localhost:8080/weevent/rest/subscribe?topic=com.weevent.test&groupId=1&subscriptionId=c8a600c0-61a7-4077-90f6-3aa39fc9cdd5&url=http%3a%2f%2flocalhost%3a8080%2fweevent%2fmock%2frest%2fonEvent
-  ```
-
-
-- 应答
-
-  ```
-  c8a600c0-61a7-4077-90f6-3aa39fc9cdd5
-  ```
-
-
-- 说明  
-
-  - topic：主题。`ascii`值在`[32,128]`之间。支持通配符按层次订阅，因'+'、'#'为通配符的关键字故不能为topic的一部分，详情参见[MQTT通配符](http://public.dhe.ibm.com/software/dw/webservices/ws-mqtt/mqtt-v3r1.html) 。
-  - url：事件通知回调`CGI `，当有生产者发布事件时，所有的事件都会通知到这个`url`。 
-  - subscriptionId：第一次订阅可以不填。继续上一次订阅`subscriptionId`为上次订阅ID。
-
-#### 取消订阅
-
-
-- 请求
-
-  ```shell
-  $ curl http://localhost:8080/weevent/rest/unSubscribe?subscriptionId=c8a600c0-61a7-4077-90f6-3aa39fc9cdd5
-  ```
-
-
-- 应答
-
-  ```shell
-   true
-  ```
-
-
-- 说明
-
-  - subscriptionId：`Subscribe`成功订阅后，返回的订阅ID。
 
 #### 获取Event详情
 
@@ -261,6 +221,20 @@ public class Rest {
   - createdTimestamp  ：`Topic` 创建的时间
   - sequenceNumber：已发布事件数。
   - blockNumber：最新已发布事件的区块高度。
+  
+#### 获取群组列表
+- 请求
+
+  ```shell
+  $ curl http://localhost:8080/weevent/rest/listGroup
+  ```
+
+
+- 应答
+
+  ```json
+  ["1","2"]
+  ```
 
 #### 获取订阅列表 
 - 请求
@@ -299,4 +273,159 @@ public class Rest {
     - notifyTimeStamp：最近通知事件时间戳。
     - subscribeId：订阅ID
     - topicName ：事件主题。
+    
+#### 获取版本信息
+- 请求
+    ```shell
+    $ curl http://localhost:8080/weevent/admin/getVersion
+    ```
 
+- 应答
+
+    ```json
+    {
+     "code":"0",
+     "message":"success",
+     "data": 
+            {
+                "weEventVersion": "1.0.0",
+                "gitCommitTimeStamp": "2019-09-16 18:01:23",
+                "gitBranch": "master",
+                "gitCommitHash": "a5b022b"
+            }
+    }
+    ```
+- 说明
+    - weEventVersion：WeEvent版本号。
+    - gitCommitTimeStamp：WeEvent最近一次提交git的时间。
+    - gitBranch：WeEvent构建分支。
+    - gitCommitHash：WeEvent最近一次提交git的CommitHash。
+
+
+#### 获取 节点个数、区块数量、交易数量
+- 请求
+    ```shell
+    $ curl http://localhost:8080/weevent/admin/group/general?groupId=1
+    ```
+
+- 应答
+
+    ```json
+    {
+     "code":"0",
+     "message":"success",
+     "data": 
+            {
+                "nodeCount": "4",
+                "latestBlock": "100",
+                "transactionCount": "5260"
+            }
+    }
+    ```
+- 说明
+    - nodeCount：节点个数。
+    - latestBlock：区块数量。
+    - transactionCount：交易数量。
+
+#### 获取 区块链交易列表
+- 请求
+    ```shell
+    $ curl http://localhost:8080/weevent/admin/transaction/transList?groupId=1&pageNumber=1&pageSize=10
+    ```
+
+- 应答
+
+    ```json
+    {
+     "code":"0",
+     "message":"success",
+     "data": 
+            [{
+               "blockNumber": 5364,
+               "blockTimestamp": "2019-10-15 14:48:01",
+               "createTime": null,
+               "modifyTime": null,
+               "transFrom": "0x64fa644d2a694681bd6addd6c5e36cccd8dcdde3",
+               "transHash": "0xb3585cf385a595e5af425d360693e6759d8db5c1a98ebb46277b38c014ec8626",
+               "transTo": "0xa40c864c28ee8b07dc2eeab4711e3161fc87e1e2"
+            }]
+    }
+    ```
+- 说明
+    - blockNumber：区块高度。
+    - blockTimestamp 区块交易时间。
+    - createTime：创建时间。
+    - modifyTime：修改时间。
+    - transFrom： 发送者的地址。
+    - transHash：交易哈希。
+    - transTo： 接收者的地址。
+    
+   
+#### 获取 交易哈希列表
+- 请求
+    ```shell
+    $ curl http://localhost:8080/weevent/admin/block/blockList?groupId=1&pageNumber=1&pageSize=10
+    ```
+
+- 应答
+
+    ```json
+    {
+     "code":"0",
+     "message":"success",
+     "data": 
+            [{
+                "blockNumber": 5364,
+                "blockTimestamp": "2019-10-15 14:48:01",
+                "createTime": null,
+                "modifyTime": null,
+                "pkHash": "0x382d17374619233978c2f5c8dfc88fea1bb70af52ea824c8ec99982d66b455cd",
+                "sealer": "0x3",
+                "sealerIndex": 1,
+                "transCount": 1
+            }]
+    }
+    ```
+- 说明
+    - blockNumber：区块高度。
+    - blockTimestamp 区块交易时间。
+    - createTime：创建时间。
+    - modifyTime：修改时间。
+    - pkHash：区块哈希。
+    - sealer：共识节点序号。
+    - sealerIndex：节点序号为index的nodeId。
+    - transCount：交易次数。
+        
+ #### 获取 节点列表
+ - 请求
+     ```shell
+     $ curl http://localhost:8080/weevent/admin/node/nodeList?groupId=1&pageNumber=1&pageSize=10
+     ```
+ 
+ - 应答
+ 
+     ```json
+     {
+      "code":"0",
+      "message":"success",
+      "data": 
+             [{
+   
+            "nodeId": "543095f2a4a7ec910c4d62fcde2754871c559d375fba9a11aab94cb7c7ae8eef8f55250558a7412d14f11faeb7d31c55cec36746ce5644c749a4674888fe46eb",
+            "nodeName": "543095f2a4a7ec910c4d62fcde2754871c559d375fba9a11aab94cb7c7ae8eef8f55250558a7412d14f11faeb7d31c55cec36746ce5644c749a467",
+            "pbftView": 23,
+            "blockNumber": 5364,
+            "createTime": null,
+            "modifyTime": null,
+            "nodeActive": 1
+             }]
+     }
+     ```
+ - 说明
+     - nodeId：节点id。
+     - nodeName：节点名称。
+     - pbftView：PBFT视图。
+     - blockNumber：区块高度。
+     - nodeActive 运行状态。
+     - createTime：创建时间。
+     - modifyTime：修改时间。

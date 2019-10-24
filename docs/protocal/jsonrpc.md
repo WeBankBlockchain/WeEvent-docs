@@ -2,7 +2,7 @@
 
 相比`RESTful`规范，`JsonRPC`是更符合后台开发习惯的文本协议，`Java`代码映射也更加简单。
 
-`WeEvent`除了少量系统管理功能外，主题的`CRUD`和事件的订阅发布等都支持`JsonRPC`协议访问。
+`JsonRPC`和`RESTful`都是对`STOMP`协议的一个补充，支持`WeEvent`主题的`CRUD`管理等功能以及事件发布。
 
 ### 协议说明
 
@@ -63,7 +63,7 @@ public class JsonRPC {
 
 ### 接口说明
 
-`JsonRPC`接口包括两大类功能：一类是主题`Topic`的`CRUD`管理，包括`open`、`close`、`exist`、`state`、`list`；一类是事件的发布和订阅，包括`publish`、`subscribe`、`unsubscribe` 。
+`JsonRPC`接口包括两大类功能：一类是主题`Topic`的`CRUD`管理，包括`open`、`close`、`exist`、`state`、`list`；一类是事件发布`publish` 。
 
 #### 创建Topic
 - 请求
@@ -143,47 +143,6 @@ $ curl -H "Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method"
   
   - result ： 返回字段`result` ，是一个`WeEvent`对象的序列化，可查看WeEvent对象。“status”：“SUCCESS”表示成功。”eventId“："10-123"表示发布事件成功ID。
   
-  
-
-#### 订阅事件  
-
-- 请求
-```shell
-$ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":"subscribe","params":{"topic":"com.weevent.test","groupId":"1","subscriptionId":"df68c385-f62d-437f-b32c-669211d51d88","url":"http://localhost:8080/weevent/mock/rest/onEvent"}}' http://localhost:8080/weevent/jsonrpc
-```
-- 应答
-```json
-{
-    "jsonrpc": "2.0",
-    "id": "1",
-    "result": "df68c385-f62d-437f-b32c-669211d51d88"
-}
-```
-
-- 说明
-  - topic：主题。`ascii`值在`[32,128]`之间。支持通配符按层次订阅，因'+'、'#'为通配符的关键字故不能为topic的一部分，详情参见[MQTT通配符](http://public.dhe.ibm.com/software/dw/webservices/ws-mqtt/mqtt-v3r1.html) 。
-  - url：事件通知回调`CGI `，当有生产者发布事件时，所有的事件都会通知到这个`URL`。 
-  - subscriptionId：第一次订阅可以不填。继续上一次订阅`subscriptionId`为上次订阅ID。
-  - result：订阅ID。
-
-#### 取消订阅
-
-- 请求
-```shell
-$ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":"unSubscribe","params":{"subscriptionId":"c8a600c0-61a7-4077-90f6-3aa39fc9cdd5"}}' http://localhost:8080/weevent/jsonrpc
-```
-- 应答
-```json
-{
-    "jsonrpc": "2.0",
-    "id": "1",
-    "result": "true"
-}
-```
-
-- 说明
-  - 如果`Broker`没有配置`Zookeeper`模块，该接口无法使用。
-  - subscriptionId：`Subscribe`成功订阅后，返回的订阅ID。
 
 ####  获取Event详情
 - 请求
@@ -275,4 +234,15 @@ $ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":
   - sequenceNumber：已发布事件数。
 
   - blockNumber：最新已发布事件的区块高度。
+  
+#### 查询群组列表
+- 请求
+```shell
+$ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":"listGroup"' http://localhost:8080/weevent/jsonrpc
+```
+- 应答
+```json
+["1","2"]
+```
+
 

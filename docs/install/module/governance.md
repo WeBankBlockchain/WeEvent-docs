@@ -41,8 +41,8 @@ $ tree -L 2
 |   `-- weevent-governance-1.0.0.jar
 |-- check-service.sh
 |-- conf
-|   |-- application-prod.yml
-|   |-- application.yml
+|   |-- application-prod.properties
+|   |-- application.properties
 |   |-- banner.txt
 |   |-- log4j2.xml
 |   |-- mappers
@@ -53,32 +53,30 @@ $ tree -L 2
 |   |-- README
 |   `-- static
 |-- init-governance.sh
+`-- lib
 ```
 
 ### 修改配置文件
 
 - 配置端口
 
-  在配置文件`./conf/application-prod.yml`中，`Governance` 的服务端口`server.port` ，默认`7009`。
+  在配置文件`./conf/application-prod.properties`中，`Governance` 的服务端口`server.port` ，默认`7009`。
 
   ```
-  server:
-    port: 7009
+  server.port=7009
   ```
 
 
 - 配置Mysql数据库
 
-    在配置文件`./conf/application-prod.yml`中，修改`datasource`中的`url`配置、`username`、`password` 。
+    在配置文件`./conf/application-prod.properties`中，修改`datasource`中的`url`配置、`username`、`password` 。
 
     ```ini
-    spring:  
-      datasource:
-        url: jdbc:mysql://127.0.0.1:3306/governance?useUnicode=true&characterEncoding=utf-8&useSSL=false
-        driver-class-name: org.mariadb.jdbc.Driver
-        username: test
-        password: 123456
-        type: org.apache.commons.dbcp2.BasicDataSource
+    spring.datasource.url=jdbc:mysql://127.0.0.1:3306/governance?useUnicode=true&characterEncoding=utf-8&useSSL=false
+	spring.datasource.driver-class-name=org.mariadb.jdbc.Driver
+	spring.datasource.username=test
+	spring.datasource.password=123456
+	spring.datasource.type= org.apache.commons.dbcp2.BasicDataSource
     ```
     **注意**：数据库要赋予配置账号创建库表的权限。
 
@@ -96,15 +94,13 @@ $ tree -L 2
 
 - 重置密码的邮件设置
 
-    可选配置。在配置文件`./conf/application-prod.yml`中，修改`mail`中的`host`、`username`、`password` 配置。
+    可选配置。在配置文件`./conf/application-prod.properties`中，修改`mail`中的`host`、`username`、`password` 配置。
 
     ```ini
-    mail:
-        default-encoding: UTF-8
-        # smtp服务器地址 ex: smtp.163.com,smtp.qq.com,smtp.sohu.com
-        host: smtp.163.com
-        username: mailusername@163.com
-        password: mailpwd
+	spring.mail.default-encoding= UTF-8
+	spring.mail.host= smtp.163.com
+	spring.mail.username= mailusername@163.com
+	spring.mail.password= mailpwd
     ```
 
 ### 服务启停

@@ -59,6 +59,8 @@ $ tree  -L 2
 |   |-- server.p12
 |   `-- weevent.properties
 |-- deploy-topic-control.sh
+|-- gen-cert-key.sh
+`-- lib
 ```
 
 ### 修改配置文件
@@ -76,36 +78,18 @@ $ tree  -L 2
 
     证书文件生成及获取请参见[FISCO-BCOS 2.0安装](https://fisco-bcos-documentation.readthedocs.io/zh_CN/release-2.0/docs/installation.html)
 
-- 部署和修改系统合约
+- 部署系统合约
 
-  - 部署系统合约  
+  运行脚本`./deploy-topic-control.sh `部署合约。例如:
 
-    运行脚本`./deploy-topic-control.sh `，部署合约并得到合约地址。例如:
-
-    ```shell
-    $ ./deploy-topic-control.sh 1
-    deploy contract[TopicController] success, address: 0xd99253697e61bf19206ceb4704fc9914d0a4116c
-    ```
-    
-  - 修改配置文件
+  ```shell
+$ ./deploy-topic-control.sh
+  2019-08-19 17:59:31 topic control address in every group:
+  1	0xc6fc72f0fe6ebf9881a2103f2829d0e98d020062	[new]
+  2	0xd85d3345f8a21f4fd6197c72266ae3e3106e5e1c	[new]
+  ```
   
-      在配置文件`./conf/fisco.properties`中，替换为生成的合约地址。例如：
-  
-    ```ini
-      topic-controller.address=1:0xd99253697e61bf19206ceb4704fc9914d0a4116c;
-    ```
-    
-      1.3版本的合约地址设置如下:
-  
-    ```ini
-      topic-controller.address=0xd99253697e61bf19206ceb4704fc9914d0a4116c
-    ```
-    
-    更多关于群组和合约部署的细节，请参考[多群组](../../advanced/group.html)。
-    
-  -  **注意**
-    
-        每条区块链只需要部署一次合约。当重新部署使用新的合约时，相当于切换了数据视图，原来合约地址关联的数据都无法继续访问（除非切回原合约地址）。  
+  脚本会检查之前是否部署过合约，重复执行不影响。
   
 - 配置Broker监听端口
 
@@ -128,7 +112,7 @@ $ tree  -L 2
   
 - 配置Zookeeper服务
 
-  配置文件`./conf/weevent.properties`中`broker.zookeeper.*`配置项。
+  可选配置。配置文件`./conf/weevent.properties`中`broker.zookeeper.*`配置项。
 
   ```ini
   # zookeeper服务访问链接 示例：127.0.0.1:8080
@@ -155,31 +139,23 @@ $ tree  -L 2
   可选配置。`./conf/weevent.properties`中`stomp.*`配置项。
 
   ```ini
-  # stomp协议访问用户名
-  stomp.user.login=${username}
-  # stomp协议访问密码
-  stomp.user.passcode=${password}
   # 发送心跳时间间隔 单位:秒
   stomp.heartbeats=30
   ```
   
 - 配置`MQTT Broker`
 
-  配置文件`./conf/weevent.properties`中`mqtt.*`配置项。
+  可选配置。配置文件`./conf/weevent.properties`中`mqtt.*`配置项。
 
   ```ini
   # 客户端使用MQTT协议访问MQTT Broker端口
   mqtt.broker.port=7001
+  # 客户端使用WebSocket协议访问MQTT Broker端口
+  mqtt.websocket.port=7002
   # 心跳时间 单位:秒
   mqtt.broker.keepalive=60
   # 客户端使用WebSocket协议访问MQTT Broker链接
   mqtt.websocket.path=/weevent/mqtt
-  # 客户端使用WebSocket协议访问MQTT Broker端口
-  mqtt.websocket.port=7002
-  # MQTT Broker访问用户名
-  mqtt.user.login=
-  # MQTT Broker访问密码
-  mqtt.user.passcode=
   ```
   
 

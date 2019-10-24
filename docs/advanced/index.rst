@@ -6,5 +6,4 @@
    :caption: Contents:
 
    /advanced/port
-   /advanced/group
    
