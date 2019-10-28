@@ -49,4 +49,40 @@ $ ./deploy-topic-control.sh deploy
   start broker success (PID=89054)
   add the crontab job success
   ```
+  
+### 代码样例
+  
+  API里所有的groupId就是Fabric的channelname, 以发布事件为例，代码如下：
+  
+  ```java
+  @RequestMapping(path = "/publish")
+      public SendResult publish(@RequestParam Map<String, String> eventData) throws BrokerException {
+      log.info("inputs: {}", JSON.toJSONString(eventData));
+
+      if (!eventData.containsKey(WeEventConstants.EVENT_TOPIC)
+              || !eventData.containsKey(WeEventConstants.EVENT_CONTENT)) {
+          log.error("miss param");
+          throw new BrokerException(ErrorCode.URL_INVALID_FORMAT);
+      }
+
+      log.debug("topic: {}, content.length: {}",
+              eventData.get(WeEventConstants.EVENT_TOPIC),
+              eventData.get(WeEventConstants.EVENT_CONTENT).getBytes().length);
+
+      Map<String, String> extensions = WeEventUtils.getExtensions(eventData);
+      WeEvent event = new WeEvent(eventData.get(WeEventConstants.EVENT_TOPIC), eventData.get(WeEventConstants.EVENT_CONTENT).getBytes(), extensions);
+
+      // default group id
+      String groupId = null;
+      if (eventData.containsKey(WeEventConstants.EVENT_GROUP_ID)) {
+          groupId = eventData.get(WeEventConstants.EVENT_GROUP_ID);
+          if (StringUtils.isBlank(groupId)) {
+              if (StringUtils.isBlank(groupId)) {
+                  groupId = WeEventUtils.getDefaultGroupId();
+              }
+          }
+      }
+      return this.producer.publish(event, groupId);
+  }
+  ```
 
