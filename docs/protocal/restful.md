@@ -286,7 +286,6 @@ public class Rest {
     {
      "code":"0",
      "message":"success",
-     "totalCount":null,
      "data": 
             {
                 "weEventVersion": "1.0.0",

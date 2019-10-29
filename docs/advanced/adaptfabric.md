@@ -54,35 +54,29 @@ $ ./deploy-topic-control.sh deploy
   
   API里所有的groupId就是Fabric的channelname, 以发布事件为例，代码如下：
   
-  ```java
-  @RequestMapping(path = "/publish")
-      public SendResult publish(@RequestParam Map<String, String> eventData) throws BrokerException {
-      log.info("inputs: {}", JSON.toJSONString(eventData));
+- 请求
 
-      if (!eventData.containsKey(WeEventConstants.EVENT_TOPIC)
-              || !eventData.containsKey(WeEventConstants.EVENT_CONTENT)) {
-          log.error("miss param");
-          throw new BrokerException(ErrorCode.URL_INVALID_FORMAT);
-      }
+  ```shell
+  $ curl http://localhost:8080/weevent/rest/publish?topic=com.weevent.test&groupId=mychannel&content=123456&weevent-format=json
+  ```
 
-      log.debug("topic: {}, content.length: {}",
-              eventData.get(WeEventConstants.EVENT_TOPIC),
-              eventData.get(WeEventConstants.EVENT_CONTENT).getBytes().length);
 
-      Map<String, String> extensions = WeEventUtils.getExtensions(eventData);
-      WeEvent event = new WeEvent(eventData.get(WeEventConstants.EVENT_TOPIC), eventData.get(WeEventConstants.EVENT_CONTENT).getBytes(), extensions);
+- 应答
 
-      // default group id
-      String groupId = null;
-      if (eventData.containsKey(WeEventConstants.EVENT_GROUP_ID)) {
-          groupId = eventData.get(WeEventConstants.EVENT_GROUP_ID);
-          if (StringUtils.isBlank(groupId)) {
-              if (StringUtils.isBlank(groupId)) {
-                  groupId = WeEventUtils.getDefaultGroupId();
-              }
-          }
-      }
-      return this.producer.publish(event, groupId);
+  ```json
+  {
+      "topic": "com.weevent.test",
+      "eventId": "2cf24dba-59-1124",
+      "status": "SUCCESS"
   }
   ```
+
+
+- 说明 
+
+  - content ：用户自定义数据。需要特别注意`content`需进行`UrlEncode`编码，`GET`方法支持的`QueryString`最大长度为1024字节。
+
+  - weevent-json:可选参数。用户自定义拓展，以`weevent-`开头。
+
+  - status：`SUCCESS`，说明是发布成功，`eventId`是对应的事件ID。
 
