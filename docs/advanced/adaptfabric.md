@@ -54,29 +54,31 @@ $ ./deploy-topic-control.sh deploy
   
   API里所有的groupId就是Fabric的channelname, 以发布事件为例，代码如下：
   
-- 请求
-
-  ```shell
-  $ curl http://localhost:8080/weevent/rest/publish?topic=com.weevent.test&groupId=mychannel&content=123456&weevent-format=json
-  ```
-
-
-- 应答
-
-  ```json
-  {
-      "topic": "com.weevent.test",
-      "eventId": "2cf24dba-59-1124",
-      "status": "SUCCESS"
-  }
-  ```
-
-
-- 说明 
-
-  - content ：用户自定义数据。需要特别注意`content`需进行`UrlEncode`编码，`GET`方法支持的`QueryString`最大长度为1024字节。
-
-  - weevent-json:可选参数。用户自定义拓展，以`weevent-`开头。
-
-  - status：`SUCCESS`，说明是发布成功，`eventId`是对应的事件ID。
+```java
+public class Rest {
+    public static void main(String[] args) {
+        System.out.println("This is WeEvent restful sample.");
+        try {
+            SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
+            RestTemplate rest = new RestTemplate(requestFactory);
+            // ensure topic exist "com.weevent.test"
+            Boolean result = rest.getForEntity("http://localhost:8080/weevent/rest/open?topic={}&groupId={}",
+                    Boolean.class,
+                    "com.weevent.test",
+                    "mychannel").getBody();
+            System.out.println(result);
+            // publish event to topic "com.weevent.test"
+            SendResult sendResult = rest.getForEntity("http://localhost:8080/weevent/rest/publish?topic={}&groupId={}&content={}",
+                    SendResult.class,
+                    "com.weevent.test",
+                    "mychannel",
+                    "hello weevent".getBytes(StandardCharsets.UTF_8)).getBody();
+            System.out.println(sendResult.getStatus());
+            System.out.println(sendResult.getEventId());
+        } catch (RestClientException e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
 
