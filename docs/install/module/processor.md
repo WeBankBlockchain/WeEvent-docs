@@ -79,38 +79,30 @@ server.port=7008
 # config name and expression
 #============================================================================
 quartz.schedule.name=schedule
-quartz.schedule.cronexpression=0 0/2 8-23 * * ?
 #============================================================================
 # Configure Main Scheduler Properties
 #============================================================================
-org.quartz.scheduler.instanceName=TESTCRISTIC
+org.quartz.scheduler.instanceName=test
 #============================================================================
 # Configure Datasources
 #============================================================================
-org.quartz.dataSource.weevent_processor.URL=jdbc:mysql://127.0.0.1:3306/weevent_processor
-org.quartz.dataSource.weevent_processor.user=root
-org.quartz.dataSource.weevent_processor.password=123456
-org.quartz.dataSource.weevent_processor.maxConnections=30
+org.quartz.dataSource.WeEvent_processor.URL=jdbc:mysql://127.0.0.1:3306/WeEvent_processor
+org.quartz.dataSource.WeEvent_processor.user=xxxx
+org.quartz.dataSource.WeEvent_processor.password=yyyy
+org.quartz.dataSource.WeEvent_processor.maxConnections=30
 #============================================================================
 # Configure JobStore
 #============================================================================
-org.quartz.jobStore.tablePrefix=QRTZ_
-org.quartz.jobStore.dataSource=weevent_processor
-org.quartz.jobStore.misfireThreshold=25000
-org.quartz.jobStore.clusterCheckinInterval=20000
+org.quartz.jobStore.dataSource=WeEvent_processor
 #============================================================================
 # Configure ThreadPool Quartz
 #============================================================================
 org.quartz.threadPool.threadCount=20
 org.quartz.threadPool.threadPriority=5
-
 ```
 
-- `org.quartz.scheduler.instanceName` 当前Schedule name
-- `quartz.schedule.cronexpression`  配置执行的时间
-- `org.quartz.scheduler.instanceName`  用户可以修改
+- `org.quartz.scheduler.instanceName` 当前Schedule name，用户可以修改
 - `org.quartz.dataSource.weevent_processor.*`  数据库信息的配置
-- `org.quartz.jobStore.tablePrefix`  Quartz使用的表名前缀`QRTZ_` ，用户可以修改成其他，需要用户修改初始化数据库的`sql`脚本，表名改成对应的前缀。
 - `org.quartz.jobStore.dataSource` 配置数据库名称
 
 ​    **注意**：数据库要赋予配置账号创建库表的权限。
