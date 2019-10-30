@@ -16,3 +16,4 @@ Nginx 实现WeEvent服务的负载均衡。服务支持主流的Linux发行版�
    /install/module/broker
    /install/module/governance
    /install/module/nginx
+   /install/module/processor
