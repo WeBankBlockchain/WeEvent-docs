@@ -3,38 +3,54 @@
 `WeEvent`的子模块`Broker`对区块链`Fabric 1.4`的支持。以下安装以`CentOS 7.2`为例。
 
 ### 前置条件
+- 安装`weevent-broker`, 具体安装步骤[weevent-broker安装](../install/module/broker.html)
 
-- 安装Fabric 1.4区块链节点(以官网Fabric Samples安装为例)
+  以`weevent-broker`安装到 `/usr/local/weevent/weevent-broker-1.1.0` 目录为例。
 
-  具体安装步骤，请参见[Fabric安装](https://hyperledger-fabric.readthedocs.io/en/latest/install.html)。
+- 安装`Fabric 1.4`区块链节点(以官网`Fabric Samples`安装为例)
+
+  具体安装步骤, 请参见[Fabric安装](https://hyperledger-fabric.readthedocs.io/en/latest/install.html)。
+  
+  以`Fabric 1.4`安装到 `/usr/local/fabric/fabric-sample` 目录为例。
 
 ### 修改Fabric相关的配置文件
 - 添加安装Fabric节点的证书等文件
 
-  - 配置`WeEvent`访问区块链的方式
+  - 配置`WeEvent`访问区块链cd
+  
+    ```shell
+    $ cd /usr/local/weevent/weevent-broker-1.1.0/
+    $ vi /conf/weevent.properties
+    ```
 
-    修改`weevent.properties`文件中的配置项`broker.blockchain.type=fisco`，替换`fisco`为`fabric`。
+    修改`broker.blockchain.type`配置项为：`broker.blockchain.type=fabric`。
 
   - 添加证书文件
   
-    将安装Fabric安装后`/fabric-sample/first-network/crypto-config/`目录下的所有文件，拷贝到weevent-broker安装目录下的
+    将安装Fabric安装后`/usr/local/fabric/fabric-sample/first-network/crypto-config/`目录下的所有文件，
     
-    `/conf/fabric/crypto-config/`里。
+    拷贝到`weevent-broker`安装目录下的 `/usr/local/weevent/weevent-broker-1.1.0/conf/fabric/crypto-config/`里。
 
   - 区块链节点配置文件fabric.properties
+  
+    ```shell
+    $ vi /conf/fabric/fabric.properties
+    ```
 
-    修改`chain.organizations.user.keyfile`配置项，只需要修改该配置路径的最后文件名(从上一步的`crypto-config`,找到对应的文件名即可)。
+    修改`chain.organizations.user.keyfile`配置项为：
     
-    修改`chain.peer.address=grpcs://127.0.0.1:7051`配置项，替换`127.0.0.1`为部署Fabric节点的ip
+    `/usr/local/weevent/weevent-broker-1.1.0/conf/fabric/crypto-config/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/keystore/xxx_sk`
     
-    修改`chain.orderer.address=grpcs://127.0.0.1:7050`配置项，替换`127.0.0.1`为部署Fabric节点的ip
+    修改`chain.peer.address`配置项，替换`127.0.0.1`为部署Fabric节点的ip (`peer`端口默认为7051)
+    
+    修改`chain.orderer.address`配置项，替换`127.0.0.1`为部署Fabric节点的ip (`orderer`端口默认为7050)
 
 - 部署系统合约
 
   运行脚本`./deploy-fabric-topic-control.sh `部署合约。例如:
 
   ```shell
-$ ./deploy-topic-control.sh deploy
+  $ ./deploy-topic-control.sh deploy
   begin deploy topic and topicController contract.
   begin add topic into topicController contract.
   deploy contract success. 
@@ -52,7 +68,22 @@ $ ./deploy-topic-control.sh deploy
   
 ### 代码样例
   
-  API里所有的groupId就是Fabric的channelname, 以发布事件为例，代码如下：
+  `API`里所有的`groupId`就是`Fabric`的`channelname`, 以发布事件为例：
+  
+- `http`请求  
+
+  `http://127.0.0.1:8080/weevent/rest/publish?topic=com.weevent.test&groupId=1&content=hello`
+  
+  - 应答
+  
+    ```json
+    {
+        "topic": "com.weevent.test",
+        "eventId": "2cf24dba-59-1124",
+        "status": "SUCCESS"
+    }
+  
+- `java`代码 
   
 ```java
 public class Rest {
