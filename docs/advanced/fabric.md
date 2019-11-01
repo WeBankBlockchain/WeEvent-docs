@@ -1,6 +1,6 @@
 ## 适配Fabric
 
-`WeEvent`的子模块`Broker`对区块链`Fabric 1.4`的支持。以下安装以`CentOS 7.2`为例。
+`WeEvent`对区块链`Fabric 1.4`的支持。以下安装以`CentOS 7.2`为例。
 
 ### 前置条件
 - 安装`weevent-broker`, 具体安装步骤[weevent-broker安装](../install/module/broker.html)
@@ -16,7 +16,7 @@
 ### 修改Fabric相关的配置文件
 - 添加安装Fabric节点的证书等文件
 
-  - 配置`WeEvent`访问区块链cd
+  - 配置`WeEvent`访问区块链
   
     ```shell
     $ cd /usr/local/weevent/weevent-broker-1.1.0/
@@ -66,25 +66,20 @@
   add the crontab job success
   ```
   
+### RESTful请求样例
+- 创建Topic,发布事件
+
+  ```shell
+  $ curl http://localhost:8080/weevent/rest/open?topic=com.weevent.test&groupId=mychannel
+  $ true
+  $ curl http://localhost:8080/weevent/rest/publish?topic=com.weevent.test&groupId=mychannel&content=123456&weevent-format=json
+  $ {"topic": "com.weevent.test","eventId": "2cf24dba-59-1124","status": "SUCCESS"}
+  ```
+  
 ### 代码样例
   
   `API`里所有的`groupId`就是`Fabric`的`channelname`, 以发布事件为例：
-  
-- `http`请求  
-
-  `http://127.0.0.1:8080/weevent/rest/publish?topic=com.weevent.test&groupId=1&content=hello`
-  
-  - 应答
-  
-    ```json
-    {
-        "topic": "com.weevent.test",
-        "eventId": "2cf24dba-59-1124",
-        "status": "SUCCESS"
-    }
-  
-- `java`代码 
-  
+    
 ```java
 public class Rest {
     public static void main(String[] args) {
