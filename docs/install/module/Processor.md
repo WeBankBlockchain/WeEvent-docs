@@ -12,6 +12,11 @@
    必选配置，通过`Broker`访问区块链。
 
    具体安装步骤，请参见[Broker模块安装](./broker.html)。
+- Governance模块
+
+   可选配置，通过`Governance`从'Web'端调用Processorg。
+
+   具体安装步骤，请参见[Governance模块安装](./overnance.html)。   
 
 - Mysql数据库
 
@@ -63,34 +68,37 @@ $ tree -L 2
 - 配置端口
 
   在配置文件`./conf/application-prod.properties`中，`Processor` 的服务端口`server.port` ，默认`7008`。
-   修改`datasource`中的`url`配置、`username`、`password` 
 
-``` 配置数据库连接
+```
 server.port=7008
-spring.datasource.url=jdbc:mysql://127.0.0.1:3306/processor
-spring.datasource.username=root
-spring.datasource.password=123456
-spring.datasource.driver-class-name=com.mysql.jdbc.Driver
 ```
 
-- 在配置文件processor.properties配置Mysql数据库,修改`datasource`中的`url`配置、`username`、`password` 
+- 配置Mysql数据库
 
 ```
 #============================================================================
 # config name and expression
 #============================================================================
 quartz.schedule.name=schedule
+quartz.schedule.cronexpression=0 0/2 8-23 * * ?
 #============================================================================
 # Configure Main Scheduler Properties
 #============================================================================
-org.quartz.scheduler.instanceName=test
+org.quartz.scheduler.instanceName=TESTCRISTIC
 #============================================================================
 # Configure Datasources
 #============================================================================
-org.quartz.dataSource.weevent_processor.URL=jdbc:mysql://127.0.0.1:3306/WeEvent_processor
+org.quartz.dataSource.weevent_processor.URL=jdbc:mysql://127.0.0.1:3306/weevent_processor
 org.quartz.dataSource.weevent_processor.user=root
 org.quartz.dataSource.weevent_processor.password=123456
 org.quartz.dataSource.weevent_processor.maxConnections=30
+#============================================================================
+# Configure JobStore
+#============================================================================
+org.quartz.jobStore.tablePrefix=QRTZ_
+org.quartz.jobStore.dataSource=weevent_processor
+org.quartz.jobStore.misfireThreshold=25000
+org.quartz.jobStore.clusterCheckinInterval=20000
 #============================================================================
 # Configure ThreadPool Quartz
 #============================================================================

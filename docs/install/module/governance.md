@@ -18,27 +18,31 @@
   必选配置。`Governance`通过`Mysql`存储数据。
 
   推荐安装`Mysql 5.6+`版本。具体安装步骤，安装请参见[Mysql安装](http://dev.mysql.com/downloads/mysql/) 。
+  
+- Processor模块
+  可选配置。通过`Processor`触发规则引擎。
+  具体安装步骤，请参见[Processor模块安装](./processor.html)。
 
 
 ### 获取安装包
 
-从`github`下载安装包[weevent-governance-1.0.0.tar.gz](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.0.0/weevent-governance-1.0.0.tar.gz)，并且解压到`/usr/local/weevent/`下。
+从`github`下载安装包[weevent-governance-1.1.0.tar.gz](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.1.0/weevent-governance-1.1.0.tar.gz)，并且解压到`/usr/local/weevent/`下。
 
 ```shell
 $ cd /usr/local/weevent/
-$ wget https://github.com/WeBankFinTech/WeEvent/releases/download/v1.0.0/weevent-governance-1.0.0.tar.gz
-$ tar -xvf weevent-governance-1.0.0.tar.gz
+$ wget https://github.com/WeBankFinTech/WeEvent/releases/download/v1.1.0/weevent-governance-1.1.0.tar.gz
+$ tar -xvf weevent-governance-1.1.0.tar.gz
 ```
 
-如果`github`下载速度慢，可以尝试[国内下载链接](https://www.fisco.com.cn/cdn/weevent/download/releases/v1.0.0/weevent-governance-1.0.0.tar.gz)。
+如果`github`下载速度慢，可以尝试[国内下载链接](https://www.fisco.com.cn/cdn/weevent/download/releases/v1.1.0/weevent-governance-1.1.0.tar.gz)。
 
 解压后的目录结构如下
 
 ```
-$ cd ./weevent-governance-1.0.0
+$ cd ./weevent-governance-1.1.0
 $ tree -L 2
 |-- apps
-|   `-- weevent-governance-1.0.0.jar
+|   `-- weevent-governance-1.1.0.jar
 |-- check-service.sh
 |-- conf
 |   |-- application-prod.properties
@@ -53,7 +57,7 @@ $ tree -L 2
 |   |-- README
 |   `-- static
 |-- init-governance.sh
-`-- lib
+|-- lib
 ```
 
 ### 修改配置文件
@@ -72,9 +76,9 @@ $ tree -L 2
     在配置文件`./conf/application-prod.properties`中，修改`datasource`中的`url`配置、`username`、`password` 。
 
     ```ini
-    spring.datasource.url=jdbc:mysql://127.0.0.1:3306/governance?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    spring.datasource.url=jdbc:mysql://127.0.0.1:3306/WeEvent_governance?useUnicode=true&characterEncoding=utf-8&useSSL=false
 	spring.datasource.driver-class-name=org.mariadb.jdbc.Driver
-	spring.datasource.username=test
+	spring.datasource.username=root
 	spring.datasource.password=123456
 	spring.datasource.type= org.apache.commons.dbcp2.BasicDataSource
     ```
@@ -84,6 +88,10 @@ $ tree -L 2
     >> grant all privileges on *.* to 'test'@'%' identified by '123456';
     >> flush privileges;
     ```
+- 配置Processor访问路径
+      在配置文件`./conf/application-prod.properties`中，      
+      修改weevent.processor.url 配置  默认为 http://l27.0.0.1:7008
+
 
     初始化系统，执行脚本`init-governance.sh` ，成功输出如下。否则，用户需要检查配置项是否正常。
 
