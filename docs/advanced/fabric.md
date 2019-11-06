@@ -34,7 +34,7 @@
   - 区块链节点配置文件fabric.properties
   
     ```shell
-    $ vi /conf/fabric/fabric.properties
+    $ vi ./conf/fabric/fabric.properties
     ```
 
     修改`chain.organizations.user.keyfile`配置项为：
@@ -50,7 +50,7 @@
   运行脚本`./deploy-fabric-topic-control.sh `部署合约。例如:
 
   ```shell
-  $ ./deploy-topic-control.sh deploy
+  $ ./deploy-fabric-topic-control.sh deploy
   begin deploy topic and topicController contract.
   begin add topic into topicController contract.
   deploy contract success. 
@@ -71,6 +71,7 @@
 
   ```shell
   $ curl http://localhost:8080/weevent/rest/open?topic=com.weevent.test&groupId=mychannel
+  [1] 16414
   $ true
   $ curl http://localhost:8080/weevent/rest/publish?topic=com.weevent.test&groupId=mychannel&content=123456&weevent-format=json
   $ {"topic": "com.weevent.test","eventId": "2cf24dba-59-1124","status": "SUCCESS"}
