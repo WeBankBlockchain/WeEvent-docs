@@ -7,7 +7,7 @@
 ### Docker镜像安装
 
   ```bash
-  $ docker pull weevent/weevent:1.0.0; docker run -d -p 8080:8080 weevent/weevent:1.1.0 /root/run.sh
+  $ docker pull weevent/weevent:1.1.0; docker run -d -p 8080:8080 weevent/weevent:1.1.0 /root/run.sh
   ```
 
   `WeEvent`的镜像里包括了`FISCO-BCOS`网络，`WeEvent`服务的子模块`Broker`和`Governance`，以及各种依赖。
