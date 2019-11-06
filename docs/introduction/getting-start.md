@@ -33,6 +33,7 @@
     请将节点访问证书文件`ca.crt`、`client.keystore`放到目录下`./weevent-broker/src/main/resources`。
 
   - Fabric 1.4
+  
     具体内容详见[Fabric章节](https://weeventdoc.readthedocs.io/zh_CN/latest/advanced/fabric.html)
 
 - 部署系统合约
