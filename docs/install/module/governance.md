@@ -30,7 +30,7 @@
 
 ```shell
 $ cd /usr/local/weevent/
-$ wget https://github.com/WeBankFinTech/WeEvent/releases/download/v1.1.0/weevent-governance-1.1.0.tar.gz
+$ wget https://github.com/WeBankFinTech/WeEvent/releases/download/v1.0.0/weevent-governance-1.1.0.tar.gz
 $ tar -xvf weevent-governance-1.1.0.tar.gz
 ```
 
