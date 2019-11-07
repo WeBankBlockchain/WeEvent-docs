@@ -40,7 +40,7 @@
 
     - 修改配置项
     ```
-    chain.organizations.user.keyfile=fabric/crypto-config/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/keystore/xxx_sk```
+    chain.organizations.user.keyfile=fabric/crypto-config/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/keystore/xxx_sk
     chain.peer.address=127.0.0.1:7051
     chain.orderer.address=127.0.0.1:7050
     ```
@@ -60,21 +60,21 @@
   
 ### 重启服务
 
-    - 停止服务
-    
-     ```shell
-     $ ./broker.sh stop
-     stop broker success
-     remove the crontab job success
-     ``` 
-     
-    - 启动服务
-    
-     ```shell
-     $ ./broker.sh start
-     start broker success (PID=89054)
-     add the crontab job success
-     ```
+- 停止服务
+
+   ```shell
+   $ ./broker.sh stop
+   stop broker success
+   remove the crontab job success
+   ``` 
+ 
+- 启动服务
+
+   ```shell
+   $ ./broker.sh start
+   start broker success (PID=89054)
+   add the crontab job success
+   ```
   
 ### RESTful请求样例
 - 创建Topic,发布事件
