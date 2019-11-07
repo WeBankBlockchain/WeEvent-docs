@@ -18,38 +18,42 @@
 
 - 配置区块链
 
-  支持`FISCO-BCOS 1.3`和`2.0`。
-  
+  支持`FISCO-BCOS 1.3`和`2.0 ` ，以及`Fabric 1.4`。
+
   - FISCO-BCOS 2.0
-  
+
     在配置文件`./weevent-broker/src/main/resources/fisco.properties`里配置：区块链版本`version=2.0`以及节点访问`channel`端口`nodes=`。
-  
+
     请将节点访问证书文件`ca.crt`、`node.crt`、`node.key`放到目录下`./weevent-broker/src/main/resources/v2`。
-  
+
   - FISCO-BCOS 1.3
-  
+
     在配置文件`./weevent-broker/src/main/resources/fisco.properties`里配置：区块链版本`version=1.3`以及节点访问`Channel`端口`nodes=`。
-  
+
     请将节点访问证书文件`ca.crt`、`client.keystore`放到目录下`./weevent-broker/src/main/resources`。
+
+  - Fabric 1.4
   
+    具体内容详见[Fabric章节](https://weeventdoc.readthedocs.io/zh_CN/latest/advanced/fabric.html)
+
 - 部署系统合约
 
   通过运行`./weevent-broker/src/main/java/com/webank/weevent/broker/fisco/util/Web3sdkUtils.java`来部署合约。
-  
+
 - 运行服务及代码样例
 
   启动`Broker`服务`./weevent-broker/src/main/java/com/webank/weevent/BrokerApplication.java`。
-  
+
   然后体验各种功能样例`./weevent-broker/src/test/java/com/webank/weevent/sample`。
-  
+
 - 编译打包服务
 
   ```bash
   $ cd ./weevent-build; ./package.sh
   Usage:
-      package master: ./package.sh --version 1.0.0
-      package tag: ./package.sh --tag v1.0.0 --version 1.0.0
-      package local: ./package.sh --tag local --version 1.0.0
+      package master: ./package.sh --version 1.1.0
+      package tag: ./package.sh --tag v1.1.0 --version 1.1.0
+      package local: ./package.sh --tag local --version 1.1.0
   ```
 
   编译环境依赖`git`，`git bash`， `gradle 4.10`，`java 1.8`，`nodejs 10.16`。
