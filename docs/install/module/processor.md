@@ -15,7 +15,7 @@
    具体安装步骤，请参见[Broker模块安装](./broker.html)。
 - Governance模块
 
-   可选配置，通过`Governance`从'Web'端调用Processor。
+   必选配置，通过`Governance`从'Web'端调用Processor。修改配置文件`./governance/conf/application-prod.properties` ，增加processor对应的ip和端口配置` weevent.processor.url=http://127.0.0.1:7008`。
 
    具体安装步骤，请参见[Governance模块安装](./overnance.html)。   
 
@@ -123,11 +123,11 @@ $ tree -L 2
 
 ​    **注意**：数据库要赋予配置账号创建库表的权限。
 
-      ```
-      mysql
-      >> grant all privileges on . to 'test'@'%' identified by '123456';
-      >> flush privileges;
-      ```
+   ```shell
+   mysql
+   >> grant all privileges on . to 'test'@'%' identified by '123456';
+   >> flush privileges;
+   ```
 
 ​    初始化系统，执行脚本`init-processor.sh` ，成功输出如下。否则，用户需要检查配置项是否正常。
     ```shell
@@ -182,9 +182,7 @@ SELECT * FROM Websites WHERE country='CN';
 | <    | 小于                              |
 | >=   | 大于等于                            |
 | <=   | 小于等于                            |
-|      |                                 |
-|      |                                 |
-|      |                                 |
+
 
 数字类型
 
