@@ -6,6 +6,7 @@
 - 安装`weevent-broker`, 具体安装步骤[weevent-broker安装](../install/module/broker.html)
 
   以`weevent-broker`安装到 `/usr/local/weevent/weevent-broker-1.1.0` 目录为例。
+  
 
 - 安装`Fabric 1.4`区块链节点(以官网`Fabric Samples`安装为例)
 
@@ -20,7 +21,7 @@
   
     ```shell
     $ cd /usr/local/weevent/weevent-broker-1.1.0/
-    $ vi /conf/weevent.properties
+    $ vi ./conf/weevent.properties
     ```
 
     修改`broker.blockchain.type`配置项为：`broker.blockchain.type=fabric`。
@@ -39,7 +40,7 @@
 
     修改`chain.organizations.user.keyfile`配置项为：
     
-    `/usr/local/weevent/weevent-broker-1.1.0/conf/fabric/crypto-config/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/keystore/xxx_sk`
+    `fabric/crypto-config/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/keystore/xxx_sk`
     
     修改`chain.peer.address`配置项，替换`127.0.0.1`为部署Fabric节点的ip (`peer`端口默认为7051)
     
@@ -56,7 +57,9 @@
   deploy contract success. 
   ```
   
-### 启动服务
+### 重启服务
+
+  通过`./broker.sh stop`命令停止服务。
 
   通过`./broker.sh start`命令启动服务，正常启动如下：
 
@@ -70,11 +73,11 @@
 - 创建Topic,发布事件
 
   ```shell
-  $ curl http://localhost:8080/weevent/rest/open?topic=com.weevent.test&groupId=mychannel
+  $ curl "http://localhost:8080/weevent/rest/open?topic=com.weevent.test&groupId=mychannel"
   [1] 16414
   $ true
-  $ curl http://localhost:8080/weevent/rest/publish?topic=com.weevent.test&groupId=mychannel&content=123456&weevent-format=json
-  $ {"topic": "com.weevent.test","eventId": "2cf24dba-59-1124","status": "SUCCESS"}
+  $ curl "http://localhost:8080/weevent/rest/publish?topic=com.weevent.test&groupId=mychannel&content=123456&weevent-format=json"
+  $ {"status":"SUCCESS","topic":"com.weevent.test","eventId":"317e7c4c-301009-6705"}
   ```
   
 ### 代码样例
