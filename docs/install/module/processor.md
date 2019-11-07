@@ -158,14 +158,17 @@ $ ./processor.sh start
   通过`./check-service.sh` 命令检查服务功能是否正常。
 
   ```shell
-  $ ./check-service.sh
-  check processor service
-  processor service is ok
+   $ ./check-service.sh
+   check processor service
+   processor service is ok
   ```
 ### 界面展示
 ![processor-set1.png](../../image/set1.png)
+
 ![processor-set2.png](../../image/set2.png)
+
 ![processor-show.png](../../image/show.png)
+
 ![processor-list.png](../../image/list.png)
 
 
