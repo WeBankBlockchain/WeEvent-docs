@@ -162,6 +162,13 @@ $ ./processor.sh start
   check processor service
   processor service is ok
   ```
+### 界面展示
+![processor-set1.png](../../image/set1.png)
+![processor-set2.png](../../image/set2.png)
+![processor-show.png](../../image/show.png)
+![processor-list.png](../../image/list.png)
+
+
 
 ### 命中逻辑说明
 
