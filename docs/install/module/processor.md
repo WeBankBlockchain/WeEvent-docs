@@ -155,13 +155,13 @@ $ ./processor.sh start
 
 - 验证服务
 
-  通过`./check-service.sh` 命令检查服务功能是否正常。
+   通过`./check-service.sh` 命令检查服务功能是否正常。
 
-  ```shell
-   $ ./check-service.sh
-   check processor service
-   processor service is ok
-  ```
+   ```shell
+      $ ./check-service.sh
+      check processor service
+      processor service is ok
+   ```
 ### 界面展示
 ![processor-set1.png](../../image/set1.png)
 
