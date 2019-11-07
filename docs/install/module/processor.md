@@ -1,11 +1,11 @@
 
-### Processor模块
+## Processor模块
 
 本节介绍`Processor`子模块的详细安装步骤。 `WeEvent`服务的快速安装请参见[快速安装](../quickinstall.html) 。在一台机器上详细安装，和通过快速安装然后把目标路径中的`Processor`子目录打包拷贝到这台机器，效果是一样的。
 
 `Processor`为用户提供时序流分析和时间联动等。如果是第一次安装`WeEvent`，参见这里的[系统要求](../environment.html) 。以下安装以`CentOS 7.2`为例。
 
-#### 前置条件
+### 前置条件
 
 
 - Broker模块
@@ -26,7 +26,7 @@
 
   推荐安装`Mysql 5.6+`版本。具体安装步骤，安装请参见[Mysql安装](http://dev.mysql.com/downloads/mysql/) 。
 
-#### 获取安装包
+### 获取安装包
 
 从`github`下载安装包[weevent-processor-1.1.0.tar.gz](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.1.0/weevent-processor-1.1.0.tar.gz)，并且解压到`/usr/local/weevent/`下。
 
@@ -64,7 +64,7 @@ $ tree -L 2
 |-- lib
 ```
 
-#### 修改配置文件
+### 修改配置文件
 - 配置端口
 
   在配置文件`./conf/application-prod.properties`中，`Processor` 的服务端口`server.port` ，默认`7008`。
@@ -136,7 +136,7 @@ $ tree -L 2
 
     ```
 
-#### 服务启停
+### 服务启停
 
 - 服务启动
 
@@ -162,7 +162,7 @@ $ ./processor.sh start
   processor service is ok
   ```
 
-#### 命中逻辑说明
+### 命中逻辑说明
 
 - 不支持嵌套查询、连表查询、自带函数查询、ORDER BY（ASC|DESC）
 
