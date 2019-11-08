@@ -208,18 +208,17 @@ $ ./processor.sh start
    - 触发条件 `(temperature > 38 and humidity < 40)`
    - Topic:自定义和通配符 
    - MySQL 说明：
-      - JSON数据格式
+         JSON数据格式
          SELECT语句中的字段，可以使用上报消息的payload解析结果，即JSON中的键值，也可以使用SQL内置的函数，比如deviceName。
          支持*，不支持子SQL查询。
          
-      - FROM
+         FROM
          FROM 可以填写Topic。Topic中的设备名（deviceName），用于匹配需要处理的设备消息Topic。当有符合Topic规则的消息到达时，消息的payload数据以JSON格式解析，并根据SQL语句进行处理（如果消息格式不合法，将忽略此消息）。
 
-      - WHERE
-         规则触发条件，条件表达式。不支持子SQL查询。WHERE中可以使用的字段和SELECT语句一致，当接收到对应Topic的消息时，WHERE语句的结果会作为是否触发规则的判断条件。
-            `WHERE temperature > 38 and humidity < 40` 表示温度大于38且湿度小于40时，才会触发该规则，执行配置。
-         限制说明：
-      - 可以进行单条件查询` >、<、>=、<=、<>、!=` ，具体详情见本章最后章节。
+         WHERE
+         规则触发条件，条件表达式。不支持子SQL查询。WHERE中可以使用的字段和SELECT语句一致，当接收到对应Topic的消息时，WHERE语句的结果会作为是否触发规则的判断条件。`WHERE temperature > 38 and humidity < 40` 表示温度大于38且湿度小于40时，才会触发该规则，执行配置。
+         
+       - 可以进行单条件查询` >、<、>=、<=、<>、!=` ，具体详情见本章最后章节。
 
    ![processor-set2.png](../../image/processor/setRuleContent.png)
 
