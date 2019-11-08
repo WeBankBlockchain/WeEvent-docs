@@ -30,16 +30,15 @@ public class Rest {
             Boolean result = rest.getForEntity("http://localhost:8080/weevent/rest/open?topic={topic}&groupId={groupId}",
                     Boolean.class,
                     "com.weevent.test",
-                    "1").getBody();
+                    WeEvent.DEFAULT_GROUP_ID).getBody();
             System.out.println(result);
             // publish event to topic "com.weevent.test"
             SendResult sendResult = rest.getForEntity("http://localhost:8080/weevent/rest/publish?topic={topic}&groupId={groupId}&content={content}",
                     SendResult.class,
                     "com.weevent.test",
-                    "1",
-                    "hello weevent".getBytes(StandardCharsets.UTF_8)).getBody();
-            System.out.println(sendResult.getStatus());
-            System.out.println(sendResult.getEventId());
+                    WeEvent.DEFAULT_GROUP_ID,
+                    "hello WeEvent".getBytes(StandardCharsets.UTF_8)).getBody();
+            System.out.println(sendResult;
         } catch (RestClientException e) {
             e.printStackTrace();
         }
@@ -241,9 +240,9 @@ public class Rest {
      ```shell
      $ curl "http://localhost:8080/weevent/admin/listNodes"
      ```
- 
+
  - 应答
- 
+
      ```json
     {
         "data": [
@@ -252,8 +251,9 @@ public class Rest {
         "code": 0,
         "message": "success"
     }
-     ```
+    ```
  - 说明
+     
      - data：节点ip数组。
 
 #### 获取订阅列表 
@@ -261,9 +261,9 @@ public class Rest {
      ```shell
      $ curl "http://localhost:8080/weevent/admin/listSubscription?nodeIp=127.0.0.1:7000"
      ```
- 
+
  - 应答
- 
+
     ```json
     {
         "data": {
@@ -284,7 +284,7 @@ public class Rest {
         "code": 0,
         "message": "success",
      }
-     ```
+    ```
  - 说明
      - interfaceType：监听请求类型 `RESTful`、`JsonRPC`、`MQTT` 、`STOMP`。
      - notifyingEventCount：待通知事件的数量。
@@ -292,7 +292,7 @@ public class Rest {
      - notifyTimeStamp：最近通知事件时间戳。
      - subscribeId：订阅ID
      - topicName ：事件主题。
-    
+
 #### 获取版本信息
 - 请求
     ```shell
@@ -386,7 +386,7 @@ public class Rest {
     - transHash：交易哈希。
     - transTo：接收者的地址。
     
-   
+
 #### 获取 交易哈希列表
 - 请求
     ```shell
@@ -428,15 +428,15 @@ public class Rest {
     - sealer：共识节点序号。
     - sealerIndex：节点序号为index的nodeId。
     - transCount：交易次数。
-        
+      
  #### 获取 节点列表
  - 请求
      ```shell
      $ curl "http://localhost:8080/weevent/admin/node/nodeList?groupId=1&pageNumber=1&pageSize=10"
      ```
- 
+
  - 应答
- 
+
      ```json
      {
          "code":"0",
