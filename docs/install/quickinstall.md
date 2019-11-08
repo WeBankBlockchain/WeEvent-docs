@@ -75,24 +75,19 @@
   # Optional module
   governance.enable=false
   governance.governance.port=7009
-  governance.mysql.ip=127.0.0.1
-  governance.mysql.port=3306
-  governance.mysql.user=xxx
-  governance.mysql.password=yyy
+  mysql.ip=127.0.0.1
+  mysql.port=3306
+  mysql.user=xxx
+  mysql.password=yyy
 
   # Optional module processor
   processor.enable=true
   processor.port=7008
-  processor.mysql.ip=1127.0.0.1
-  processor.mysql.port=3306
-  processor.mysql.user=xxx
-  processor.mysql.password=yyy
-
   ```
   
   配置说明 :
   
-  - jdk环境变量`JAVA_HOME`
+- JDK环境变量`JAVA_HOME`
   
   - 区块链FISCO-BCOS
   
@@ -106,8 +101,10 @@
   
     - fisco-bcos.node_path
   
-      区块链节点的访问证书、私钥存放目录。`FISCO-BCOS 2.0`的证书文件为`ca.crt`、`node.crt`、`node.key`，`1.3`版本的证书文件为`ca.crt`、`client.keystore`。
-      如果`WeEvent`服务和区块链节点不在同一台机器上，需要把证书文件拷贝到`WeEvent`机器的当前目录，修改`fisco-bcos.node_path=./`。
+      区块链节点的访问证书、私钥存放目录。
+      
+      `FISCO-BCOS 2.0`的证书文件为`ca.crt`、`node.crt`、`node.key`。`1.3`版本的证书文件为`ca.crt`、`client.keystore`。
+      如果`WeEvent`服务和区块链节点不在同一台机器上，需要把证书文件拷贝到`WeEvent`所在机器的当前目录，修改`fisco-bcos.node_path=./`。
   
   - Nginx监听端口`nginx.port`
   
@@ -117,13 +114,12 @@
   
     - `governance.enable`是否安装`Governance`模块，默认为`false`不安装
     - 监听端口`governance.port`
-    - Mysql配置`governance.mysql.*`
+    - Mysql配置`mysql.*`
   
   - Proceessor模块配置
   
     - `proceessor.enable`是否安装`Proceessor`模块，默认为`false`不安装
     - 监听端口`proceessor.port`
-    - Mysql配置`proceessor.mysql.*`
   
 - 一键安装
 

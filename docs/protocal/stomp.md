@@ -33,9 +33,7 @@ implementation("org.springframework.boot:spring-boot-starter-websocket")
         // MappingJackson2MessageConverter
         stompClient.setMessageConverter(new StringMessageConverter());
         stompClient.setTaskScheduler(taskScheduler); // for heartbeats
-
-        ListenableFuture<StompSession> f = stompClient.connect("ws://localhost:8080/weevent/stomp", getWebsocketSessionHandlerAdapter());
-
+		ListenableFuture<StompSession> f = stompClient.connect("ws://localhost:8080/weevent/stomp", getWebsocketSessionHandlerAdapter());
         StompSession stompSession = f.get();
 ```
 
@@ -55,9 +53,8 @@ implementation("org.springframework.boot:spring-boot-starter-websocket")
 ```java
     StompHeaders header = new StompHeaders();
     header.setDestination("com.weevent.test");
-    header.set("groupId","1");
-    header.set("weevent-format", "json")
-    StompSession.Receiptable receiptable = stompSession.send(header, "{\"hello\":\" wolrd\"}");
+    header.set("groupId", WeEvent.DEFAULT_GROUP_ID);
+    StompSession.Receiptable receiptable = stompSession.send(header, "hello WeEvent");
     log.info("send result, receipt id: {}", receiptable.getReceiptId());
 ```
 
@@ -71,8 +68,8 @@ implementation("org.springframework.boot:spring-boot-starter-websocket")
 ```java
     StompHeaders header = new StompHeaders();
     header.setDestination(topic);
-    header.set("eventId","2cf24dba-59-1124");
-    header.set("groupId","1");
+    header.set("groupId", WeEvent.DEFAULT_GROUP_ID);
+    header.set("eventId", WeEvent.OFFSET_LAST);
 
     StompSession.Subscription subscription = stompSession.subscribe(header, new StompFrameHandler() {
         @Override

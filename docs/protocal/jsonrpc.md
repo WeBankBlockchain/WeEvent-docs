@@ -34,9 +34,6 @@
 
 ```java
 public class JsonRPC {
-    private final static String groupId = "1";
-    private final static Map<String, String> extensions = new HashMap<>();
-
     public static void main(String[] args) {
         System.out.println("This is WeEvent json rpc sample.");
         try {
@@ -46,13 +43,11 @@ public class JsonRPC {
             // init IBrokerRpc object
             IBrokerRpc rpc = ProxyUtil.createClientProxy(client.getClass().getClassLoader(), IBrokerRpc.class, client);
             // open topic
-            rpc.open("com.weevent.test", groupId);
+            rpc.open("com.weevent.test", WeEvent.DEFAULT_GROUP_ID);
             // publish event
-            SendResult sendResult = rpc.publish("com.weevent.test", groupId, "hello weevent".getBytes(StandardCharsets.UTF_8), extensions);
-            System.out.println(sendResult.getStatus());
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (BrokerException e) {
+            SendResult sendResult = rpc.publish("com.weevent.test", WeEvent.DEFAULT_GROUP_ID, "hello WeEvent".getBytes(StandardCharsets.UTF_8), new HashMap<>());
+            System.out.println(sendResult);
+        }catch (MalformedURLException | BrokerException e) {
             e.printStackTrace();
         }
     }

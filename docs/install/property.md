@@ -15,7 +15,7 @@
   | spring.security.user.name     | user                                     | 默认不开启       |
   | spring.security.user.password | 123456                                   | 默认不开启       |
 
-  用户密码`spring.security.user`配置，对所有的接入协议`RESTFul`、`Json RPC`、`STOMP`、`MQTT`都会生效。
+  用户访问授权通过用户密码`spring.security.user`配置，对所有的接入协议`RESTFul`、`Json RPC`、`STOMP`、`MQTT`都会生效。
 
   配置项生效后，`RESTFul`和`Json RPC`需要是使用`http base authorization`访问。`STOMP`访问需要设置`header`项`login`和`passcode`，`MQTT`访问需要设置`username`和`password`。
 
@@ -23,20 +23,19 @@
 
   配置文件`./broker/conf/fisco.properties`。
 
-  | 配置项                          | 默认值                   | 配置说明                     |
-  | ---------------------------- | --------------------- | ------------------------ |
-  | version                      | 2.0                   | FISCO-BCOS版本，支持2.0和1.3   |
+  | 配置项                       | 默认值                | 配置说明                                |
+  | ---------------------------- | --------------------- | --------------------------------------- |
+  | version                      | 2.0                   | FISCO-BCOS版本，支持2.0和1.3            |
   | orgid                        | fisco                 | 机构名，按机构实际名称填写即可          |
   | nodes                        | 127.0.0.1:30701       | 区块链节点列表，多个地址以`;`分割       |
-  | proxy.address                | 0xfff77de6c1a76022... | 1.3版本的proxy系统合约地址        |
+  | proxy.address                | 0xfff77de6c1a76022... | 1.3版本的proxy系统合约地址              |
   | account                      | bcec428d5205abe0f...  | `WeEvent`执行交易的账号，一般不需要修改 |
-  | web3sdk.timeout              | 10000                 | 交易执行超时时间，单位毫秒            |
-  | web3sdk.core-pool-size       | 10                    | web3sdk最小线程数             |
-  | web3sdk.max-pool-size        | 200                   | web3sdk最大线程数             |
-  | web3sdk.queue-capacity       | 1000                  | web3sdk队列大小              |
-  | web3sdk.keep-alive-seconds   | 60                    | web3sdk线程空闲时间，单位秒        |
-  | consumer.idle-time           | 1000                  | 区块链新增块事件检测周期，单位毫秒        |
-  | consumer.history_merge_block | 8                     | 事件过滤的区块范围                |
+  | web3sdk.timeout              | 10000                 | 交易执行超时时间，单位毫秒              |
+  | web3sdk.core-pool-size       | 10                    | web3sdk最小线程数                       |
+  | web3sdk.max-pool-size        | 1000                  | web3sdk最大线程数                       |
+  | web3sdk.keep-alive-seconds   | 10                    | web3sdk线程空闲时间，单位秒             |
+  | consumer.idle-time           | 1000                  | 区块链新增块事件检测周期，单位毫秒      |
+  | consumer.history_merge_block | 8                     | 事件过滤的区块范围                      |
 
 
   区块链节点详细配置，参见[Web3SDK配置文件](https://fisco-bcos-documentation.readthedocs.io/zh_CN/release-2.0/docs/sdk/sdk.html) 。
@@ -96,18 +95,18 @@
 - 配置文件`./processor/conf/application-prod.properties ` ，`server.port`默认为7008。
 - 配置文件`./processor/conf/processor.properties `。
 
-| 配置项                                      | 默认值                                      | 说明                |
-| ---------------------------------------- | ---------------------------------------- | ----------------- |
-| quartz.schedule.name                     | schedule                                 | quartz标识名称        |
-| org.quartz.scheduler.instanceName        | test                                     | scheduler名称       |
-| org.quartz.dataSource.WeEvent_processor.URL | jdbc:mysql://127.0.0.1:3306/WeEvent_processor | 连接quartz数据库的JDBC串 |
-| org.quartz.dataSource.WeEvent_processor.user | root                                     | 数据库用户名            |
-| org.quartz.dataSource.WeEvent_processor.password | 123456                                   | 数据库密码             |
-| org.quartz.dataSource.WeEvent_processor.maxConnections | 30                                       | 最大连接数             |
-| org.quartz.dataSource.WeEvent_processor.driver | com.mysql.jdbc.Driver                    | 驱动                |
-| org.quartz.jobStore.dataSource           | WeEvent_processor                        | 数据库名称             |
-| org.quartz.threadPool.threadCount        | 20                                       | 进程数据              |
-| org.quartz.threadPool.threadPriority     | 5                                        | 进行优先级             |
+| 配置项                                                 | 默认值                                        | 说明                     |
+| ------------------------------------------------------ | --------------------------------------------- | ------------------------ |
+| quartz.schedule.name                                   | schedule                                      | quartz标识名称           |
+| org.quartz.scheduler.instanceName                      | test                                          | scheduler名称            |
+| org.quartz.dataSource.WeEvent_processor.URL            | jdbc:mysql://127.0.0.1:3306/WeEvent_processor | 连接quartz数据库的JDBC串 |
+| org.quartz.dataSource.WeEvent_processor.user           | root                                          | 数据库用户名             |
+| org.quartz.dataSource.WeEvent_processor.password       | 123456                                        | 数据库密码               |
+| org.quartz.dataSource.WeEvent_processor.maxConnections | 30                                            | 最大连接数               |
+| org.quartz.dataSource.WeEvent_processor.driver         | org.mariadb.jdbc.Driver                       | 驱动                     |
+| org.quartz.jobStore.dataSource                         | WeEvent_processor                             | 数据库名称               |
+| org.quartz.threadPool.threadCount                      | 20                                            | 进程数据                 |
+| org.quartz.threadPool.threadPriority                   | 5                                             | 进行优先级               |
 
 说明：`org.quartz.dataSource.*`  配置的数据库信息需要和`org.quartz.jobStore.dataSource` 配置的数据源信息一致。
 
