@@ -1,4 +1,4 @@
-## 配置Fabric
+## 适配Fabric
 
 `WeEvent`支持区块链`Fabric 1.4`。以下安装以`CentOS 7.2`为例。
 
