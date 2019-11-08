@@ -6,4 +6,5 @@
    :caption: Contents:
 
    /advanced/port
+   /advanced/fabric
    

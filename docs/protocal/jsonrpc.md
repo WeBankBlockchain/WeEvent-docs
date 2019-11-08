@@ -121,7 +121,7 @@ $ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":
 #### 发布事件
 - 请求
 ```shell
-$ curl -H "Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":"publish","params":{"topic":"com.weevent.test","groupId":"1","content":"MTIzNDU2","extensions":{"weevent-format": "json","userId":"3924261998"}}}' http://localhost:8080/weevent/jsonrpc 
+$ curl -H "Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":"publish","params":{"topic":"com.weevent.test","groupId":"1","content":"MTIzNDU2","extensions":{"weevent-format": "json","weevent-userId":"3924261998"}}}' http://localhost:8080/weevent/jsonrpc 
 ```
 - 应答
 ```json
@@ -238,7 +238,7 @@ $ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":
 #### 查询群组列表
 - 请求
 ```shell
-$ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":"listGroup"' http://localhost:8080/weevent/jsonrpc
+$ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":"listGroup"}' http://localhost:8080/weevent/jsonrpc
 ```
 - 应答
 ```json

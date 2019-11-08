@@ -6,6 +6,7 @@ Broker是WeEvent的核心子模块，负责事件的发布订阅以及对区块�
 
 Governance为用户提供一个事件治理的Web管理端。支持事件治理、区块链节点分析、系统监控预警等。
 
+Processor为用户提供时序流分析和时间联动
 
 Nginx 实现WeEvent服务的负载均衡。服务支持主流的Linux发行版，如CentOS、Ubuntu 、Redhat。
 
@@ -15,4 +16,5 @@ Nginx 实现WeEvent服务的负载均衡。服务支持主流的Linux发行版�
 
    /install/module/broker
    /install/module/governance
+   /install/module/processor
    /install/module/nginx

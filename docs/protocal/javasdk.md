@@ -14,7 +14,7 @@ implement 'com.webank.weevent:weevent-client:1.0.0'
 <dependency>
     <groupId>com.webank.weevent</groupId>
     <artifactId>weevent-client</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
 </dependency>
 ```
 
@@ -214,7 +214,7 @@ public interface IWeEventClient {
 
 ### 代码样例
 
-- WeEvent 1.0.0 版本
+- WeEvent 1.1.0 版本
 ```java
 public static void main(String[] args) {
     try {
@@ -239,5 +239,5 @@ public static void main(String[] args) {
 
 ```
 
-- WeEvent 1.0.0 版本样例
+- WeEvent 1.1.0 版本样例
 演示如何通过`Java SDK`发布事件，完整的代码请参见[Java SDK代码样例](https://github.com/WeBankFinTech/WeEvent/blob/master/weevent-broker/src/test/java/com/webank/weevent/sample/JavaSDK.java) 。

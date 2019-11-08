@@ -74,7 +74,13 @@ $ tree
   	ip_hash;
     	keepalive 1024;
   }
+  upstream processor_backend{
+     server 1.1.1.1:7008 weight=100 max_fails=3;
+     server 2.2.2.2:7008 weight=100 max_fails=3;
   
+  ip_hash;
+       keepalive 1024;
+}
   upstream governance_backend{
   	server 1.1.1.1:7009 weight=100 max_fails=3;
   	server 2.2.2.2:7009 weight=100 max_fails=3;
@@ -82,6 +88,7 @@ $ tree
   	ip_hash;
    	keepalive 1024;
   }
+
   ```
   
 ### Nginx配置TLS访问

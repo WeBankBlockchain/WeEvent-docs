@@ -27,13 +27,13 @@ public class Rest {
             SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
             RestTemplate rest = new RestTemplate(requestFactory);
             // ensure topic exist "com.weevent.test"
-            Boolean result = rest.getForEntity("http://localhost:8080/weevent/rest/open?topic={}&groupId={}",
+            Boolean result = rest.getForEntity("http://localhost:8080/weevent/rest/open?topic={topic}&groupId={groupId}",
                     Boolean.class,
                     "com.weevent.test",
                     "1").getBody();
             System.out.println(result);
             // publish event to topic "com.weevent.test"
-            SendResult sendResult = rest.getForEntity("http://localhost:8080/weevent/rest/publish?topic={}&groupId={}&content={}",
+            SendResult sendResult = rest.getForEntity("http://localhost:8080/weevent/rest/publish?topic={topic}&groupId={groupId}&content={content}",
                     SendResult.class,
                     "com.weevent.test",
                     "1",
@@ -57,7 +57,7 @@ public class Rest {
 - 请求
 
   ```shell
-  $ curl http://localhost:8080/weevent/rest/open?topic=com.weevent.test&groupId=1
+  $ curl "http://localhost:8080/weevent/rest/open?topic=com.weevent.test&groupId=1"
   ```
 
 
@@ -80,7 +80,7 @@ public class Rest {
 - 请求
 
   ```shell
-  $ curl http://localhost:8080/weevent/rest/close?topic=com.weevent.test&groupId=1
+  $ curl "http://localhost:8080/weevent/rest/close?topic=com.weevent.test&groupId=1"
   ```
 
 
@@ -94,7 +94,7 @@ public class Rest {
 - 请求
 
   ```shell
-  $ curl http://localhost:8080/weevent/rest/exist?topic=com.weevent.test&groupId=1
+  $ curl "http://localhost:8080/weevent/rest/exist?topic=com.weevent.test&groupId=1"
   ```
 
 
@@ -108,7 +108,7 @@ public class Rest {
 - 请求
 
   ```shell
-  $ curl http://localhost:8080/weevent/rest/publish?topic=com.weevent.test&groupId=1&content=123456&weevent-format=json
+  $ curl "http://localhost:8080/weevent/rest/publish?topic=com.weevent.test&groupId=1&content=123456&weevent-format=json"
   ```
 
 
@@ -136,7 +136,7 @@ public class Rest {
 - 请求
 
   ```shell
-  $ curl http://localhost:8080/weevent/rest/getEvent?eventId=2cf24dba-59-1124&groupId=1
+  $ curl "http://localhost:8080/weevent/rest/getEvent?eventId=2cf24dba-59-1124&groupId=1"
   ```
 
 - 应答
@@ -162,7 +162,7 @@ public class Rest {
 - 请求
 
   ```shell
-  $ curl http://localhost:8080/weevent/rest/list?pageIndex=1&pageSize=10&groupId=1
+  $ curl "http://localhost:8080/weevent/rest/list?pageIndex=1&pageSize=10&groupId=1"
   ```
 
 
@@ -197,7 +197,7 @@ public class Rest {
 - 请求
 
   ```shell
-  $ curl http://localhost:8080/weevent/rest/state?topic=com.weevent.test&groupId=1
+  $ curl "http://localhost:8080/weevent/rest/state?topic=com.weevent.test&groupId=1"
   ```
 
 
@@ -226,7 +226,7 @@ public class Rest {
 - 请求
 
   ```shell
-  $ curl http://localhost:8080/weevent/rest/listGroup
+  $ curl "http://localhost:8080/weevent/rest/listGroup"
   ```
 
 
@@ -236,48 +236,67 @@ public class Rest {
   ["1","2"]
   ```
 
+#### 获取 节点ip数组
+ - 请求
+     ```shell
+     $ curl "http://localhost:8080/weevent/admin/listNodes"
+     ```
+ 
+ - 应答
+ 
+     ```json
+    {
+        "data": [
+        "127.0.0.1:7000"
+        ],
+        "code": 0,
+        "message": "success"
+    }
+     ```
+ - 说明
+     - data：节点ip数组。
+
 #### 获取订阅列表 
-- 请求
-    ```shell
-    $ curl http://localhost:8080/weevent/admin/listSubscription
-    ```
-
-- 应答
-
+ - 请求
+     ```shell
+     $ curl "http://localhost:8080/weevent/admin/listSubscription?nodeIp=127.0.0.1:7000"
+     ```
+ 
+ - 应答
+ 
     ```json
     {
-     "127.0.0.1:8080": {
-            "a78d05b7-7e44-4f85-b1d7-395362768af0": {
-                "interfaceType": "restful",
-                "notifyingEventCount": "0",
-                "notifyTimeStamp": "2019-04-09 20:33:15",
-                "subscribeId": "a78d05b7-7e44-4f85-b1d7-395362768af0",
-                "topicName": "com.webank.test",
-                "notifiedEventCount": "0"
-            },
-            "3da9691d-ec72-4e8d-b17a-679d8a9ea111": {
-                "interfaceType": "stomp",
-                "notifyingEventCount": "0",
-                "notifyTimeStamp": "2019-04-09 20:33:15",
-                "subscribeId": "3da9691d-ec72-4e8d-b17a-679d8a9ea111",
-                "topicName": "com.webank.test",
-                "notifiedEventCount": "0"
+        "data": {
+            "127.0.0.1:7000": {
+                "5d39d5c1-3aea-48aa-93b2-416624155d0f": {
+                    "interfaceType": "stomp",
+                    "notifiedEventCount": "1712",
+                    "notifyingEventCount": "0",
+                    "notifyTimeStamp": "2019-11-06 11:28:30",
+                    "topicName": "com.weevent.rest",
+                    "subscribeId": "5d39d5c1-3aea-48aa-93b2-416624155d0f",
+                    "remoteIp": "127.0.0.1",
+                    "createTimeStamp": "2019-11-05 21:21:57",
+                    "groupId": "1"
+                }
             }
-        }
-    }
-    ```
-- 说明
-    - interfaceType：监听请求类型 `RESTful`、`JsonRPC`、`MQTT` 、`STOMP`。
-    - notifyingEventCount：待通知事件的数量。
-    - notifiedEventCount：已通知事件数量
-    - notifyTimeStamp：最近通知事件时间戳。
-    - subscribeId：订阅ID
-    - topicName ：事件主题。
+        },
+        "code": 0,
+        "message": "success",
+     }
+     ```
+ - 说明
+     - interfaceType：监听请求类型 `RESTful`、`JsonRPC`、`MQTT` 、`STOMP`。
+     - notifyingEventCount：待通知事件的数量。
+     - notifiedEventCount：已通知事件数量
+     - notifyTimeStamp：最近通知事件时间戳。
+     - subscribeId：订阅ID
+     - topicName ：事件主题。
     
 #### 获取版本信息
 - 请求
     ```shell
-    $ curl http://localhost:8080/weevent/admin/getVersion
+    $ curl "http://localhost:8080/weevent/admin/getVersion"
     ```
 
 - 应答
@@ -288,7 +307,7 @@ public class Rest {
      "message":"success",
      "data": 
             {
-                "weEventVersion": "1.0.0",
+                "weEventVersion": "1.1.0",
                 "gitCommitTimeStamp": "2019-09-16 18:01:23",
                 "gitBranch": "master",
                 "gitCommitHash": "a5b022b"
@@ -296,16 +315,16 @@ public class Rest {
     }
     ```
 - 说明
-    - weEventVersion：WeEvent版本号。
-    - gitCommitTimeStamp：WeEvent最近一次提交git的时间。
-    - gitBranch：WeEvent构建分支。
-    - gitCommitHash：WeEvent最近一次提交git的CommitHash。
+    - weEventVersion：`WeEvent`版本号。
+    - gitCommitTimeStamp：`WeEvent`最近一次提交git的时间。
+    - gitBranch：`WeEvent`构建分支。
+    - gitCommitHash：`WeEvent`最近一次提交git的CommitHash。
 
 
 #### 获取 节点个数、区块数量、交易数量
 - 请求
     ```shell
-    $ curl http://localhost:8080/weevent/admin/group/general?groupId=1
+    $ curl "http://localhost:8080/weevent/admin/group/general?groupId=1"
     ```
 
 - 应答
@@ -330,51 +349,61 @@ public class Rest {
 #### 获取 区块链交易列表
 - 请求
     ```shell
-    $ curl http://localhost:8080/weevent/admin/transaction/transList?groupId=1&pageNumber=1&pageSize=10
+    $ curl "http://localhost:8080/weevent/admin/transaction/transList?groupId=1&pageNumber=1&pageSize=10"
     ```
 
 - 应答
 
     ```json
     {
-     "code":"0",
-     "message":"success",
-     "data": 
-            [{
-               "blockNumber": 5364,
-               "blockTimestamp": "2019-10-15 14:48:01",
-               "createTime": null,
-               "modifyTime": null,
-               "transFrom": "0x64fa644d2a694681bd6addd6c5e36cccd8dcdde3",
-               "transHash": "0xb3585cf385a595e5af425d360693e6759d8db5c1a98ebb46277b38c014ec8626",
-               "transTo": "0xa40c864c28ee8b07dc2eeab4711e3161fc87e1e2"
+        "code":"0",
+        "message":"success",
+        "data": {
+            "total":1,
+            "pageIndex":1,
+            "pageSize":10,
+            "pageData":[{
+                "blockNumber": 5364,
+                "blockTimestamp": "2019-10-15 14:48:01",
+                "createTime": null,
+                "modifyTime": null,
+                "transFrom": "0x64fa644d2a694681bd6addd6c5e36cccd8dcdde3",
+                "transHash": "0xb3585cf385a595e5af425d360693e6759d8db5c1a98ebb46277b38c014ec8626",
+                "transTo": "0xa40c864c28ee8b07dc2eeab4711e3161fc87e1e2"
             }]
+        }
     }
     ```
 - 说明
+    - total：当前区块交易总条数。
+    - pageIndex：页码。
+    - pageSize：页面展示条数。
     - blockNumber：区块高度。
-    - blockTimestamp 区块交易时间。
+    - blockTimestamp：区块交易时间。
     - createTime：创建时间。
     - modifyTime：修改时间。
     - transFrom： 发送者的地址。
     - transHash：交易哈希。
-    - transTo： 接收者的地址。
+    - transTo：接收者的地址。
     
    
 #### 获取 交易哈希列表
 - 请求
     ```shell
-    $ curl http://localhost:8080/weevent/admin/block/blockList?groupId=1&pageNumber=1&pageSize=10
+    $ curl "http://localhost:8080/weevent/admin/block/blockList?groupId=1&pageNumber=1&pageSize=10"
     ```
 
 - 应答
 
     ```json
     {
-     "code":"0",
-     "message":"success",
-     "data": 
-            [{
+        "code":"0",
+        "message":"success",
+        "data": {
+            "total":1,
+            "pageIndex":1,
+            "pageSize":10,
+            "pageData":[{
                 "blockNumber": 5364,
                 "blockTimestamp": "2019-10-15 14:48:01",
                 "createTime": null,
@@ -384,11 +413,15 @@ public class Rest {
                 "sealerIndex": 1,
                 "transCount": 1
             }]
+        }
     }
     ```
 - 说明
+    - total: 区块总数。
+    - pageIndex：页码。
+    - pageSize：页面展示条数。
     - blockNumber：区块高度。
-    - blockTimestamp 区块交易时间。
+    - blockTimestamp：区块交易时间。
     - createTime：创建时间。
     - modifyTime：修改时间。
     - pkHash：区块哈希。
@@ -399,33 +432,41 @@ public class Rest {
  #### 获取 节点列表
  - 请求
      ```shell
-     $ curl http://localhost:8080/weevent/admin/node/nodeList?groupId=1&pageNumber=1&pageSize=10
+     $ curl "http://localhost:8080/weevent/admin/node/nodeList?groupId=1&pageNumber=1&pageSize=10"
      ```
  
  - 应答
  
      ```json
      {
-      "code":"0",
-      "message":"success",
-      "data": 
-             [{
-   
-            "nodeId": "543095f2a4a7ec910c4d62fcde2754871c559d375fba9a11aab94cb7c7ae8eef8f55250558a7412d14f11faeb7d31c55cec36746ce5644c749a4674888fe46eb",
-            "nodeName": "543095f2a4a7ec910c4d62fcde2754871c559d375fba9a11aab94cb7c7ae8eef8f55250558a7412d14f11faeb7d31c55cec36746ce5644c749a467",
-            "pbftView": 23,
-            "blockNumber": 5364,
-            "createTime": null,
-            "modifyTime": null,
-            "nodeActive": 1
+         "code":"0",
+         "message":"success",
+         "data": {
+             "total":1,
+             "pageIndex":1,
+             "pageSize":10,
+             "pageData":[{                
+                 "nodeId": "543095f2a4a7ec910c4d62fcde2754871c559d375fba9a11aab94cb7c7ae8eef8f55250558a7412d14f11faeb7d31c55cec36746ce5644c749a4674888fe46eb",
+                 "nodeName": null,
+                 "pbftView": 23,
+                 "nodeType":"sealer",
+                 "blockNumber": 5364,
+                 "createTime": null,
+                 "modifyTime": null,
+                 "nodeActive": 1
              }]
+         }
      }
      ```
  - 说明
+     - total: 节点总数。
+     - pageIndex：页码。
+     - pageSize：页面展示条数。
      - nodeId：节点id。
      - nodeName：节点名称。
      - pbftView：PBFT视图。
+     - nodeType：节点类型。
      - blockNumber：区块高度。
-     - nodeActive 运行状态。
+     - nodeActive：节点运行状态。
      - createTime：创建时间。
      - modifyTime：修改时间。
