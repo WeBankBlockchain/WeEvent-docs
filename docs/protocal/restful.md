@@ -470,3 +470,54 @@ public class Rest {
      - nodeActive：节点运行状态。
      - createTime：创建时间。
      - modifyTime：修改时间。
+
+ #### 获取 节点ip数组
+ - 请求
+     ```shell
+     $ curl http://localhost:8080/weevent/admin/listNodes
+     ```
+ 
+ - 应答
+ 
+     ```json
+    {
+        "data": [
+        "127.0.0.1:7000"
+        ],
+        "code": 0,
+        "message": "success"
+    }
+     ```
+ - 说明
+     - data：节点ip数组。
+
+#### 获取 节点ip详细信息
+ - 请求
+     ```shell
+     $ curl http://127.0.0.1:8080/weevent/admin/listSubscription?nodeIp=127.0.0.1:7000
+     ```
+ 
+ - 应答
+ 
+     ```json
+        {
+            "data": {
+                "127.0.0.1:7000": {
+                "5d39d5c1-3aea-48aa-93b2-416624155d0f": {
+                "interfaceType": "stomp",
+                "notifiedEventCount": "1712",
+                "notifyingEventCount": "0",
+                "notifyTimeStamp": "2019-11-06 11:28:30",
+                "topicName": "com.weevent.rest",
+                "subscribeId": "5d39d5c1-3aea-48aa-93b2-416624155d0f",
+                "remoteIp": "127.0.0.1",
+                "createTimeStamp": "2019-11-05 21:21:57",
+                "groupId": "1"
+                },
+            }
+        },
+        "code": 0,
+        "message": "success"}
+     ```
+ - 说明
+     - data：节点数据的详细信息。
