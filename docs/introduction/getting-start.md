@@ -14,31 +14,39 @@
   $ git clone https://github.com/WeBankFinTech/WeEvent.git
   ```
 
-  通过IDE（推荐IDEA）打开工程。
+  通过`IDE`打开`Gradle`工程，推荐`IntelliJ IDEA`。
 
 - 配置区块链
 
-  支持`FISCO-BCOS 1.3`和`2.0 ` ，以及`Fabric 1.4`。
+  默认支持`FISCO-BCOS 2.0`，也可以通过配置切换到`FISCO-BCOS 1.3`和`Fabric 1.4`。
 
   - FISCO-BCOS 2.0
 
-    在配置文件`./weevent-broker/src/main/resources/fisco.properties`里配置：区块链版本`version=2.0`以及节点访问`channel`端口`nodes=`。
+    在配置文件`./weevent-broker/src/main/resources/fisco.properties`里配置：
 
-    请将节点访问证书文件`ca.crt`、`node.crt`、`node.key`放到目录下`./weevent-broker/src/main/resources/v2`。
+    区块链版本`version=2.0`
+
+    节点访问`channel`端口`nodes=...`
+
+    然后将节点访问证书`ca.crt`、`node.crt`、`node.key`放到目录下`./weevent-broker/src/main/resources/v2/`。
 
   - FISCO-BCOS 1.3
 
-    在配置文件`./weevent-broker/src/main/resources/fisco.properties`里配置：区块链版本`version=1.3`以及节点访问`Channel`端口`nodes=`。
+    在配置文件`./weevent-broker/src/main/resources/fisco.properties`里配置：
 
-    请将节点访问证书文件`ca.crt`、`client.keystore`放到目录下`./weevent-broker/src/main/resources`。
+    区块链版本`version=1.3`
+
+    节点访问`Channel`端口`nodes=...`。
+
+    将节点访问证书`ca.crt`、`client.keystore`放到目录下`./weevent-broker/src/main/resources/`。
 
   - Fabric 1.4
-  
-    具体内容详见[Fabric章节](https://weeventdoc.readthedocs.io/zh_CN/latest/advanced/fabric.html)
+
+    具体内容详见[适配Fabric](https://weeventdoc.readthedocs.io/zh_CN/latest/advanced/fabric.html)。
 
 - 部署系统合约
 
-  通过运行`./weevent-broker/src/main/java/com/webank/weevent/broker/fisco/util/Web3sdkUtils.java`来部署合约。
+  通过运行`./weevent-broker/src/main/java/com/webank/weevent/broker/fisco/util/Web3sdkUtils.java`来部署`WeEvent`内置合约。
 
 - 运行服务及代码样例
 
@@ -55,6 +63,8 @@
       package tag: ./package.sh --tag v1.1.0 --version 1.1.0
       package local: ./package.sh --tag local --version 1.1.0
   ```
+
+  支持编译`master`最新代码，某个`tag`代码，以及本地的代码。
 
   编译环境依赖`git`，`git bash`， `gradle 4.10`，`java 1.8`，`nodejs 10.16`。
 
