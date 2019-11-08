@@ -210,7 +210,7 @@ $ ./processor.sh start
    - MySQL 说明：
       - JSON数据格式
          SELECT语句中的字段，可以使用上报消息的payload解析结果，即JSON中的键值，也可以使用SQL内置的函数，比如deviceName。
-         支持*和函数的组合。不支持子SQL查询。
+         支持*，不支持子SQL查询。
          
       - FROM
          FROM 可以填写Topic。Topic中的设备名（deviceName），用于匹配需要处理的设备消息Topic。当有符合Topic规则的消息到达时，消息的payload数据以JSON格式解析，并根据SQL语句进行处理（如果消息格式不合法，将忽略此消息）。
