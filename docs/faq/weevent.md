@@ -75,4 +75,20 @@
   
   这个问题涉及到`JDK`加密算法的实现。`Oracle JDK`里带了这个算法实现，`Open JDK`直到 1.9版本才有。所以在`CentOS`系统中，如果使用 `Open JDK 1.9`以下版本，`WeEvent`启动时会出现以下异常。请升级`Open JDK`版本到1.9或者使用`Oracle JDK`。
   
-- TODO
+- 如果用户使用区块链`FISCO-BCOS 1.3` ，则需要注意以下问题。
+  在安装governance模块，需要安装`WeBase 1.0.4`。具体安装步骤，请参见[WeBase安装](https://webasedoc.readthedocs.io/zh_CN/latest/docs/WeBASE/install.html)。
+
+  以下两点需要特别注意：
+
+    - 由于WeBase和WeEvent端口冲突，需修改WeBase一键部署源码包中的`common.properties`文件，配置已有的区块链和服务端口。具体如下:
+
+    ```
+    mgr.port=8182
+    front.port=8181
+    node.p2pPort=30300
+    node.channelPort=20200
+    node.rpcPort=8545
+    if.exist.fisco=yes
+    ```
+
+    - 需要修改`webase-node-mgr`服务中的`conf/application.yml`文件。将`isUseSecurity`和`isDeleteInfo`都改成`false`。
