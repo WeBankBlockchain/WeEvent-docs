@@ -179,7 +179,7 @@ $ ./processor.sh start
 - type：改规则处理数据的格式，目前只支持JSON格式。
 - 规则的详细描述。
 
-![processor-set1.png](../../image/processor/set1.png)
+![processor-set1.png](../../image/processor/setRule.png)
 
 
 
@@ -187,7 +187,7 @@ $ ./processor.sh start
 
    JSON数据可以映射为虚拟的表，其中Key对应表的列，Value对应列值，这样就可以使用SQL处理。为便于理解，我们将数据流转的一条规则抽象为一条SQL表达（类试MySQL语法）：
 
-   ![详细说明图](../../image/processor/select.png)
+   ![详细说明图](../../image/processor/selectWhereCondition.png)
 
    例如某环境传感器用于火灾预警，可以采集温度、湿度及气压数据，上报数据内容如下：
 
@@ -203,32 +203,31 @@ $ ./processor.sh start
    ```
    SELECT temperature, deviceName FROM ProductA WHERE temperature > 38 and humidity < 40
    ```
-
    当上报的数据中，温度大于38且湿度小于40时，会触发该规则，并且解析数据中的温度、设备名称，用于进一步处理。
 
-   - 触发条件(temperature > 38 and humidity < 40)
+   - 触发条件 `(temperature > 38 and humidity < 40)`
    - Topic:自定义和通配符 
    - MySQL 说明：
-   - JSON数据格式
-      SELECT语句中的字段，可以使用上报消息的payload解析结果，即JSON中的键值，也可以使用SQL内置的函数，比如deviceName。
-      支持*和函数的组合。不支持子SQL查询。
-      上报的JSON数据格式，可以是数组或者嵌套的JSON，SQL语句支持使用JSONPath获取其中的属性值，如对于{a:{key1:v1, key2:v2}}，可以通过a.key2 获取到值v2。使用变量时，需要注意单双引号区别：单引号表示常量，双引号或不加引号表示变量。如使用单引号'a.key2'，值为a.key2。
-         SELECT 支持的长度？
-   - FROM
-      FROM 可以填写Topic。Topic中的设备名（deviceName），用于匹配需要处理的设备消息Topic。当有符合Topic规则的消息到达时，消息的payload数据以JSON格式解析，并根据SQL语句进行处理（如果消息格式不合法，将忽略此消息）。
-   - WHERE
-      规则触发条件，条件表达式。不支持子SQL查询。WHERE中可以使用的字段和SELECT语句一致，当接收到对应Topic的消息时，WHERE语句的结果会作为是否触发规则的判断条件。
-         `WHERE temperature > 38 and humidity < 40` 表示温度大于38且湿度小于40时，才会触发该规则，执行配置。
-      限制说明：
-   - 可以进行单条件查询` >、<、>=、<=、<>、!=` ，具体详情见本章最后章节。
+      - JSON数据格式
+         SELECT语句中的字段，可以使用上报消息的payload解析结果，即JSON中的键值，也可以使用SQL内置的函数，比如deviceName。
+         支持*和函数的组合。不支持子SQL查询。
+         
+      - FROM
+         FROM 可以填写Topic。Topic中的设备名（deviceName），用于匹配需要处理的设备消息Topic。当有符合Topic规则的消息到达时，消息的payload数据以JSON格式解析，并根据SQL语句进行处理（如果消息格式不合法，将忽略此消息）。
 
-   ![processor-set2.png](../../image/processor/set2.png)
+      - WHERE
+         规则触发条件，条件表达式。不支持子SQL查询。WHERE中可以使用的字段和SELECT语句一致，当接收到对应Topic的消息时，WHERE语句的结果会作为是否触发规则的判断条件。
+            `WHERE temperature > 38 and humidity < 40` 表示温度大于38且湿度小于40时，才会触发该规则，执行配置。
+         限制说明：
+      - 可以进行单条件查询` >、<、>=、<=、<>、!=` ，具体详情见本章最后章节。
+
+   ![processor-set2.png](../../image/processor/setRuleContent.png)
 
 3. 规则详情展示
 
    用户可以继续编辑规则的规则描述、`SELECT`、`FROM`、`WHERE`。
 
-   ![processor-show.png](../../image/processor/show.png)
+   ![processor-show.png](../../image/processor/ruledetails.png)
 
 
 
@@ -236,7 +235,7 @@ $ ./processor.sh start
 
    用户可以查询规则、创建规则、编辑规则、启动规则、停止规则、删除规则。
 
-   ![processor-list.png](../../image/processor/list.png)
+   ![processor-list.png](../../image/processor/rulelist.png)
 
 
 
