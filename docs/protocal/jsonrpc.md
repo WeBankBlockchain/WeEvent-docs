@@ -230,14 +230,7 @@ $ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":
 
   - blockNumber：最新已发布事件的区块高度。
   
-#### 查询群组列表
-- 请求
-```shell
-$ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":"listGroup"}' http://localhost:8080/weevent/jsonrpc
-```
-- 应答
-```json
-["1","2"]
-```
+
+
 
 
