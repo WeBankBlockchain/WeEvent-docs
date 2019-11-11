@@ -14,7 +14,7 @@
 - 调用异常时，返回异常信息`BrokerException`。
 
   ```json
-  {"code": 200202, "the transaction does not correctly executed."}
+  {"code": 200202, "message":"the transaction does not correctly executed."}
   ```
 
 ### 代码样例
@@ -38,7 +38,7 @@ public class Rest {
                     "com.weevent.test",
                     WeEvent.DEFAULT_GROUP_ID,
                     "hello WeEvent".getBytes(StandardCharsets.UTF_8)).getBody();
-            System.out.println(sendResult;
+            System.out.println(sendResult);
         } catch (RestClientException e) {
             e.printStackTrace();
         }
@@ -235,7 +235,7 @@ public class Rest {
   ["1","2"]
   ```
 
-#### 获取 节点ip数组
+#### 获取节点ip数组
  - 请求
      ```shell
      $ curl "http://localhost:8080/weevent/admin/listNodes"
@@ -282,7 +282,7 @@ public class Rest {
             }
         },
         "code": 0,
-        "message": "success",
+        "message": "success"
      }
     ```
  - 说明
