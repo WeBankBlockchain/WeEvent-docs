@@ -225,7 +225,7 @@ public class Rest {
 - 请求
 
   ```shell
-  $ curl "http://localhost:8080/weevent/rest/listGroup"
+  $ curl "http://localhost:8080/weevent/admin/listGroup"
   ```
 
 
@@ -253,7 +253,7 @@ public class Rest {
     }
     ```
  - 说明
-     
+   
      - data：节点ip数组。
 
 #### 获取订阅列表 
@@ -476,33 +476,34 @@ public class Rest {
      ```shell
      $ curl http://localhost:8080/weevent/admin/listNodes
      ```
- 
+
  - 应答
- 
+
      ```json
     {
         "data": [
-        "127.0.0.1:7000"
+        "10.107.96.107:7000"
         ],
         "code": 0,
         "message": "success"
     }
-     ```
+    ```
  - 说明
+     
      - data：节点ip数组。
 
 #### 获取 节点ip详细信息
  - 请求
      ```shell
-     $ curl http://127.0.0.1:8080/weevent/admin/listSubscription?nodeIp=127.0.0.1:7000
+     $ curl http://10.107.96.107:8080/weevent/admin/listSubscription?nodeIp=10.107.96.107:7000
      ```
- 
+
  - 应答
- 
+
      ```json
         {
             "data": {
-                "127.0.0.1:7000": {
+                "10.107.96.107:7000": {
                 "5d39d5c1-3aea-48aa-93b2-416624155d0f": {
                 "interfaceType": "stomp",
                 "notifiedEventCount": "1712",
@@ -520,4 +521,5 @@ public class Rest {
         "message": "success"}
      ```
  - 说明
+     
      - data：节点数据的详细信息。
