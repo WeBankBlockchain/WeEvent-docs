@@ -514,7 +514,7 @@ public class Rest {
                 "remoteIp": "127.0.0.1",
                 "createTimeStamp": "2019-11-05 21:21:57",
                 "groupId": "1"
-                },
+                }
             }
         },
         "code": 0,

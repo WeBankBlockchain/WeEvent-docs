@@ -45,7 +45,8 @@
   │   ├── broker
   │   ├── governance
   │   ├── lib
-  │   └── nginx
+  │   ├── nginx
+  │   └── processor
   └── third-packages
       └── nginx-1.14.2.tar.gz
   ```
@@ -132,7 +133,7 @@
   正常安装后，输出有如下关键字:
 
   ```
-  7081 port is okay
+  7000 port is okay
   8080 port is okay
   param ok
   install module broker 
@@ -154,6 +155,7 @@
   |   |-- broker.sh
   |   |-- check-service.sh
   |   |-- conf
+  |   |-- deploy-fabric-topic-control.sh
   |   |-- deploy-topic-control.sh
   |   |-- gen-cert-key.sh
   |   |-- lib  
