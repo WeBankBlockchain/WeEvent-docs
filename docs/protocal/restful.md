@@ -482,7 +482,7 @@ public class Rest {
      ```json
     {
         "data": [
-        "10.107.96.107:7000"
+        "127.0.0.1:7000"
         ],
         "code": 0,
         "message": "success"
@@ -495,7 +495,7 @@ public class Rest {
 #### 获取 节点ip详细信息
  - 请求
      ```shell
-     $ curl http://10.107.96.107:8080/weevent/admin/listSubscription?nodeIp=10.107.96.107:7000
+     $ curl http://127.0.0.1:8080/weevent/admin/listSubscription?nodeIp=127.0.0.1:7000
      ```
 
  - 应答
@@ -503,7 +503,7 @@ public class Rest {
      ```json
         {
             "data": {
-                "10.107.96.107:7000": {
+                "127.0.0.1:7000": {
                 "5d39d5c1-3aea-48aa-93b2-416624155d0f": {
                 "interfaceType": "stomp",
                 "notifiedEventCount": "1712",
