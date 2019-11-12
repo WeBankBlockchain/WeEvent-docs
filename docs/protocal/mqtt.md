@@ -15,8 +15,6 @@ mqtt.broker.port=7001
 mqtt.broker.keepalive=60
 mqtt.websocket.path=/weevent/mqtt
 mqtt.websocket.port=7002
-mqtt.user.login=
-mqtt.user.passcode=
 ```
 
 参数说明：
@@ -37,13 +35,6 @@ mqtt.user.passcode=
 
   客户端使用`WebSocket`协议访问`MQTT Broker`。
 
-- mqtt.user.login
-
-  `mqtt`访问用户名，为空则不校验用户名。
-
-- mqtt.user.passcode
-
-  `mqtt`访问用户密码，为空则不校验用户密码。
 
 ### 注意事项
 

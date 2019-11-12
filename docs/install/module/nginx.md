@@ -59,35 +59,35 @@ $ tree
   每增加一个实例，在这个配置文件里对应加一行`server`项，比如：
 
   ```nginx
-  upstream broker_backend{
-      server 1.1.1.1:7000 weight=100 max_fails=3;
-      server 2.2.2.2:7000 weight=100 max_fails=3;
-      
+    upstream broker_backend{
+        server 1.1.1.1:7000 weight=100 max_fails=3;
+        server 2.2.2.2:7000 weight=100 max_fails=3;
+        
+        ip_hash;
+        keepalive 1024;
+    }
+    
+    upstream broker_mqtt_websocket_backend {
+        server 1.1.1.1:7002 weight=100 max_fails=3;
+        server 2.2.2.2:7002 weight=100 max_fails=3;
+        
+      ip_hash;
+        keepalive 1024;
+    }
+    upstream processor_backend{
+      server 1.1.1.1:7008 weight=100 max_fails=3;
+      server 2.2.2.2:7008 weight=100 max_fails=3;
+    
+    ip_hash;
+        keepalive 1024;
+    }
+    upstream governance_backend{
+      server 1.1.1.1:7009 weight=100 max_fails=3;
+      server 2.2.2.2:7009 weight=100 max_fails=3;
+        
       ip_hash;
       keepalive 1024;
-  }
-  
-  upstream broker_mqtt_websocket_backend {
-      server 1.1.1.1:7002 weight=100 max_fails=3;
-      server 2.2.2.2:7002 weight=100 max_fails=3;
-      
-  	ip_hash;
-    	keepalive 1024;
-  }
-  upstream processor_backend{
-     server 1.1.1.1:7008 weight=100 max_fails=3;
-     server 2.2.2.2:7008 weight=100 max_fails=3;
-  
-  ip_hash;
-       keepalive 1024;
-}
-  upstream governance_backend{
-  	server 1.1.1.1:7009 weight=100 max_fails=3;
-  	server 2.2.2.2:7009 weight=100 max_fails=3;
-      
-  	ip_hash;
-   	keepalive 1024;
-  }
+    }
 
   ```
   
