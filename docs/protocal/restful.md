@@ -392,7 +392,6 @@ public class Rest {
     ```shell
     $ curl "http://localhost:8080/weevent/admin/block/blockList?groupId=1&pageNumber=1&pageSize=10"
     ```
-
 - 应答
 
     ```json
@@ -491,3 +490,4 @@ public class Rest {
  - 说明
      
      - data：节点ip数组。
+

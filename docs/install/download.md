@@ -11,6 +11,7 @@
 | Governance模块 | [weevent-governance-1.1.0.tar.gz](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.1.0/weevent-governance-1.1.0.tar.gz) | [weevent-governance-1.1.0.tar.gz](https://www.fisco.com.cn/cdn/weevent/download/releases/v1.1.0/weevent-governance-1.1.0.tar.gz) | 14907289586d7c22915c698908996ef2 |
 
 
+
 - v1.0.0安装包
 
 | 版本     | github下载 | 国内下载 | md5 |

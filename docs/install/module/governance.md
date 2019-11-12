@@ -89,9 +89,8 @@ $ tree -L 2
     >> flush privileges;
     ```
 - 配置Processor访问路径
-      在配置文件`./conf/application-prod.properties`中，      
-      修改weevent.processor.url 配置  默认为 http://l27.0.0.1:7008
-
+      
+    在配置文件`./conf/application-prod.properties`中，修改weevent.processor.url 配置  默认为 http://l27.0.0.1:7008
 
     初始化系统，执行脚本`init-governance.sh` ，成功输出如下。否则，用户需要检查配置项是否正常。
 
