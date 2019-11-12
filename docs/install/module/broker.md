@@ -54,10 +54,13 @@ $ tree  -L 2
 |   |-- banner.txt
 |   |-- ca.crt
 |   |-- client.keystore
+|   |-- fabric
+|   |-- fisco1.3-sample.properties
 |   |-- fisco.properties
 |   |-- log4j2.xml
 |   |-- server.p12
 |   `-- weevent.properties
+|-- deploy-fabric-topic-control.sh
 |-- deploy-topic-control.sh
 |-- gen-cert-key.sh
 `-- lib
