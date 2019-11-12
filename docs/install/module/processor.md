@@ -16,7 +16,7 @@
 
    必选配置，通过`Governance`从`Web`端调用Processor。修改配置文件`./governance/conf/application-prod.properties` ，增加processor对应的ip和端口配置` weevent.processor.url=http://127.0.0.1:7008`。
 
-   具体安装步骤，请参见[Governance模块安装](./overnance.html)。   
+   具体安装步骤，请参见[Governance模块安装](./governance.html)。   
 
 
 - Mysql数据库
@@ -80,7 +80,7 @@ $ tree -L 2
    spring.datasource.url=jdbc:mysql://127.0.0.1:3306/processor
    spring.datasource.username=root
    spring.datasource.password=123456
-   spring.datasource.driver-class-name=com.mysql.jdbc.Driver
+   spring.datasource.driver-class-name=org.mariadb.jdbc.Driver
    ```
 
 - 在配置文件processor.properties配置Mysql数据库,修改`datasource`中的`url`配置、`username`、`password` 
@@ -100,15 +100,11 @@ $ tree -L 2
    org.quartz.dataSource.WeEvent_processor.user=xxxx
    org.quartz.dataSource.WeEvent_processor.password=yyyy
    org.quartz.dataSource.WeEvent_processor.maxConnections=30
-   org.quartz.dataSource.WeEvent_processor.driver=com.mysql.jdbc.Driver
+   org.quartz.dataSource.WeEvent_processor.driver=org.mariadb.jdbc.Driver
    #============================================================================
    # Configure JobStore
    #============================================================================
    org.quartz.jobStore.dataSource=WeEvent_processor
-   org.quartz.dataSource.weevent_processor.URL=jdbc:mysql://127.0.0.1:3306/WeEvent_processor
-   org.quartz.dataSource.weevent_processor.user=root
-   org.quartz.dataSource.weevent_processor.password=123456
-   org.quartz.dataSource.weevent_processor.maxConnections=30
    #============================================================================
    # Configure ThreadPool Quartz
    #============================================================================
@@ -117,7 +113,7 @@ $ tree -L 2
    ```
 
    - `org.quartz.scheduler.instanceName` 当前Schedule name，用户可以修改
-   - `org.quartz.dataSource.weevent_processor.*`  数据库信息的配置
+   - `org.quartz.dataSource.WeEvent_processor.*`  数据库信息的配置
    - `org.quartz.jobStore.dataSource` 配置数据库名称
 
 ​    **注意**：数据库要赋予配置账号创建库表的权限。
