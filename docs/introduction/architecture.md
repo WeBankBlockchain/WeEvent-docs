@@ -22,7 +22,7 @@
 
 - FISCO-BCOS
 
-    `WeEvent`的事件永久存储在区块链上。推荐使用[FISCO-BCOS 2.0](https://github.com/FISCO-BCOS/FISCO-BCOS)，也支持`Fabric 1.4`。
+    `WeEvent`的事件永久存储在区块链上。推荐使用[FISCO-BCOS 2.1.0](https://github.com/FISCO-BCOS/FISCO-BCOS)，也支持`Fabric 1.4`。
 
 ### 架构设计
 

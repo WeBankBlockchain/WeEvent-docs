@@ -12,7 +12,7 @@
 
    必选配置。Broker通过区块链`FISCO-BCOS`持久化数据。
 
-   推荐使用`FISCO-BCOS 2.0`版本。具体安装步骤，请参见[FISCO-BCOS 2.0安装](https://fisco-bcos-documentation.readthedocs.io/zh_CN/release-2.0/docs/installation.html)。
+   推荐使用`FISCO-BCOS 2.1.0`版本。具体安装步骤，请参见[FISCO-BCOS 2.1.0安装](https://fisco-bcos-documentation.readthedocs.io/zh_CN/release-2.0/docs/installation.html)。
 
 - Redis缓存
 
