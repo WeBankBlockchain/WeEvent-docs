@@ -232,7 +232,13 @@ public class Rest {
 - 应答
 
   ```json
-  ["1","2"]
+  {
+      "data":[
+          "1","2"
+      ],
+      "code":0,
+      "message":"success"
+  }
   ```
 
 #### 获取 节点ip数组
