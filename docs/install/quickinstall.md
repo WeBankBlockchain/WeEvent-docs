@@ -94,7 +94,7 @@
   
     - fisco-bcos.version
   
-      `FISCO-BCOS 2.0`和`1.3`版本都支持，推荐使用`2.0`及以上版本。
+      `FISCO-BCOS 2.0`和`1.3`版本都支持，推荐使用`2.1.0`及以上版本。
   
     - fisco-bcos.channel
   
