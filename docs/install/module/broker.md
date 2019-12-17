@@ -100,16 +100,23 @@ $ tree  -L 2
   
 - 配置Redis缓存
 
-  可选配置。`./conf/weevent.properties`中`redis.*`配置项 ，配置缓存可以提高`WeEvent`的通知性能。
+  可选配置。`./conf/application-prod.properties`中`spring.redis.*`配置项 ，配置缓存可以提高`WeEvent`的通知性能。
 
   ```ini
+  # redis数据库索引（默认为0）
+  spring.redis.database=0
   # redis服务访问链接
-  redis.server.ip=${ip}
+  spring.redis.host=${ip}
   # redis服务访问端口
-  redis.server.port=${port}
+  spring.redis.port=${port}
   # redis服务访问密码 为了安全，必须使用密码访问
-  redis.server.password=${password}
-  # 基于redis的broker进程缓存容量，当缓存数据大于这个值时，使用LRU淘汰策略
+  spring.redis.password=${password}
+  # 连接超时时间（毫秒）
+  spring.redis.timeout=5000
+  ```
+  可选配置。`./conf/weevent.properties`中基于内存的缓存配置项
+  ```ini
+  # 基于内存的缓存容量，当缓存数据大于这个值时，使用LRU淘汰策略
   lru.cache.capacity=65536
   ```
   
