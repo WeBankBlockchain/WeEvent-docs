@@ -47,9 +47,6 @@
   | 配置项                                | 默认值           | 配置说明                                     |
   | ---------------------------------- | ------------- | ---------------------------------------- |
   | ip.check.white-table               |               | IP白名单。多个`IP`地址，以";"分割。<br />默认为空时表示允许任何客户端访问。 |
-  | redis.server.ip                    |               | redis服务IP                                |
-  | redis.server.port                  | 6379          | redis服务端口                                |
-  | redis.server.password              | weevent       | redis服务访问密码                              |
   | lru.cache.capacity                 | 65536         | 缓存大小，使用LRU策略淘汰                           |
   | restful.subscribe.callback.timeout | 5000          | 事件通知回调的超时时间，单位毫秒                         |
   | broker.zookeeper.ip                |               | zookeeper服务                              |
@@ -89,6 +86,11 @@
 | https.client.read-timeout                | 3000                                     | 服务器内部读取其它服务的超时时间ms |
 | https.client.connect-timeout             | 3000                                     | 服务器内部连接其它服务的超时时间ms |
 | weevent.processor.url                    | http://127.0.0.1:7008                    | 配置processor服务的地址   |
+| spring.redis.database                    | 0                                        | redis数据库索引     |
+| spring.redis.host                        | 127.0.0.1                                | redis服务访问链接的ip |
+| spring.redis.port                        | 6379                                     | redis服务访问端口   |
+| spring.redis.password                    |                                          | redis服务访问密码 |
+| spring.redis.timeout                     | 5000                                     | 连接超时时间ms   |
 
 ### Processor 配置
 
