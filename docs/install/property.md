@@ -90,7 +90,7 @@
 | spring.redis.host                        | 127.0.0.1                                | redis服务访问链接的ip |
 | spring.redis.port                        | 6379                                     | redis服务访问端口   |
 | spring.redis.password                    |                                          | redis服务访问密码 |
-| spring.redis.timeout                     | 5000                                     | 连接超时时间ms   |
+| spring.redis.timeout                     | 5000                                     | redis服务连接超时时间ms   |
 
 ### Processor 配置
 
