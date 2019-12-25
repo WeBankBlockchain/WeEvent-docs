@@ -280,9 +280,9 @@ $ ./processor.sh start
      - 字符串拼接substring，concat，trim，lcase 
       
      ```
-      SELECT * FROM Websites WHERE range.substring(type,6)=="warning-001";
+      SELECT * FROM Websites WHERE range.substring(6)=="warning-001";
 
-      SELECT * FROM Websites WHERE range.substring(type,5,10)=="test";
+      SELECT * FROM Websites WHERE range.substring(5,10)=="test";
 
       SELECT * FROM Websites WHERE range.concat(type)=="higherwarning";
 
