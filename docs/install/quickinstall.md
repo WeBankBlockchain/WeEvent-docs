@@ -7,7 +7,7 @@
 ### Docker镜像安装
 
   ```bash
-  $ docker pull weevent/weevent:1.0.0; docker run -d -p 8080:8080 weevent/weevent:1.0.0 /root/run.sh
+  $ docker pull weevent/weevent:1.1.0; docker run -d -p 8080:8080 weevent/weevent:1.1.0 /root/run.sh
   ```
 
   `WeEvent`的镜像里包括了`FISCO-BCOS`网络，`WeEvent`服务的子模块`Broker`和`Governance`，以及各种依赖。
@@ -19,19 +19,19 @@
 
 - 获取安装包
 
-  从`github`下载安装包[weevent-1.0.0.tar.gz](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.0.0/weevent-1.0.0.tar.gz)，并且解压到`/tmp/` 。
+  从`github`下载安装包[weevent-1.1.0.tar.gz](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.1.0/weevent-1.1.0.tar.gz)，并且解压到`/tmp/` 。
 
   ```shell
   $ cd /tmp/
-  $ wget https://github.com/WeBankFinTech/WeEvent/releases/download/v1.0.0/weevent-1.0.0.tar.gz
-  $ tar -zxf weevent-1.0.0.tar.gz
+  $ wget https://github.com/WeBankFinTech/WeEvent/releases/download/v1.1.0/weevent-1.1.0.tar.gz
+  $ tar -zxf weevent-1.1.0.tar.gz
   ```
 
-  如果`github`下载速度慢，可以尝试[国内下载链接](https://www.fisco.com.cn/cdn/weevent/download/releases/v1.0.0/weevent-1.0.0.tar.gz)。
+  如果`github`下载速度慢，可以尝试[国内下载链接](https://www.fisco.com.cn/cdn/weevent/download/releases/v1.1.0/weevent-1.1.0.tar.gz)。
 解压后目录结构如下：
   
   ```shell
-  $ cd weevent-1.0.0/ 
+  $ cd weevent-1.1.0/ 
   $ tree -L 2
   .
   ├── bin
@@ -44,6 +44,7 @@
   ├── modules
   │   ├── broker
   │   ├── governance
+  │   ├── lib
   │   └── nginx
   └── third-packages
       └── nginx-1.14.2.tar.gz
@@ -54,6 +55,8 @@
   默认配置文件`./config.properties`如下：
 
   ```properties
+  #java jdk environment
+  JAVA_HOME=
   # Required module
   # support 2.0 and 1.3
   fisco-bcos.version=2.0
@@ -72,13 +75,19 @@
   # Optional module
   governance.enable=false
   governance.governance.port=7009
-  governance.mysql.ip=127.0.0.1
-  governance.mysql.port=3306
-  governance.mysql.user=xxx
-  governance.mysql.password=yyy
+  mysql.ip=127.0.0.1
+  mysql.port=3306
+  mysql.user=xxx
+  mysql.password=yyy
+
+  # Optional module processor
+  processor.enable=true
+  processor.port=7008
   ```
   
   配置说明 :
+  
+- JDK环境变量`JAVA_HOME`
   
   - 区块链FISCO-BCOS
   
@@ -92,8 +101,10 @@
   
     - fisco-bcos.node_path
   
-      区块链节点的访问证书、私钥存放目录。`FISCO-BCOS 2.0`的证书文件为`ca.crt`、`node.crt`、`node.key`，`1.3`版本的证书文件为`ca.crt`、`client.keystore`。
-      如果`WeEvent`服务和区块链节点不在同一台机器上，需要把证书文件拷贝到`WeEvent`机器的当前目录，修改`fisco-bcos.node_path=./`。
+      区块链节点的访问证书、私钥存放目录。
+      
+      `FISCO-BCOS 2.0`的证书文件为`ca.crt`、`node.crt`、`node.key`。`1.3`版本的证书文件为`ca.crt`、`client.keystore`。
+      如果`WeEvent`服务和区块链节点不在同一台机器上，需要把证书文件拷贝到`WeEvent`所在机器的当前目录，修改`fisco-bcos.node_path=./`。
   
   - Nginx监听端口`nginx.port`
   
@@ -103,7 +114,12 @@
   
     - `governance.enable`是否安装`Governance`模块，默认为`false`不安装
     - 监听端口`governance.port`
-    - Mysql配置`governance.mysql.*`
+    - Mysql配置`mysql.*`
+  
+  - Proceessor模块配置
+  
+    - `proceessor.enable`是否安装`Proceessor`模块，默认为`false`不安装
+    - 监听端口`proceessor.port`
   
 - 一键安装
 
@@ -139,9 +155,11 @@
   |   |-- check-service.sh
   |   |-- conf
   |   |-- deploy-topic-control.sh
+  |   |-- gen-cert-key.sh
   |   |-- lib  
   |   `-- logs
-  |-- check-service.sh				
+  |-- check-service.sh
+  |-- lib				
   |-- nginx					    	
   |   |-- conf
   |   |-- html

@@ -34,9 +34,6 @@
 
 ```java
 public class JsonRPC {
-    private final static String groupId = "1";
-    private final static Map<String, String> extensions = new HashMap<>();
-
     public static void main(String[] args) {
         System.out.println("This is WeEvent json rpc sample.");
         try {
@@ -46,13 +43,11 @@ public class JsonRPC {
             // init IBrokerRpc object
             IBrokerRpc rpc = ProxyUtil.createClientProxy(client.getClass().getClassLoader(), IBrokerRpc.class, client);
             // open topic
-            rpc.open("com.weevent.test", groupId);
+            rpc.open("com.weevent.test", WeEvent.DEFAULT_GROUP_ID);
             // publish event
-            SendResult sendResult = rpc.publish("com.weevent.test", groupId, "hello weevent".getBytes(StandardCharsets.UTF_8), extensions);
-            System.out.println(sendResult.getStatus());
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (BrokerException e) {
+            SendResult sendResult = rpc.publish("com.weevent.test", WeEvent.DEFAULT_GROUP_ID, "hello WeEvent".getBytes(StandardCharsets.UTF_8), new HashMap<>());
+            System.out.println(sendResult);
+        }catch (MalformedURLException | BrokerException e) {
             e.printStackTrace();
         }
     }
@@ -121,7 +116,7 @@ $ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":
 #### 发布事件
 - 请求
 ```shell
-$ curl -H "Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":"publish","params":{"topic":"com.weevent.test","groupId":"1","content":"MTIzNDU2","extensions":{"weevent-format": "json","userId":"3924261998"}}}' http://localhost:8080/weevent/jsonrpc 
+$ curl -H "Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":"publish","params":{"topic":"com.weevent.test","groupId":"1","content":"MTIzNDU2","extensions":{"weevent-format": "json","weevent-userId":"3924261998"}}}' http://localhost:8080/weevent/jsonrpc 
 ```
 - 应答
 ```json
@@ -234,4 +229,8 @@ $ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":
   - sequenceNumber：已发布事件数。
 
   - blockNumber：最新已发布事件的区块高度。
+  
+
+
+
 

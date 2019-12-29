@@ -29,22 +29,22 @@
 
 ### 获取安装包
 
-从`github`下载安装包[weevent-broker-1.0.0.tar.gz](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.0.0/weevent-broker-1.0.0.tar.gz)，并且解压到`/usr/local/weevent/`下。
+从`github`下载安装包[weevent-broker-1.1.0.tar.gz](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.1.0/weevent-broker-1.1.0.tar.gz)，并且解压到`/usr/local/weevent/`下。
 
 ``` shell
 $ cd /usr/local/weevent/
-$ wget https://github.com/WeBankFinTech/WeEvent/releases/download/v1.0.0/weevent-broker-1.0.0.tar.gz
-$ tar -zxf weevent-broker-1.0.0.tar.gz
+$ wget https://github.com/WeBankFinTech/WeEvent/releases/download/v1.1.0/weevent-broker-1.1.0.tar.gz
+$ tar -zxf weevent-broker-1.1.0.tar.gz
 ```
-如果`github`下载速度慢，可以尝试[国内下载链接](https://www.fisco.com.cn/cdn/weevent/download/releases/v1.0.0/weevent-broker-1.0.0.tar.gz)。
+如果`github`下载速度慢，可以尝试[国内下载链接](https://www.fisco.com.cn/cdn/weevent/download/releases/v1.1.0/weevent-broker-1.1.0.tar.gz)。
 
 解压后的目录如下：
 
 ```
-$ cd ./weevent-broker-1.0.0
+$ cd ./weevent-broker-1.1.0
 $ tree  -L 2
 |-- apps
-|   `-- weevent-broker-1.0.0.jar
+|   `-- weevent-broker-1.1.0.jar
 |-- broker.sh
 |-- check-service.sh
 |-- conf
@@ -59,6 +59,8 @@ $ tree  -L 2
 |   |-- server.p12
 |   `-- weevent.properties
 |-- deploy-topic-control.sh
+|-- gen-cert-key.sh
+`-- lib
 ```
 
 ### 修改配置文件
@@ -81,10 +83,10 @@ $ tree  -L 2
   运行脚本`./deploy-topic-control.sh `部署合约。例如:
 
   ```shell
-$ ./deploy-topic-control.sh
-  2019-08-19 17:59:31 topic control address in every group:
-  1	0xc6fc72f0fe6ebf9881a2103f2829d0e98d020062	[new]
-  2	0xd85d3345f8a21f4fd6197c72266ae3e3106e5e1c	[new]
+    $ ./deploy-topic-control.sh
+      2019-08-19 17:59:31 topic control address in every group:
+      1	0xc6fc72f0fe6ebf9881a2103f2829d0e98d020062	[new]
+      2	0xd85d3345f8a21f4fd6197c72266ae3e3106e5e1c	[new]
   ```
   
   脚本会检查之前是否部署过合约，重复执行不影响。
@@ -137,10 +139,6 @@ $ ./deploy-topic-control.sh
   可选配置。`./conf/weevent.properties`中`stomp.*`配置项。
 
   ```ini
-  # stomp协议访问用户名
-  stomp.user.login=${username}
-  # stomp协议访问密码
-  stomp.user.passcode=${password}
   # 发送心跳时间间隔 单位:秒
   stomp.heartbeats=30
   ```
@@ -152,16 +150,12 @@ $ ./deploy-topic-control.sh
   ```ini
   # 客户端使用MQTT协议访问MQTT Broker端口
   mqtt.broker.port=7001
+  # 客户端使用WebSocket协议访问MQTT Broker端口
+  mqtt.websocket.port=7002
   # 心跳时间 单位:秒
   mqtt.broker.keepalive=60
   # 客户端使用WebSocket协议访问MQTT Broker链接
   mqtt.websocket.path=/weevent/mqtt
-  # 客户端使用WebSocket协议访问MQTT Broker端口
-  mqtt.websocket.port=7002
-  # MQTT Broker访问用户名
-  mqtt.user.login=
-  # MQTT Broker访问密码
-  mqtt.user.passcode=
   ```
   
 
