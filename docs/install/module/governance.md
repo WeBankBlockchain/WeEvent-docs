@@ -71,7 +71,7 @@ $ tree -L 2
   ```
 
 
-- 配置Mysql数据库
+- 默认配置H2数据库
 
     在配置文件`./conf/application-prod.properties`中，修改`datasource`中的`url`配置、`username`、`password` 。
 
@@ -88,6 +88,10 @@ $ tree -L 2
     >> grant all privileges on *.* to 'test'@'%' identified by '123456';
     >> flush privileges;
     ```
+- 切换Mysql数据库
+
+注意这里的切换需要和processor数据源同步切换
+  
 - 配置Processor访问路径
       在配置文件`./conf/application-prod.properties`中，修改weevent.processor.url配置，默认为 http://127.0.0.1:7008
 

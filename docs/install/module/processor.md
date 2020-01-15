@@ -72,7 +72,7 @@ $ tree -L 2
    server.port=7008
    ```
 
-- 配置Mysql数据库
+- 默认配置H2数据库
    修改`datasource`中的`url`配置、`username`、`password` 
 
    ``` 配置数据库连接
@@ -82,6 +82,9 @@ $ tree -L 2
    spring.datasource.password=123456
    spring.datasource.driver-class-name=org.mariadb.jdbc.Driver
    ```
+
+- 切换Mysql数据库
+注意这里的切换需要和governance数据源同步切换
 
 - 在配置文件processor.properties配置Mysql数据库,修改`datasource`中的`url`配置、`username`、`password` 
    ```
