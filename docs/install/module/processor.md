@@ -103,7 +103,7 @@ $ tree -L 2
           >> flush privileges;
           ```
   
-- 在配置文件application-prod.properties配置Mysql数据库,修改`datasource`中的`url`配置、`username`、`password` 
+- 在配置文件processor.properties配置Mysql数据库名称
    ```
     #============================================================================
     # Configure Main Scheduler Properties
