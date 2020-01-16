@@ -12,13 +12,17 @@
    必选配置，通过`Broker`访问区块链。
 
    具体安装步骤，请参见[Broker模块安装](./broker.html)。
+   
+- 数据库 `Governance`通过数据库存储数据。
+    必选配置 目前支持H2数据库和Mysql数据库，二选一即可
+    - H2数据库  
+       默认配置，免安装，免配置，可切换成Msql数据库,具体切换步骤，请往下看。
+      
+       推荐使用`1.4.19+`版本。具体使用请参考[H2官网](http://www.h2database.com/html/main.html) 。
 
-- Mysql数据库
+    - Mysql数据库    
+      推荐安装`Mysql 5.7+`版本。具体安装步骤，安装请参见[Mysql安装](http://dev.mysql.com/downloads/mysql/) 。
 
-  必选配置。`Governance`通过`Mysql`存储数据。
-
-  推荐安装`Mysql 5.6+`版本。具体安装步骤，安装请参见[Mysql安装](http://dev.mysql.com/downloads/mysql/) 。
-  
 - Processor模块
   可选配置。通过`Processor`触发规则引擎。
   具体安装步骤，请参见[Processor模块安装](./processor.html)。
@@ -71,30 +75,35 @@ $ tree -L 2
   ```
 
 
-- 默认配置H2数据库
-
-    在配置文件`./conf/application-prod.properties`中，修改`datasource`中的`url`配置、`username`、`password` 。
-
+- H2数据库是默认配置,在governance启动的时候同步创建并启动，免配置，`username`默认 root、`password`默认为123456
     ```ini
-    spring.datasource.url=jdbc:mysql://127.0.0.1:3306/WeEvent_governance?useUnicode=true&characterEncoding=utf-8&useSSL=false
-	spring.datasource.driver-class-name=org.mariadb.jdbc.Driver
-	spring.datasource.username=root
-	spring.datasource.password=123456
-	spring.datasource.type= org.apache.commons.dbcp2.BasicDataSource
+  spring.datasource.url=jdbc:h2:tcp://localhost:7083/~/WeEvent_processor
+  spring.jpa.database=h2
+  spring.datasource.driverClassName=org.h2.Driver
+  spring.datasource.username=root
+  spring.datasource.password=123456
     ```
-    **注意**：数据库要赋予配置账号创建库表的权限。
-
-    ```mysql
-    >> grant all privileges on *.* to 'test'@'%' identified by '123456';
-    >> flush privileges;
-    ```
-- 切换Mysql数据库
-
-注意这里的切换需要和processor数据源同步切换
+- 切换Mysql数据库 
+    在配置文件application-prod.properties注释掉h2数据库的配置部分，去掉mysql数据库的注释即完成切换,
+    如需processor模块的时候,需要将processor数据源同步切换,
+    具体切换步骤见[Processor模块安装](./processor.html)。
+- 配置Mysql数据库     
+   - 在配置文件application-prod.properties修改`datasource`中的`url`配置、`username`、`password` 
+      ```ini
+        spring.datasource.url=jdbc:mysql://127.0.0.1:3306/WeEvent_processor
+        spring.datasource.driverClassName=org.mariadb.jdbc.Driver
+        spring.jpa.database=mysql
+        spring.datasource.username=xxxx
+        spring.datasource.password=yyyy
+        ```
+          **注意**：Mysql数据库要赋予配置账号创建库表的权限。
+          ```mysql
+          >> grant all privileges on *.* to 'test'@'%' identified by '123456';
+          >> flush privileges;
+          ```
   
 - 配置Processor访问路径
       在配置文件`./conf/application-prod.properties`中，修改weevent.processor.url配置，默认为 http://127.0.0.1:7008
-
 
     初始化系统，执行脚本`init-governance.sh` ，成功输出如下。否则，用户需要检查配置项是否正常。
 
