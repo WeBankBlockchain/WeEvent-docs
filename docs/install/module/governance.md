@@ -141,7 +141,7 @@ $ tree -L 2
 
 如果需要部署更多实例，将上述步骤安装好的`Governance `目录拷贝到目标位置，启动即可。
 
-用户可以通过浏览器访问http://localhost:8080/weevent-governance/。显示如下登陆页面说明安装成功。
+用户可以通过浏览器访问`http://localhost:8080/weevent-governance/` 默认用户名密码为：`admin/123456` 。显示如下登陆页面说明安装成功。
 
 ![Governance-ui.png](../../image/Governance-ui.png)
 
