@@ -12,7 +12,7 @@
 
    必选配置。Broker通过区块链`FISCO-BCOS`持久化数据。
 
-   推荐使用`FISCO-BCOS 2.0`版本。具体安装步骤，请参见[FISCO-BCOS 2.0安装](https://fisco-bcos-documentation.readthedocs.io/zh_CN/release-2.0/docs/installation.html)。
+   推荐使用`FISCO-BCOS 2.1.0`版本。具体安装步骤，请参见[FISCO-BCOS 2.1.0安装](https://fisco-bcos-documentation.readthedocs.io/zh_CN/release-2.0/docs/installation.html)。
 
 - Redis缓存
 
@@ -54,10 +54,13 @@ $ tree  -L 2
 |   |-- banner.txt
 |   |-- ca.crt
 |   |-- client.keystore
+|   |-- fabric
+|   |-- fisco1.3-sample.properties
 |   |-- fisco.properties
 |   |-- log4j2.xml
 |   |-- server.p12
 |   `-- weevent.properties
+|-- deploy-fabric-topic-control.sh
 |-- deploy-topic-control.sh
 |-- gen-cert-key.sh
 `-- lib
@@ -97,16 +100,23 @@ $ tree  -L 2
   
 - 配置Redis缓存
 
-  可选配置。`./conf/weevent.properties`中`redis.*`配置项 ，配置缓存可以提高`WeEvent`的通知性能。
+  可选配置。`./conf/application-prod.properties`中`spring.redis.*`配置项 ，配置缓存可以提高`WeEvent`的通知性能。
 
   ```ini
+  # redis数据库索引（默认为0）
+  spring.redis.database=0
   # redis服务访问链接
-  redis.server.ip=${ip}
+  spring.redis.host=${ip}
   # redis服务访问端口
-  redis.server.port=${port}
+  spring.redis.port=${port}
   # redis服务访问密码 为了安全，必须使用密码访问
-  redis.server.password=${password}
-  # 基于redis的broker进程缓存容量，当缓存数据大于这个值时，使用LRU淘汰策略
+  spring.redis.password=${password}
+  # 连接超时时间（毫秒）
+  spring.redis.timeout=5000
+  ```
+  可选配置。`./conf/weevent.properties`中基于内存的缓存配置项
+  ```ini
+  # 基于内存的缓存容量，当缓存数据大于这个值时，使用LRU淘汰策略
   lru.cache.capacity=65536
   ```
   

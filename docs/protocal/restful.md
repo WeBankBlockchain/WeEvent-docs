@@ -14,7 +14,7 @@
 - 调用异常时，返回异常信息`BrokerException`。
 
   ```json
-  {"code": 200202, "the transaction does not correctly executed."}
+  {"code": 200202, "message":"the transaction does not correctly executed."}
   ```
 
 ### 代码样例
@@ -38,7 +38,7 @@ public class Rest {
                     "com.weevent.test",
                     WeEvent.DEFAULT_GROUP_ID,
                     "hello WeEvent".getBytes(StandardCharsets.UTF_8)).getBody();
-            System.out.println(sendResult;
+            System.out.println(sendResult);
         } catch (RestClientException e) {
             e.printStackTrace();
         }
@@ -232,7 +232,13 @@ public class Rest {
 - 应答
 
   ```json
-  ["1","2"]
+  {
+      "data":[
+          "1","2"
+      ],
+      "code":0,
+      "message":"success"
+  }
   ```
 
 #### 获取 节点ip数组
@@ -282,7 +288,7 @@ public class Rest {
             }
         },
         "code": 0,
-        "message": "success",
+        "message": "success"
      }
     ```
  - 说明
@@ -321,7 +327,7 @@ public class Rest {
     - gitCommitHash：`WeEvent`最近一次提交git的CommitHash。
 
 
-#### 获取 节点个数、区块数量、交易数量
+#### 获取节点个数、区块数量、交易数量
 - 请求
     ```shell
     $ curl "http://localhost:8080/weevent/admin/group/general?groupId=1"
@@ -346,7 +352,7 @@ public class Rest {
     - latestBlock：区块数量。
     - transactionCount：交易数量。
 
-#### 获取 区块链交易列表
+#### 获取区块链交易列表
 - 请求
     ```shell
     $ curl "http://localhost:8080/weevent/admin/transaction/transList?groupId=1&pageNumber=1&pageSize=10"
@@ -387,7 +393,7 @@ public class Rest {
     - transTo：接收者的地址。
     
 
-#### 获取 交易哈希列表
+#### 获取交易哈希列表
 - 请求
     ```shell
     $ curl "http://localhost:8080/weevent/admin/block/blockList?groupId=1&pageNumber=1&pageSize=10"
@@ -429,7 +435,7 @@ public class Rest {
     - sealerIndex：节点序号为index的nodeId。
     - transCount：交易次数。
       
- #### 获取 节点列表
+ #### 获取节点列表
  - 请求
      ```shell
      $ curl "http://localhost:8080/weevent/admin/node/nodeList?groupId=1&pageNumber=1&pageSize=10"
@@ -471,7 +477,7 @@ public class Rest {
      - createTime：创建时间。
      - modifyTime：修改时间。
 
- #### 获取 节点ip数组
+ #### 获取节点ip数组
  - 请求
      ```shell
      $ curl http://localhost:8080/weevent/admin/listNodes
@@ -491,35 +497,3 @@ public class Rest {
  - 说明
      
      - data：节点ip数组。
-
-#### 获取 节点ip详细信息
- - 请求
-     ```shell
-     $ curl http://127.0.0.1:8080/weevent/admin/listSubscription?nodeIp=127.0.0.1:7000
-     ```
-
- - 应答
-
-     ```json
-        {
-            "data": {
-                "127.0.0.1:7000": {
-                "5d39d5c1-3aea-48aa-93b2-416624155d0f": {
-                "interfaceType": "stomp",
-                "notifiedEventCount": "1712",
-                "notifyingEventCount": "0",
-                "notifyTimeStamp": "2019-11-06 11:28:30",
-                "topicName": "com.weevent.rest",
-                "subscribeId": "5d39d5c1-3aea-48aa-93b2-416624155d0f",
-                "remoteIp": "127.0.0.1",
-                "createTimeStamp": "2019-11-05 21:21:57",
-                "groupId": "1"
-                },
-            }
-        },
-        "code": 0,
-        "message": "success"}
-     ```
- - 说明
-     
-     - data：节点数据的详细信息。

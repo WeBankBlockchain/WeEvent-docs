@@ -45,7 +45,8 @@
   │   ├── broker
   │   ├── governance
   │   ├── lib
-  │   └── nginx
+  │   ├── nginx
+  │   └── processor
   └── third-packages
       └── nginx-1.14.2.tar.gz
   ```
@@ -93,7 +94,7 @@
   
     - fisco-bcos.version
   
-      `FISCO-BCOS 2.0`和`1.3`版本都支持，推荐使用`2.0`及以上版本。
+      `FISCO-BCOS 2.0`和`1.3`版本都支持，推荐使用`2.1.0`及以上版本。
   
     - fisco-bcos.channel
   
@@ -132,7 +133,7 @@
   正常安装后，输出有如下关键字:
 
   ```
-  7081 port is okay
+  7000 port is okay
   8080 port is okay
   param ok
   install module broker 

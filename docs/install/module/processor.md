@@ -19,15 +19,11 @@
    具体安装步骤，请参见[Governance模块安装](./governance.html)。   
 
 
-- 数据库 `Processor`通过数据库存储数据。
-    必选配置 目前支持h2数据库和Mysql数据库，二选一即可
-    - H2数据库  
-       默认配置，免安装，免配置，可切换成Msql数据库,具体切换步骤，请往下看。
-      
-       推荐使用`1.4.19+`版本。具体使用请参考[H2官网](http://www.h2database.com/html/main.html) 。
+- Mysql数据库
 
-    - Mysql数据库    
-      推荐安装`Mysql 5.7+`版本。具体安装步骤，安装请参见[Mysql安装](http://dev.mysql.com/downloads/mysql/) 。
+  必选配置。`Processor`通过`Mysql`存储数据。
+
+  推荐安装`Mysql 5.6+`版本。具体安装步骤，安装请参见[Mysql安装](http://dev.mysql.com/downloads/mysql/) 。
 
 ### 获取安装包
 
@@ -76,50 +72,36 @@ $ tree -L 2
    server.port=7008
    ```
 
-- H2数据库是默认配置,在processor启动的时候同步创建并启动，免配置，`username`默认 root、`password`默认为123456
-    ```ini
-  spring.datasource.url=jdbc:h2:tcp://localhost:7082/~/WeEvent_processor
-  spring.jpa.database=h2
-  spring.datasource.driverClassName=org.h2.Driver
-  spring.datasource.username=root
-  spring.datasource.password=123456
-    ```
-- 切换Mysql数据库 
-    在配置文件application-prod.properties注释掉h2数据库的配置部分，去掉mysql数据库配置的注释即完成切换,
-    如需governance模块的时候,需要将governance数据源同步切换,
-    具体切换步骤见[Governance模块安装](./governance.html)。   
-- 配置Mysql数据库     
-   - 在配置文件application-prod.properties修改`datasource`中的`url`配置、`username`、`password` 
-      ```ini
-        spring.datasource.url=jdbc:mysql://127.0.0.1:3306/WeEvent_processor
-        spring.datasource.driverClassName=org.mariadb.jdbc.Driver
-        spring.jpa.database=mysql
-        spring.datasource.username=xxxx
-        spring.datasource.password=yyyy
-        ```
-          **注意**：Mysql数据库要赋予配置账号创建库表的权限。
-          ```mysql
-          >> grant all privileges on *.* to 'test'@'%' identified by '123456';
-          >> flush privileges;
-          ```
-  
-- 在配置文件processor.properties配置Mysql数据库名称
+- 配置Mysql数据库
+   修改`datasource`中的`url`配置、`username`、`password` 
+
+   ``` 配置数据库连接
+   spring.datasource.url=jdbc:mysql://127.0.0.1:3306/WeEvent_processor
+   spring.datasource.driverClassName=org.mariadb.jdbc.Driver
+   spring.jpa.database=mysql
+   spring.datasource.username=******
+   spring.datasource.password=******
    ```
-    #============================================================================
-    # Configure Main Scheduler Properties
-    #============================================================================
-    org.quartz.scheduler.instanceName=test
-    #============================================================================
-    # Configure Datasources
-    #============================================================================
-    org.quartz.jobStore.dataSource=WeEvent_processor
-    #============================================================================
-    # Configure ThreadPool Quartz
-    #============================================================================
-    org.quartz.threadPool.threadCount=20
-    org.quartz.threadPool.threadPriority=5
+
+- 在配置文件processor.properties配置Mysql数据库,修改`datasource`中的`url`配置、`username`、`password` 
    ```
-   - `org.quartz.jobStore.dataSource` 配置数据库名称
+   org.quartz.scheduler.instanceName=test
+   org.quartz.jobStore.dataSource=WeEvent_processor
+   org.quartz.threadPool.threadCount=20
+   org.quartz.threadPool.threadPriority=5
+   ```
+
+   - `org.quartz.scheduler.instanceName` 当前Schedule name，用户可以修改
+   - `org.quartz.dataSource`  数据库名称，默认为`WeEvent_processor`
+
+​    **注意**：数据库要赋予配置账号创建库表的权限。
+
+   ```shell
+   mysql
+   >> grant all privileges on . to 'test'@'%' identified by '123456';
+   >> flush privileges;
+   ```
+
 ​   初始化系统，执行脚本`init-processor.sh` ，成功输出如下。否则，用户需要检查配置项是否正常。
 
 ```
@@ -186,7 +168,9 @@ $ ./processor.sh start
    ```
    {
    "temperature":25.1,
-   "humidity":65
+   "humidity":65,
+   "type":"warning",
+   "range":"higher",
    }
    ```
 
@@ -278,5 +262,40 @@ $ ./processor.sh start
    ```
    SELECT * FROM Websites WHERE facilicty-charater="warning" and temperature > 50;
 
-   SELECT * FROM Websites WHERE temperature > 35 or  facilicty-charater="warning" ;
+   SELECT * FROM Websites WHERE temperature > 35 or  facilicty-charater=="warning" ;
    ```
+
+   - 非聚合类的内置函数
+     - 数字计算abs(绝对值)，ceil，floor ，round  
+     ```
+      SELECT * FROM Websites WHERE abs(temperature) > 50;
+
+      SELECT * FROM Websites WHERE ceil(temperature)> 50;
+
+      SELECT * FROM Websites WHERE floor(temperature) > 50;
+
+      SELECT * FROM Websites WHERE round(temperature) > 50;
+     ```
+
+     - 字符串拼接substring，concat，trim，lcase 
+      
+     ```
+      SELECT * FROM Websites WHERE range.substring(6)=="warning-001";
+
+      SELECT * FROM Websites WHERE range.substring(5,10)=="test";
+
+      SELECT * FROM Websites WHERE range.concat(type)=="higherwarning";
+
+      SELECT * FROM Websites WHERE range.trim()=="higher";
+
+      SELECT * FROM Websites WHERE lcase(range)=="higher";
+     ```
+      
+   - 内置时间
+      
+   时间选取now， currentDate，currentTime
+   ```
+    SELECT now,currentDate,currentTime FROM Websites WHERE range.substring(type,6)=="warning-001";
+   ```
+ 
+   

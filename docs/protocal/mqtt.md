@@ -51,12 +51,12 @@ mqtt.websocket.port=7002
   发送消息前需创建`topic` (`com.weevent.test`)。详情请参照[创建Topic](./restful.html)
 
   ```shell
-  $ mosquitto_pub -h localhost -p 7081 -q 1 -t "com.weevent.test" -m "{\"timestamp\":133345566,\"key\":\"temperature\",\"value\":10.0}"
+  $ mosquitto_pub -h localhost -p 7000 -q 1 -t "com.weevent.test" -m "{\"timestamp\":133345566,\"key\":\"temperature\",\"value\":10.0}"
   ```
 
 - IoT设备订阅事件
 
   ```shell
-  $ mosquitto_sub -h localhost -p 7081 -q 1 -t "com.weevent.test"
+  $ mosquitto_sub -h localhost -p 7000 -q 1 -t "com.weevent.test"
   {"eventId":"317e7c4c-1-24","extensions":{},"topic":"com.weevent.test","content":[123,34,116,105,109,101,115,116,97,109,112,34,58,49,51,51,51,52,53,53,54,54,44,34,107,101,121,34,58,34,116,101,109,112,101,114,97,116,117,114,101,34,44,34,118,97,108,117,101,34,58,49,48,46,48,125]}
   ```
