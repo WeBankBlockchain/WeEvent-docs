@@ -18,7 +18,7 @@
     - H2数据库  
        默认配置，免安装，免配置，可切换成Msql数据库,具体切换步骤，请往下看。
       
-       推荐使用`1.4.19+`版本。具体使用请参考[H2官网](http://www.h2database.com/html/main.html) 。
+       具体使用请参考[H2官网](http://www.h2database.com/html/main.html) 。
 
     - Mysql数据库    
       推荐安装`Mysql 5.7+`版本。具体安装步骤，安装请参见[Mysql安装](http://dev.mysql.com/downloads/mysql/) 。
