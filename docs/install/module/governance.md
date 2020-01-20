@@ -84,7 +84,7 @@ $ tree -L 2
   spring.datasource.password=123456
     ```
 - 切换Mysql数据库 
-    在配置文件application-prod.properties注释掉h2数据库的配置部分，去掉mysql数据库的注释即完成切换,
+    在配置文件application-prod.properties注释掉h2数据库的配置部分，去掉Mysql数据库的注释即完成切换,
     如需processor模块的时候,需要将processor数据源同步切换,
     具体切换步骤见[Processor模块安装](./processor.html)。
 - 配置Mysql数据库     

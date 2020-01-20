@@ -20,7 +20,7 @@
 
 
 - 数据库 `Processor`通过数据库存储数据。
-    必选配置 目前支持h2数据库和Mysql数据库，二选一即可
+    必选配置 目前支持H2数据库和Mysql数据库，二选一即可
     - H2数据库  
        默认配置，免安装，免配置，可切换成Msql数据库,具体切换步骤，请往下看。
       
@@ -86,7 +86,7 @@ $ tree -L 2
    spring.datasource.password=123456
      ```
  - 切换Mysql数据库 
-    在配置文件application-prod.properties注释掉H2数据库的配置部分，去掉mysql数据库配置的注释即完成切换,
+    在配置文件application-prod.properties注释掉H2数据库的配置部分，去掉Mysql数据库配置的注释即完成切换,
     如需governance模块的时候,需要将governance数据源同步切换,
     具体切换步骤见[Governance模块安装](./governance.html)。   
  - 配置Mysql数据库     
