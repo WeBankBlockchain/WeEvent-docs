@@ -22,7 +22,7 @@
 - 数据库 `Processor`通过数据库存储数据。
     必选配置 目前支持H2数据库和Mysql数据库，二选一即可
     - H2数据库  
-       默认配置，免安装，免配置，可切换成Msql数据库,具体切换步骤，请往下看。
+       默认配置，免安装，免配置，可切换成Msql数据库,具体切换步骤，请参考[FAQ](https://weeventdoc.readthedocs.io/zh_CN/latest/faq/weevent.html)。
       
        具体使用请参考[H2官网](http://www.h2database.com/html/main.html) 。
 
@@ -77,21 +77,8 @@ $ tree -L 2
    ```
 
 - 配置数据库
- - H2数据库是默认的,在processor启动的时候同步创建并启动，免安装，免配置，`username`默认 root、`password`默认为123456
-     ```ini
-   spring.datasource.url=jdbc:h2:tcp://localhost:7082/~/WeEvent_processor
-   spring.jpa.database=h2
-   spring.datasource.driverClassName=org.h2.Driver
-   spring.datasource.username=root
-   spring.datasource.password=123456
-     ```
- - 切换Mysql数据库 
-    在配置文件application-prod.properties注释掉H2数据库的配置部分，去掉Mysql数据库配置的注释即完成切换,
-    如需governance模块的时候,需要将governance数据源同步切换,
-    具体切换步骤见[Governance模块安装](./governance.html)。   
- - 配置Mysql数据库     
-       - 在配置文件application-prod.properties修改`datasource`中的`url`配置、`username`、`password` 
-          ```ini
+  - 切换成Mysql数据库之后,在配置文件application-prod.properties修改`datasource`中的`url`配置、`username`、`password` 
+            ```ini
             spring.datasource.url=jdbc:mysql://127.0.0.1:3306/WeEvent_processor
             spring.datasource.driverClassName=org.mariadb.jdbc.Driver
             spring.jpa.database=mysql
