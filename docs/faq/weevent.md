@@ -95,5 +95,5 @@
  
 - 如何切换数据库。
    
-    目前WeEvent默认的是H2数据库，如果要切换成Mysql数据库，只需要将`conf/application-prod.properties`中的H2数据库配置部分注释掉，同时将Mysql数据库的配置的注释去掉即可，
+    目前WeEvent默认的是H2数据库，如果要切换成Mysql数据库，只需要将`modules/xxxx/conf/application-prod.properties`中的H2数据库配置部分注释掉，同时将Mysql数据库的配置的注释去掉即可，
     如果要切回H2数据库把上面的步骤反过来即可。
