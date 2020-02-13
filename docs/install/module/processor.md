@@ -6,6 +6,12 @@
 `Processor`为用户提供时序流分析和时间联动等。如果是第一次安装`WeEvent`，参见这里的[系统要求](../environment.html) 。以下安装以`CentOS 7.2`为例。
 
 #### 前置条件
+- Zookeeper服务
+
+  必选配置。服务注册和发现会使用到。
+
+  推荐使用`Zookeeper 3.5.5`版本。具体安装步骤，请参见[Zookeeper安装](http://zookeeper.apache.org/doc/r3.4.13/zookeeperStarted.html)。
+
 
 - Broker模块
 
@@ -41,22 +47,10 @@ $ tar -xvf weevent-processor-1.1.0.tar.gz
 
 ```
 $ cd ./weevent-processor-1.1.0
-$ tree -L 2
-
-```
-
-```
-$ cd ./weevent-processor-1.1.0
-$ tree -L 2
+$ tree -L 1
 |-- apps
-|   `-- weevent-processor-1.1.0.jar
 |-- check-service.sh
 |-- conf
-|   |-- application-prod.properties
-|   |-- application.properties
-|   |-- log4j2.xml
-|   |-- mappers
-|   |-- processor.properties
 |-- cep_rule.sql
 |-- init-processor.sh
 |-- processor.sh
@@ -64,6 +58,16 @@ $ tree -L 2
 ```
 
 ### 修改配置文件
+- 配置Zookeeper服务
+
+  可选配置。`./conf/application-prod.properties`中`spring.cloud.zookeeper`配置项。
+  
+  ```ini
+  # spring cloud zookeeper
+  spring.cloud.zookeeper.enabled=true
+  spring.cloud.zookeeper.connect-string=127.0.0.1:2181
+  ```
+  
 - 配置端口
 
   在配置文件`./conf/application-prod.properties`中，`Processor` 的服务端口`server.port` ，默认`7008`。
@@ -134,6 +138,7 @@ $ ./processor.sh start
       check processor service
       processor service is ok
    ```
+
 ### 界面展示
 
 1. 创建规则

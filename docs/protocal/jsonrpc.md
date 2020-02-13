@@ -37,7 +37,7 @@ public class JsonRPC {
     public static void main(String[] args) {
         System.out.println("This is WeEvent json rpc sample.");
         try {
-            URL remote = new URL("http://localhost:8080/weevent/jsonrpc");
+            URL remote = new URL("http://localhost:8080/weevent-broker/jsonrpc");
             // init jsonrpc client
             JsonRpcHttpClient client = new JsonRpcHttpClient(remote);
             // init IBrokerRpc object

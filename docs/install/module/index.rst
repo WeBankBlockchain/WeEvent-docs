@@ -8,7 +8,7 @@ Governance为用户提供一个事件治理的Web管理端。支持事件治理�
 
 Processor为用户提供时序流分析和时间联动
 
-Nginx 实现WeEvent服务的负载均衡。服务支持主流的Linux发行版，如CentOS、Ubuntu 、Redhat。
+Gateway实现接入请求的负载均衡、限流和熔断。服务支持主流的Linux发行版，如CentOS、Ubuntu 、Redhat。
 
 
 .. toctree::
@@ -17,4 +17,4 @@ Nginx 实现WeEvent服务的负载均衡。服务支持主流的Linux发行版�
    /install/module/broker
    /install/module/governance
    /install/module/processor
-   /install/module/nginx
+   /install/module/gateway

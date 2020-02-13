@@ -8,6 +8,12 @@
 
 ### 前置条件
 
+- Zookeeper服务
+
+  必选配置。服务注册和发现会使用到。
+
+  推荐使用`Zookeeper 3.5.5`版本。具体安装步骤，请参见[Zookeeper安装](http://zookeeper.apache.org/doc/r3.4.13/zookeeperStarted.html)。
+
 - 区块链FISCO-BCOS节点
 
    必选配置。Broker通过区块链`FISCO-BCOS`持久化数据。
@@ -19,13 +25,6 @@
   可选配置。
 
   推荐使用`Redis 5.0+`版本。具体安装步骤，请参见[Redis安装](https://redis.io/download)。
-
-- Zookeeper服务
-
-  可选配置。当使用了`JsonRPC`或者`RESTful`协议的订阅功能起来`Zookeeper`主备切换。
-
-  推荐使用`Zookeeper 3.5.5`版本。具体安装步骤，请参见[Zookeeper安装](http://zookeeper.apache.org/doc/r3.4.13/zookeeperStarted.html)。
-
 
 ### 获取安装包
 
@@ -42,24 +41,11 @@ $ tar -zxf weevent-broker-1.1.0.tar.gz
 
 ```
 $ cd ./weevent-broker-1.1.0
-$ tree  -L 2
+$ tree  -L 1
 |-- apps
-|   `-- weevent-broker-1.1.0.jar
 |-- broker.sh
 |-- check-service.sh
 |-- conf
-|   |-- v2
-|   |-- application-prod.properties
-|   |-- application.properties
-|   |-- banner.txt
-|   |-- ca.crt
-|   |-- client.keystore
-|   |-- fabric
-|   |-- fisco1.3-sample.properties
-|   |-- fisco.properties
-|   |-- log4j2.xml
-|   |-- server.p12
-|   `-- weevent.properties
 |-- deploy-fabric-topic-control.sh
 |-- deploy-topic-control.sh
 |-- gen-cert-key.sh
@@ -67,6 +53,17 @@ $ tree  -L 2
 ```
 
 ### 修改配置文件
+
+- 配置Zookeeper服务
+
+  可选配置。`./conf/application-prod.properties`中`spring.cloud.zookeeper`配置项。
+  
+  ```ini
+  # spring cloud zookeeper
+  spring.cloud.zookeeper.enabled=true
+  spring.cloud.zookeeper.connect-string=127.0.0.1:2181
+  ```
+  
 - 区块链FISCO-BCOS节点
 
   - 区块链节点配置文件fisco.properties
@@ -120,19 +117,6 @@ $ tree  -L 2
   lru.cache.capacity=65536
   ```
   
-- 配置Zookeeper服务
-
-  可选配置。配置文件`./conf/weevent.properties`中`broker.zookeeper.*`配置项。
-
-  ```ini
-  # zookeeper服务访问链接 示例：127.0.0.1:8080
-  broker.zookeeper.ip=${ip}:${port}
-  # zookeeper上数据存储路径
-  broker.zookeeper.path=/event_broker
-  # 连接zookeeper超时时间 单位：毫秒
-  broker.zookeeper.timeout=3000
-  ```
-  
 - 配置IP白名单
 
   可选配置。`./conf/weevent.properties`中配置了值就会开启白名单验证。
@@ -158,10 +142,8 @@ $ tree  -L 2
   可选配置。配置文件`./conf/weevent.properties`中`mqtt.*`配置项。
 
   ```ini
-  # 客户端使用MQTT协议访问MQTT Broker端口
-  mqtt.broker.port=7001
   # 客户端使用WebSocket协议访问MQTT Broker端口
-  mqtt.websocket.port=7002
+  mqtt.broker.port=7001
   # 心跳时间 单位:秒
   mqtt.broker.keepalive=60
   # 客户端使用WebSocket协议访问MQTT Broker链接
@@ -185,7 +167,7 @@ $ tree  -L 2
 
   通过`./broker.sh stop`命令停止服务。
 
-  进程启动，会自动添加`crontab`监控任务`./broker.sh monitor`。
+  进程启动后，会自动加入集群，同时添加`crontab`监控任务`./broker.sh monitor`。
 
 - 验证服务
 
@@ -196,10 +178,4 @@ $ tree  -L 2
   check broker service
   broker service is ok
   ```
-
-### 加入Nginx反向代理
-
-将部署好的`Broker`配置到`Nginx`提供对外服务。`Nginx`子模块的安装及详细配置参见[Nginx模块安装及配置](./nginx.html) 。
-
-如需部署其更多实例，将上述步骤安装好的`Broker`目录拷贝到目标位置，启动即可。
 

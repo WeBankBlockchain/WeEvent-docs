@@ -8,4 +8,5 @@
    /advanced/port
    /advanced/upgrade
    /advanced/fabric
+   /advanced/bigfile
    
