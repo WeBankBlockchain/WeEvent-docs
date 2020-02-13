@@ -1,12 +1,14 @@
 ## 架构说明
 
-`WeEvent`主要使用[Spring Boot](https://spring.io/projects/spring-boot)框架开发。分为`Broker`和`Governance`两个子模块，`Broker`负责事件发布和订阅以及访问区块链`FISCO-BCOS`，`Governance`提供一个`Web`管理端实现事件治理和流计算。集群模式下使用`Nginx`实现负载均衡。
+`WeEvent`主要使用[Spring Boot](https://spring.io/projects/spring-boot)框架开发。分为`Broker`和`Governance`两个子模块，`Broker`负责事件发布和订阅以及访问区块链`FISCO-BCOS`，`Governance`提供一个`Web`管理端实现事件治理和流计算。
+
+服务统一从前置的`API Gateway`接入，服务注册和发现使用`Zookeeper`。
 
 ### 模块说明
 
-- Nginx
+- API Gateway
 
-  `WeEvent`服务对外统一的访问入口，负责服务请求的负载均衡。
+  `WeEvent`服务对外统一的访问入口，负责接入请求的负载均衡、限流、熔断等。
 
 - Broker
 

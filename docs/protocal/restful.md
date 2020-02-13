@@ -27,7 +27,7 @@ public class Rest {
             SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
             RestTemplate rest = new RestTemplate(requestFactory);
             // ensure topic exist "com.weevent.test"
-            Boolean result = rest.getForEntity("http://localhost:8080/weevent/rest/open?topic={topic}&groupId={groupId}",
+            Boolean result = rest.getForEntity("http://localhost:8080/weevent-broker/rest/open?topic={topic}&groupId={groupId}",
                     Boolean.class,
                     "com.weevent.test",
                     WeEvent.DEFAULT_GROUP_ID).getBody();
@@ -56,7 +56,7 @@ public class Rest {
 - 请求
 
   ```shell
-  $ curl "http://localhost:8080/weevent/rest/open?topic=com.weevent.test&groupId=1"
+  $ curl "http://localhost:8080/weevent-broker/rest/open?topic=com.weevent.test&groupId=1"
   ```
 
 
@@ -79,7 +79,7 @@ public class Rest {
 - 请求
 
   ```shell
-  $ curl "http://localhost:8080/weevent/rest/close?topic=com.weevent.test&groupId=1"
+  $ curl "http://localhost:8080/weevent-broker/rest/close?topic=com.weevent.test&groupId=1"
   ```
 
 
@@ -93,7 +93,7 @@ public class Rest {
 - 请求
 
   ```shell
-  $ curl "http://localhost:8080/weevent/rest/exist?topic=com.weevent.test&groupId=1"
+  $ curl "http://localhost:8080/weevent-broker/rest/exist?topic=com.weevent.test&groupId=1"
   ```
 
 
@@ -107,7 +107,7 @@ public class Rest {
 - 请求
 
   ```shell
-  $ curl "http://localhost:8080/weevent/rest/publish?topic=com.weevent.test&groupId=1&content=123456&weevent-format=json"
+  $ curl "http://localhost:8080/weevent-broker/rest/publish?topic=com.weevent.test&groupId=1&content=123456&weevent-format=json"
   ```
 
 
@@ -135,7 +135,7 @@ public class Rest {
 - 请求
 
   ```shell
-  $ curl "http://localhost:8080/weevent/rest/getEvent?eventId=2cf24dba-59-1124&groupId=1"
+  $ curl "http://localhost:8080/weevent-broker/rest/getEvent?eventId=2cf24dba-59-1124&groupId=1"
   ```
 
 - 应答
@@ -161,7 +161,7 @@ public class Rest {
 - 请求
 
   ```shell
-  $ curl "http://localhost:8080/weevent/rest/list?pageIndex=1&pageSize=10&groupId=1"
+  $ curl "http://localhost:8080/weevent-broker/rest/list?pageIndex=1&pageSize=10&groupId=1"
   ```
 
 
@@ -196,7 +196,7 @@ public class Rest {
 - 请求
 
   ```shell
-  $ curl "http://localhost:8080/weevent/rest/state?topic=com.weevent.test&groupId=1"
+  $ curl "http://localhost:8080/weevent-broker/rest/state?topic=com.weevent.test&groupId=1"
   ```
 
 
@@ -225,7 +225,7 @@ public class Rest {
 - 请求
 
   ```shell
-  $ curl "http://localhost:8080/weevent/admin/listGroup"
+  $ curl "http://localhost:8080/weevent-broker/admin/listGroup"
   ```
 
 
@@ -244,7 +244,7 @@ public class Rest {
 #### 获取 节点ip数组
  - 请求
      ```shell
-     $ curl "http://localhost:8080/weevent/admin/listNodes"
+     $ curl "http://localhost:8080/weevent-broker/admin/listNodes"
      ```
 
  - 应答
@@ -265,7 +265,7 @@ public class Rest {
 #### 获取订阅列表 
  - 请求
      ```shell
-     $ curl "http://localhost:8080/weevent/admin/listSubscription?nodeIp=127.0.0.1:7000"
+     $ curl "http://localhost:8080/weevent-broker/admin/listSubscription?nodeIp=127.0.0.1:7000"
      ```
 
  - 应答
@@ -302,7 +302,7 @@ public class Rest {
 #### 获取版本信息
 - 请求
     ```shell
-    $ curl "http://localhost:8080/weevent/admin/getVersion"
+    $ curl "http://localhost:8080/weevent-broker/admin/getVersion"
     ```
 
 - 应答
@@ -330,7 +330,7 @@ public class Rest {
 #### 获取节点个数、区块数量、交易数量
 - 请求
     ```shell
-    $ curl "http://localhost:8080/weevent/admin/group/general?groupId=1"
+    $ curl "http://localhost:8080/weevent-broker/admin/group/general?groupId=1"
     ```
 
 - 应答
@@ -355,7 +355,7 @@ public class Rest {
 #### 获取区块链交易列表
 - 请求
     ```shell
-    $ curl "http://localhost:8080/weevent/admin/transaction/transList?groupId=1&pageNumber=1&pageSize=10"
+    $ curl "http://localhost:8080/weevent-broker/admin/transaction/transList?groupId=1&pageNumber=1&pageSize=10"
     ```
 
 - 应答
@@ -396,7 +396,7 @@ public class Rest {
 #### 获取交易哈希列表
 - 请求
     ```shell
-    $ curl "http://localhost:8080/weevent/admin/block/blockList?groupId=1&pageNumber=1&pageSize=10"
+    $ curl "http://localhost:8080/weevent-broker/admin/block/blockList?groupId=1&pageNumber=1&pageSize=10"
     ```
 
 - 应答
@@ -438,7 +438,7 @@ public class Rest {
  #### 获取节点列表
  - 请求
      ```shell
-     $ curl "http://localhost:8080/weevent/admin/node/nodeList?groupId=1&pageNumber=1&pageSize=10"
+     $ curl "http://localhost:8080/weevent-broker/admin/node/nodeList?groupId=1&pageNumber=1&pageSize=10"
      ```
 
  - 应答
@@ -480,7 +480,7 @@ public class Rest {
  #### 获取节点ip数组
  - 请求
      ```shell
-     $ curl http://localhost:8080/weevent/admin/listNodes
+     $ curl http://localhost:8080/weevent-broker/admin/listNodes
      ```
 
  - 应答
@@ -495,5 +495,5 @@ public class Rest {
     }
     ```
  - 说明
-     
+   
      - data：节点ip数组。

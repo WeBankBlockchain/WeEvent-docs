@@ -7,7 +7,7 @@
 ### Docker镜像安装
 
   ```bash
-  $ docker pull weevent/weevent:1.1.0; docker run -d -p 8080:8080 weevent/weevent:1.1.0 /root/run.sh
+  $ docker pull weevent/weevent:1.2.0; docker run -d -p 8080:8080 weevent/weevent:1.2.0 /root/run.sh
   ```
 
   `WeEvent`的镜像里包括了`FISCO-BCOS`网络，`WeEvent`服务的子模块`Broker`和`Governance`，以及各种依赖。
@@ -23,15 +23,15 @@
 
   ```shell
   $ cd /tmp/
-  $ wget https://github.com/WeBankFinTech/WeEvent/releases/download/v1.1.0/weevent-1.1.0.tar.gz
-  $ tar -zxf weevent-1.1.0.tar.gz
+  $ wget https://github.com/WeBankFinTech/WeEvent/releases/download/v1.2.0/weevent-1.1.0.tar.gz
+  $ tar -zxf weevent-1.2.0.tar.gz
   ```
 
   如果`github`下载速度慢，可以尝试[国内下载链接](https://www.fisco.com.cn/cdn/weevent/download/releases/v1.1.0/weevent-1.1.0.tar.gz)。
 解压后目录结构如下：
   
   ```shell
-  $ cd weevent-1.1.0/ 
+  $ cd weevent-1.2.0/ 
   $ tree -L 2
   .
   ├── bin
@@ -45,10 +45,8 @@
   │   ├── broker
   │   ├── governance
   │   ├── lib
-  │   ├── nginx
+  │   ├── gateway
   │   └── processor
-  └── third-packages
-      └── nginx-1.14.2.tar.gz
   ```
   
 - 修改配置
@@ -58,6 +56,7 @@
   ```properties
   #java jdk environment
   JAVA_HOME=
+  
   # Required module
   # support 2.0 and 1.3
   fisco-bcos.version=2.0
@@ -68,7 +67,7 @@
   fisco-bcos.node_path=~/FISCO-BCOS/127.0.0.1/node0/conf
   
   # Required module
-  nginx.port=8080
+  gateway.port=8080
   
   # Required module
   broker.port=7000
@@ -79,8 +78,8 @@
   mysql.ip=127.0.0.1
   mysql.port=3306
   mysql.user=xxx
-  mysql.password=yyy
-
+mysql.password=yyy
+  
   # Optional module processor
   processor.enable=true
   processor.port=7008
@@ -107,7 +106,7 @@
       `FISCO-BCOS 2.0`的证书文件为`ca.crt`、`node.crt`、`node.key`。`1.3`版本的证书文件为`ca.crt`、`client.keystore`。
       如果`WeEvent`服务和区块链节点不在同一台机器上，需要把证书文件拷贝到`WeEvent`所在机器的当前目录，修改`fisco-bcos.node_path=./`。
   
-  - Nginx监听端口`nginx.port`
+  - Gateway监听端口`gateway.port`
   
   - Broker监听端口`broker.port`
   
@@ -136,10 +135,10 @@
   7000 port is okay
   8080 port is okay
   param ok
+  install module gateway 
+  install gateway success 
   install module broker 
   install broker success 
-  install module nginx 
-  install nginx success 
   ```
 
   如果安装失败，可以在安装日志`./install.log`中查看更多细节。
@@ -148,31 +147,17 @@
 
   ```shell
   $ cd /usr/local/weevent/
-  $ tree -L 2
+  $ tree -L 1
   .
   |-- broker					    
-  |   |-- apps
-  |   |-- broker.sh
-  |   |-- check-service.sh
-  |   |-- conf
-  |   |-- deploy-topic-control.sh
-  |   |-- gen-cert-key.sh
-  |   |-- lib  
-  |   `-- logs
   |-- check-service.sh
   |-- lib				
-  |-- nginx					    	
-  |   |-- conf
-  |   |-- html
-  |   |-- logs
-  |   |-- nginx.sh
-  |   |-- nginx_temp
-  |   `-- sbin   
+  |-- gateway					    	
   |-- start-all.sh					
   |-- stop-all.sh				    
   `-- uninstall-all.sh
   ```
-
+  
 - 启停服务
   - 启动服务
 

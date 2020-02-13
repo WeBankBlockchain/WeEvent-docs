@@ -13,15 +13,14 @@
 #mqtt brokerserver
 mqtt.broker.port=7001
 mqtt.broker.keepalive=60
-mqtt.websocket.path=/weevent/mqtt
-mqtt.websocket.port=7002
+mqtt.websocket.path=/weevent-broker/mqtt
 ```
 
 参数说明：
 
 - mqtt.broker.port
 
-  客户端使用`MQTT`协议访问`MQTT Broker`。
+  客户端使用`WebSocket`协议访问`MQTT Broker`。
 
 - mqtt.broker.keepalive
 
@@ -31,9 +30,6 @@ mqtt.websocket.port=7002
 
   客户端使用`WebSocket`协议访问`MQTT Broker`链接。
 
-- mqtt.websocket.port
-
-  客户端使用`WebSocket`协议访问`MQTT Broker`。
 
 
 ### 注意事项
