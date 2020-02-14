@@ -78,7 +78,7 @@
   mysql.ip=127.0.0.1
   mysql.port=3306
   mysql.user=xxx
-mysql.password=yyy
+  mysql.password=yyy
   
   # Optional module processor
   processor.enable=true

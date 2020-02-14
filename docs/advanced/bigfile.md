@@ -15,11 +15,13 @@
   
   在具体的`API`使用上有点不同。
   
-  |      | 普通事件   | 大文件        |
-  | ---- | ---------- | ------------- |
-  | 主题 | open/close | open/close    |
-  | 发布 | publish    | publishFile   |
-  | 订阅 | subscirbe  | subscirbeFile |
+  |          | 普通事件    | 大文件        |
+  | -------- | ----------- | ------------- |
+  | 开启主题 | open/close  | open/close    |
+  | 发布     | publish     | publishFile   |
+  | 订阅     | subscirbe   | subscirbeFile |
+  | 取消订阅 | unSubscribe | unSubscribe   |
+
 
 ### 代码样例
 
@@ -55,6 +57,9 @@ public class Sample {
     } catch (BrokerException e) {
         e.printStackTrace();
     }
+        
+    // 取消订阅
+    client.unSubscribe(subscriptionId);
 }
 ```
 
