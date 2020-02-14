@@ -7,7 +7,7 @@
 ### 功能集成
 - 集成Java SDK
 
-  大文件传输因为涉及到文件的分片上传和下载，以及可能出现的断点续传，所以该功能只在`Java SDK`中提供。`Java SDK`的集成和使用参见[Java SDK](../protocol/javasdk.html) 。
+  大文件传输因为涉及到文件的分片上传和下载，以及可能出现的断点续传，所以该功能只在`Java SDK`中提供。`Java SDK`的集成和使用参见[WeEvent Java SDK](../protocol/javasdk.html) 。
   
 - 和普通事件的发布订阅对比
 
