@@ -8,9 +8,9 @@ WeEvent服务用Java Spring Boot框架实现。
 .. toctree::
    :maxdepth: 1
 
-   /protocal/restful
-   /protocal/jsonrpc
-   /protocal/stomp
-   /protocal/javasdk
-   /protocal/mqtt   
-   /protocal/errorcode
+   /protocol/restful
+   /protocol/jsonrpc
+   /protocol/stomp
+   /protocol/javasdk
+   /protocol/mqtt   
+   /protocol/errorcode
