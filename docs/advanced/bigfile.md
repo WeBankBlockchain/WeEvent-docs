@@ -15,12 +15,12 @@
   
   在具体的`API`使用上有点不同。
   
-  |          | 普通事件    | 大文件        |
-  | -------- | ----------- | ------------- |
-  | 开启主题 | open/close  | open/close    |
-  | 发布     | publish     | publishFile   |
-  | 订阅     | subscirbe   | subscirbeFile |
-  | 取消订阅 | unSubscribe | unSubscribe   |
+  | 功能          | 普通事件    | 大文件        |
+  | ------------- | ----------- | ------------- |
+  | 开启/关闭主题 | open/close  | open/close    |
+  | 发布          | publish     | publishFile   |
+  | 订阅          | subscirbe   | subscirbeFile |
+  | 取消订阅      | unSubscribe | unSubscribe   |
 
 
 ### 代码样例
@@ -54,12 +54,12 @@ public class Sample {
 
             }
         });
+        
+        // 取消订阅
+        client.unSubscribe(subscriptionId);
     } catch (BrokerException e) {
         e.printStackTrace();
     }
-        
-    // 取消订阅
-    client.unSubscribe(subscriptionId);
 }
 ```
 
