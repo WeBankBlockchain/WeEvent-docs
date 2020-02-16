@@ -10,20 +10,20 @@
   $ docker pull weevent/weevent:1.2.0; docker run -d -p 8080:8080 weevent/weevent:1.2.0 /root/run.sh
   ```
 
-  `WeEvent`的镜像里包括了`FISCO-BCOS`网络，`WeEvent`服务的子模块`Broker`和`Governance`，以及各种依赖。
+  `WeEvent`的镜像里包括了`FISCO-BCOS`网络，`WeEvent`服务的各个子模块以及各种依赖。
 
 
 ### Bash安装
 
-需要的一些基础工具`yum install wget tree tar dos2unix lsof gcc openssl-devel pcre-devel `。
+需要的一些基础工具`yum install wget tree tar dos2unix lsof`。
 
 - 获取安装包
 
-  从`github`下载安装包[weevent-1.1.0.tar.gz](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.1.0/weevent-1.1.0.tar.gz)，并且解压到`/tmp/` 。
+  从`github`下载安装包[weevent-1.2.0.tar.gz](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.1.0/weevent-1.2.0.tar.gz)，并且解压到`/tmp/` 。
 
   ```shell
   $ cd /tmp/
-  $ wget https://github.com/WeBankFinTech/WeEvent/releases/download/v1.2.0/weevent-1.1.0.tar.gz
+  $ wget https://github.com/WeBankFinTech/WeEvent/releases/download/v1.2.0/weevent-1.2.0.tar.gz
   $ tar -zxf weevent-1.2.0.tar.gz
   ```
 
@@ -43,9 +43,9 @@
   ├── install-all.sh
   ├── modules
   │   ├── broker
+  │   ├── gateway
   │   ├── governance
   │   ├── lib
-  │   ├── gateway
   │   └── processor
   ```
   
@@ -68,6 +68,7 @@
   
   # Required module
   gateway.port=8080
+  zookeeper.connect-string=127.0.0.1:2181
   
   # Required module
   broker.port=7000
@@ -119,7 +120,7 @@
   - Proceessor模块配置
   
     - `proceessor.enable`是否安装`Proceessor`模块，默认为`false`不安装
-    - 监听端口`proceessor.port`
+    - 监听端口`processor.port`
   
 - 一键安装
 
