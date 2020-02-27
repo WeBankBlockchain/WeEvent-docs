@@ -35,10 +35,8 @@
   $ tree -L 2
   .
   ├── bin
-  │   ├── check-service.sh
   │   ├── start-all.sh
-  │   ├── stop-all.sh
-  │   └── uninstall-all.sh
+  │   └── stop-all.sh
   ├── config.properties
   ├── install-all.sh
   ├── modules
@@ -142,21 +140,17 @@
   install broker success 
   ```
 
-  如果安装失败，可以在安装日志`./install.log`中查看更多细节。
-
   目标安装路径`/usr/local/weevent/`的结构如下
 
   ```shell
-  $ cd /usr/local/weevent/
+$ cd /usr/local/weevent/
   $ tree -L 1
   .
-  |-- broker					    
-  |-- check-service.sh
-  |-- lib				
-  |-- gateway					    	
-  |-- start-all.sh					
-  |-- stop-all.sh				    
-  `-- uninstall-all.sh
+  |-- broker
+  |-- lib
+  |-- gateway
+  |-- start-all.sh			    
+  `-- stop-all.sh
   ```
   
 - 启停服务
@@ -184,17 +178,7 @@
 
 - 卸载服务
 
-  执行如下脚本，卸载所有服务：
+  所有服务停止后，直接删除目录即可。
 
-  ```shell
-  $ ./uninstall-all.sh
-  WeEvent is running, stop it first? [Y/N]Y 
-  stop broker success
-  remove the crontab job success
-  stop nginx success
-  remove the crontab job success
-  really want to uninstall WeEvent? [Y/N]Y
-  uninstall WeEvent success 
-  ```
 
 快速安装作为一种简易安装方式，所有子模块都是单实例的。生产环境中建议对`Broker`和`Governance`进行多实例部署。各子模块详细部署参见[Broker模块部署](./module/broker.html)和[Governance模块部署](./module/governance.html)。
