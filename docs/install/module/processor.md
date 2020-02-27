@@ -151,12 +151,14 @@ $ ./processor.sh start
                "temperate":30,
                "humidity":0.5
             }
+         "ruleDescription": ""
       }
 ```
 
 - ruleName: 支持英文字母、数字、下划线、连字符
-- type：改规则处理数据的格式，目前只支持JSON格式。
-- 规则的详细描述。
+- type：改规则处理数据的格式，目前只支持JSON格式
+- payload: 规则的内容
+- ruleDescription: 对规则的补充描述
 
 ![processor-set1.png](../../image/processor/setRule.png)
 
@@ -199,7 +201,7 @@ $ ./processor.sh start
          WHERE
          规则触发条件，条件表达式。不支持子SQL查询。WHERE中可以使用的字段和SELECT语句一致，当接收到对应Topic的消息时，WHERE语句的结果会作为是否触发规则的判断条件。`WHERE temperature > 38 and humidity < 40` 表示温度大于38且湿度小于40时，才会触发该规则，执行配置。
          
-       - 可以进行单条件查询` >、<、>=、<=、<>、!=` ，具体详情见本章最后章节。
+       - 可以进条件查询` >、<、>=、<=、<>、!=` ，具体详情见本章最后章节。
 
    ![processor-set2.png](../../image/processor/setRuleContent.png)
 
@@ -213,16 +215,47 @@ $ ./processor.sh start
 
 4. 规则列表展示
 
-   用户可以查询规则、创建规则、编辑规则、启动规则、停止规则、删除规则。
+   用户可以查询规则、创建规则、编辑规则、启动规则、停止规则、删除规则。并且通过规则的状态可查看该规则的运行状态及命中次数等信息。
 
    ![processor-list.png](../../image/processor/rulelist.png)
 
 
 
+#### 条件语句说明
+
+   - 生成条件语句
+
+      用户通过点击过滤规则右侧的 `+` 可以生成一个条件栏, 通过编辑条件栏中的各项参数可以生成一条条件语句。如若多次点击可生成多个条件语句, 各条件语句之间用 `and`、`or` 进行连接
+
+      ```
+     例如：条件语句 age <= 30 or name != "kevin" 其结构如下
+     ```
+
+   ![processor-list.png](../../image/processor/addRule.png)
+
+
+
+   - 条件的嵌套
+
+     通过点击条件栏后面的 `+` 可以在该条件栏下再生成一个子条件栏, 该子条件栏就会与它的上一层形成嵌套的关系, 最终生成的条件语句会将这两部分用 `()` 包裹起来。
+
+     ```
+     例如：条件语句 age <= 30 or (name != "kevin" and age >= 25) 其结构如下
+     ```
+
+     ![processor-list.png](../../image/processor/childRule.png)
+
+
+
+   - 内置函数
+
+      条件语句支持选用 `内置函数`, 不同函数效果不同, 具体详情见本章最后章节。
+
+      ![processor-list.png](../../image/processor/ruleFunction.png)
+
+
+
 #### 命中逻辑说明
-
-   - 不支持嵌套查询、连表查询、自带函数查询、ORDER BY（ASC|DESC）
-
 
    - 文本字段 vs. 数值字段
 
@@ -300,7 +333,7 @@ $ ./processor.sh start
       
    时间选取now， currentDate，currentTime
    ```
-    SELECT now,currentDate,currentTime FROM Websites WHERE range.substring(type,6)=="warning-001";
+    SELECT now,currentDate,currentTime FROM Websites WHERE range.substring(6)=="warning-001";
    ```
  
    
