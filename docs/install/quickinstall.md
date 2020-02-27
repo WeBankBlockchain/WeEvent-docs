@@ -143,7 +143,7 @@
   目标安装路径`/usr/local/weevent/`的结构如下
 
   ```shell
-$ cd /usr/local/weevent/
+  $ cd /usr/local/weevent/
   $ tree -L 1
   .
   |-- broker
