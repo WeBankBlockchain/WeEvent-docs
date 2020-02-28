@@ -64,7 +64,7 @@
   建议为`WeEvent`配置2个属于不同网段的`FISCO-BCOS`节点。这样`WeEvent`服务会随机选用一个可用的节点使用，做到一定程度的网络容灾。
 
 - 怎么使用通配符进行订阅
-  `WeEvent`支持通配符按层次订阅，和`MQTT`的定义完全一致。包括层次分隔符"/"，单层通配符"+"，多层通配符"#"。例如，“#”可以订阅到系统内所有的主题。“com/+”可以订阅到主题“com/weevent”和“com/webank“，但是无法订阅到“com/weevent/abc”。“com/#”则可以订阅到上述三个主题。详情请参见[MQTT协议](http://public.dhe.ibm.com/software/dw/webservices/ws-mqtt/mqtt-v3r1.html)。
+  `WeEvent`支持通配符按层次订阅，和`MQTT`的定义完全一致。包括层次分隔符"/"，单层通配符"+"，多层通配符"#"。例如，“#”可以订阅到系统内所有的主题。“com/+”可以订阅到主题“com/weevent”和“com/test“，但是无法订阅到“com/weevent/abc”。“com/#”则可以订阅到上述三个主题。详情请参见[MQTT协议](http://public.dhe.ibm.com/software/dw/webservices/ws-mqtt/mqtt-v3r1.html)。
   
 - 服务启动时为什么会出现Failed to initialize the client-side SSLContext错误？
   
