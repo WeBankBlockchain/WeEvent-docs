@@ -301,7 +301,7 @@ $ ./processor.sh start
       
    时间选取now， currentDate，currentTime
    ```
-    SELECT * FROM Websites WHERE data >= currentDate;
+    SELECT * FROM Websites WHERE date >= currentDate;
    ```
  
    
