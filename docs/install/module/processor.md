@@ -178,6 +178,7 @@ $ ./processor.sh start
    "humidity":65,
    "type":"warning",
    "range":"higher",
+   "date": "2019-10-22"
    }
    ```
 
@@ -219,39 +220,6 @@ $ ./processor.sh start
 
    ![processor-list.png](../../image/processor/rulelist.png)
 
-
-
-#### 条件语句说明
-
-   - 生成条件语句
-
-      用户通过点击过滤规则右侧的 `+` 可以生成一个条件栏, 通过编辑条件栏中的各项参数可以生成一条条件语句。如若多次点击可生成多个条件语句, 各条件语句之间用 `and`、`or` 进行连接
-
-      ```
-     例如：条件语句 age <= 30 or name != "kevin" 其结构如下
-     ```
-
-   ![processor-list.png](../../image/processor/addRule.png)
-
-
-
-   - 条件的嵌套
-
-     通过点击条件栏后面的 `+` 可以在该条件栏下再生成一个子条件栏, 该子条件栏就会与它的上一层形成嵌套的关系, 最终生成的条件语句会将这两部分用 `()` 包裹起来。
-
-     ```
-     例如：条件语句 age <= 30 or (name != "kevin" and age >= 25) 其结构如下
-     ```
-
-     ![processor-list.png](../../image/processor/childRule.png)
-
-
-
-   - 内置函数
-
-      条件语句支持选用 `内置函数`, 不同函数效果不同, 具体详情见本章最后章节。
-
-      ![processor-list.png](../../image/processor/ruleFunction.png)
 
 
 
@@ -333,7 +301,7 @@ $ ./processor.sh start
       
    时间选取now， currentDate，currentTime
    ```
-    SELECT now,currentDate,currentTime FROM Websites WHERE range.substring(6)=="warning-001";
+    SELECT * FROM Websites WHERE data >= currentDate;
    ```
  
    
