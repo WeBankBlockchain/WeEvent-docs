@@ -6,6 +6,12 @@
 `Processor`为用户提供时序流分析和时间联动等。如果是第一次安装`WeEvent`，参见这里的[系统要求](../environment.html) 。以下安装以`CentOS 7.2`为例。
 
 #### 前置条件
+- Zookeeper服务
+
+  必选配置。服务注册和发现会使用到。
+
+  推荐使用`Zookeeper 3.5.5`版本。具体安装步骤，请参见[Zookeeper安装](http://zookeeper.apache.org/doc/r3.4.13/zookeeperStarted.html)。
+
 
 - Broker模块
 
@@ -41,22 +47,10 @@ $ tar -xvf weevent-processor-1.1.0.tar.gz
 
 ```
 $ cd ./weevent-processor-1.1.0
-$ tree -L 2
-
-```
-
-```
-$ cd ./weevent-processor-1.1.0
-$ tree -L 2
+$ tree -L 1
 |-- apps
-|   `-- weevent-processor-1.1.0.jar
 |-- check-service.sh
 |-- conf
-|   |-- application-prod.properties
-|   |-- application.properties
-|   |-- log4j2.xml
-|   |-- mappers
-|   |-- processor.properties
 |-- cep_rule.sql
 |-- init-processor.sh
 |-- processor.sh
@@ -64,6 +58,16 @@ $ tree -L 2
 ```
 
 ### 修改配置文件
+- 配置Zookeeper服务
+
+  可选配置。`./conf/application-prod.properties`中`spring.cloud.zookeeper`配置项。
+  
+  ```ini
+  # spring cloud zookeeper
+  spring.cloud.zookeeper.enabled=true
+  spring.cloud.zookeeper.connect-string=127.0.0.1:2181
+  ```
+  
 - 配置端口
 
   在配置文件`./conf/application-prod.properties`中，`Processor` 的服务端口`server.port` ，默认`7008`。
@@ -76,45 +80,23 @@ $ tree -L 2
    修改`datasource`中的`url`配置、`username`、`password` 
 
    ``` 配置数据库连接
-   server.port=7008
-   spring.datasource.url=jdbc:mysql://127.0.0.1:3306/processor
-   spring.datasource.username=root
-   spring.datasource.password=123456
-   spring.datasource.driver-class-name=org.mariadb.jdbc.Driver
+   spring.datasource.url=jdbc:mysql://127.0.0.1:3306/WeEvent_processor
+   spring.datasource.driverClassName=org.mariadb.jdbc.Driver
+   spring.jpa.database=mysql
+   spring.datasource.username=******
+   spring.datasource.password=******
    ```
 
 - 在配置文件processor.properties配置Mysql数据库,修改`datasource`中的`url`配置、`username`、`password` 
    ```
-   #============================================================================
-   # config name and expression
-   #============================================================================
-   quartz.schedule.name=schedule
-   #============================================================================
-   # Configure Main Scheduler Properties
-   #============================================================================
    org.quartz.scheduler.instanceName=test
-   #============================================================================
-   # Configure Datasources
-   #============================================================================
-   org.quartz.dataSource.WeEvent_processor.URL=jdbc:mysql://127.0.0.1:3306/WeEvent_processor
-   org.quartz.dataSource.WeEvent_processor.user=xxxx
-   org.quartz.dataSource.WeEvent_processor.password=yyyy
-   org.quartz.dataSource.WeEvent_processor.maxConnections=30
-   org.quartz.dataSource.WeEvent_processor.driver=org.mariadb.jdbc.Driver
-   #============================================================================
-   # Configure JobStore
-   #============================================================================
    org.quartz.jobStore.dataSource=WeEvent_processor
-   #============================================================================
-   # Configure ThreadPool Quartz
-   #============================================================================
    org.quartz.threadPool.threadCount=20
    org.quartz.threadPool.threadPriority=5
    ```
 
    - `org.quartz.scheduler.instanceName` 当前Schedule name，用户可以修改
-   - `org.quartz.dataSource.weevent_processor.*`  数据库信息的配置
-   - `org.quartz.jobStore.dataSource` 配置数据库名称
+   - `org.quartz.dataSource`  数据库名称，默认为`WeEvent_processor`
 
 ​    **注意**：数据库要赋予配置账号创建库表的权限。
 
@@ -156,6 +138,7 @@ $ ./processor.sh start
       check processor service
       processor service is ok
    ```
+
 ### 界面展示
 
 1. 创建规则
@@ -190,7 +173,9 @@ $ ./processor.sh start
    ```
    {
    "temperature":25.1,
-   "humidity":65
+   "humidity":65,
+   "type":"warning",
+   "range":"higher",
    }
    ```
 
@@ -282,5 +267,40 @@ $ ./processor.sh start
    ```
    SELECT * FROM Websites WHERE facilicty-charater="warning" and temperature > 50;
 
-   SELECT * FROM Websites WHERE temperature > 35 or  facilicty-charater="warning" ;
+   SELECT * FROM Websites WHERE temperature > 35 or  facilicty-charater=="warning" ;
    ```
+
+   - 非聚合类的内置函数
+     - 数字计算abs(绝对值)，ceil，floor ，round  
+     ```
+      SELECT * FROM Websites WHERE abs(temperature) > 50;
+
+      SELECT * FROM Websites WHERE ceil(temperature)> 50;
+
+      SELECT * FROM Websites WHERE floor(temperature) > 50;
+
+      SELECT * FROM Websites WHERE round(temperature) > 50;
+     ```
+
+     - 字符串拼接substring，concat，trim，lcase 
+      
+     ```
+      SELECT * FROM Websites WHERE range.substring(6)=="warning-001";
+
+      SELECT * FROM Websites WHERE range.substring(5,10)=="test";
+
+      SELECT * FROM Websites WHERE range.concat(type)=="higherwarning";
+
+      SELECT * FROM Websites WHERE range.trim()=="higher";
+
+      SELECT * FROM Websites WHERE lcase(range)=="higher";
+     ```
+      
+   - 内置时间
+      
+   时间选取now， currentDate，currentTime
+   ```
+    SELECT now,currentDate,currentTime FROM Websites WHERE range.substring(type,6)=="warning-001";
+   ```
+ 
+   

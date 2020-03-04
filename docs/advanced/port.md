@@ -6,30 +6,19 @@
 
 ### 更多说明
 
-- 业务程序统一从Nginx接入，Broker和Governance模块作为Nginx的反向代理提供能力
+- 业务程序统一从前置的API Gateway接入，通过端口8080访问。
 
-- WeEvent的大部分能力都是通过端口8080访问
+  `RESTful`协议的访问`URL`为 `http://localhost:8080/weevent-broker/rest`。
 
-  `RESTful`协议的访问`URL`为 `http://localhost:8080/weevent/rest`。
+  `JsonRPC`协议的访问`URL`为 `http://localhost:8080/weevent-broker/jsonrpc`。
 
-  `JsonRPC`协议的访问`URL`为 `http://localhost:8080/weevent/jsonrpc`。
+  `STOMP`协议基于`WebSocket`的 访问`URL`为`ws://localhost:8080/weevent-broker/stomp`，如果是基于`SockJS`则为`http://localhost:8080/weevent-broker/sockjs`。
 
-  `STOMP`协议基于`WebSocket`的 访问`URL`为`ws://localhost:8080/weevent/stomp`，如果是基于`SockJS`则为`http://localhost:8080/weevent/sockjs`。
+  `MQTT`协议基于`WebSocket`的访问`URL`为`ws://localhost:8080/weevent-broker/mqtt`。
 
-- MQTT协议的访问端口有别于以上协议
+- API Gateway也支持TLS访问，端口为443。
 
-  基于`TCP`的访问`Host`为`localhost:7081/weevent/mqtt`。
-  基于`WebSocket`的访问`URL`为`ws://localhost:7083/weevent/mqtt`。
-
-- 由Nginx负责处理安全传输TLS
-
-  客户端无论使用`HTTP`还是`HTTPS`访问，`Nginx`都是通过`HTTP`访问`Broker`和`Governance`，`TCP`/`TLS`也是类似处理。同一种功能，按是否通过`TLS`访问，`Nginx`端口有如下对应关系：
-
-  |                     | 普通传输 | TLS传输 |
-  | ------------------- | -------- | ------- |
-  | HTTP/STOMP          | 8080     | 443     |
-  | MQTT over TCP       | 7081     | 7082    |
-  | MQTT over WebSocket | 7083     | 7084    |
+  客户端无论使用`HTTP`还是`HTTPS`访问，`API Gateway`都是通过`HTTP`来访问后端服务，`TCP`/`TLS`也是类似处理。
 
 - 以上说明全是指默认端口，  所有端口都支持自定义配置
 
