@@ -27,7 +27,7 @@
 public class Sample {
     public static void main(String[] args) {
     try {
-        IWeEventClient client = new IWeEventClient.Builder().brokerUrl("http://localhost:8080/weevent-broker");
+        IWeEventClient client = new IWeEventClient.Builder().brokerUrl("http://localhost:8080/weevent-broker").build();
         
         String topicName = "com.weevent.file";
         // open 一个"com.weevent.file"的主题,可以重复open
