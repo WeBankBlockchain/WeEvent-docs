@@ -44,48 +44,34 @@
 
   配置文件`./broker/conf/weevent.properties`。
 
-  | 配置项                             | 默认值               | 配置说明                                                     |
-  | ---------------------------------- | -------------------- | ------------------------------------------------------------ |
-  | ip.check.white-table               |                      | IP白名单。多个`IP`地址，以";"分割。<br />默认为空时表示允许任何客户端访问。 |
-  | lru.cache.capacity                 | 65536                | 缓存大小，使用LRU策略淘汰                                    |
-  | restful.subscribe.callback.timeout | 5000                 | 事件通知回调的超时时间，单位毫秒                             |
-  | stomp.heartbeats                   | 30                   | stomp心跳间隔，单位秒                                        |
-  | mqtt.broker.port                   | 7001                 | websocket访问端口，默认不开启                                |
-  | mqtt.broker.keepalive              | 60                   | mqtt连接空闲时间，单位秒                                     |
-  | mqtt.websocket.path                | /weevent-broker/mqtt | mqtt连接目录                                                 |
+  | 配置项                | 默认值               | 配置说明                                                     |
+  | --------------------- | -------------------- | ------------------------------------------------------------ |
+  | ip.check.white-table  |                      | IP白名单。多个`IP`地址，以";"分割。<br />默认为空时表示允许任何客户端访问。 |
+  | stomp.heartbeats      | 30                   | stomp心跳间隔，单位秒                                        |
+  | mqtt.broker.port      | 7001                 | websocket访问端口，默认不开启                                |
+  | mqtt.broker.keepalive | 60                   | mqtt连接空闲时间，单位秒                                     |
+  | mqtt.websocket.path   | /weevent-broker/mqtt | mqtt连接目录                                                 |
 
 ### Governance
 
-​配置文件`./governance/conf/application-prod.properties `。
+配置文件`./governance/conf/application-prod.properties `。
 
-| 配置项                                      | 默认值                                      | 配置说明               |
-| ---------------------------------------- | ---------------------------------------- | ------------------ |
-| server.port                              | 7009                                     | spring监听端口         |
-| spring.datasource.url                    | jdbc:mysql://127.0.0.1:3306/governance?useUnicode=true&characterEncoding=utf-8&useSSL=false | 数据源                |
-| spring.datasource.driver-class-name      | org.mariadb.jdbc.Driver                  | 驱动类                |
-| spring.datasource.username               | xxxx                                     | 数据库账号用户名           |
-| spring.datasource.password               | yyyy                                     | 数据库账号密码            |
-| spring.datasource.type                   | org.apache.commons.dbcp2.BasicDataSource | 数据源类型              |
-| spring.datasource.dbcp2.max-wait-millis  | 10000                                    | 数据库连接池最长等待时间ms     |
-| spring.datasource.dbcp2.min-idle         | 5                                        | 数据库连接池最小空闲         |
-| spring.datasource.dbcp2.initial-size     | 5                                        | 数据库连接池初始大小         |
-| spring.datasource.dbcp2.validation-query | SELECT 'x'                               | 数据库连接池验证查询         |
-| spring.mail.default-encoding             | UTF-8                                    | 编码类型               |
-| spring.mail.host                         | smtp.163.com                             | 邮件服务器主机            |
-| spring.mail.username                     | mailusername@163.com                     | 邮箱用户名              |
-| spring.mail.password                     | mailpwd                                  | 邮箱密码               |
-| http.client.max-total                    | 200                                      | http最大请求数          |
-| http.client.max-per-route                | 500                                      | http最大请求路由数        |
-| http.client.connection-request-timeout   | 3000                                     | http请求读取超时时间ms     |
-| http.client.connection-timeout           | 3000                                     | http请求连接超时时间ms     |
-| http.client.socket-timeout               | 5000                                     | http请求socket超时时间ms |
-| https.client.read-timeout                | 3000                                     | 服务器内部读取其它服务的超时时间ms |
-| https.client.connect-timeout             | 3000                                     | 服务器内部连接其它服务的超时时间ms |
-| spring.redis.database                    | 0                                        | redis数据库索引         |
-| spring.redis.host                        | 127.0.0.1                                | redis服务访问链接的ip     |
-| spring.redis.port                        | 6379                                     | redis服务访问端口        |
-| spring.redis.password                    |                                          | redis服务访问密码        |
-| spring.redis.timeout                     | 5000                                     | redis服务连接超时时间ms    |
+| 配置项                                   | 默认值                                                       | 配置说明                   |
+| ---------------------------------------- | ------------------------------------------------------------ | -------------------------- |
+| server.port                              | 7009                                                         | spring监听端口             |
+| spring.datasource.url                    | jdbc:mysql://127.0.0.1:3306/governance?useUnicode=true&characterEncoding=utf-8&useSSL=false | 数据源                     |
+| spring.datasource.driver-class-name      | org.mariadb.jdbc.Driver                                      | 驱动类                     |
+| spring.datasource.username               | xxxx                                                         | 数据库账号用户名           |
+| spring.datasource.password               | yyyy                                                         | 数据库账号密码             |
+| spring.datasource.type                   | org.apache.commons.dbcp2.BasicDataSource                     | 数据源类型                 |
+| spring.datasource.dbcp2.max-wait-millis  | 10000                                                        | 数据库连接池最长等待时间ms |
+| spring.datasource.dbcp2.min-idle         | 5                                                            | 数据库连接池最小空闲       |
+| spring.datasource.dbcp2.initial-size     | 5                                                            | 数据库连接池初始大小       |
+| spring.datasource.dbcp2.validation-query | SELECT 'x'                                                   | 数据库连接池验证查询       |
+| spring.mail.default-encoding             | UTF-8                                                        | 编码类型                   |
+| spring.mail.host                         | smtp.163.com                                                 | 邮件服务器主机             |
+| spring.mail.username                     | mailusername@163.com                                         | 邮箱用户名                 |
+| spring.mail.password                     | mailpwd                                                      | 邮箱密码                   |
 
 ### Processor 配置
 

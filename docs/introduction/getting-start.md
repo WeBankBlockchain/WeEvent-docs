@@ -22,7 +22,7 @@
 
   - FISCO-BCOS 2.0
 
-    在配置文件`./weevent-broker/src/main/resources/fisco.properties`里配置：
+    在配置文件`./weevent-core/src/main/resources/fisco.properties`里配置：
 
     区块链版本`version=2.0`
 
@@ -32,27 +32,29 @@
 
   - FISCO-BCOS 1.3
 
-    在配置文件`./weevent-broker/src/main/resources/fisco.properties`里配置：
+    在配置文件`./weevent-core/src/main/resources/fisco.properties`里配置：
 
     区块链版本`version=1.3`
 
     节点访问`Channel`端口`nodes=...`。
 
-    将节点访问证书`ca.crt`、`client.keystore`放到目录下`./weevent-broker/src/main/resources/`。
+    将节点访问证书`ca.crt`、`client.keystore`放到目录下`./weevent-core/src/main/resources/`。
 
   - Fabric 1.4
 
     具体内容详见[适配Fabric](https://weeventdoc.readthedocs.io/zh_CN/latest/advanced/fabric.html)。
+    
+  注意：区块链配置在两个代码模块`weevent-core`和`weevent-broker`里都有涉及到。都需要配置。
 
 - 部署系统合约
 
-  通过运行`./weevent-broker/src/main/java/com/webank/weevent/broker/fisco/util/Web3sdkUtils.java`来部署`WeEvent`内置合约。
+  通过运行`./weevent-core/src/main/java/com/webank/weevent/core/fisco/util/Web3sdkUtils.java`来部署`WeEvent`内置合约。
 
 - 运行服务及代码样例
 
-  启动`Broker`服务`./weevent-broker/src/main/java/com/webank/weevent/BrokerApplication.java`。
+  启动`Broker`服务`./weevent-broker/src/main/java/com/webank/weevent/broker/BrokerApplication.java`。
 
-  然后体验各种功能样例`./weevent-broker/src/test/java/com/webank/weevent/sample`。
+  然后体验各种功能样例`./weevent-broker/src/test/java/com/webank/weevent/broker/sample`。
 
 - 编译打包服务
 
