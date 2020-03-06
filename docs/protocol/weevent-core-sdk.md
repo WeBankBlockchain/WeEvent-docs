@@ -1,5 +1,13 @@
 ## Java Core SDK
-直接将核心的发布订阅功能以`jar`包形式集成到业务服务里。
+本节介绍如何将核心的发布订阅功能以`jar`包形式直接集成到业务服务里。
+
+### 前置条件
+
+- 区块链FISCO-BCOS节点
+
+  必选配置。`WeEvent`通过区块链`FISCO-BCOS`持久化数据。
+
+  推荐使用`FISCO-BCOS 2.2.0`版本。具体安装步骤，请参见[FISCO-BCOS安装](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/installation.html)。
 
 ### 集成SDK
 
@@ -121,3 +129,21 @@ consumer.history_merge_block=8
 @SpringBootApplication(scanBasePackages = {"com.webank.weevent.broker", "com.webank.weevent.core.config"})
 ```
 
+### 初始化部署合约
+
+安装完区块链网络后，需要先初始化部署`WeEvent`内置合约（一般称为`Topic Control`合约）才能使用`WeEvent`。
+
+集成好`weevent-core.Jar`，设置好配置文件`fisco.properties`及其访问节点的证书后。执行`Jar`包里的方法部署合约：
+
+```bash
+java -classpath "./lib/*:./conf" com.webank.weevent.core.fisco.util.Web3sdkUtils
+2020-03-06 10:33:37 topic control address in every group:
+topic control address in group: 1
+        version: 10     address: 0x23df89a2893120f686a4aa03b41acf6836d11e5d     new: true
+topic control address in group: 2
+        version: 10     address: 0x23df89a2893120f686a4aa03b41acf6836d11e5d     new: true
+```
+
+其中`./lib`为`weevent-core.Jar`及其依赖所在目录，`./conf`为`fisco.properties`所在目录。
+
+这个方法可重入，重复执行时只是简单显示一下数据。屏幕输出`new`为`true`表示合约是本次部署，`false`表示是之前部署的合约。

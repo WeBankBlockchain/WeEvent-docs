@@ -1,15 +1,13 @@
 ## 核心概念
 
 `WeEvent`是一个基于区块链实现的事件中间件服务，面向用户提供事件发布订阅`Publish/Subscribe`功能。发布到`WeEvent`上的事件永久存储，不可篡改，支持事后跟踪和审计。
-生产者`Producer`通过`WeEvent`代理服务发布事件，事件内容会被记录到区块链`FISCO-BCOS`上，消费者`Consumer`从`WeEvent`订阅事件。订阅成功后，只要生产者发布事件，消费者都会及时得到通知。
+生产者`Producer`通过`WeEvent`代理服务发布事件，事件内容会被记录到区块链如`FISCO-BCOS`上，消费者`Consumer`从`WeEvent`订阅事件。订阅成功后，只要生产者发布事件，消费者都会及时得到通知。
 
 ![](../image/WeventTopView.png)  
 
-`WeEvent`提供了多种接入方式，`Producer`和`Consumer`可以是后台服务、前端网页，甚至是`IoT`设备。
+`WeEvent`提供两种部署方案：一种是以独立服务部署，业务通过接入这个代理服务访问各种功能，部署过程参见[WeEvent快速安装](../install/quickinstall.heml)；一种是直接将`Jar`包集成进业务的服务，集成过程参见[集成weevent-core.jar](../protocol/weevent-core-sdk.html)。两种方式各有优劣，可以自由选择。
 
-多机构之间的合作，一般每个机构都会部署自己的`WeEvent`服务。例如：
-
-机构A通过属于A的`WeEvent`服务发布事件，机构B通过自己的`WeEvent`服务订阅事件。如果生产者和发布者属于同一机构，可以使用同一套`WeEvent`服务。
+`WeEvent`独立服务有多种接入方式，生产者`Producer`和消费者`Consumer`可以是后台服务、前端网页、`IoT`设备、甚至单片机。
 
 ### 事件（Event）  
 事件`Event`可以简单理解成业务层面的一个消息。一般是终端用户或设备触发。
