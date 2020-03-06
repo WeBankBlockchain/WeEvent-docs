@@ -18,29 +18,22 @@
 
    必选配置。Broker通过区块链`FISCO-BCOS`持久化数据。
 
-   推荐使用`FISCO-BCOS 2.1.0`版本。具体安装步骤，请参见[FISCO-BCOS 2.1.0安装](https://fisco-bcos-documentation.readthedocs.io/zh_CN/release-2.0/docs/installation.html)。
-
-- Redis缓存
-
-  可选配置。
-
-  推荐使用`Redis 5.0+`版本。具体安装步骤，请参见[Redis安装](https://redis.io/download)。
 
 ### 获取安装包
 
-从`github`下载安装包[weevent-broker-1.1.0.tar.gz](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.1.0/weevent-broker-1.1.0.tar.gz)，并且解压到`/usr/local/weevent/`下。
+从`github`下载安装包[weevent-broker-1.2.0.tar.gz](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.2.0/weevent-broker-1.2.0.tar.gz)，并且解压到`/usr/local/weevent/`下。
 
 ``` shell
 $ cd /usr/local/weevent/
-$ wget https://github.com/WeBankFinTech/WeEvent/releases/download/v1.1.0/weevent-broker-1.1.0.tar.gz
-$ tar -zxf weevent-broker-1.1.0.tar.gz
+$ wget https://github.com/WeBankFinTech/WeEvent/releases/download/v1.2.0/weevent-broker-1.2.0.tar.gz
+$ tar -zxf weevent-broker-1.2.0.tar.gz
 ```
-如果`github`下载速度慢，可以尝试[国内下载链接](https://www.fisco.com.cn/cdn/weevent/download/releases/v1.1.0/weevent-broker-1.1.0.tar.gz)。
+如果`github`下载速度慢，可以尝试[国内下载链接](https://www.fisco.com.cn/cdn/weevent/download/releases/v1.2.0/weevent-broker-1.2.0.tar.gz)。
 
 解压后的目录如下：
 
 ```
-$ cd ./weevent-broker-1.1.0
+$ cd ./weevent-broker-1.2.0
 $ tree  -L 1
 |-- apps
 |-- broker.sh
@@ -83,10 +76,12 @@ $ tree  -L 1
   运行脚本`./deploy-topic-control.sh `部署合约。例如:
 
   ```shell
-    $ ./deploy-topic-control.sh
-      2019-08-19 17:59:31 topic control address in every group:
-      1	0xc6fc72f0fe6ebf9881a2103f2829d0e98d020062	[new]
-      2	0xd85d3345f8a21f4fd6197c72266ae3e3106e5e1c	[new]
+  $ ./deploy-topic-control.sh
+  2020-03-06 10:33:37 topic control address in every group:
+  topic control address in group: 1
+          version: 10     address: 0x23df89a2893120f686a4aa03b41acf6836d11e5d     new: true
+  topic control address in group: 2
+          version: 10     address: 0x23df89a2893120f686a4aa03b41acf6836d11e5d     new: true
   ```
   
   脚本会检查之前是否部署过合约，重复执行不影响。
@@ -94,28 +89,6 @@ $ tree  -L 1
 - 配置Broker监听端口
 
   可选配置。`./conf/application-prod.properties`中`server.port`配置项，默认监听端口`7000`，根据业务需要配置。
-  
-- 配置Redis缓存
-
-  可选配置。`./conf/application-prod.properties`中`spring.redis.*`配置项 ，配置缓存可以提高`WeEvent`的通知性能。
-
-  ```ini
-  # redis数据库索引（默认为0）
-  spring.redis.database=0
-  # redis服务访问链接
-  spring.redis.host=${ip}
-  # redis服务访问端口
-  spring.redis.port=${port}
-  # redis服务访问密码 为了安全，必须使用密码访问
-  spring.redis.password=${password}
-  # 连接超时时间（毫秒）
-  spring.redis.timeout=5000
-  ```
-  可选配置。`./conf/weevent.properties`中基于内存的缓存配置项
-  ```ini
-  # 基于内存的缓存容量，当缓存数据大于这个值时，使用LRU淘汰策略
-  lru.cache.capacity=65536
-  ```
   
 - 配置IP白名单
 
@@ -147,7 +120,7 @@ $ tree  -L 1
   # 心跳时间 单位:秒
   mqtt.broker.keepalive=60
   # 客户端使用WebSocket协议访问MQTT Broker链接
-  mqtt.websocket.path=/weevent/mqtt
+  mqtt.websocket.path=/weevent-broker/mqtt
   ```
   
 

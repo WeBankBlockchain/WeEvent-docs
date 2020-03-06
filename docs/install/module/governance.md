@@ -21,7 +21,7 @@
 
 - Mysql数据库
 
-  必选配置。`Governance`通过`Mysql`存储数据。
+  可选配置。支持`Mysql`存储数据，如果不配置则使用内置的`H2`数据库。
 
   推荐安装`Mysql 5.6+`版本。具体安装步骤，安装请参见[Mysql安装](http://dev.mysql.com/downloads/mysql/) 。
   
@@ -32,20 +32,20 @@
 
 ### 获取安装包
 
-从`github`下载安装包[weevent-governance-1.1.0.tar.gz](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.1.0/weevent-governance-1.1.0.tar.gz)，并且解压到`/usr/local/weevent/`下。
+从`github`下载安装包[weevent-governance-1.2.0.tar.gz](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.2.0/weevent-governance-1.2.0.tar.gz)，并且解压到`/usr/local/weevent/`下。
 
 ```shell
 $ cd /usr/local/weevent/
-$ wget https://github.com/WeBankFinTech/WeEvent/releases/download/v1.0.0/weevent-governance-1.1.0.tar.gz
-$ tar -xvf weevent-governance-1.1.0.tar.gz
+$ wget https://github.com/WeBankFinTech/WeEvent/releases/download/v1.2.0/weevent-governance-1.2.0.tar.gz
+$ tar -xvf weevent-governance-1.2.0.tar.gz
 ```
 
-如果`github`下载速度慢，可以尝试[国内下载链接](https://www.fisco.com.cn/cdn/weevent/download/releases/v1.1.0/weevent-governance-1.1.0.tar.gz)。
+如果`github`下载速度慢，可以尝试[国内下载链接](https://www.fisco.com.cn/cdn/weevent/download/releases/v1.2.0/weevent-governance-1.2.0.tar.gz)。
 
 解压后的目录结构如下
 
 ```
-$ cd ./weevent-governance-1.1.0
+$ cd ./weevent-governance-1.2.0
 $ tree -L 1
 |-- apps
 |-- check-service.sh
@@ -93,16 +93,6 @@ $ tree -L 1
     >> grant all privileges on *.* to 'test'@'%' identified by '123456';
     >> flush privileges;
     ```
-- 配置Processor访问路径
-      在配置文件`./conf/application-prod.properties`中，修改weevent.processor.url配置，默认为 http://127.0.0.1:7008
-
-
-    初始化系统，执行脚本`init-governance.sh` ，成功输出如下。否则，用户需要检查配置项是否正常。
-
-    ```shell
-    $ ./init-governance.sh
-    init governance db success
-    ```
 
 - 重置密码的邮件设置
 
@@ -114,6 +104,15 @@ $ tree -L 1
 	spring.mail.username= mailusername@163.com
 	spring.mail.password= mailpwd
     ```
+
+### 初始化数据库
+
+执行脚本`init-governance.sh` 初始化数据库，成功输出如下。否则，用户需要检查数据库配置是否正常。
+
+```shell
+$ ./init-governance.sh
+init governance db success
+```
 
 ### 服务启停
 

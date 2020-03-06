@@ -79,7 +79,7 @@
   mysql.user=xxx
   mysql.password=yyy
   
-  # Optional module processor
+  # Optional module
   processor.enable=true
   processor.port=7008
   ```
