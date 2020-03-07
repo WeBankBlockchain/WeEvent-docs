@@ -61,3 +61,16 @@ public class Sample {
 }
 ```
 
+### 权限控制
+
+默认情况下，发布方上传的文件，这个群组里的所有节点都可以订阅到。为了能在群组内指定文件的接收方，即只有被授权过的节点才能订阅文件。我们通过采用公私钥来解决身份识别和授权认证的问题。
+
+1. 为文件接收方生成账号文件
+
+   通过`FISCO-BCOS`提供的脚本[生成公私钥](https://raw.githubusercontent.com/FISCO-BCOS/console/master/tools/get_account.sh)。
+
+2. 将私钥文件`*.pem`配到接收方的`WeEvent`节点中，将公钥文件`*.public.pem`配置到发送方的`WeEvent`节点中。
+
+3. 重启`WeEvent`节点，后续的文件传输都在授权通道中进行。代码不用做任何改动。
+
+4. 公私钥配置文件结构参见[公私钥文件结构](https://github.com/WeBankFinTech/WeEvent/tree/master/weevent-broker/src/main/resources/file-transport)。
