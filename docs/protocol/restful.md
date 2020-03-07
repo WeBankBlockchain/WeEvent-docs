@@ -33,7 +33,7 @@ public class Rest {
                     WeEvent.DEFAULT_GROUP_ID).getBody();
             System.out.println(result);
             // publish event to topic "com.weevent.test"
-            SendResult sendResult = rest.getForEntity("http://localhost:8080/weevent/rest/publish?topic={topic}&groupId={groupId}&content={content}",
+            SendResult sendResult = rest.getForEntity("http://localhost:8080/weevent-broker/rest/publish?topic={topic}&groupId={groupId}&content={content}",
                     SendResult.class,
                     "com.weevent.test",
                     WeEvent.DEFAULT_GROUP_ID,

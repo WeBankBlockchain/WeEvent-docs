@@ -5,7 +5,7 @@
 
 ![](../image/WeventTopView.png)  
 
-`WeEvent`提供两种部署方案：一种是以独立服务部署，业务通过接入这个代理服务访问各种功能，部署过程参见[WeEvent快速安装](../install/quickinstall.heml)；一种是直接将`Jar`包集成进业务的服务，集成过程参见[集成weevent-core.jar](../protocol/weevent-core-sdk.html)。两种方式各有优劣，可以自由选择。
+`WeEvent`提供两种部署方案：一种是以独立服务部署，业务通过接入这个代理服务访问各种功能，部署过程参见[WeEvent快速安装](../install/quickinstall.html)；一种是直接将`Jar`包集成进业务的服务，集成过程参见[集成weevent-core.jar](../protocol/weevent-core-sdk.html)。两种方式各有优劣，可以自由选择。
 
 `WeEvent`独立服务有多种接入方式，生产者`Producer`和消费者`Consumer`可以是后台服务、前端网页、`IoT`设备、甚至单片机。
 
