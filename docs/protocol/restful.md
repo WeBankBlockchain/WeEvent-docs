@@ -71,7 +71,7 @@ public class Rest {
   
 - topic：主题。`ascii`值在`[32,128]`之间。支持通配符按层次订阅，因'+'、'#'为通配符的关键字故不能为topic的一部分，详情参见[MQTT通配符](http://public.dhe.ibm.com/software/dw/webservices/ws-mqtt/mqtt-v3r1.html) 。
   
-- groupId： 群组`Id`，`fisco-bcos 2.0+`版本支持多群组功能。2.0以下版本不支持该功能，可以不传，其他接口类似。
+- groupId： `FISCO-BCOS`群组`Id`。默认的群组`1`可以不传，其他接口类似。
   
   重复`open`返回`true` 。
 
@@ -488,7 +488,7 @@ public class Rest {
      ```json
     {
         "data": [
-        "127.0.0.1:7000"
+        "http://127.0.0.1:7000"
         ],
         "code": 0,
         "message": "success"
@@ -496,4 +496,4 @@ public class Rest {
     ```
  - 说明
    
-     - data：节点ip数组。
+     - data：节点实例数组。

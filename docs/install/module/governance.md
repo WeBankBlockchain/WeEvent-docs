@@ -1,8 +1,6 @@
 ## Governance模块
 本节介绍`Governance`子模块的详细安装步骤。 `WeEvent`服务的快速安装请参见[快速安装](../quickinstall.html) 。在一台机器上详细安装，和通过快速安装然后把目标路径中的`governance`子目录打包拷贝到这台机器，效果是一样的。
 
-`Governance`为用户提供一个事件治理的`Web`管理端。支持事件治理、区块链节点分析、系统监控预警等。
-
 如果是第一次安装`WeEvent`，参见这里的[系统要求](../environment.html) 。以下安装以`CentOS 7.2`为例。
 
 ### 前置条件
@@ -72,10 +70,6 @@ $ tree -L 1
 
   在配置文件`./conf/application-prod.properties`中，`Governance` 的服务端口`server.port` ，默认`7009`。
 
-  ```
-  server.port=7009
-  ```
-  
 - 配置Mysql数据库
 
     在配置文件`./conf/application-prod.properties`中，修改`datasource`中的`url`配置、`username`、`password` 。
