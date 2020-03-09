@@ -2,8 +2,6 @@
 
 本节介绍`WeEvent`的子模块`Broker`的详细安装步骤。快速安装请参见[WeEvent快速安装](../quickinstall.html) 。在一台机器上详细安装，和通过快速安装然后把目标路径中的`broker`子目录打包拷贝到这台机器，效果是一样的。
 
-`Broker`是`WeEvent`的核心子模块，负责事件的发布订阅以及对区块链`FISCO-BCOS`的访问。支持`RESTful`、`JsonRPC`、`STOMP`、`MQTT`多种接入协议，也提供了`Java SDK`。
-
 如果是第一次安装`WeEvent`，参见这里的[系统要求](../environment.html) 。以下安装以`CentOS 7.2`为例。
 
 ### 前置条件
@@ -67,8 +65,6 @@ $ tree  -L 1
 
     2.0版本的证书文件`ca.crt`、`node.crt`、`node.key`放在`./conf/v2`目录下。
 
-    1.3版本的证书文件`ca.crt`、`client.keystore`放在`./conf`目录下。
-
     证书文件生成及获取请参见[FISCO-BCOS 2.0安装](https://fisco-bcos-documentation.readthedocs.io/zh_CN/release-2.0/docs/installation.html)
 
 - 部署系统合约
@@ -84,7 +80,7 @@ $ tree  -L 1
           version: 10     address: 0x23df89a2893120f686a4aa03b41acf6836d11e5d     new: true
   ```
   
-  脚本会检查之前是否部署过合约，重复执行不影响。
+  脚本会检查之前是否部署过合约，重复执行只是显示已有数据。
   
 - 配置Broker监听端口
 
