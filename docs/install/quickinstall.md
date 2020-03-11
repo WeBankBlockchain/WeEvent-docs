@@ -179,6 +179,20 @@
 - 卸载服务
 
   所有服务停止后，直接删除目录即可。
+  
+  
+### 其他
+- 配置`FISCO BCOS`国密
+  - 安装国密版`FISCO BCOS` 
+  
+    具体安装步骤，请参见[部署国密版FISCO BCOS](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/manual/guomi_crypto.html#fisco-bcos)
+
+  - 修改配置项
+      ```shell
+      $ cd /usr/local/weevent/broker/
+      $ vi ./conf/fisco.properties
+      ```
+    修改`web3sdk.encrypt-type`配置项为：`web3sdk.encrypt-type=SM2_TYPE`。其他安装配置与上文一致。
 
 
 快速安装作为一种简易安装方式，所有子模块都是单实例的。生产环境中建议对`Broker`和`Governance`进行多实例部署。各子模块详细部署参见[Broker模块部署](./module/broker.html)和[Governance模块部署](./module/governance.html)。
