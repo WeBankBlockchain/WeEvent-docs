@@ -15,7 +15,7 @@
 
 ### Bash安装
 
-需要的一些基础工具`yum install wget tree tar dos2unix lsof`。
+需要的一些基础工具`yum install wget tree tar netstat`。
 
 - 获取安装包
 
@@ -27,7 +27,7 @@
   $ tar -zxf weevent-1.2.0.tar.gz
   ```
 
-  如果`github`下载速度慢，可以尝试[国内下载链接](https://www.fisco.com.cn/cdn/weevent/download/releases/v1.1.0/weevent-1.1.0.tar.gz)。
+  如果`github`下载速度慢，可以尝试[国内下载链接](https://www.fisco.com.cn/cdn/weevent/download/releases/v1.2.0/weevent-1.2.0.tar.gz)。
 解压后目录结构如下：
   
   ```shell
@@ -53,10 +53,10 @@
 
   ```properties
   #java jdk environment
-  JAVA_HOME=
+  JAVA_HOME=/usr/local/jdk1.8.0_191
   
   # Required module
-  # support 2.0 and 1.3
+  # support 2.0
   fisco-bcos.version=2.0
   # FISCO-BCOS node channel, eg: 127.0.0.1:20200;127.0.0.2:20200
   fisco-bcos.channel=127.0.0.1:20200
@@ -73,13 +73,15 @@
   
   # Optional module
   governance.enable=false
-  governance.governance.port=7009
-  mysql.ip=127.0.0.1
-  mysql.port=3306
-  mysql.user=xxx
-  mysql.password=yyy
+  governance.port=7009
+  #support both h2 and mysql, default h2
+  database.type=h2
+  #mysql.ip=127.0.0.1
+  #mysql.port=3306
+  #mysql.user=xxx
+  #mysql.password=yyy
   
-  # Optional module processor
+  # Optional module
   processor.enable=true
   processor.port=7008
   ```
@@ -90,21 +92,20 @@
   
   - 区块链FISCO-BCOS
   
-    - fisco-bcos.version
+    - `fisco-bcos.version`
   
-      `FISCO-BCOS 2.0`和`1.3`版本都支持，推荐使用`2.1.0`及以上版本。
+      支持`2.0`及其以上版本。
   
-    - fisco-bcos.channel
+    - `fisco-bcos.channel`
   
       区块链节点的`channel`访问入口。配置多个节点时用`;`分割，如`127.0.0.1:20200;127.0.0.2:20200`。
   
-    - fisco-bcos.node_path
+    - `fisco-bcos.node_path`
   
       区块链节点的访问证书、私钥存放目录。
       
-      `FISCO-BCOS 2.0`的证书文件为`ca.crt`、`node.crt`、`node.key`。`1.3`版本的证书文件为`ca.crt`、`client.keystore`。
-      如果`WeEvent`服务和区块链节点不在同一台机器上，需要把证书文件拷贝到`WeEvent`所在机器的当前目录，修改`fisco-bcos.node_path=./`。
-  
+      `FISCO-BCOS 2.0`的证书文件为`ca.crt`、`node.crt`、`node.key`。如果`WeEvent`服务和区块链节点不在同一台机器上，需要把证书文件拷贝到`WeEvent`所在机器的当前目录，修改`fisco-bcos.node_path=./`。
+    
   - Gateway监听端口`gateway.port`
   
   - Broker监听端口`broker.port`
@@ -113,7 +114,7 @@
   
     - `governance.enable`是否安装`Governance`模块，默认为`false`不安装
     - 监听端口`governance.port`
-    - Mysql配置`mysql.*`
+    - 默认使用内置的`H2`数据库，也支持`Mysql`配置`mysql.*`
   
   - Proceessor模块配置
   
@@ -195,4 +196,4 @@
     修改`web3sdk.encrypt-type`配置项为：`web3sdk.encrypt-type=SM2_TYPE`。其他安装配置与上文一致。
 
 
-快速安装作为一种简易安装方式，所有子模块都是单实例的。生产环境中建议对`Broker`和`Governance`进行多实例部署。各子模块详细部署参见[Broker模块部署](./module/broker.html)和[Governance模块部署](./module/governance.html)。
+快速安装作为一种简易安装方式，所有子服务都是单实例的，生产环境中建议多实例部署。各子模块详细部署参见[Broker模块部署](./module/broker.html)和[Governance模块部署](./module/governance.html)。

@@ -1,8 +1,6 @@
 ## Governance模块
 本节介绍`Governance`子模块的详细安装步骤。 `WeEvent`服务的快速安装请参见[快速安装](../quickinstall.html) 。在一台机器上详细安装，和通过快速安装然后把目标路径中的`governance`子目录打包拷贝到这台机器，效果是一样的。
 
-`Governance`为用户提供一个事件治理的`Web`管理端。支持事件治理、区块链节点分析、系统监控预警等。
-
 如果是第一次安装`WeEvent`，参见这里的[系统要求](../environment.html) 。以下安装以`CentOS 7.2`为例。
 
 ### 前置条件
@@ -21,7 +19,7 @@
 
 - Mysql数据库
 
-  必选配置。`Governance`通过`Mysql`存储数据。
+  可选配置。支持`Mysql`存储数据，如果不配置则使用内置的`H2`数据库。
 
   推荐安装`Mysql 5.6+`版本。具体安装步骤，安装请参见[Mysql安装](http://dev.mysql.com/downloads/mysql/) 。
   
@@ -32,20 +30,20 @@
 
 ### 获取安装包
 
-从`github`下载安装包[weevent-governance-1.1.0.tar.gz](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.1.0/weevent-governance-1.1.0.tar.gz)，并且解压到`/usr/local/weevent/`下。
+从`github`下载安装包[weevent-governance-1.2.0.tar.gz](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.2.0/weevent-governance-1.2.0.tar.gz)，并且解压到`/usr/local/weevent/`下。
 
 ```shell
 $ cd /usr/local/weevent/
-$ wget https://github.com/WeBankFinTech/WeEvent/releases/download/v1.0.0/weevent-governance-1.1.0.tar.gz
-$ tar -xvf weevent-governance-1.1.0.tar.gz
+$ wget https://github.com/WeBankFinTech/WeEvent/releases/download/v1.2.0/weevent-governance-1.2.0.tar.gz
+$ tar -xvf weevent-governance-1.2.0.tar.gz
 ```
 
-如果`github`下载速度慢，可以尝试[国内下载链接](https://www.fisco.com.cn/cdn/weevent/download/releases/v1.1.0/weevent-governance-1.1.0.tar.gz)。
+如果`github`下载速度慢，可以尝试[国内下载链接](https://www.fisco.com.cn/cdn/weevent/download/releases/v1.2.0/weevent-governance-1.2.0.tar.gz)。
 
 解压后的目录结构如下
 
 ```
-$ cd ./weevent-governance-1.1.0
+$ cd ./weevent-governance-1.2.0
 $ tree -L 1
 |-- apps
 |-- check-service.sh
@@ -72,10 +70,6 @@ $ tree -L 1
 
   在配置文件`./conf/application-prod.properties`中，`Governance` 的服务端口`server.port` ，默认`7009`。
 
-  ```
-  server.port=7009
-  ```
-  
 - 配置Mysql数据库
 
     在配置文件`./conf/application-prod.properties`中，修改`datasource`中的`url`配置、`username`、`password` 。
@@ -93,16 +87,6 @@ $ tree -L 1
     >> grant all privileges on *.* to 'test'@'%' identified by '123456';
     >> flush privileges;
     ```
-- 配置Processor访问路径
-      在配置文件`./conf/application-prod.properties`中，修改weevent.processor.url配置，默认为 http://127.0.0.1:7008
-
-
-    初始化系统，执行脚本`init-governance.sh` ，成功输出如下。否则，用户需要检查配置项是否正常。
-
-    ```shell
-    $ ./init-governance.sh
-    init governance db success
-    ```
 
 - 重置密码的邮件设置
 
@@ -114,6 +98,15 @@ $ tree -L 1
 	spring.mail.username= mailusername@163.com
 	spring.mail.password= mailpwd
     ```
+
+### 初始化数据库
+
+执行脚本`init-governance.sh` 初始化数据库，成功输出如下。否则，用户需要检查数据库配置是否正常。
+
+```shell
+$ ./init-governance.sh
+init governance db success
+```
 
 ### 服务启停
 

@@ -1,7 +1,7 @@
-## Java SDK
+## Java Client SDK
 `WeEvent`支持`RESTful`、`JsonRPC`、`STOMP`、`MQTT`等协议，方便各种语言的接入和适配。
 
-同时为`Java`语言提供了独立的`SDK`。其他语言`SDK`在规划中，欢迎大家贡献代码，[WeEvent代码仓库](https://github.com/WeBankFinTech/WeEvent) 。
+同时为`Java`语言提供了独立的客户端`SDK`。其他语言`SDK`在规划中，欢迎大家贡献代码，[WeEvent代码仓库](https://github.com/WeBankFinTech/WeEvent) 。
 
 ### 集成SDK
 
@@ -257,7 +257,7 @@ public interface IWeEventClient {
 ```java
 public static void main(String[] args) {
     try {
-        IWeEventClient client = new IWeEventClient.Builder().brokerUrl("http://localhost:8080/weevent-broker");
+        IWeEventClient client = new IWeEventClient.Builder().brokerUrl("http://localhost:8080/weevent-broker").build();
         
         String topicName = "com.weevent.test";
         // open 一个"com.weevent.test"的主题
@@ -273,4 +273,4 @@ public static void main(String[] args) {
 }
 ```
 
-完整的代码请参见[Java SDK代码样例](https://github.com/WeBankFinTech/WeEvent/blob/master/weevent-broker/src/test/java/com/webank/weevent/sample/JavaSDK.java) 。
+完整的代码请参见[Java Client SDK代码样例](https://github.com/WeBankFinTech/WeEvent/blob/master/weevent-broker/src/test/java/com/webank/weevent/sample/JavaSDK.java) 。

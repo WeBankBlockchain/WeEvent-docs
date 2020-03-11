@@ -17,5 +17,3 @@
 | Zookeeper  | 3.5.5    | 必选     |
 | FISCO-BCOS | 2.2.0    | 必选     |
 | Mysql      | 5.7.x    | 可选     |
-| Redis      | 5.x.x    | 可选     |
-| WeBase     | 1.0.4    | 可选     |
