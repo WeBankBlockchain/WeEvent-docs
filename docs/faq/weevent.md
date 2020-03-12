@@ -104,8 +104,4 @@
 
   - 修改`WeEvent`配置项
 
-      ```shell
-      $ cd /usr/local/weevent/broker/
-      $ vi ./conf/fisco.properties
-      ```
-     修改`web3sdk.encrypt-type`配置项为：`web3sdk.encrypt-type=SM2_TYPE`。其他安装配置与[快速安装](../install/quickinstall.md)一致。
+     修改broker服务下配置项`./conf/fisco.properties#web3sdk.encrypt-type`为`SM2_TYPE`。其他安装配置与[快速安装](../install/quickinstall.md)一致。
