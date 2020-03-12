@@ -6,4 +6,3 @@ FAQ
 
    /faq/weevent
    /faq/blockchain
-   /faq/guomi
