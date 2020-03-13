@@ -91,3 +91,17 @@
     ```
 
     - 需要修改`webase-node-mgr`服务中的`conf/application.yml`文件。将`isUseSecurity`和`isDeleteInfo`都改成`false`。
+    
+  
+  
+- 如何配置`WeEvent`支持`FISCO BCOS`国密？
+
+  配置`WeEvent`支持`FISCO BCOS`国密需先安装国密版`FISCO BCOS` ，然后修改`WeEvent`配置项即可，具体步骤如下：
+
+  - 安装国密版`FISCO BCOS` 
+  
+    具体安装步骤，请参见[部署国密版FISCO BCOS](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/manual/guomi_crypto.html#fisco-bcos)
+
+  - 修改`WeEvent`配置项
+
+     修改broker服务下配置项`./conf/fisco.properties#web3sdk.encrypt-type`为`SM2_TYPE`。其他安装配置与[快速安装](../install/quickinstall.md)一致。
