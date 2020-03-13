@@ -92,7 +92,7 @@ $ curl http://localhost:7000/weevent-broker/file/verify?eventId=4e92cf63-9-101
 		"topic": "com.weevent.file2",
 		"groupId": "1",
 		"startTime": 1584055853,
-		"host": "172.16.0.14:7000",
+		"host": "",
 		"chunkSize": 1048576,
 		"chunkNum": 1,
 		"chunkStatus": null
