@@ -81,13 +81,61 @@ public class Sample {
 
 ```bash
 $ curl http://localhost:7000/weevent-broker/file/verify?eventId=4e92cf63-9-101
-{"code":0,"message":"success","data":{"fileId":"96d0011b3c5b43eab79482bb17ffe84b","fileName":"log4j2.xml","fileSize":1118,"fileMd5":"51d695be52981dadf76778b65e5e11fd","topic":"com.weevent.file2","groupId":"1","startTime":1584055853,"host":"172.16.0.14:7000","chunkSize":1048576,"chunkNum":1,"chunkStatus":null}}
+{
+	"code": 0,
+	"message": "success",
+	"data": {
+		"fileId": "96d0011b3c5b43eab79482bb17ffe84b",
+		"fileName": "log4j2.xml",
+		"fileSize": 1118,
+		"fileMd5": "51d695be52981dadf76778b65e5e11fd",
+		"topic": "com.weevent.file2",
+		"groupId": "1",
+		"startTime": 1584055853,
+		"host": "172.16.0.14:7000",
+		"chunkSize": 1048576,
+		"chunkNum": 1,
+		"chunkStatus": null
+	}
+}
 ```
 
 - 文件传输的实时状态
 
 ```bash
 $ curl http://localhost:7000/weevent-broker/file/stats
-{"code":0,"message":"success","data":{"sender":{"1":{"com.weevent.file":[],"com.weevent.file2":[{"file":{"fileId":"def272b60b4a461a93ec1aa8e7a15215","fileName":"weevent-1.2.0.tar.gz","fileSize":172172008,"fileMd5":"b08ca390265602f483f5013f12462c99","topic":"com.weevent.file2","groupId":"1","startTime":1584055678,"host":null,"chunkSize":1048576,"chunkNum":165,"chunkStatus":null},"time":"178s","readyChunk":78,"process":"47.27%","speed":"459488.36B/s"}]}},"receiver":{"1":{}}}}
+{
+	"code": 0,
+	"message": "success",
+	"data": {
+		"sender": {
+			"1": {
+				"com.weevent.file": [],
+				"com.weevent.file2": [{
+					"file": {
+						"fileId": "def272b60b4a461a93ec1aa8e7a15215",
+						"fileName": "weevent-1.2.0.tar.gz",
+						"fileSize": 172172008,
+						"fileMd5": "b08ca390265602f483f5013f12462c99",
+						"topic": "com.weevent.file2",
+						"groupId": "1",
+						"startTime": 1584055678,
+						"host": null,
+						"chunkSize": 1048576,
+						"chunkNum": 165,
+						"chunkStatus": null
+					},
+					"time": "178s",
+					"readyChunk": 78,
+					"process": "47.27%",
+					"speed": "459488.36B/s"
+				}]
+			}
+		},
+		"receiver": {
+			"1": {}
+		}
+	}
+}
 ```
 
