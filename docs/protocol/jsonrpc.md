@@ -12,19 +12,15 @@
 
 - `JsonRPC`的传输对象使用`Jackson`库进行序列化。对于字符数组`byte[]`，`Jackson`会先使用`Base64`进行编解码。
 
-- 调用异常返回的信息`BrokerException`如下
+- 调用异常时返回的信息如下
 
   ```json
   {
   	"jsonrpc": "2.0",
   	"id": "1",
   	"error": {
-  		"code": -32001,
-  		"message": "topic not exist",
-  		"data": {
-  			"exceptionTypeName": "com.webank.weevent.broker.sdk.BrokerException",
-  			"message": "topic not exist"
-  		}
+  		"code": 100101,
+  		"message": "topic not exist"
   	}
   }
   ```
@@ -37,7 +33,7 @@ public class JsonRPC {
     public static void main(String[] args) {
         System.out.println("This is WeEvent json rpc sample.");
         try {
-            URL remote = new URL("http://localhost:8080/weevent/jsonrpc");
+            URL remote = new URL("http://localhost:8080/weevent-broker/jsonrpc");
             // init jsonrpc client
             JsonRpcHttpClient client = new JsonRpcHttpClient(remote);
             // init IBrokerRpc object
@@ -63,7 +59,7 @@ public class JsonRPC {
 #### 创建Topic
 - 请求
 ```shell
-$ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":"open","params":{"topic":"com.weevent.test","groupId":"1"}}' http://localhost:8080/weevent/jsonrpc
+$ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":"open","params":{"topic":"com.weevent.test","groupId":"1"}}' http://localhost:8080/weevent-broker/jsonrpc
 ```
 - 应答
 ```json
@@ -87,7 +83,7 @@ $ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":
 
 - 请求
 ```shell
-$ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":"close","params":{"topic":"com.weevent.test","groupId":"1"}}' http://localhost:8080/weevent/jsonrpc
+$ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":"close","params":{"topic":"com.weevent.test","groupId":"1"}}' http://localhost:8080/weevent-broker/jsonrpc
 ```
 - 应答
 ```json
@@ -102,7 +98,7 @@ $ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":
 #### 检查Topic是否存在
 - 请求
 ```shell
-$ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":"exist","params":{"topic":"com.weevent.test","groupId":"1"}}' http://localhost:8080/weevent/jsonrpc
+$ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":"exist","params":{"topic":"com.weevent.test","groupId":"1"}}' http://localhost:8080/weevent-broker/jsonrpc
 ```
 - 应答
 ```json
@@ -116,7 +112,7 @@ $ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":
 #### 发布事件
 - 请求
 ```shell
-$ curl -H "Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":"publish","params":{"topic":"com.weevent.test","groupId":"1","content":"MTIzNDU2","extensions":{"weevent-format": "json","weevent-userId":"3924261998"}}}' http://localhost:8080/weevent/jsonrpc 
+$ curl -H "Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":"publish","params":{"topic":"com.weevent.test","groupId":"1","content":"MTIzNDU2","extensions":{"weevent-format": "json","weevent-userId":"3924261998"}}}' http://localhost:8080/weevent-broker/jsonrpc
 ```
 - 应答
 ```json
@@ -142,7 +138,7 @@ $ curl -H "Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method"
 ####  获取Event详情
 - 请求
 ```shell
-$ curl -H"Content-Type: application/json" -d '{"id":"1","jsonrpc":"2.0","method":"getEvent","params":{"eventId":"2cf24dba-59-1124","groupId":"1"}}' http://localhost:8080/weevent/jsonrpc
+$ curl -H"Content-Type: application/json" -d '{"id":"1","jsonrpc":"2.0","method":"getEvent","params":{"eventId":"2cf24dba-59-1124","groupId":"1"}}' http://localhost:8080/weevent-broker/jsonrpc
 ```
 - 应答
 ```json
@@ -166,7 +162,7 @@ $ curl -H"Content-Type: application/json" -d '{"id":"1","jsonrpc":"2.0","method"
 #### 当前Topic列表
 - 请求
 ```shell
-$ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":"list","params":{"pageIndex":0,"pageSize":10,"groupId":"1"}}' http://localhost:8080/weevent/jsonrpc
+$ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":"list","params":{"pageIndex":0,"pageSize":10,"groupId":"1"}}' http://localhost:8080/weevent-broker/jsonrpc
 ```
 - 应答
 ```json
@@ -202,7 +198,7 @@ $ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":
 #### 查询某个Topic详情
 - 请求
 ```shell
-$ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":"state","params":{"topic":"com.weevent.test","groupId":"1"}}' http://localhost:8080/weevent/jsonrpc
+$ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":"state","params":{"topic":"com.weevent.test","groupId":"1"}}' http://localhost:8080/weevent-broker/jsonrpc
 ```
 - 应答
 ```json

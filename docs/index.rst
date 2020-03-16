@@ -34,7 +34,7 @@ WeEvent由微众银行自主研发并完全开源，秉承分布式商业模式�
 
    /introduction/index
    /install/index
-   /protocal/index
+   /protocol/index
    /scarino/index
    /advanced/index
    /history/changelog.md

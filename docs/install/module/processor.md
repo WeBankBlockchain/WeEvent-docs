@@ -1,11 +1,17 @@
 
 ## Processor模块
 
-本节介绍`Processor`子模块的详细安装步骤。 `WeEvent`服务的快速安装请参见[快速安装](../quickinstall.html) 。在一台机器上详细安装，和通过快速安装然后把目标路径中的`Processor`子目录打包拷贝到这台机器，效果是一样的。
+如果是第一次安装`WeEvent`，参见这里的[系统要求](../environment.html) 。以下安装以`CentOS 7.2`为例。
 
-`Processor`为用户提供时序流分析和时间联动等。如果是第一次安装`WeEvent`，参见这里的[系统要求](../environment.html) 。以下安装以`CentOS 7.2`为例。
+因为区块链使用的加密算法很多`OpenJDK`版本没有提供。所以在各`Java`启动脚本里有设置`JAVA_HOME`变量让用户设置符合要求的`JDK`。
 
 #### 前置条件
+- Zookeeper服务
+
+  必选配置。服务注册和发现会使用到。
+
+  推荐使用`Zookeeper 3.5.5`版本。具体安装步骤，请参见[Zookeeper安装](http://zookeeper.apache.org/doc/r3.4.13/zookeeperStarted.html)。
+
 
 - Broker模块
 
@@ -14,53 +20,37 @@
    具体安装步骤，请参见[Broker模块安装](./broker.html)。
 - Governance模块
 
-   必选配置，通过`Governance`从`Web`端调用Processor。修改配置文件`./governance/conf/application-prod.properties` ，增加processor对应的ip和端口配置` weevent.processor.url=http://127.0.0.1:7008`。
-
    具体安装步骤，请参见[Governance模块安装](./governance.html)。   
 
 
-- 数据库 `Processor`通过数据库存储数据。
-    必选配置 目前支持H2数据库和Mysql数据库，二选一即可
-    - H2数据库  
-       默认配置，可切换成Msql数据库,具体切换步骤，请参考[FAQ](https://weeventdoc.readthedocs.io/zh_CN/latest/faq/weevent.html)。
-      
-       具体使用请参考[H2官网](http://www.h2database.com/html/main.html) 。
+- Mysql数据库
 
-    - Mysql数据库    
-      推荐安装`Mysql 5.7+`版本。具体安装步骤，安装请参见[Mysql安装](http://dev.mysql.com/downloads/mysql/) 。
+  可选配置。支持`Mysql`存储数据，如果不配置则使用内置的`H2`数据库。如果要使用Mysql数据库，需要做一个
+  
+  切换，切换步骤，请参考[FAQ](https://weeventdoc.readthedocs.io/zh_CN/latest/faq/weevent.html)。
+
+  推荐安装`Mysql 5.6+`版本。具体安装步骤，安装请参见[Mysql安装](http://dev.mysql.com/downloads/mysql/) 。
 
 ### 获取安装包
 
-从`github`下载安装包[weevent-processor-1.1.0.tar.gz](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.1.0/weevent-processor-1.1.0.tar.gz)，并且解压到`/usr/local/weevent/`下。
+从`github`下载安装包[weevent-processor-1.2.0.tar.gz](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.2.0/weevent-processor-1.2.0.tar.gz)，并且解压到`/usr/local/weevent/`下。
 
 ```shell
 $ cd /usr/local/weevent/
-$ wget https://github.com/WeBankFinTech/WeEvent/releases/download/v1.1.0/weevent-processor-1.1.0.tar.gz
-$ tar -xvf weevent-processor-1.1.0.tar.gz
+$ wget https://github.com/WeBankFinTech/WeEvent/releases/download/v1.2.0/weevent-processor-1.2.0.tar.gz
+$ tar -xvf weevent-processor-1.2.0.tar.gz
 ```
 
-如果`github`下载速度慢，可以尝试[国内下载链接](https://www.fisco.com.cn/cdn/weevent/download/releases/v1.1.0/weevent-processor-1.1.0.tar.gz)。
+如果`github`下载速度慢，可以尝试[国内下载链接](https://www.fisco.com.cn/cdn/weevent/download/releases/v1.2.0/weevent-processor-1.2.0.tar.gz)。
 
 解压后的目录结构如下
 
 ```
-$ cd ./weevent-processor-1.1.0
-$ tree -L 2
-
-```
-
-```
-$ cd ./weevent-processor-1.1.0
-$ tree -L 2
+$ cd ./weevent-processor-1.2.0
+$ tree -L 1
 |-- apps
-|   `-- weevent-processor-1.1.0.jar
 |-- check-service.sh
 |-- conf
-|   |-- application-prod.properties
-|   |-- application.properties
-|   |-- log4j2.xml
-|   |-- mappers
-|   |-- processor.properties
 |-- cep_rule.sql
 |-- init-processor.sh
 |-- processor.sh
@@ -68,6 +58,16 @@ $ tree -L 2
 ```
 
 ### 修改配置文件
+- 配置Zookeeper服务
+
+  可选配置。`./conf/application-prod.properties`中`spring.cloud.zookeeper`配置项。
+  
+  ```ini
+  # spring cloud zookeeper
+  spring.cloud.zookeeper.enabled=true
+  spring.cloud.zookeeper.connect-string=127.0.0.1:2181
+  ```
+  
 - 配置端口
 
   在配置文件`./conf/application-prod.properties`中，`Processor` 的服务端口`server.port` ，默认`7008`。
@@ -114,19 +114,20 @@ $ ./processor.sh start
       check processor service
       processor service is ok
    ```
+
 ### 界面展示
 
 1. 创建规则
 
 ```
-      {
-         "ruleName":"alarm", 
-         "type":"json",
-         "payload":{
-               "temperate":30,
-               "humidity":0.5
-            }
-      }
+{
+	"ruleName": "alarm",
+	"type": "json",
+	"payload": {
+		"temperate": 30,
+		"humidity": 0.5
+	}
+}
 ```
 
 - ruleName: 支持英文字母、数字、下划线、连字符
@@ -170,10 +171,10 @@ $ ./processor.sh start
          
          FROM
          FROM 可以填写Topic。Topic中的设备名（deviceName），用于匹配需要处理的设备消息Topic。当有符合Topic规则的消息到达时，消息的payload数据以JSON格式解析，并根据SQL语句进行处理（如果消息格式不合法，将忽略此消息）。
-
+            
          WHERE
          规则触发条件，条件表达式。不支持子SQL查询。WHERE中可以使用的字段和SELECT语句一致，当接收到对应Topic的消息时，WHERE语句的结果会作为是否触发规则的判断条件。`WHERE temperature > 38 and humidity < 40` 表示温度大于38且湿度小于40时，才会触发该规则，执行配置。
-         
+     
        - 可以进行单条件查询` >、<、>=、<=、<>、!=` ，具体详情见本章最后章节。
 
    ![processor-set2.png](../../image/processor/setRuleContent.png)
@@ -207,13 +208,13 @@ $ ./processor.sh start
 
    - 支持的类型 运算符
 
-   | =    | 等于                              |
-   | ---- | ------------------------------- |
-   | <>   | 不等于。注释：在 SQL 的一些版本中，该操作符可被写成 != |
-   | >    | 大于                              |
-   | <    | 小于                              |
-   | >=   | 大于等于                            |
-   | <=   | 小于等于                            |
+| =    | 等于                              |
+| ---- | ------------------------------- |
+| <>   | 不等于。注释：在 SQL 的一些版本中，该操作符可被写成 != |
+| >    | 大于                              |
+| <    | 小于                              |
+| >=   | 大于等于                            |
+| <=   | 小于等于                            |
 
 
    数字类型
@@ -258,7 +259,7 @@ $ ./processor.sh start
      ```
 
      - 字符串拼接substring，concat，trim，lcase 
-      
+     
      ```
       SELECT * FROM Websites WHERE range.substring(6)=="warning-001";
 
@@ -270,12 +271,13 @@ $ ./processor.sh start
 
       SELECT * FROM Websites WHERE lcase(range)=="higher";
      ```
-      
+     
    - 内置时间
-      
+     
+
    时间选取now， currentDate，currentTime
    ```
     SELECT now,currentDate,currentTime FROM Websites WHERE range.substring(type,6)=="warning-001";
    ```
- 
+
    

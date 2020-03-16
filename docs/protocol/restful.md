@@ -27,13 +27,13 @@ public class Rest {
             SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
             RestTemplate rest = new RestTemplate(requestFactory);
             // ensure topic exist "com.weevent.test"
-            Boolean result = rest.getForEntity("http://localhost:8080/weevent/rest/open?topic={topic}&groupId={groupId}",
+            Boolean result = rest.getForEntity("http://localhost:8080/weevent-broker/rest/open?topic={topic}&groupId={groupId}",
                     Boolean.class,
                     "com.weevent.test",
                     WeEvent.DEFAULT_GROUP_ID).getBody();
             System.out.println(result);
             // publish event to topic "com.weevent.test"
-            SendResult sendResult = rest.getForEntity("http://localhost:8080/weevent/rest/publish?topic={topic}&groupId={groupId}&content={content}",
+            SendResult sendResult = rest.getForEntity("http://localhost:8080/weevent-broker/rest/publish?topic={topic}&groupId={groupId}&content={content}",
                     SendResult.class,
                     "com.weevent.test",
                     WeEvent.DEFAULT_GROUP_ID,
@@ -56,7 +56,7 @@ public class Rest {
 - 请求
 
   ```shell
-  $ curl "http://localhost:8080/weevent/rest/open?topic=com.weevent.test&groupId=1"
+  $ curl "http://localhost:8080/weevent-broker/rest/open?topic=com.weevent.test&groupId=1"
   ```
 
 
@@ -71,7 +71,7 @@ public class Rest {
   
 - topic：主题。`ascii`值在`[32,128]`之间。支持通配符按层次订阅，因'+'、'#'为通配符的关键字故不能为topic的一部分，详情参见[MQTT通配符](http://public.dhe.ibm.com/software/dw/webservices/ws-mqtt/mqtt-v3r1.html) 。
   
-- groupId： 群组`Id`，`fisco-bcos 2.0+`版本支持多群组功能。2.0以下版本不支持该功能，可以不传，其他接口类似。
+- groupId： `FISCO-BCOS`群组`Id`。默认的群组`1`可以不传，其他接口类似。
   
   重复`open`返回`true` 。
 
@@ -79,7 +79,7 @@ public class Rest {
 - 请求
 
   ```shell
-  $ curl "http://localhost:8080/weevent/rest/close?topic=com.weevent.test&groupId=1"
+  $ curl "http://localhost:8080/weevent-broker/rest/close?topic=com.weevent.test&groupId=1"
   ```
 
 
@@ -93,7 +93,7 @@ public class Rest {
 - 请求
 
   ```shell
-  $ curl "http://localhost:8080/weevent/rest/exist?topic=com.weevent.test&groupId=1"
+  $ curl "http://localhost:8080/weevent-broker/rest/exist?topic=com.weevent.test&groupId=1"
   ```
 
 
@@ -107,7 +107,7 @@ public class Rest {
 - 请求
 
   ```shell
-  $ curl "http://localhost:8080/weevent/rest/publish?topic=com.weevent.test&groupId=1&content=123456&weevent-format=json"
+  $ curl "http://localhost:8080/weevent-broker/rest/publish?topic=com.weevent.test&groupId=1&content=123456&weevent-format=json"
   ```
 
 
@@ -135,17 +135,19 @@ public class Rest {
 - 请求
 
   ```shell
-  $ curl "http://localhost:8080/weevent/rest/getEvent?eventId=2cf24dba-59-1124&groupId=1"
+  $ curl "http://localhost:8080/weevent-broker/rest/getEvent?eventId=2cf24dba-59-1124&groupId=1"
   ```
 
 - 应答
 
   ```json
   {
-      "topic": "hello",
-      "content": "MTIzNDU2",
-      "extensions":{"weevent-format":"json"},
-      "eventId": "2cf24dba-59-1124"
+  	"topic": "hello",
+  	"content": "MTIzNDU2",
+  	"extensions": {
+  		"weevent-format": "json"
+  	},
+  	"eventId": "2cf24dba-59-1124"
   }
   ```
 - 说明
@@ -161,7 +163,7 @@ public class Rest {
 - 请求
 
   ```shell
-  $ curl "http://localhost:8080/weevent/rest/list?pageIndex=1&pageSize=10&groupId=1"
+  $ curl "http://localhost:8080/weevent-broker/rest/list?pageIndex=1&pageSize=10&groupId=1"
   ```
 
 
@@ -196,7 +198,7 @@ public class Rest {
 - 请求
 
   ```shell
-  $ curl "http://localhost:8080/weevent/rest/state?topic=com.weevent.test&groupId=1"
+  $ curl "http://localhost:8080/weevent-broker/rest/state?topic=com.weevent.test&groupId=1"
   ```
 
 
@@ -225,7 +227,7 @@ public class Rest {
 - 请求
 
   ```shell
-  $ curl "http://localhost:8080/weevent/admin/listGroup"
+  $ curl "http://localhost:8080/weevent-broker/admin/listGroup"
   ```
 
 
@@ -233,29 +235,29 @@ public class Rest {
 
   ```json
   {
+      "code": 0,
+      "message": "success",    
       "data":[
           "1","2"
-      ],
-      "code":0,
-      "message":"success"
+      ]
   }
   ```
 
 #### 获取 节点ip数组
  - 请求
      ```shell
-     $ curl "http://localhost:8080/weevent/admin/listNodes"
+     $ curl "http://localhost:8080/weevent-broker/admin/listNodes"
      ```
 
  - 应答
 
      ```json
     {
-        "data": [
-        "127.0.0.1:7000"
-        ],
         "code": 0,
-        "message": "success"
+        "message": "success",
+        "data": [
+        	"127.0.0.1:7000"
+        ]
     }
     ```
  - 说明
@@ -265,31 +267,29 @@ public class Rest {
 #### 获取订阅列表 
  - 请求
      ```shell
-     $ curl "http://localhost:8080/weevent/admin/listSubscription?nodeIp=127.0.0.1:7000"
+     $ curl "http://localhost:8080/weevent-broker/admin/listSubscription?nodeInstances=127.0.0.1:7000"
      ```
 
  - 应答
 
     ```json
     {
-        "data": {
-            "127.0.0.1:7000": {
-                "5d39d5c1-3aea-48aa-93b2-416624155d0f": {
-                    "interfaceType": "stomp",
-                    "notifiedEventCount": "1712",
-                    "notifyingEventCount": "0",
-                    "notifyTimeStamp": "2019-11-06 11:28:30",
-                    "topicName": "com.weevent.rest",
-                    "subscribeId": "5d39d5c1-3aea-48aa-93b2-416624155d0f",
-                    "remoteIp": "127.0.0.1",
-                    "createTimeStamp": "2019-11-05 21:21:57",
-                    "groupId": "1"
-                }
-            }
-        },
-        "code": 0,
-        "message": "success"
-     }
+    	"code": 0,
+    	"message": "success",
+    	"data": {
+    		"127.0.0.1:7000": [{
+    			"interfaceType": "stomp",
+    			"notifiedEventCount": "0",
+    			"notifyingEventCount": "0",
+    			"notifyTimeStamp": "2020-03-16 15:09:22",
+    			"topicName": "com.weevent.test",
+    			"subscribeId": "041b2b7b-1ec3-47c9-9cf3-2f40a0a17f5a",
+    			"remoteIp": "192.168.0.107",
+    			"createTimeStamp": "2020-03-16 15:09:22",
+    			"groupId": "1"
+    		}]
+    	}
+    }
     ```
  - 说明
      - interfaceType：监听请求类型 `RESTful`、`JsonRPC`、`MQTT` 、`STOMP`。
@@ -302,14 +302,14 @@ public class Rest {
 #### 获取版本信息
 - 请求
     ```shell
-    $ curl "http://localhost:8080/weevent/admin/getVersion"
+    $ curl "http://localhost:8080/weevent-broker/admin/getVersion"
     ```
 
 - 应答
 
     ```json
     {
-     "code":"0",
+     "code": 0,
      "message":"success",
      "data": 
             {
@@ -330,21 +330,20 @@ public class Rest {
 #### 获取节点个数、区块数量、交易数量
 - 请求
     ```shell
-    $ curl "http://localhost:8080/weevent/admin/group/general?groupId=1"
+    $ curl "http://localhost:8080/weevent-broker/admin/group/general?groupId=1"
     ```
 
 - 应答
 
     ```json
     {
-     "code":"0",
-     "message":"success",
-     "data": 
-            {
-                "nodeCount": "4",
-                "latestBlock": "100",
-                "transactionCount": "5260"
-            }
+    	"code": 0,
+    	"message": "success",
+    	"data": {
+    		"nodeCount": "4",
+    		"latestBlock": "100",
+    		"transactionCount": "5260"
+    	}
     }
     ```
 - 说明
@@ -355,29 +354,29 @@ public class Rest {
 #### 获取区块链交易列表
 - 请求
     ```shell
-    $ curl "http://localhost:8080/weevent/admin/transaction/transList?groupId=1&pageNumber=1&pageSize=10"
+    $ curl "http://localhost:8080/weevent-broker/admin/transaction/transList?groupId=1&pageNumber=1&pageSize=10"
     ```
 
 - 应答
 
     ```json
     {
-        "code":"0",
-        "message":"success",
-        "data": {
-            "total":1,
-            "pageIndex":1,
-            "pageSize":10,
-            "pageData":[{
-                "blockNumber": 5364,
-                "blockTimestamp": "2019-10-15 14:48:01",
-                "createTime": null,
-                "modifyTime": null,
-                "transFrom": "0x64fa644d2a694681bd6addd6c5e36cccd8dcdde3",
-                "transHash": "0xb3585cf385a595e5af425d360693e6759d8db5c1a98ebb46277b38c014ec8626",
-                "transTo": "0xa40c864c28ee8b07dc2eeab4711e3161fc87e1e2"
-            }]
-        }
+    	"code": 0,
+    	"message": "success",
+    	"data": {
+    		"total": 1,
+    		"pageIndex": 1,
+    		"pageSize": 10,
+    		"pageData": [{
+    			"blockNumber": 5364,
+    			"blockTimestamp": "2019-10-15 14:48:01",
+    			"createTime": null,
+    			"modifyTime": null,
+    			"transFrom": "0x64fa644d2a694681bd6addd6c5e36cccd8dcdde3",
+    			"transHash": "0xb3585cf385a595e5af425d360693e6759d8db5c1a98ebb46277b38c014ec8626",
+    			"transTo": "0xa40c864c28ee8b07dc2eeab4711e3161fc87e1e2"
+    		}]
+    	}
     }
     ```
 - 说明
@@ -396,30 +395,30 @@ public class Rest {
 #### 获取交易哈希列表
 - 请求
     ```shell
-    $ curl "http://localhost:8080/weevent/admin/block/blockList?groupId=1&pageNumber=1&pageSize=10"
+    $ curl "http://localhost:8080/weevent-broker/admin/block/blockList?groupId=1&pageNumber=1&pageSize=10"
     ```
 
 - 应答
 
     ```json
     {
-        "code":"0",
-        "message":"success",
-        "data": {
-            "total":1,
-            "pageIndex":1,
-            "pageSize":10,
-            "pageData":[{
-                "blockNumber": 5364,
-                "blockTimestamp": "2019-10-15 14:48:01",
-                "createTime": null,
-                "modifyTime": null,
-                "pkHash": "0x382d17374619233978c2f5c8dfc88fea1bb70af52ea824c8ec99982d66b455cd",
-                "sealer": "0x3",
-                "sealerIndex": 1,
-                "transCount": 1
-            }]
-        }
+    	"code": 0,
+    	"message": "success",
+    	"data": {
+    		"total": 1,
+    		"pageIndex": 1,
+    		"pageSize": 10,
+    		"pageData": [{
+    			"blockNumber": 5364,
+    			"blockTimestamp": "2019-10-15 14:48:01",
+    			"createTime": null,
+    			"modifyTime": null,
+    			"pkHash": "0x382d17374619233978c2f5c8dfc88fea1bb70af52ea824c8ec99982d66b455cd",
+    			"sealer": "0x3",
+    			"sealerIndex": 1,
+    			"transCount": 1
+    		}]
+    	}
     }
     ```
 - 说明
@@ -435,33 +434,33 @@ public class Rest {
     - sealerIndex：节点序号为index的nodeId。
     - transCount：交易次数。
       
- #### 获取节点列表
+ #### 获取区块链节点列表
  - 请求
      ```shell
-     $ curl "http://localhost:8080/weevent/admin/node/nodeList?groupId=1&pageNumber=1&pageSize=10"
+     $ curl "http://localhost:8080/weevent-broker/admin/node/nodeList?groupId=1&pageNumber=1&pageSize=10"
      ```
 
  - 应答
 
      ```json
      {
-         "code":"0",
-         "message":"success",
-         "data": {
-             "total":1,
-             "pageIndex":1,
-             "pageSize":10,
-             "pageData":[{                
-                 "nodeId": "543095f2a4a7ec910c4d62fcde2754871c559d375fba9a11aab94cb7c7ae8eef8f55250558a7412d14f11faeb7d31c55cec36746ce5644c749a4674888fe46eb",
-                 "nodeName": null,
-                 "pbftView": 23,
-                 "nodeType":"sealer",
-                 "blockNumber": 5364,
-                 "createTime": null,
-                 "modifyTime": null,
-                 "nodeActive": 1
-             }]
-         }
+     	"code": 0,
+     	"message": "success",
+     	"data": {
+     		"total": 1,
+     		"pageIndex": 1,
+     		"pageSize": 10,
+     		"pageData": [{
+     			"nodeId": "543095f2a4a7ec910c4d62fcde2754871c559d375fba9a11aab94cb7c7ae8eef8f55250558a7412d14f11faeb7d31c55cec36746ce5644c749a4674888fe46eb",
+     			"nodeName": null,
+     			"pbftView": 23,
+     			"nodeType": "sealer",
+     			"blockNumber": 5364,
+     			"createTime": null,
+     			"modifyTime": null,
+     			"nodeActive": 1
+     		}]
+     	}
      }
      ```
  - 说明
@@ -476,24 +475,3 @@ public class Rest {
      - nodeActive：节点运行状态。
      - createTime：创建时间。
      - modifyTime：修改时间。
-
- #### 获取节点ip数组
- - 请求
-     ```shell
-     $ curl http://localhost:8080/weevent/admin/listNodes
-     ```
-
- - 应答
-
-     ```json
-    {
-        "data": [
-        "127.0.0.1:7000"
-        ],
-        "code": 0,
-        "message": "success"
-    }
-    ```
- - 说明
-     
-     - data：节点ip数组。
