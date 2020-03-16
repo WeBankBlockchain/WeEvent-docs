@@ -85,20 +85,30 @@ $ curl http://localhost:7000/weevent-broker/file/verify?eventId=4e92cf63-9-101
 	"code": 0,
 	"message": "success",
 	"data": {
-		"fileId": "96d0011b3c5b43eab79482bb17ffe84b",
-		"fileName": "log4j2.xml",
-		"fileSize": 1118,
-		"fileMd5": "51d695be52981dadf76778b65e5e11fd",
-		"topic": "com.weevent.file2",
-		"groupId": "1",
-		"startTime": 1584055853,
-		"host": "",
-		"chunkSize": 1048576,
-		"chunkNum": 1,
-		"chunkStatus": null
+		"file": {
+			"fileId": "96d0011b3c5b43eab79482bb17ffe84b",
+			"fileName": "log4j2.xml",
+			"fileSize": 1118,
+			"fileMd5": "51d695be52981dadf76778b65e5e11fd",
+			"topic": "com.weevent.file2",
+			"groupId": "1",
+			"chunkSize": 1048576,
+			"chunkNum": 1,
+			"chunkStatus": null,
+			"startTime": 1584055853,
+			"host": ""
+		},
+		"plus": {
+			"timestamp": 1584055847230,
+			"height": 101,
+			"txHash": "0x3bc6cd94ec30e969832564896ae121e586c953cd9075a5916e44c686ada8f72e",
+			"sender": "0x64fa644d2a694681bd6addd6c5e36cccd8dcdde3"
+		}
 	}
 }
 ```
+
+说明：输入参数`eventId`为文件传输完毕时的上链事件，输出`file`字段为文件相关信息，`plus`为区块链相关信息，包括交易时间、块高、事件hash、交易账号。
 
 - 文件传输的实时状态
 
@@ -119,11 +129,11 @@ $ curl http://localhost:7000/weevent-broker/file/stats
 						"fileMd5": "b08ca390265602f483f5013f12462c99",
 						"topic": "com.weevent.file2",
 						"groupId": "1",
-						"startTime": 1584055678,
-						"host": null,
 						"chunkSize": 1048576,
 						"chunkNum": 165,
-						"chunkStatus": null
+						"chunkStatus": null,
+						"startTime": 1584055678,
+						"host": null						
 					},
 					"time": "178s",
 					"readyChunk": 78,
@@ -138,4 +148,8 @@ $ curl http://localhost:7000/weevent-broker/file/stats
 	}
 }
 ```
+
+输出说明：
+
+`sender`是作为发送方正在传输的文件列表，`receiver`是作为接收方正在传输的文件列表，两个结构相同。数字`1`表示所处的群组号，`com.weevent.file2`为关联的主题。列表中的对象为某个文件传输的实时状态，包括基本表信息、耗时、进度、平均速度等。
 
