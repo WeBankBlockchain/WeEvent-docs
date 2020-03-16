@@ -74,7 +74,7 @@
 
 ### Processor 配置
 
-- 配置文件`./processor/conf/application-prod.properties ` ，`server.port`默认为7008。
+- 配置文件`./processor/conf/application-prod.properties ` 。
 
 | 配置项                                     | 默认值               | 说明            |
 | --------------------------------------- | ----------------- | ------------- |

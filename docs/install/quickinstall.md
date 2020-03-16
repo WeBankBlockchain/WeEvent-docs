@@ -88,8 +88,10 @@
   
   配置说明 :
   
-- JDK环境变量`JAVA_HOME`
-  
+  - JDK变量`JAVA_HOME`
+    
+    因为区块链使用的加密算法很多`OpenJDK`版本没有提供。所以这里特别让用户设置符合要求的`JDK`。
+    
   - 区块链FISCO-BCOS
   
     - `fisco-bcos.version`
@@ -105,7 +107,7 @@
       区块链节点的访问证书、私钥存放目录。
       
       `FISCO-BCOS 2.0`的证书文件为`ca.crt`、`node.crt`、`node.key`。如果`WeEvent`服务和区块链节点不在同一台机器上，需要把证书文件拷贝到`WeEvent`所在机器的当前目录，修改`fisco-bcos.node_path=./`。
-    
+  
   - Gateway监听端口`gateway.port`
   
   - Broker监听端口`broker.port`
@@ -116,7 +118,7 @@
     - 监听端口`governance.port`
     - 默认使用内置的`H2`数据库，也支持`Mysql`配置`mysql.*`
   
-  - Proceessor模块配置
+  - Processor模块配置
   
     - `proceessor.enable`是否安装`Proceessor`模块，默认为`false`不安装
     - 监听端口`processor.port`
@@ -182,4 +184,4 @@
   所有服务停止后，直接删除目录即可。
 
 
-快速安装作为一种简易安装方式，所有子服务都是单实例的，生产环境中建议多实例部署。各子模块详细部署参见[Broker模块部署](./module/broker.html)和[Governance模块部署](./module/governance.html)。
+快速安装作为一种简易安装方式，默认使用内置的`H2`数据库。并且所有子服务都是单实例的，生产环境中建议多实例部署。各子模块详细部署参见[Broker模块部署](./module/broker.html)和[Governance模块部署](./module/governance.html)。
