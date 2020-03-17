@@ -1,9 +1,9 @@
 
 ## Processor模块
 
-本节介绍`Processor`子模块的详细安装步骤。 `WeEvent`服务的快速安装请参见[快速安装](../quickinstall.html) 。在一台机器上详细安装，和通过快速安装然后把目标路径中的`Processor`子目录打包拷贝到这台机器，效果是一样的。
+如果是第一次安装`WeEvent`，参见这里的[系统要求](../environment.html) 。以下安装以`CentOS 7.2`为例。
 
-`Processor`为用户提供时序流分析和时间联动等。如果是第一次安装`WeEvent`，参见这里的[系统要求](../environment.html) 。以下安装以`CentOS 7.2`为例。
+因为区块链使用的加密算法很多`OpenJDK`版本没有提供。所以在各`Java`启动脚本里有设置`JAVA_HOME`变量让用户设置符合要求的`JDK`。
 
 #### 前置条件
 - Zookeeper服务
@@ -25,7 +25,9 @@
 
 - Mysql数据库
 
-  可选配置。支持`Mysql`存储数据，如果不配置则使用内置的`H2`数据库。
+  可选配置。支持`Mysql`存储数据，如果不配置则使用内置的`H2`数据库。如果要使用Mysql数据库，需要做一个
+  
+  切换，切换步骤，请参考[FAQ](https://weeventdoc.readthedocs.io/zh_CN/latest/faq/weevent.html)。
 
   推荐安装`Mysql 5.6+`版本。具体安装步骤，安装请参见[Mysql安装](http://dev.mysql.com/downloads/mysql/) 。
 
@@ -73,22 +75,14 @@ $ tree -L 1
    ```
    server.port=7008
    ```
+  
+- 配置文件processor.properties
 
-- 配置数据库
-   如下为设置`Mysql`数据库，修改`datasource`中的`url`配置、`username`、`password` 
+   - `org.quartz.scheduler.instanceName` 当前Schedule name，用户可以修改
+   - `org.quartz.dataSource`  数据库名称，默认为`WeEvent_processor`，用户可以修改
 
-   ``` 配置数据库连接
-   spring.datasource.url=jdbc:mysql://127.0.0.1:3306/WeEvent_processor
-   spring.datasource.driverClassName=org.mariadb.jdbc.Driver
-   spring.jpa.database=mysql
-   spring.datasource.username=******
-   spring.datasource.password=******
-   ```
-
-
-### 初始化数据库
-
-   执行脚本`init-processor.sh`初始化数据库 ，成功输出如下。否则，用户需要检查配置项是否正常。
+- 初始化数据库，
+   执行脚本`init-processor.sh` ，成功输出如下。否则，用户需要检查配置项是否正常。
 
 ```
 $ ./init-processor.sh

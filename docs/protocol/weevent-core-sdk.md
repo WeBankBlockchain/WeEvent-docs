@@ -7,7 +7,7 @@
 
   必选配置。`WeEvent`通过区块链`FISCO-BCOS`持久化数据。
 
-  推荐使用`FISCO-BCOS 2.2.0`版本。具体安装步骤，请参见[FISCO-BCOS安装](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/installation.html)。
+  具体安装步骤，请参见[FISCO-BCOS安装](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/installation.html)。
 
 ### 集成SDK
 

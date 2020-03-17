@@ -16,9 +16,9 @@
 
   `MQTT`协议基于`WebSocket`的访问`URL`为`ws://localhost:8080/weevent-broker/mqtt`。
 
-- API Gateway也支持TLS访问，端口为443。
+- API Gateway也支持HTTPS访问，端口为443。
 
-  客户端无论使用`HTTP`还是`HTTPS`访问，`API Gateway`都是通过`HTTP`来访问后端服务，`TCP`/`TLS`也是类似处理。
+  客户端无论使用`HTTP`还是`HTTPS`访问，`API Gateway`都是通过`HTTP`来访问后端服务。
 
 - 以上说明全是指默认端口，  所有端口都支持自定义配置
 

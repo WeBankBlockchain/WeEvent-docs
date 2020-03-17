@@ -18,11 +18,11 @@
 
 - 配置区块链
 
-  默认支持`FISCO-BCOS 2.0`，也可以通过配置切换到`FISCO-BCOS 1.3`和`Fabric 1.4`。
+  默认支持`FISCO-BCOS 2.x`，也可以通过配置切换到`Fabric 1.4`。
 
-  - FISCO-BCOS 2.0
+  - FISCO-BCOS 2.x
 
-    在配置文件`./weevent-core/src/main/resources/fisco.properties`里配置：
+    在配置文件`./weevent-broker/src/main/resources/fisco.properties`里配置：
 
     区块链版本`version=2.0`
 
@@ -30,23 +30,16 @@
 
     然后将节点访问证书`ca.crt`、`node.crt`、`node.key`放到目录下`./weevent-broker/src/main/resources/v2/`。
 
-  - FISCO-BCOS 1.3
-
-    在配置文件`./weevent-core/src/main/resources/fisco.properties`里配置：
-
-    区块链版本`version=1.3`
-
-    节点访问`Channel`端口`nodes=...`。
-
-    将节点访问证书`ca.crt`、`client.keystore`放到目录下`./weevent-core/src/main/resources/`。
-
   - Fabric 1.4
 
     具体内容详见[适配Fabric](https://weeventdoc.readthedocs.io/zh_CN/latest/advanced/fabric.html)。
     
+
   注意：区块链配置在两个代码模块`weevent-core`和`weevent-broker`里都有涉及到。都需要配置。
 
 - 部署系统合约
+
+  `weevent-core`和`weevent-broker`模块关于区块链的配置相同。
 
   通过运行`./weevent-core/src/main/java/com/webank/weevent/core/fisco/util/Web3sdkUtils.java`来部署`WeEvent`内置合约。
 

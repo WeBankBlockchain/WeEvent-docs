@@ -12,19 +12,15 @@
 
 - `JsonRPC`的传输对象使用`Jackson`库进行序列化。对于字符数组`byte[]`，`Jackson`会先使用`Base64`进行编解码。
 
-- 调用异常返回的信息`BrokerException`如下
+- 调用异常时返回的信息如下
 
   ```json
   {
   	"jsonrpc": "2.0",
   	"id": "1",
   	"error": {
-  		"code": -32001,
-  		"message": "topic not exist",
-  		"data": {
-  			"exceptionTypeName": "com.webank.weevent.broker.sdk.BrokerException",
-  			"message": "topic not exist"
-  		}
+  		"code": 100101,
+  		"message": "topic not exist"
   	}
   }
   ```

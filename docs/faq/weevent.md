@@ -91,3 +91,36 @@
     ```
 
     - 需要修改`webase-node-mgr`服务中的`conf/application.yml`文件。将`isUseSecurity`和`isDeleteInfo`都改成`false`。
+    
+  
+  
+- 如何配置`WeEvent`支持`FISCO BCOS`国密？
+
+  配置`WeEvent`支持`FISCO BCOS`国密需先安装国密版`FISCO BCOS` ，然后修改`WeEvent`配置项即可，具体步骤如下：
+
+  - 安装国密版`FISCO BCOS` 
+  
+    具体安装步骤，请参见[部署国密版FISCO BCOS](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/manual/guomi_crypto.html#fisco-bcos)
+
+  - 修改`WeEvent`配置项
+
+     修改broker服务下配置项`./conf/fisco.properties#web3sdk.encrypt-type`为`SM2_TYPE`。其他安装配置与[快速安装](../install/quickinstall.md)一致。
+      
+-- 如何切换数据库
+   
+    目前WeEvent默认的是H2数据库，`application-prod.properties`中默认数据库配置如下
+    spring.datasource.url=jdbc:h2:./WeEvent_governance
+    spring.datasource.driver-class-name=org.h2.Driver
+    spring.datasource.username=root
+    spring.datasource.password=123456
+    
+    如果要切换成Mysql数据库，改成下面这样，其中`url、username、password` 修改成需要连接的数据库配置。
+    spring.datasource.url=jdbc:mysql://127.0.0.1:3306/WeEvent_governance?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    spring.datasource.driver-class-name=org.mariadb.jdbc.Driver
+    spring.datasource.username=root
+    spring.datasource.password=123456
+    
+    **注意**：Mysql数据库要赋予配置账号创建库表的权限。
+    >> grant all privileges on *.* to 'root'@'%' identified by '123456';
+    >> flush privileges;
+    

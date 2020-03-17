@@ -7,38 +7,37 @@
 
   配置文件`./broker/conf/application-prod.properties`，这个是`Spring Boot`标准配置文件，一般不需要修改。细节请参见[Spring Boot文档](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#appendix) 。
 
-  | 配置项                           | 默认值                                      | 配置说明        |
-  | ----------------------------- | ---------------------------------------- | ----------- |
-  | server.port                   | 7000                                     | spring监听端口  |
-  | server.servlet.context-path   | /weevent                                 | spring上下文路径 |
-  | spring.autoconfigure.exclude  | org.springframework.boot.autoconfigure.<br />security.servlet.SecurityAutoConfiguration | 默认不开启       |
-  | spring.security.user.name     | user                                     | 默认不开启       |
-  | spring.security.user.password | 123456                                   | 默认不开启       |
+  | 配置项                                | 默认值                                                       | 配置说明         |
+  | ------------------------------------- | ------------------------------------------------------------ | ---------------- |
+  | server.port                           | 7000                                                         | spring监听端口   |
+  | server.servlet.context-path           | /weevent                                                     | spring上下文路径 |
+  | spring.autoconfigure.exclude          | org.springframework.boot.autoconfigure.<br />security.servlet.SecurityAutoConfiguration | 默认不开启       |
+  | spring.security.user.name             | user                                                         | 默认不开启       |
+  | spring.security.user.password         | 123456                                                       | 默认不开启       |
+  | spring.cloud.zookeeper.enabled        | true                                                         | ZK访问           |
+  | spring.cloud.zookeeper.connect-string | 127.0.0.1:2181                                               | ZK节点           |
 
-  用户访问授权通过用户密码`spring.security.user`配置，对所有的接入协议`RESTFul`、`Json RPC`、`STOMP`、`MQTT`都会生效。
-
-  配置项生效后，`RESTFul`和`Json RPC`需要是使用`http base authorization`访问。`STOMP`访问需要设置`header`项`login`和`passcode`，`MQTT`访问需要设置`username`和`password`。
+  用户访问授权通过用户密码`spring.security.user`配置，对所有的接入协议`RESTFul`、`Json RPC`、`STOMP`、`MQTT`都会生效。配置项生效后，`RESTFul`和`Json RPC`需要是使用`http base authorization`访问。`STOMP`访问需要设置`header`项`login`和`passcode`，`MQTT`访问需要设置`username`和`password`。
 
 - 区块链FISCO-BCOS节点配置
 
   配置文件`./broker/conf/fisco.properties`。
 
-  | 配置项                          | 默认值                   | 配置说明                     |
-  | ---------------------------- | --------------------- | ------------------------ |
-  | version                      | 2.0                   | FISCO-BCOS版本，支持2.0和1.3   |
-  | orgid                        | fisco                 | 机构名，按机构实际名称填写即可          |
-  | nodes                        | 127.0.0.1:30701       | 区块链节点列表，多个地址以`;`分割       |
-  | proxy.address                | 0xfff77de6c1a76022... | 1.3版本的proxy系统合约地址        |
-  | account                      | bcec428d5205abe0f...  | `WeEvent`执行交易的账号，一般不需要修改 |
-  | web3sdk.timeout              | 10000                 | 交易执行超时时间，单位毫秒            |
-  | web3sdk.core-pool-size       | 10                    | web3sdk最小线程数             |
-  | web3sdk.max-pool-size        | 1000                  | web3sdk最大线程数             |
-  | web3sdk.keep-alive-seconds   | 10                    | web3sdk线程空闲时间，单位秒        |
-  | consumer.idle-time           | 1000                  | 区块链新增块事件检测周期，单位毫秒        |
-  | consumer.history_merge_block | 8                     | 事件过滤的区块范围                |
+  | 配置项                       | 默认值               | 配置说明                                |
+  | ---------------------------- | -------------------- | --------------------------------------- |
+  | version                      | 2.0                  | FISCO-BCOS版本，支持2.x                 |
+  | orgid                        | fisco                | 机构名，按机构实际名称填写即可          |
+  | nodes                        | 127.0.0.1:20200      | 区块链节点列表，多个地址以`;`分割       |
+  | account                      | bcec428d5205abe0f... | `WeEvent`执行交易的账号，一般不需要修改 |
+  | web3sdk.timeout              | 10000                | 交易执行超时时间，单位毫秒              |
+  | web3sdk.core-pool-size       | 10                   | web3sdk最小线程数                       |
+  | web3sdk.max-pool-size        | 1000                 | web3sdk最大线程数                       |
+  | web3sdk.keep-alive-seconds   | 10                   | web3sdk线程空闲时间，单位秒             |
+  | consumer.idle-time           | 1000                 | 区块链新增块事件检测周期，单位毫秒      |
+  | consumer.history_merge_block | 8                    | 事件过滤的区块范围                      |
   
   
-    区块链节点详细配置，参见[Web3SDK配置文件](https://fisco-bcos-documentation.readthedocs.io/zh_CN/release-2.0/docs/sdk/sdk.html) 。
+  区块链节点详细配置，参见[Web3SDK配置文件](https://fisco-bcos-documentation.readthedocs.io/zh_CN/release-2.0/docs/sdk/sdk.html) 。
   
 - WeEvent服务配置
 
@@ -54,7 +53,7 @@
 
 ### Governance
 
-配置文件`./governance/conf/application-prod.properties `。
+配置文件`./governance/conf/application-prod.properties`。
 
 | 配置项                                   | 默认值                                                       | 配置说明                   |
 | ---------------------------------------- | ------------------------------------------------------------ | -------------------------- |
@@ -75,7 +74,7 @@
 
 ### Processor 配置
 
-- 配置文件`./processor/conf/application-prod.properties ` ，`server.port`默认为7008。
+- 配置文件`./processor/conf/application-prod.properties ` 。
 
 | 配置项                                     | 默认值               | 说明            |
 | --------------------------------------- | ----------------- | ------------- |
