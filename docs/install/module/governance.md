@@ -76,15 +76,6 @@ $ tree -L 1
   server.port=7009
   ```
 
-- 配置Processor访问路径
-
-    初始化系统，执行脚本`init-governance.sh` ，成功输出如下。否则，用户需要检查配置项是否正常。
-
-    ```shell
-    $ ./init-governance.sh
-    init governance db success
-    ```
-
 - 重置密码的邮件设置
 
     可选配置。在配置文件`./conf/application-prod.properties`中，修改`mail`中的`host`、`username`、`password` 配置。
