@@ -68,7 +68,7 @@ $ tree  -L 1
     证书文件生成及获取请参见[FISCO-BCOS 2.0安装](https://fisco-bcos-documentation.readthedocs.io/zh_CN/release-2.0/docs/installation.html)
 
 - 部署系统合约
-  
+
   运行脚本`./deploy-topic-control.sh `部署合约。例如:
 
   ```shell
