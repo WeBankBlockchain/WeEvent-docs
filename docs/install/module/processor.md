@@ -82,6 +82,7 @@ $ tree -L 1
    - `org.quartz.dataSource`  数据库名称，默认为`WeEvent_processor`，用户可以修改
 
 - 初始化数据库，
+
    执行脚本`init-processor.sh` ，成功输出如下。否则，用户需要检查配置项是否正常。
 
 ```

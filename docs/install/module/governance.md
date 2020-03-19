@@ -107,6 +107,7 @@ init governance db success
 ### 服务启停
 
 - 服务启动
+
   通过`./governance.sh start`命令启动服务，正常启动如下：
 
   ```shell

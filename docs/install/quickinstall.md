@@ -19,7 +19,7 @@
 
 - 获取安装包
 
-  从`github`下载安装包[weevent-1.2.0.tar.gz](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.1.0/weevent-1.2.0.tar.gz)，并且解压到`/tmp/` 。
+  从`github`下载安装包[weevent-1.2.0.tar.gz](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.2.0/weevent-1.2.0.tar.gz)，并且解压到`/tmp/` 。
 
   ```shell
   $ cd /tmp/
@@ -163,9 +163,9 @@
 
     ```shell
     $ ./start-all.sh
-    start broker success (PID=3642)
+    start weevent-broker success (PID=3642)
     add the crontab job success
-    start nginx success (PID=3643)
+    start weevent-gateway success (PID=3643)
     add the crontab job success
     ```
 
@@ -174,6 +174,7 @@
 - 检查是否安装成功
 
     ```shell
+    $ cd broker/
     $ ./check-service.sh
     check broker service 
     broker service is ok

@@ -37,7 +37,7 @@
   | consumer.history_merge_block | 8                    | 事件过滤的区块范围                      |
   
   
-  区块链节点详细配置，参见[Web3SDK配置文件](https://fisco-bcos-documentation.readthedocs.io/zh_CN/release-2.0/docs/sdk/sdk.html) 。
+  区块链节点详细配置，参见[Web3SDK配置文件](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/) 。
   
 - WeEvent服务配置
 

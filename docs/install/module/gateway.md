@@ -62,7 +62,7 @@ $ tree  -L 1
 
   ```shell
   $ ./gateway.sh start
-  start broker success (PID=89059)
+  start weevent-broker success (PID=89059)
   add the crontab job success
   ```
 
