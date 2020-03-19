@@ -106,7 +106,7 @@
 
      修改broker服务下配置项`./conf/fisco.properties#web3sdk.encrypt-type`为`SM2_TYPE`。其他安装配置与[快速安装](../install/quickinstall.md)一致。
       
--- 如何切换数据库
+- 如何切换数据库
    
     目前WeEvent默认的是H2数据库，`application-prod.properties`中默认数据库配置如下
     spring.datasource.url=jdbc:h2:./WeEvent_governance
