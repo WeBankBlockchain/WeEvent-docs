@@ -82,6 +82,9 @@ $ tree -L 1
    - `org.quartz.dataSource`  数据库名称，默认为`WeEvent_processor`，用户可以修改
 
 - 初始化数据库，
+
+   配置`init-processor.sh`脚本中`JAVA_HOME`
+
    执行脚本`init-processor.sh` ，成功输出如下。否则，用户需要检查配置项是否正常。
 
 ```
@@ -92,6 +95,8 @@ init processor db success
 #### 服务启停
 
 - 服务启动
+
+  配置`processor.sh`脚本中`JAVA_HOME`
 
   通过`./processor.sh start`命令启动服务，正常启动如下：
 

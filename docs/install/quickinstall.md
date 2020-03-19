@@ -163,9 +163,9 @@
 
     ```shell
     $ ./start-all.sh
-    start broker success (PID=3642)
+    start weevent-broker success (PID=3642)
     add the crontab job success
-    start nginx success (PID=3643)
+    start weevent-gateway success (PID=3643)
     add the crontab job success
     ```
 
@@ -174,6 +174,7 @@
 - 检查是否安装成功
 
     ```shell
+    $ cd broker/
     $ ./check-service.sh
     check broker service 
     broker service is ok

@@ -58,11 +58,13 @@ $ tree  -L 1
 
 - 启动服务
 
+  配置`gateway.sh`脚本中`JAVA_HOME`
+
   通过`./gateway.sh start`命令启动服务，正常启动如下：
 
   ```shell
   $ ./gateway.sh start
-  start broker success (PID=89059)
+  start weevent-broker success (PID=89059)
   add the crontab job success
   ```
 

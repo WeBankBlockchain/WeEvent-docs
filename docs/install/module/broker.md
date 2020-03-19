@@ -69,6 +69,8 @@ $ tree  -L 1
 
 - 部署系统合约
 
+  配置`deploy-topic-control.sh`脚本中`JAVA_HOME`
+  
   运行脚本`./deploy-topic-control.sh `部署合约。例如:
 
   ```shell
@@ -126,11 +128,13 @@ $ tree  -L 1
 
 - 启动服务
 
+  配置`broker.sh`脚本中`JAVA_HOME`
+
   通过`./broker.sh start`命令启动服务，正常启动如下：
 
   ```shell
   $ ./broker.sh start
-  start broker success (PID=89054)
+  start weevent-broker success (PID=89054)
   add the crontab job success
   ```
 
