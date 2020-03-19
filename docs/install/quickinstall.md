@@ -19,7 +19,7 @@
 
 - 获取安装包
 
-  从`github`下载安装包[weevent-1.2.0.tar.gz](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.1.0/weevent-1.2.0.tar.gz)，并且解压到`/tmp/` 。
+  从`github`下载安装包[weevent-1.2.0.tar.gz](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.2.0/weevent-1.2.0.tar.gz)，并且解压到`/tmp/` 。
 
   ```shell
   $ cd /tmp/
