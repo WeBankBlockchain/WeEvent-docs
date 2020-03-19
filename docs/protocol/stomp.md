@@ -91,7 +91,7 @@ implementation("org.springframework.boot:spring-boot-starter-websocket")
 - `weevent-format`为用户自定义拓展默认以`weevent-`开头。可选参数。
 - `StompFrameHandler`  ，对`StompFrame`和`StompHeaders`进行处理的方法。 
 
-上述样例完整的代码，请参见[STOMP代码样例](https://github.com/WeBankFinTech/WeEvent/blob/master/weevent-broker/src/test/java/com/webank/weevent/sample/Stomp.java) 。
+上述样例完整的代码，请参见[STOMP代码样例](https://github.com/WeBankFinTech/WeEvent/blob/master/weevent-broker/src/test/java/com/webank/weevent/broker/sample/Stomp.java) 。
 
 #### Spring环境
 
