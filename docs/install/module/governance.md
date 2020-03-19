@@ -77,8 +77,6 @@ $ tree -L 1
 
 - 配置Processor访问路径
 
-    配置`init-governance.sh`脚本中`JAVA_HOME`
-
     初始化系统，执行脚本`init-governance.sh` ，成功输出如下。否则，用户需要检查配置项是否正常。
 
     ```shell
@@ -109,8 +107,6 @@ init governance db success
 ### 服务启停
 
 - 服务启动
-
-  配置`governance.sh`脚本中`JAVA_HOME`
 
   通过`./governance.sh start`命令启动服务，正常启动如下：
 

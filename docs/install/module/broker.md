@@ -68,8 +68,6 @@ $ tree  -L 1
     证书文件生成及获取请参见[FISCO-BCOS 2.0安装](https://fisco-bcos-documentation.readthedocs.io/zh_CN/release-2.0/docs/installation.html)
 
 - 部署系统合约
-
-  配置`deploy-topic-control.sh`脚本中`JAVA_HOME`
   
   运行脚本`./deploy-topic-control.sh `部署合约。例如:
 
@@ -127,8 +125,6 @@ $ tree  -L 1
 ### 服务启停
 
 - 启动服务
-
-  配置`broker.sh`脚本中`JAVA_HOME`
 
   通过`./broker.sh start`命令启动服务，正常启动如下：
 
