@@ -19,9 +19,11 @@
 
 - Mysql数据库
 
-  可选配置。支持`Mysql`存储数据，如果不配置则使用内置的`H2`数据库。
+  可选配置。支持`Mysql`存储数据，如果不配置则使用内置的`H2`数据库。如果要使用Mysql数据库，需要做一个
+ 
+  切换，切换步骤，请参考[FAQ](https://weeventdoc.readthedocs.io/zh_CN/latest/faq/weevent.html)。
 
-  推荐安装`Mysql 5.6+`版本。具体安装步骤，安装请参见[Mysql安装](http://dev.mysql.com/downloads/mysql/) 。
+  推荐安装`Mysql 5.7+`版本。具体安装步骤，安装请参见[Mysql安装](http://dev.mysql.com/downloads/mysql/) 。
   
 - Processor模块
   可选配置。通过`Processor`触发规则引擎。
@@ -70,23 +72,9 @@ $ tree -L 1
 
   在配置文件`./conf/application-prod.properties`中，`Governance` 的服务端口`server.port` ，默认`7009`。
 
-- 配置Mysql数据库
-
-    在配置文件`./conf/application-prod.properties`中，修改`datasource`中的`url`配置、`username`、`password` 。
-
-    ```ini
-    spring.datasource.url=jdbc:mysql://127.0.0.1:3306/WeEvent_governance?useUnicode=true&characterEncoding=utf-8&useSSL=false
-	spring.datasource.driver-class-name=org.mariadb.jdbc.Driver
-	spring.datasource.username=root
-	spring.datasource.password=123456
-	spring.datasource.type= org.apache.commons.dbcp2.BasicDataSource
-    ```
-    **注意**：数据库要赋予配置账号创建库表的权限。
-
-    ```mysql
-    >> grant all privileges on *.* to 'test'@'%' identified by '123456';
-    >> flush privileges;
-    ```
+  ```
+  server.port=7009
+  ```
 
 - 重置密码的邮件设置
 
@@ -111,6 +99,7 @@ init governance db success
 ### 服务启停
 
 - 服务启动
+
   通过`./governance.sh start`命令启动服务，正常启动如下：
 
   ```shell

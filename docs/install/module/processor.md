@@ -25,9 +25,11 @@
 
 - Mysql数据库
 
-  可选配置。支持`Mysql`存储数据，如果不配置则使用内置的`H2`数据库。
+  可选配置。支持`Mysql`存储数据，如果不配置则使用内置的`H2`数据库。如果要使用Mysql数据库，需要做一个
+  
+  切换，切换步骤，请参考[FAQ](https://weeventdoc.readthedocs.io/zh_CN/latest/faq/weevent.html)。
 
-  推荐安装`Mysql 5.6+`版本。具体安装步骤，安装请参见[Mysql安装](http://dev.mysql.com/downloads/mysql/) 。
+  推荐安装`Mysql 5.7+`版本。具体安装步骤，安装请参见[Mysql安装](http://dev.mysql.com/downloads/mysql/) 。
 
 ### 获取安装包
 
@@ -70,21 +72,18 @@ $ tree -L 1
 
   在配置文件`./conf/application-prod.properties`中，`Processor` 的服务端口`server.port` ，默认`7008`。
 
-- 配置数据库
-   如下为设置`Mysql`数据库，修改`datasource`中的`url`配置、`username`、`password` 
-
-   ``` 配置数据库连接
-   spring.datasource.url=jdbc:mysql://127.0.0.1:3306/WeEvent_processor
-   spring.datasource.driverClassName=org.mariadb.jdbc.Driver
-   spring.jpa.database=mysql
-   spring.datasource.username=******
-   spring.datasource.password=******
    ```
+   server.port=7008
+   ```
+  
+- 配置文件processor.properties
 
+   - `org.quartz.scheduler.instanceName` 当前Schedule name，用户可以修改
+   - `org.quartz.dataSource`  数据库名称，默认为`WeEvent_processor`，用户可以修改
 
-### 初始化数据库
+- 初始化数据库，
 
-   执行脚本`init-processor.sh`初始化数据库 ，成功输出如下。否则，用户需要检查配置项是否正常。
+   执行脚本`init-processor.sh` ，成功输出如下。否则，用户需要检查配置项是否正常。
 
 ```
 $ ./init-processor.sh
