@@ -9,7 +9,7 @@
 
   必选配置。服务注册和发现会使用到。
 
-  推荐使用`Zookeeper 3.5.5`版本。具体安装步骤，请参见[Zookeeper安装](http://zookeeper.apache.org/doc/r3.4.13/zookeeperStarted.html)。
+  推荐使用`Zookeeper 3.5.5`及其以上版本。具体安装步骤，请参见[Zookeeper安装](http://zookeeper.apache.org/doc/r3.4.13/zookeeperStarted.html)。
 
 - Broker模块
 
@@ -47,6 +47,7 @@ $ tar -xvf weevent-governance-1.2.0.tar.gz
 ```
 $ cd ./weevent-governance-1.2.0
 $ tree -L 1
+.
 |-- apps
 |-- check-service.sh
 |-- conf

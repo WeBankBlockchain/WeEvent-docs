@@ -57,11 +57,11 @@
   JAVA_HOME=/usr/local/jdk1.8.0_191
   
   # Required module
-  # support 2.0
+  # support 2.x
   fisco-bcos.version=2.0
   # FISCO-BCOS node channel, eg: 127.0.0.1:20200;127.0.0.2:20200
   fisco-bcos.channel=127.0.0.1:20200
-  # The path of FISCO-BCOS 2.0 that contain certificate file ca.crt/node.crt/node.key,
+  # The path of FISCO-BCOS 2.x that contain certificate file ca.crt/node.crt/node.key,
   # OR FISCO-BCOS 1.3 that contain ca.crt/client.keystore
   fisco-bcos.node_path=~/FISCO-BCOS/127.0.0.1/node0/conf
   
@@ -108,7 +108,7 @@
   
       区块链节点的访问证书、私钥存放目录。
       
-      `FISCO-BCOS 2.0`的证书文件为`ca.crt`、`node.crt`、`node.key`。如果`WeEvent`服务和区块链节点不在同一台机器上，需要把证书文件拷贝到`WeEvent`所在机器的当前目录，修改`fisco-bcos.node_path=./`。
+      `FISCO-BCOS 2.x`的证书文件为`ca.crt`、`node.crt`、`node.key`。如果`WeEvent`服务和区块链节点不在同一台机器上，需要把证书文件拷贝到`WeEvent`所在机器的当前目录，修改`fisco-bcos.node_path=./`。
   
   - Gateway
   
@@ -146,11 +146,27 @@
   ```
   7000 port is okay
   8080 port is okay
+  2181 port is okay
   param ok
+  install module zookeeper
   install module gateway 
   install gateway success 
   install module broker 
   install broker success 
+  ```
+
+  目标安装路径`/usr/local/weevent/`的结构如下:
+
+  ```shell
+  $ cd /usr/local/weevent/
+  $ tree -L 1
+  .
+  |-- broker
+  |-- lib
+  |-- gateway
+  |-- start-all.sh
+  |-- stop-all.sh
+  |-- zookeeper
   ```
 
 - 启停服务
@@ -164,6 +180,9 @@
     add the crontab job success
     start weevent-gateway success (PID=3643)
     add the crontab job success
+    ZooKeeper JMX enabled by default
+    Using config: /usr/local/weevent/zookeeper/apache-zookeeper-3.6.0-bin/bin/../conf/zoo.cfg
+    Starting zookeeper ... STARTED
     ```
 
   - 停止所有服务的命令`./stop-all.sh`。
