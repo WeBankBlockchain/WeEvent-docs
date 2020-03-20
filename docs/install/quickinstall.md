@@ -44,7 +44,8 @@
   │   ├── gateway
   │   ├── governance
   │   ├── lib
-  │   └── processor
+  │   ├── processor
+  │   └── zookeeper
   ```
   
 - 修改配置
@@ -66,6 +67,7 @@
   
   # Required module
   gateway.port=8080
+  zookeeper.default=true
   zookeeper.connect-string=127.0.0.1:2181
   
   # Required module
@@ -108,7 +110,15 @@
       
       `FISCO-BCOS 2.0`的证书文件为`ca.crt`、`node.crt`、`node.key`。如果`WeEvent`服务和区块链节点不在同一台机器上，需要把证书文件拷贝到`WeEvent`所在机器的当前目录，修改`fisco-bcos.node_path=./`。
   
-  - Gateway监听端口`gateway.port`
+  - Gateway
+  
+    - 监听端口`gateway.port`
+  
+    - `zookeeper`配置
+  
+      `zookeeper.default=true`，值为`true`表示使用`zookeeper.connect-string`里配置的端口，在本机安装`zookeeper`服务使用。
+  
+      `zookeeper.default=false`，值为`false`表示使用`zookeeper.connect-string`的配置去连接用户已有的`zookeeper`服务。
   
   - Broker监听端口`broker.port`
   
@@ -143,19 +153,6 @@
   install broker success 
   ```
 
-  目标安装路径`/usr/local/weevent/`的结构如下
-
-  ```shell
-  $ cd /usr/local/weevent/
-  $ tree -L 1
-  .
-  |-- broker
-  |-- lib
-  |-- gateway
-  |-- start-all.sh			    
-  `-- stop-all.sh
-  ```
-  
 - 启停服务
   - 启动服务
 
@@ -170,15 +167,6 @@
     ```
 
   - 停止所有服务的命令`./stop-all.sh`。
-
-- 检查是否安装成功
-
-    ```shell
-    $ cd broker/
-    $ ./check-service.sh
-    check broker service 
-    broker service is ok
-    ```
 
 - 卸载服务
 

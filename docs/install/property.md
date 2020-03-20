@@ -47,7 +47,8 @@
   | --------------------- | -------------------- | ------------------------------------------------------------ |
   | ip.check.white-table  |                      | IP白名单。多个`IP`地址，以";"分割。<br />默认为空时表示允许任何客户端访问。 |
   | stomp.heartbeats      | 30                   | stomp心跳间隔，单位秒                                        |
-  | mqtt.broker.port      | 7001                 | websocket访问端口，默认不开启                                |
+  | mqtt.broker.port      | 7001                 | 使用websocket访问MQTT的端口，默认不开启                      |
+  | mqtt.broker.tcp.port  | 7002                 | 使用tcp访问MQTT的端口，默认不开启                            |
   | mqtt.broker.keepalive | 60                   | mqtt连接空闲时间，单位秒                                     |
   | mqtt.websocket.path   | /weevent-broker/mqtt | mqtt连接目录                                                 |
 
