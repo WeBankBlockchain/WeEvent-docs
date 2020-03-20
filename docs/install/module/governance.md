@@ -20,7 +20,7 @@
 - Mysql数据库
 
   可选配置。支持`Mysql`存储数据，如果不配置则使用内置的`H2`数据库。如果要使用Mysql数据库，需要做一个
- 
+
   切换，切换步骤，请参考[FAQ](https://weeventdoc.readthedocs.io/zh_CN/latest/faq/weevent.html)。
 
   推荐安装`Mysql 5.7+`版本。具体安装步骤，安装请参见[Mysql安装](http://dev.mysql.com/downloads/mysql/) 。
@@ -98,29 +98,17 @@ init governance db success
 
 ### 服务启停
 
-- 服务启动
+通过`./governance.sh start`命令启动服务，正常启动如下：
 
-  通过`./governance.sh start`命令启动服务，正常启动如下：
+```shell
+$ ./governance.sh start
+start weevent-governance success (PID=53926)
+add the crontab job success
+```
 
-  ```shell
-  $ ./governance.sh start
-  start weevent-governance success (PID=53926)
-  add the crontab job success
-  ```
+通过`./governance.sh stop`命令停止服务。
 
-  通过`./governance.sh stop`命令停止服务。
-
-  进程启动后，会自动添加`crontab`监控任务`./governance.sh monitor`。
-
-- 验证服务
-
-  通过`./check-service.sh` 命令检查服务功能是否正常。
-
-  ```shell
-  $ ./check-service.sh
-  check governance service
-  governance service is ok
-  ```
+进程启动后，会自动添加`crontab`监控任务`./governance.sh monitor`。
 
 
 ### 多视图管理

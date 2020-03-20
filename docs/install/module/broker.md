@@ -111,8 +111,10 @@ $ tree  -L 1
   可选配置。配置文件`./conf/weevent.properties`中`mqtt.*`配置项。
 
   ```ini
-  # 客户端使用WebSocket协议访问MQTT Broker端口
+  # 客户端使用WebSocket协议的访问端口
   mqtt.broker.port=7001
+  # 客户端使用tcp协议的访问端口
+  mqtt.broker.tcp.port=7002
   # 心跳时间 单位:秒
   mqtt.broker.keepalive=60
   # 客户端使用WebSocket协议访问MQTT Broker链接
@@ -124,27 +126,15 @@ $ tree  -L 1
 
 ### 服务启停
 
-- 启动服务
+通过`./broker.sh start`命令启动服务，正常启动如下：
 
-  通过`./broker.sh start`命令启动服务，正常启动如下：
+```shell
+$ ./broker.sh start
+start weevent-broker success (PID=89054)
+add the crontab job success
+```
 
-  ```shell
-  $ ./broker.sh start
-  start weevent-broker success (PID=89054)
-  add the crontab job success
-  ```
+通过`./broker.sh stop`命令停止服务。
 
-  通过`./broker.sh stop`命令停止服务。
-
-  进程启动后，会自动加入集群，同时添加`crontab`监控任务`./broker.sh monitor`。
-
-- 验证服务
-
-  通过`./check-service.sh` 命令检查服务功能是否正常。
-
-  ```shell
-  $ ./check-service.sh
-  check broker service
-  broker service is ok
-  ```
+进程启动后，会自动加入集群，同时添加`crontab`监控任务`./broker.sh monitor`。
 
