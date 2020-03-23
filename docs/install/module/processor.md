@@ -10,7 +10,7 @@
 
   必选配置。服务注册和发现会使用到。
 
-  推荐使用`Zookeeper 3.5.5`版本。具体安装步骤，请参见[Zookeeper安装](http://zookeeper.apache.org/doc/r3.4.13/zookeeperStarted.html)。
+  推荐使用`Zookeeper 3.5.5`及其以上版本。具体安装步骤，请参见[Zookeeper安装](https://zookeeper.apache.org/doc/r3.5.7/zookeeperStarted.html)。
 
 
 - Broker模块
@@ -48,6 +48,7 @@ $ tar -xvf weevent-processor-1.2.0.tar.gz
 ```
 $ cd ./weevent-processor-1.2.0
 $ tree -L 1
+.
 |-- apps
 |-- check-service.sh
 |-- conf
@@ -82,18 +83,17 @@ $ tree -L 1
    - `org.quartz.dataSource`  数据库名称，默认为`WeEvent_processor`，用户可以修改
 
 - 初始化数据库，
-   执行脚本`init-processor.sh` ，成功输出如下。否则，用户需要检查配置项是否正常。
 
-```
-$ ./init-processor.sh
-init processor db success
-```
+   执行脚本`init-processor.sh` ，成功输出如下。否则，用户需要检查配置项是否正常。
+   
+   ```shell
+   $ ./init-processor.sh
+   init processor db success
+   ```
 
 #### 服务启停
 
-- 服务启动
-
-  通过`./processor.sh start`命令启动服务，正常启动如下：
+通过`./processor.sh start`命令启动服务，正常启动如下：
 
 ```shell
 $ ./processor.sh start
@@ -104,16 +104,6 @@ $ ./processor.sh start
   通过`./processor.sh stop`命令停止服务。
 
   进程启动后，会自动添加`crontab`监控任务`./processor.sh monitor`。
-
-- 验证服务
-
-   通过`./check-service.sh` 命令检查服务功能是否正常。
-
-   ```shell
-      $ ./check-service.sh
-      check processor service
-      processor service is ok
-   ```
 
 ### 界面展示
 

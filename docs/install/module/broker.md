@@ -10,7 +10,7 @@
 
   必选配置。服务注册和发现会使用到。
 
-  推荐使用`Zookeeper 3.5.5`版本。具体安装步骤，请参见[Zookeeper安装](http://zookeeper.apache.org/doc/r3.4.13/zookeeperStarted.html)。
+  推荐使用`Zookeeper 3.5.5`及其以上版本。具体安装步骤，请参见[Zookeeper安装](https://zookeeper.apache.org/doc/r3.5.7/zookeeperStarted.html)。
 
 - 区块链FISCO-BCOS节点
 
@@ -33,6 +33,7 @@ $ tar -zxf weevent-broker-1.2.0.tar.gz
 ```
 $ cd ./weevent-broker-1.2.0
 $ tree  -L 1
+.
 |-- apps
 |-- broker.sh
 |-- check-service.sh
@@ -63,9 +64,9 @@ $ tree  -L 1
 
   - 访问节点的证书文件
 
-    2.0版本的证书文件`ca.crt`、`node.crt`、`node.key`放在`./conf/v2`目录下。
+    2.x版本的证书文件`ca.crt`、`node.crt`、`node.key`放在`./conf/v2`目录下。
 
-    证书文件生成及获取请参见[FISCO-BCOS 2.0安装](https://fisco-bcos-documentation.readthedocs.io/zh_CN/release-2.0/docs/installation.html)
+    证书文件生成及获取请参见[FISCO-BCOS 2.x安装](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/installation.html#id1)
 
 - 部署系统合约
 
@@ -111,8 +112,10 @@ $ tree  -L 1
   可选配置。配置文件`./conf/weevent.properties`中`mqtt.*`配置项。
 
   ```ini
-  # 客户端使用WebSocket协议访问MQTT Broker端口
+  # 客户端使用WebSocket协议的访问端口
   mqtt.broker.port=7001
+  # 客户端使用tcp协议的访问端口
+  mqtt.broker.tcp.port=7002
   # 心跳时间 单位:秒
   mqtt.broker.keepalive=60
   # 客户端使用WebSocket协议访问MQTT Broker链接
@@ -124,27 +127,15 @@ $ tree  -L 1
 
 ### 服务启停
 
-- 启动服务
+通过`./broker.sh start`命令启动服务，正常启动如下：
 
-  通过`./broker.sh start`命令启动服务，正常启动如下：
+```shell
+$ ./broker.sh start
+start weevent-broker success (PID=89054)
+add the crontab job success
+```
 
-  ```shell
-  $ ./broker.sh start
-  start broker success (PID=89054)
-  add the crontab job success
-  ```
+通过`./broker.sh stop`命令停止服务。
 
-  通过`./broker.sh stop`命令停止服务。
-
-  进程启动后，会自动加入集群，同时添加`crontab`监控任务`./broker.sh monitor`。
-
-- 验证服务
-
-  通过`./check-service.sh` 命令检查服务功能是否正常。
-
-  ```shell
-  $ ./check-service.sh
-  check broker service
-  broker service is ok
-  ```
+进程启动后，会自动加入集群，同时添加`crontab`监控任务`./broker.sh monitor`。
 
