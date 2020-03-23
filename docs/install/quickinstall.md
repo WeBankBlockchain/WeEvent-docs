@@ -63,7 +63,7 @@
   fisco-bcos.channel=127.0.0.1:20200
   # The path of FISCO-BCOS 2.x that contain certificate file ca.crt/node.crt/node.key,
   # OR FISCO-BCOS 1.3 that contain ca.crt/client.keystore
-  fisco-bcos.node_path=~/FISCO-BCOS/127.0.0.1/node0/conf
+  fisco-bcos.node_path=~/fisco/nodes/127.0.0.1/sdk
   
   # Required module
   gateway.port=8080
@@ -106,7 +106,7 @@
   
     - `fisco-bcos.node_path`
   
-      区块链节点的访问证书、私钥存放目录。
+      区块链节点的访问证书、私钥存放目录，`FISCO-BCOS 2.x`一般目录为`~/fisco/nodes/127.0.0.1/sdk`。
       
       `FISCO-BCOS 2.x`的证书文件为`ca.crt`、`node.crt`、`node.key`。如果`WeEvent`服务和区块链节点不在同一台机器上，需要把证书文件拷贝到`WeEvent`所在机器的当前目录，修改`fisco-bcos.node_path=./`。
   
