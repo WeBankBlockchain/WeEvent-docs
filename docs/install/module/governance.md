@@ -120,5 +120,5 @@ add the crontab job success
 
 
 ### 其他
-推荐安装`Processor`。具体安装步骤，请参见[Processor安装](https://weeventdoc.readthedocs.io/en/latest/install/module/processor.html)。
+推荐安装`Processor`。具体安装步骤，请参见[Processor模块安装](./processor.html)。
 
