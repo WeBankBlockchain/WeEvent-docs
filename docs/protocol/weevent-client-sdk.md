@@ -216,8 +216,10 @@ public interface IWeEventClient {
      * @param localFile local file to be send
      * @return send result, SendResult.SUCCESS if success, and return SendResult.eventId
      * @throws BrokerException broker exception
+     * @throws IOException IOException
+     * @throws InterruptedException InterruptedException
      */
-    SendResult publishFile(String topic, String localFile) throws BrokerException, IOException;
+    SendResult publishFile(String topic, String localFile) throws BrokerException, IOException, InterruptedException;
 
     /**
      * Interface for file notify callback
@@ -273,4 +275,4 @@ public static void main(String[] args) {
 }
 ```
 
-完整的代码请参见[Java Client SDK代码样例](https://github.com/WeBankFinTech/WeEvent/blob/master/weevent-broker/src/test/java/com/webank/weevent/sample/JavaSDK.java) 。
+完整的代码请参见[Java Client SDK代码样例](https://github.com/WeBankFinTech/WeEvent/blob/master/weevent-broker/src/test/java/com/webank/weevent/broker/sample/JavaSDK.java) 。

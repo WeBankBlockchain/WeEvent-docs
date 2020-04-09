@@ -4,13 +4,15 @@
 
 如果是第一次安装`WeEvent`，参见这里的[系统要求](../environment.html) 。以下安装以`CentOS 7.2`为例。
 
+因为区块链使用的加密算法很多`OpenJDK`版本没有提供。所以在各`Java`启动脚本里有设置`JAVA_HOME`变量让用户设置符合要求的`JDK`。
+
 ### 前置条件
 
 - Zookeeper服务
 
   必选配置。服务注册和发现会使用到。
 
-  推荐使用`Zookeeper 3.5.5`版本。具体安装步骤，请参见[Zookeeper安装](http://zookeeper.apache.org/doc/r3.4.13/zookeeperStarted.html)。
+  推荐使用`Zookeeper 3.5.5`及其以上版本。具体安装步骤，请参见[Zookeeper安装](https://zookeeper.apache.org/doc/r3.5.7/zookeeperStarted.html)。
 
 
 ### 获取安装包
@@ -29,6 +31,7 @@ $ tar -zxf weevent-gateway-1.2.0.tar.gz
 ```
 $ cd ./weevent-gateway-1.2.0
 $ tree  -L 1
+.
 |-- apps
 |-- gateway.sh
 |-- check-service.sh
@@ -54,17 +57,15 @@ $ tree  -L 1
 
 ### 服务启停
 
-- 启动服务
+通过`./gateway.sh start`命令启动服务，正常启动如下：
 
-  通过`./gateway.sh start`命令启动服务，正常启动如下：
+```shell
+$ ./gateway.sh start
+start weevent-gateway success (PID=89059)
+add the crontab job success
+```
 
-  ```shell
-  $ ./gateway.sh start
-  start broker success (PID=89059)
-  add the crontab job success
-  ```
+通过`./gateway.sh stop`命令停止服务。
 
-  通过`./gateway.sh stop`命令停止服务。
-
-  进程启动后，同时添加`crontab`监控任务`./gateway.sh monitor`。
+进程启动后，同时添加`crontab`监控任务`./gateway.sh monitor`。
 

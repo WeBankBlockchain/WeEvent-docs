@@ -37,7 +37,7 @@
   | consumer.history_merge_block | 8                    | 事件过滤的区块范围                      |
   
   
-  区块链节点详细配置，参见[Web3SDK配置文件](https://fisco-bcos-documentation.readthedocs.io/zh_CN/release-2.0/docs/sdk/sdk.html) 。
+  区块链节点详细配置，参见[Web3SDK配置文件](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/) 。
   
 - WeEvent服务配置
 
@@ -47,7 +47,8 @@
   | --------------------- | -------------------- | ------------------------------------------------------------ |
   | ip.check.white-table  |                      | IP白名单。多个`IP`地址，以";"分割。<br />默认为空时表示允许任何客户端访问。 |
   | stomp.heartbeats      | 30                   | stomp心跳间隔，单位秒                                        |
-  | mqtt.broker.port      | 7001                 | websocket访问端口，默认不开启                                |
+  | mqtt.broker.port      | 7001                 | 使用websocket访问MQTT的端口，默认不开启                      |
+  | mqtt.broker.tcp.port  | 7002                 | 使用tcp访问MQTT的端口，默认不开启                            |
   | mqtt.broker.keepalive | 60                   | mqtt连接空闲时间，单位秒                                     |
   | mqtt.websocket.path   | /weevent-broker/mqtt | mqtt连接目录                                                 |
 
@@ -74,7 +75,7 @@
 
 ### Processor 配置
 
-- 配置文件`./processor/conf/application-prod.properties ` ，`server.port`默认为7008。
+- 配置文件`./processor/conf/application-prod.properties ` 。
 
 | 配置项                                     | 默认值               | 说明            |
 | --------------------------------------- | ----------------- | ------------- |
