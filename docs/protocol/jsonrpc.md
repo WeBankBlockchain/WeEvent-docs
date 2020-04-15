@@ -66,11 +66,7 @@ $ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":
 {
     "jsonrpc": "2.0",
     "id": "1",
-    "result": {
-        "code":0,
-        "message":"success",
-        "data":true
-    }
+    "result": "true"
 }
 ```
 
@@ -94,11 +90,7 @@ $ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":
 {
     "jsonrpc": "2.0",
     "id": "1",
-    "result": {
-        "code":0,
-        "message":"success",
-        "data":true
-    }
+    "result": "true"
 }
 ```
 
@@ -113,11 +105,7 @@ $ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":
 {
     "jsonrpc": "2.0",
     "id": "1",
-    "result": {
-        "code":0,
-        "message":"success",
-        "data":true
-    }
+    "result": "true"
 }
 ```
 
@@ -158,14 +146,10 @@ $ curl -H"Content-Type: application/json" -d '{"id":"1","jsonrpc":"2.0","method"
     "jsonrpc": "2.0",
     "id": "1",
     "result": {
-        "code":0,
-        "message":"success",
-        "data": {
-            "topic": "hello",
-            "content": "MTIzNDU2",
-            "extensions":{"weevent-format":"json"},
-            "eventId": "2cf24dba-59-1124"
-        }
+        "topic": "hello",
+        "content": "MTIzNDU2",
+        "extensions":{"weevent-format":"json"},
+        "eventId": "2cf24dba-59-1124"
     }
 }
 ```
@@ -186,21 +170,17 @@ $ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":
     "jsonrpc": "2.0",
     "id": "1",
     "result": {
-        "code":0,
-        "message":"success",
-        "data": {
-            "total": 51,
-            "pageIndex": 1,
-            "pageSize": 10,
-            "topicInfoList": [
-                {
-                    "topicName": "123456",
-                    "topicAddress": "0x420f853b49838bd3e9466c85a4cc3428c960dde2",
-                    "senderAddress": "0x64fa644d2a694681bd6addd6c5e36cccd8dcdde3",
-                    "createdTimestamp": 1548211117753
-                }
-            ]
-        }
+        "total": 51,
+        "pageIndex": 1,
+        "pageSize": 10,
+        "topicInfoList": [
+            {
+                "topicName": "123456",
+                "topicAddress": "0x420f853b49838bd3e9466c85a4cc3428c960dde2",
+                "senderAddress": "0x64fa644d2a694681bd6addd6c5e36cccd8dcdde3",
+                "createdTimestamp": 1548211117753
+            }
+        ]
     }
 }
 ```
@@ -226,16 +206,12 @@ $ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":
     "jsonrpc": "2.0",
     "id": "1",
     "result": {
-        "code":0,
-        "message":"success",
-        "data": {
-            "topicName": "com.weevent.test",
-            "topicAddress": "0x171befab4c1c7e0d33b5c3bd932ce0112d4caecd",
-            "senderAddress": "0x64fa644d2a694681bd6addd6c5e36cccd8dcdde3",
-            "createdTimestamp": 1548328570965,
-            "sequenceNumber": 9,
-            "blockNumber": 2475
-        }
+        "topicName": "com.weevent.test",
+        "topicAddress": "0x171befab4c1c7e0d33b5c3bd932ce0112d4caecd",
+        "senderAddress": "0x64fa644d2a694681bd6addd6c5e36cccd8dcdde3",
+        "createdTimestamp": 1548328570965,
+    	"sequenceNumber": 9,
+    	"blockNumber": 2475
     }
 }
 ```
