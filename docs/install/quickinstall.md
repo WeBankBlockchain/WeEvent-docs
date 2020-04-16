@@ -61,8 +61,7 @@
   fisco-bcos.version=2.0
   # FISCO-BCOS node channel, eg: 127.0.0.1:20200;127.0.0.2:20200
   fisco-bcos.channel=127.0.0.1:20200
-  # The path of FISCO-BCOS 2.x that contain certificate file ca.crt/node.crt/node.key,
-  # OR FISCO-BCOS 1.3 that contain ca.crt/client.keystore
+  # The path of FISCO-BCOS 2.x that contain certificate file ca.crt/node.crt/node.key
   fisco-bcos.node_path=~/fisco/nodes/127.0.0.1/sdk
   
   # Required module
