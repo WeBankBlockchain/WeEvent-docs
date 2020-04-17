@@ -26,16 +26,17 @@ public class Rest {
         try {
             SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
             RestTemplate rest = new RestTemplate(requestFactory);
+
             // ensure topic exist "com.weevent.test"
-            Boolean result = rest.getForEntity("http://localhost:8080/weevent-broker/rest/open?topic={topic}&groupId={groupId}",
-                    Boolean.class,
-                    "com.weevent.test",
-                    WeEvent.DEFAULT_GROUP_ID).getBody();
-            System.out.println(result);
+            String topic = "com.weevent.test";
+            ResponseEntity<BaseResponse<Boolean>> rsp = rest.exchange("http://localhost:7000/weevent-broker/rest/open?topic={topic}&groupId={groupId}", HttpMethod.GET, null, new ParameterizedTypeReference<BaseResponse<Boolean>>() {
+            }, topic, WeEvent.DEFAULT_GROUP_ID);
+            System.out.println(rsp.getBody().getData());
+
             // publish event to topic "com.weevent.test"
-            SendResult sendResult = rest.getForEntity("http://localhost:8080/weevent-broker/rest/publish?topic={topic}&groupId={groupId}&content={content}",
+            SendResult sendResult = rest.getForEntity("http://localhost:7000/weevent-broker/rest/publish?topic={topic}&groupId={groupId}&content={content}",
                     SendResult.class,
-                    "com.weevent.test",
+                    topic,
                     WeEvent.DEFAULT_GROUP_ID,
                     "hello WeEvent".getBytes(StandardCharsets.UTF_8)).getBody();
             System.out.println(sendResult);
@@ -62,8 +63,12 @@ public class Rest {
 
 - 应答
 
-  ```
-  true
+  ```json
+  {
+      "code": "0",
+      "message": "success",
+      "data": "true"
+  }
   ```
 
 
@@ -85,8 +90,12 @@ public class Rest {
 
 - 应答
 
-  ```
-  true
+  ```json
+  {
+      "code": "0",
+      "message": "success",
+      "data": "true"
+  }
   ```
 
 #### 检查Topic是否存在
@@ -99,8 +108,12 @@ public class Rest {
 
 - 应答
 
-  ```
-  true
+  ```json
+  {
+      "code": "0",
+      "message": "success",
+      "data": "true"
+  }
   ```
 
 #### 发布事件
@@ -142,12 +155,16 @@ public class Rest {
 
   ```json
   {
-  	"topic": "hello",
-  	"content": "MTIzNDU2",
-  	"extensions": {
-  		"weevent-format": "json"
-  	},
-  	"eventId": "2cf24dba-59-1124"
+      "code":0,
+      "message":"success",
+      "data": {
+          "topic": "hello",
+          "content": "MTIzNDU2",
+          "extensions": {
+              "weevent-format": "json"
+          },
+          "eventId": "2cf24dba-59-1124"
+      }
   }
   ```
 - 说明
@@ -171,17 +188,21 @@ public class Rest {
 
   ```json
   {
-      "total": 50,
-      "pageIndex": 1,
-      "pageSize": 10,
-      "topicInfoList": [
-          {
-              "topicName": "123456",
-              "topicAddress": "0x420f853b49838bd3e9466c85a4cc3428c960dde2",
-              "senderAddress": "0x64fa644d2a694681bd6addd6c5e36cccd8dcdde3",
-              "createdTimestamp": 1548211117753
-          }
-      ]
+      "code":0,
+      "message":"success",
+      "data": {
+          "total": 50,
+          "pageIndex": 1,
+          "pageSize": 10,
+          "topicInfoList": [
+              {
+                  "topicName": "123456",
+                  "topicAddress": "0x420f853b49838bd3e9466c85a4cc3428c960dde2",
+                  "senderAddress": "0x64fa644d2a694681bd6addd6c5e36cccd8dcdde3",
+                  "createdTimestamp": 1548211117753
+              }
+          ]
+      }
   }
   ```
 
@@ -206,12 +227,16 @@ public class Rest {
 
   ```json
   {
-      "topicName": "com.weevent.test",
-      "topicAddress": "0x171befab4c1c7e0d33b5c3bd932ce0112d4caecd",
-      "senderAddress": "0x64fa644d2a694681bd6addd6c5e36cccd8dcdde3",
-      "createdTimestamp": 1548328570965,
-      "sequenceNumber": 9,
-      "blockNumber": 2475
+      "code":0,
+      "message":"success",
+      "data": {
+          "topicName": "com.weevent.test",
+          "topicAddress": "0x171befab4c1c7e0d33b5c3bd932ce0112d4caecd",
+          "senderAddress": "0x64fa644d2a694681bd6addd6c5e36cccd8dcdde3",
+          "createdTimestamp": 1548328570965,
+          "sequenceNumber": 9,
+          "blockNumber": 2475
+      }
   }
   ```
 
