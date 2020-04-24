@@ -107,9 +107,10 @@ $ curl http://localhost:7000/weevent-broker/file/verify?eventId=4e92cf63-9-101
 	}
 }
 ```
-
-说明：输入参数`eventId`为文件传输完毕时的上链事件，输出`file`字段为文件相关信息，`plus`为区块链相关信息，包括交易时间、块高、事件hash、交易账号。
-
+```eval_rst
+.. note::
+    - 输入参数`eventId`为文件传输完毕时的上链事件，输出`file`字段为文件相关信息，`plus`为区块链相关信息，包括交易时间、块高、事件hash、交易账号。
+```
 - 文件传输的实时状态
 
 ```bash
