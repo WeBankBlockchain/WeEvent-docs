@@ -98,7 +98,7 @@
     spring.datasource.url=jdbc:h2:./WeEvent_governance
     spring.datasource.driver-class-name=org.h2.Driver
     spring.datasource.username=root
-    spring.datasource.password=123456  
+    spring.datasource.password=123456
     ```  
   
     如果要切换成Mysql数据库，改成下面这样，其中`url、username、password` 修改成需要连接的数据库配置。

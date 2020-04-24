@@ -5,4 +5,4 @@
 
 例如，A公司的`IoT`设备可以直接在终端通过接入`WeEvent`发布事件，任何其他感兴趣公司的`IoT`设备直接在终端上通过接入`WeEvent`订阅该事件。以此达到设备间的互联互通。同时在`WeEvent`的管理端`Governance`上，通过`CEP`模块自助编辑各种`IFTTT`事件流。
 
-![IoTScarino.png](../image/IoTScarino.png) 
+![IoTScarino.png](../image/IoTScarino.png)

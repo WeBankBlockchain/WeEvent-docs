@@ -13,7 +13,7 @@ topic control address in group: 1
 	version: 10	address: 0x23df89a2893120f686a4aa03b41acf6836d11e5d	new: true
 ```
 
-`new`字段`true`表示合约是本次部署的，`false`表示合约已经存在。  
+`new`字段`true`表示合约是本次部署的，`false`表示合约已经存在。
 
 ### Java程序升级
 

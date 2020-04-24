@@ -5,7 +5,7 @@
 大文件的数据内容本身不上链，只是通过区块链的`p2p`网络从发布方传输到订阅方，文件传输完毕后将这个动作作为一个事件上链。
 
 ### 功能集成
-- 集成Java SDK 
+- 集成Java SDK
 
   大文件传输因为涉及到文件的分片上传和下载，以及可能出现的断点续传，所以该功能只在`Java SDK`中提供。`Java SDK`的集成和使用参见[WeEvent Java SDK](../protocol/weevent-client-sdk.html) 。
   

@@ -26,7 +26,7 @@ $ tar -zxf weevent-gateway-1.2.0.tar.gz
 ```
 如果`github`下载速度慢，可以尝试[国内下载链接](https://www.fisco.com.cn/cdn/weevent/download/releases/v1.2.0/weevent-gateway-1.2.0.tar.gz)。
 
-解压后的目录如下： 
+解压后的目录如下：
 
 ```
 $ cd ./weevent-gateway-1.2.0

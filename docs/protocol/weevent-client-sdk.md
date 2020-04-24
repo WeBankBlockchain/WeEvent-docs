@@ -18,7 +18,7 @@ implement 'com.webank.weevent:weevent-client:1.2.0'
 </dependency>
 ```
 
-### API接口 
+### API接口
 ```java
 public interface IWeEventClient {
     String defaultBrokerUrl = "http://localhost:8080/weevent-broker";

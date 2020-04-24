@@ -24,7 +24,7 @@ implement 'com.webank.weevent:weevent-core:1.2.0'
 </dependency>
 ```
 
-### API接口 
+### API接口
 ```java
 public class FiscoBcosInstance {
     private FiscoBcosDelegate fiscoBcosDelegate;

@@ -44,7 +44,7 @@
 
   通过运行`./weevent-core/src/main/java/com/webank/weevent/core/fisco/util/Web3sdkUtils.java`来部署`WeEvent`内置合约。
 
-- 运行服务及代码样例  
+- 运行服务及代码样例
 
   启动`Broker`服务`./weevent-broker/src/main/java/com/webank/weevent/broker/BrokerApplication.java`。
 

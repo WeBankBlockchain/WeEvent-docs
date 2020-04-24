@@ -87,7 +87,7 @@
   $ {"status":"SUCCESS","topic":"com.weevent.test","eventId":"317e7c4c-301009-6705"}
   ```
   
-### 代码样例 
+### 代码样例
   
   `API`里所有的`groupId`就是`Fabric`的`channelname`, 以发布事件为例：
     
