@@ -35,7 +35,7 @@ mqtt.websocket.path=/weevent-broker/mqtt
 ### 注意事项
 ```eval_rst
 .. important::
-    - 区块链必须确保消息成功上链，暂不支持QoS-0和QoS-2消息级别。
+    - 区块链必须确保消息成功上链，暂不支持QoS=2的消息级别。
     - 不支持断连后会话恢复功能。
 ```
 ### 样例演示
