@@ -26,7 +26,7 @@ WeEvent由微众银行自主研发并完全开源，秉承分布式商业模式�
 `WeEvent官网 <http://fintech.webank.com/weevent>`_ 
 
 
-👏 欢迎大家贡献和分享  `github地址 <https://github.com/WeBankFinTech/WeEvent>`_ 
+👏 欢迎大家贡献和分享  `github地址 <https://github.com/WeBankFinTech/WeEvent>`_
 
 
 .. toctree::
