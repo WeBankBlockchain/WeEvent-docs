@@ -72,12 +72,23 @@ public class Rest {
   ```
 
 
+<<<<<<< HEAD
 ```eval_rst
 .. note:: 
     - topic：主题。ascii值在[32,128]之间。支持通配符按层次订阅，因'+'、'#'为通配符的关键字故不能为topic的一部分，详情参见[MQTT通配符](http://public.dhe.ibm.com/software/dw/webservices/ws-mqtt/mqtt-v3r1.html) 。
     - groupId： FISCO-BCOS群组Id。默认的群组1可以不传，其他接口类似。
     - 重复open返回true 。
 ```
+=======
+- 说明
+  
+- topic：主题。`ascii`值在`[32,128]`之间。支持通配符按层次订阅，因'+'、'#'为通配符的关键字故不能为topic的一部分，详情参见[MQTT通配符](http://public.dhe.ibm.com/software/dw/webservices/ws-mqtt/mqtt-v3r1.html) 。
+  
+- groupId： `FISCO-BCOS`群组`Id`。默认的群组`1`可以不传，其他接口类似。
+  
+  重复`open`返回`true` 。
+
+>>>>>>> 91afd746ca82b7cbacc0d77be8b254cde6a4544e
 #### 关闭Topic
 - 请求
 
@@ -133,12 +144,23 @@ public class Rest {
   ```
 
 
+<<<<<<< HEAD
 ```eval_rst
 .. note::
   - content ：用户自定义数据。需要特别注意content需进行UrlEncode编码，GET方法支持的QueryString最大长度为1024字节。
   - weevent-json:可选参数。用户自定义拓展，以weevent-开头。
   - status：SUCCESS，说明是发布成功，eventId是对应的事件ID。
 ```
+=======
+- 说明 
+
+  - content ：用户自定义数据。需要特别注意`content`需进行`UrlEncode`编码，`GET`方法支持的`QueryString`最大长度为1024字节。
+
+  - weevent-json:可选参数。用户自定义拓展，以`weevent-`开头。
+
+  - status：`SUCCESS`，说明是发布成功，`eventId`是对应的事件ID。
+
+>>>>>>> 91afd746ca82b7cbacc0d77be8b254cde6a4544e
 #### 获取Event详情
 
 - 请求
@@ -163,6 +185,7 @@ public class Rest {
       }
   }
   ```
+<<<<<<< HEAD
 ```eval_rst
 .. note::
   - eventId：事件ID
@@ -174,6 +197,17 @@ public class Rest {
 .. important::
    以下管理端接口，业务程序里一般用不到，可以直接安装Goverance模块来使用这部分功能。
 ```
+=======
+- 说明
+  - eventId：事件ID
+  - content：事件内容，`MTIzNDU2`是`123456`的`Base64`之后的值。
+  - extensions：用户自定义拓展数据。
+
+**注意** 
+
+ 以下管理端接口，业务程序里一般用不到，可以直接安装`Goverance`模块来使用这部分功能。
+
+>>>>>>> 91afd746ca82b7cbacc0d77be8b254cde6a4544e
 #### 当前Topic列表
 - 请求
 
@@ -205,6 +239,7 @@ public class Rest {
   ```
 
 
+<<<<<<< HEAD
 ```eval_rst
 .. note::
   - total：Topic的总数量。
@@ -212,6 +247,14 @@ public class Rest {
   - pageSize：分页大小（0,100），超出这默认每页10个数据。
   - topicInfoList：Topic详细信息列表。
 ```
+=======
+- 说明  
+  - total：`Topic`的总数量。
+  - pageIndex：表示查询第几页，从0开始 。
+  - pageSize：分页大小（0,100），超出这默认每页10个数据。
+  - topicInfoList：`Topic` 详细信息列表。
+
+>>>>>>> 91afd746ca82b7cbacc0d77be8b254cde6a4544e
 
 
 #### 查询某个Topic详情
@@ -240,6 +283,7 @@ public class Rest {
   ```
 
 
+<<<<<<< HEAD
 ```eval_rst
 .. note::
   - topicName ：  事件名称
@@ -248,6 +292,15 @@ public class Rest {
   - sequenceNumber：已发布事件数。
   - blockNumber：最新已发布事件的区块高度。
 ```  
+=======
+- 说明
+  - topicName ：  事件名称
+  - topicAddress ：  `Topic` 区块链上的合约地址
+  - createdTimestamp  ：`Topic` 创建的时间
+  - sequenceNumber：已发布事件数。
+  - blockNumber：最新已发布事件的区块高度。
+  
+>>>>>>> 91afd746ca82b7cbacc0d77be8b254cde6a4544e
 #### 获取群组列表
 - 请求
 
@@ -285,10 +338,16 @@ public class Rest {
         ]
     }
     ```
+<<<<<<< HEAD
 ```eval_rst
 .. note::
     - data：节点ip数组。
 ```
+=======
+ - 说明
+   
+     - data：节点ip数组。
+>>>>>>> 91afd746ca82b7cbacc0d77be8b254cde6a4544e
 
 #### 获取订阅列表 
  - 请求
@@ -317,15 +376,24 @@ public class Rest {
     	}
     }
     ```
+<<<<<<< HEAD
 ```eval_rst
 .. note::
      - interfaceType：监听请求类型 RESTful、JsonRPC、MQTT 、STOMP。
+=======
+ - 说明
+     - interfaceType：监听请求类型 `RESTful`、`JsonRPC`、`MQTT` 、`STOMP`。
+>>>>>>> 91afd746ca82b7cbacc0d77be8b254cde6a4544e
      - notifyingEventCount：待通知事件的数量。
      - notifiedEventCount：已通知事件数量
      - notifyTimeStamp：最近通知事件时间戳。
      - subscribeId：订阅ID
      - topicName ：事件主题。
+<<<<<<< HEAD
 ```
+=======
+
+>>>>>>> 91afd746ca82b7cbacc0d77be8b254cde6a4544e
 #### 获取版本信息
 - 请求
     ```shell
@@ -347,6 +415,7 @@ public class Rest {
             }
     }
     ```
+<<<<<<< HEAD
 ```eval_rst
 .. note::
     - weEventVersion：WeEvent版本号。
@@ -354,6 +423,14 @@ public class Rest {
     - gitBranch：WeEvent构建分支。
     - gitCommitHash：WeEvent最近一次提交git的CommitHash。
 ```
+=======
+- 说明
+    - weEventVersion：`WeEvent`版本号。
+    - gitCommitTimeStamp：`WeEvent`最近一次提交git的时间。
+    - gitBranch：`WeEvent`构建分支。
+    - gitCommitHash：`WeEvent`最近一次提交git的CommitHash。
+
+>>>>>>> 91afd746ca82b7cbacc0d77be8b254cde6a4544e
 
 #### 获取节点个数、区块数量、交易数量
 - 请求
@@ -374,12 +451,20 @@ public class Rest {
     	}
     }
     ```
+<<<<<<< HEAD
 ```eval_rst
 .. note::
     - nodeCount：节点个数。
     - latestBlock：区块数量。
     - transactionCount：交易数量。
 ```
+=======
+- 说明
+    - nodeCount：节点个数。
+    - latestBlock：区块数量。
+    - transactionCount：交易数量。
+
+>>>>>>> 91afd746ca82b7cbacc0d77be8b254cde6a4544e
 #### 获取区块链交易列表
 - 请求
     ```shell
@@ -408,8 +493,12 @@ public class Rest {
     	}
     }
     ```
+<<<<<<< HEAD
 ```eval_rst
 .. note::
+=======
+- 说明
+>>>>>>> 91afd746ca82b7cbacc0d77be8b254cde6a4544e
     - total：当前区块交易总条数。
     - pageIndex：页码。
     - pageSize：页面展示条数。
@@ -420,7 +509,11 @@ public class Rest {
     - transFrom： 发送者的地址。
     - transHash：交易哈希。
     - transTo：接收者的地址。
+<<<<<<< HEAD
 ```    
+=======
+    
+>>>>>>> 91afd746ca82b7cbacc0d77be8b254cde6a4544e
 
 #### 获取交易哈希列表
 - 请求
@@ -451,8 +544,12 @@ public class Rest {
     	}
     }
     ```
+<<<<<<< HEAD
 ```eval_rst
 .. note::
+=======
+- 说明
+>>>>>>> 91afd746ca82b7cbacc0d77be8b254cde6a4544e
     - total: 区块总数。
     - pageIndex：页码。
     - pageSize：页面展示条数。
@@ -464,7 +561,11 @@ public class Rest {
     - sealer：共识节点序号。
     - sealerIndex：节点序号为index的nodeId。
     - transCount：交易次数。
+<<<<<<< HEAD
 ```      
+=======
+      
+>>>>>>> 91afd746ca82b7cbacc0d77be8b254cde6a4544e
  #### 获取区块链节点列表
  - 请求
      ```shell
@@ -494,8 +595,12 @@ public class Rest {
      	}
      }
      ```
+<<<<<<< HEAD
 ```eval_rst
 .. note::
+=======
+ - 说明
+>>>>>>> 91afd746ca82b7cbacc0d77be8b254cde6a4544e
      - total: 节点总数。
      - pageIndex：页码。
      - pageSize：页面展示条数。
@@ -507,4 +612,7 @@ public class Rest {
      - nodeActive：节点运行状态。
      - createTime：创建时间。
      - modifyTime：修改时间。
+<<<<<<< HEAD
 ```
+=======
+>>>>>>> 91afd746ca82b7cbacc0d77be8b254cde6a4544e

@@ -70,6 +70,7 @@ $ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":
 }
 ```
 
+<<<<<<< HEAD
 
 ```eval_rst
 .. note::
@@ -77,6 +78,16 @@ $ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":
   - groupId：群组Id，fisco-bcos 2.0+版本支持多群组功能，2.0以下版本不支持该功能可以不传。
   - 可以重复open，也是返回true
 ```
+=======
+- 说明
+
+  - topic：主题。`ascii`值在`[32,128]`之间。支持通配符按层次订阅，因'+'、'#'为通配符的关键字故不能为topic的一部分，详情参见[MQTT通配符](http://public.dhe.ibm.com/software/dw/webservices/ws-mqtt/mqtt-v3r1.html) 。
+  
+  - groupId：群组`Id`，`fisco-bcos 2.0+`版本支持多群组功能，2.0以下版本不支持该功能可以不传。
+  
+    可以重复`open`，也是返回`true`
+
+>>>>>>> 91afd746ca82b7cbacc0d77be8b254cde6a4544e
 
 #### 关闭Topic
 
@@ -125,6 +136,7 @@ $ curl -H "Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method"
     }
 }
 ```
+<<<<<<< HEAD
 
 ```eval_rst
 .. note::
@@ -132,6 +144,16 @@ $ curl -H "Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method"
   - extensions：用户自定义数据以weevent-开头。可选参数。
   - result ： 返回字段result ，是一个WeEvent对象的序列化，可查看WeEvent对象。status：SUCCESS表示成功。eventId："10-123"表示发布事件成功ID。
 ```  
+=======
+- 说明：
+  
+  - content：`MTIzNDU2`是`123456`进行`Base64`编码后的值。
+  
+  - extensions：用户自定义数据以`weevent-`开头。可选参数。
+  
+  - result ： 返回字段`result` ，是一个`WeEvent`对象的序列化，可查看WeEvent对象。“status”：“SUCCESS”表示成功。”eventId“："10-123"表示发布事件成功ID。
+  
+>>>>>>> 91afd746ca82b7cbacc0d77be8b254cde6a4544e
 
 ####  获取Event详情
 - 请求
@@ -154,10 +176,16 @@ $ curl -H"Content-Type: application/json" -d '{"id":"1","jsonrpc":"2.0","method"
 
 
 
+<<<<<<< HEAD
 ```eval_rst
 .. important::
     以下管理端接口，业务程序里一般用不到，可以直接安装Goverance模块来使用这部分功能。
 ```
+=======
+**注意**
+以下管理端接口，业务程序里一般用不到，可以直接安装`Goverance`模块来使用这部分功能。
+
+>>>>>>> 91afd746ca82b7cbacc0d77be8b254cde6a4544e
 #### 当前Topic列表
 - 请求
 ```shell
@@ -184,6 +212,7 @@ $ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":
 }
 ```
 
+<<<<<<< HEAD
 ```eval_rst
 .. note::
   - total：Topic的总数量
@@ -191,6 +220,18 @@ $ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":
   - pageSize： 分页大小（0,100），默认每页10条数据。
   - topicInfoList：Topic详细信息列表
 ```
+=======
+- 说明
+
+  - total：`Topic`的总数量
+
+  - pageIndex:：查询第几页，从0开始  
+
+  - pageSize： 分页大小（0,100），默认每页10条数据。
+
+  - topicInfoList：`Topic` 详细信息列表
+
+>>>>>>> 91afd746ca82b7cbacc0d77be8b254cde6a4544e
 #### 查询某个Topic详情
 - 请求
 ```shell
@@ -212,6 +253,7 @@ $ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":
 }
 ```
 
+<<<<<<< HEAD
 ```eval_rst
 .. note::
   - topicAddress：Topic区块链上的合约地址。
@@ -219,6 +261,18 @@ $ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":
   - sequenceNumber：已发布事件数。
   - blockNumber：最新已发布事件的区块高度。
 ```  
+=======
+- 说明
+
+  - topicAddress： `Topic`区块链上的合约地址。
+
+  - createdTimestamp：`Topic`创建的时间。
+
+  - sequenceNumber：已发布事件数。
+
+  - blockNumber：最新已发布事件的区块高度。
+  
+>>>>>>> 91afd746ca82b7cbacc0d77be8b254cde6a4544e
 
 
 

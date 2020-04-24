@@ -34,10 +34,16 @@
 
     具体内容详见[适配Fabric](https://weeventdoc.readthedocs.io/zh_CN/latest/advanced/fabric.html)。
     
+<<<<<<< HEAD
 ```eval_rst
 .. important::
     区块链配置在两个代码模块weevent-core和weevent-broker里都有涉及到。都需要配置。
 ```
+=======
+
+  注意：区块链配置在两个代码模块`weevent-core`和`weevent-broker`里都有涉及到。都需要配置。
+
+>>>>>>> 91afd746ca82b7cbacc0d77be8b254cde6a4544e
 - 部署系统合约
 
   `weevent-core`和`weevent-broker`模块关于区块链的配置相同。
