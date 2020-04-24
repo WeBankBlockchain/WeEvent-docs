@@ -6,7 +6,7 @@
 
 ### 更多说明
 
-- 业务程序统一从前置的API Gateway接入，通过端口8080访问。
+- 业务程序统一从前置的API Gateway接入，通过端口8080访问。 
 
   `RESTful`协议的访问`URL`为 `http://localhost:8080/weevent-broker/rest`。
 

@@ -12,7 +12,7 @@
 
   `Broker`就是`weevent-core.jar `的服务化，以支持各种协议接入。
 
-- Governance
+- Governance  
 
   `WeEvent`的事件治理模块，提供一个`Web`管理端。支持区块链信息浏览、`Topic`事件治理、流计算等。
 

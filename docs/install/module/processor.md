@@ -31,7 +31,7 @@
 
   推荐安装`Mysql 5.7+`版本。具体安装步骤，安装请参见[Mysql安装](http://dev.mysql.com/downloads/mysql/) 。
 
-### 获取安装包
+### 获取安装包  
 
 从`github`下载安装包[weevent-processor-1.2.0.tar.gz](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.2.0/weevent-processor-1.2.0.tar.gz)，并且解压到`/usr/local/weevent/`下。
 

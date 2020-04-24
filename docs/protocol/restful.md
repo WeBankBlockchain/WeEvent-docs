@@ -491,7 +491,7 @@ public class Rest {
  - 说明
      - total: 节点总数。
      - pageIndex：页码。
-     - pageSize：页面展示条数。
+     - pageSize：页面展示条数。 
      - nodeId：节点id。
      - nodeName：节点名称。
      - pbftView：PBFT视图。

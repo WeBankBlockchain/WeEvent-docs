@@ -16,7 +16,7 @@
 #### Spring Boot 环境
 加入`Spring Boot`的依赖，以`gradle` 为例：  
 
-```groovy
+```groovy 
 implementation("org.springframework.boot:spring-boot-starter-websocket")
 ```
 `Spring`从`4.0`开始引入`spring-websocket`模块，支持`STOMP`，建议使用`Spring Boot 2.0.0`以上版本。

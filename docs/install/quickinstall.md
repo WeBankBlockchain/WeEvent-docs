@@ -9,7 +9,7 @@
   ```bash
   $ docker pull weevent/weevent:1.2.0; docker run -d -p 8080:8080 weevent/weevent:1.2.0 /root/run.sh
   ```
-
+  
   `WeEvent`的镜像里包括了`FISCO-BCOS`网络，`WeEvent`服务的各个子模块以及各种依赖。
 
 

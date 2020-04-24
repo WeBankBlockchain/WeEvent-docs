@@ -14,7 +14,7 @@
 
 事件内容对`WeEvent`是透明的，业务可以存放任何数据，例如字符型的`Json`、`XML`，或者二进制的`Protocol Buffer`等。在`Java`中映射为字节数组`byte[]`，完整的`Java`映射类参见[WeEvent.java](https://github.com/WeBankFinTech/WeEvent/blob/master/weevent-client/src/main/java/com/webank/weevent/client/WeEvent.java)。
 
-### 主题（Topic）  
+### 主题（Topic）    
 业务上一般把数据结构相同，属于同类型的事件归属于同一主题`Topic`。
 
 每个主题`Topic`逻辑上都有彼此独立的队列。主题之间是完全隔离的，发布、存储、通知都不会互相影响。  

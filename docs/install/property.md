@@ -85,7 +85,7 @@
 | spring.jpa.database                     | mysql                | 类型          |
 | spring.datasource.username              | root                 | 数据库用户         |
 | spring.datasource.password              | 123456               | 数据库密码        |
-
+   
 - 配置文件`./processor/conf/processor.properties `。
 
 | 配置项                                     | 默认值               | 说明            |

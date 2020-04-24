@@ -165,7 +165,7 @@ $ curl -H"Content-Type: application/json" -d '{"id":"1","jsonrpc":"2.0","method"
 ```shell
 $ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":"list","params":{"pageIndex":0,"pageSize":10,"groupId":"1"}}' http://localhost:8080/weevent-broker/jsonrpc
 ```
-- 应答
+- 应答 
 ```json
 {
     "jsonrpc": "2.0",

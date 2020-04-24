@@ -107,7 +107,7 @@ start weevent-governance success (PID=53926)
 add the crontab job success
 ```
 
-通过`./governance.sh stop`命令停止服务。
+通过`./governance.sh stop`命令停止服务。  
 
 进程启动后，会自动添加`crontab`监控任务`./governance.sh monitor`。
 
