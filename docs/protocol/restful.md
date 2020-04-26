@@ -172,10 +172,10 @@ public class Rest {
   - content：事件内容，`MTIzNDU2`是`123456`的`Base64`之后的值。
   - extensions：用户自定义拓展数据。
 
-**注意** 
-
- 以下管理端接口，业务程序里一般用不到，可以直接安装`Goverance`模块来使用这部分功能。
-
+```eval_rst
+.. note::
+    - 以下管理端接口，业务程序里一般用不到，可以直接安装`Goverance`模块来使用这部分功能。
+```
 #### 当前Topic列表
 - 请求
 
