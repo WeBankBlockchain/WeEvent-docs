@@ -96,4 +96,8 @@
 | org.quartz.threadPool.threadCount       | 20                | 进程数据          |
 | org.quartz.threadPool.threadPriority    | 5                 | 进行优先级         |
 
-说明：`org.quartz.dataSource.*`  配置的数据库信息需要和`org.quartz.jobStore.dataSource` 配置的数据源信息一致。
+
+```eval_rst
+.. note::
+   - `org.quartz.dataSource.*`  配置的数据库信息需要和`org.quartz.jobStore.dataSource` 配置的数据源信息一致。
+```
