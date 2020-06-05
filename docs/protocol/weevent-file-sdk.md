@@ -197,4 +197,4 @@ public interface IWeEventFileClient {
 ```
 
 
-完整的代码请参见[大文件传输](../advanced/bigfile.md) 。
+完整地代码请参见[大文件传输](../advanced/bigfile.md) 。
