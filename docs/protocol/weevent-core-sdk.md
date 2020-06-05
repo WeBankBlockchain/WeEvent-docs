@@ -70,16 +70,16 @@ public static void main(String[] args) {
         IProducer iProducer = fiscoBcosInstance.buildProducer();
         iProducer.startProducer();
 
-        // 发布事件
+        // 生产者发布事件
         WeEvent weEvent = new WeEvent(“com.weevent.test”, "hello weevent".getBytes());
         SendResult sendResult = iProducer.publish(weEvent, “1”, fiscoConfig.getWeb3sdkTimeout());
         System.out.println(sendResult);
         
-        // 创建生产者
+        // 创建消费者
         IConsumer iConsumer = fiscoBcosInstance.buildConsumer();
         iConsumer.startConsumer();
 
-		// 订阅消息
+	// 消费者订阅消息
         String subscriptionId = iConsumer.subscribe(“com.weevent.test”, “1”, WeEvent.OFFSET_LAST, new HashMap<>(), new IConsumer.ConsumerListener() {
             @Override
             public void onEvent(String subscriptionId, WeEvent event) {
