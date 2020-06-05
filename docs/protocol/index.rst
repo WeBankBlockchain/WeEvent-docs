@@ -16,3 +16,4 @@ WeEvent服务用Java Spring Boot框架实现。
    /protocol/mqtt
    /protocol/weevent-client-sdk   
    /protocol/errorcode
+   /protocol/weevent-jms-sdk
