@@ -186,7 +186,7 @@ public class Rest {
 - 请求
 
   ```shell
-  $ curl "http://localhost:8080/weevent-broker/rest/list?pageIndex=1&pageSize=10&groupId=1"
+  $ curl "http://localhost:8080/weevent-broker/rest/list?pageIndex=0&pageSize=10&groupId=1"
   ```
 
 
