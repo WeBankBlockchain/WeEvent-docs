@@ -1,7 +1,7 @@
 ## 错误码
 ### 错误码说明
 
-所有错误以异常形式抛出，通过异常类`BrokerException`的 `getCode()`和`getMessage()`方法获取详细信息。  
+所有错误以检查异常的形式抛出，通过异常类`BrokerException`的 `getCode()`和`getMessage()`方法获取详细信息。  
 
 ### 错误码区间
 
