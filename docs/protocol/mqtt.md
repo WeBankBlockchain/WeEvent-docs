@@ -5,39 +5,18 @@
 
 - `MQTT`是物联网`IoT`中的主流接入协议，协议具体内容参见[http://mqtt.org/](http://mqtt.org/) 。
 - `WeEvent`支持`MQTT 3.1.1`
-### 配置MQTT服务
+### 开启TCP服务
 
- 在`Broker`服务中，修改配置文件`./conf/weevent.properties`，然后重新启动服务。
+`weevent-broker`默认支持`MQTT over WebSocket`，`MQTT over TCP`需要额外开启。修改配置文件`./conf/weevent.properties`，然后重新启动服务。
 
 ```ini
-#mqtt brokerserver
+#mqtt tcp server
 mqtt.broker.port=7001
-mqtt.broker.keepalive=60
-mqtt.websocket.path=/weevent-broker/mqtt
 ```
-
-参数说明：
-
-- mqtt.broker.port
-
-  客户端使用`WebSocket`协议访问`MQTT Broker`。
-
-- mqtt.broker.keepalive
-
-  发送心跳时间。单位为秒。
-
-- mqtt.websocket.path
-
-  客户端使用`WebSocket`协议访问`MQTT Broker`链接。
-
-
-
-### 注意事项
 
 ```eval_rst
 .. note::
-    - 区块链必须确保消息成功上链，暂不支持QoS=2的消息级别。
-    - 不支持断连后会话恢复功能。
+    - 暂不支持QoS=2的消息级别。
 ```
 ### 样例演示
 

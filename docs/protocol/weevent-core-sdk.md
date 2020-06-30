@@ -13,14 +13,14 @@
 
 - gradle依赖
 ```groovy
-implement 'com.webank.weevent:weevent-core:1.2.0'
+implement 'com.webank.weevent:weevent-core:1.3.0'
 ```
 - maven依赖
 ```xml
 <dependency>
     <groupId>com.webank.weevent</groupId>
     <artifactId>weevent-core</artifactId>
-    <version>1.2.0</version>
+    <version>1.3.0</version>
 </dependency>
 ```
 
@@ -59,8 +59,8 @@ public class FiscoBcosInstance {
 ```java
 public static void main(String[] args) {
     try {
-        // 从classpath里初始化配置fisco.properties
         FiscoConfig fiscoConfig = new FiscoConfig();
+        // 默认从classpath里读取配置文件fisco.properties
         fiscoConfig.load("");
     
         // 获取FISCO实例
@@ -71,18 +71,19 @@ public static void main(String[] args) {
         iProducer.startProducer();
 
         // 生产者发布事件
-        WeEvent weEvent = new WeEvent(“com.weevent.test”, "hello weevent".getBytes());
-        SendResult sendResult = iProducer.publish(weEvent, “1”, fiscoConfig.getWeb3sdkTimeout());
+        WeEvent weEvent = new WeEvent("com.weevent.test", "hello weevent".getBytes());
+        SendResult sendResult = iProducer.publish(weEvent, "1", fiscoConfig.getWeb3sdkTimeout());
         System.out.println(sendResult);
         
         // 创建消费者
         IConsumer iConsumer = fiscoBcosInstance.buildConsumer();
         iConsumer.startConsumer();
 
-	// 消费者订阅消息
-        String subscriptionId = iConsumer.subscribe(“com.weevent.test”, “1”, WeEvent.OFFSET_LAST, new HashMap<>(), new IConsumer.ConsumerListener() {
+        // 消费者订阅消息
+        String subscriptionId = iConsumer.subscribe("com.weevent.test", "1", WeEvent.OFFSET_LAST, new HashMap<>(), new IConsumer.ConsumerListener() {
             @Override
             public void onEvent(String subscriptionId, WeEvent event) {
+                // 回调后的业务处理
             }
 
             @Override
@@ -98,11 +99,12 @@ public static void main(String[] args) {
 }
 ```
 
+以上样例将发布者和订阅者放在一起只是为了方便示例，业务实际场景一般在不同的进程。
 完整的代码请参见[Java Core SDK代码样例](https://github.com/WeBankFinTech/WeEvent/blob/master/weevent-core/src/test/java/com/webank/weevent/core/FiscoBcosInstanceTest.java) 。
 
 ### 关于配置文件
 
-上一段样例中使用到的配置文件`fisco.properties`，内容如下：
+以上样例中使用到的配置文件`fisco.properties`，内容如下：
 
 ```properties
 #fisco version
@@ -123,7 +125,7 @@ consumer.history_merge_block=8
 ```
 
 - 如果是普通Java服务，将上面文件放入`classpath`下面。通过默认方式`FiscoConfig.load("")`即可加载。
-- 如果是`Spring`上下服务，将包路径`com.webank.weevent.core.config`加入扫描即可导出已经配置好的`Bean FiscoConfig`。示例如下（"com.webank.weevent.broker"为集成服务的包名）：
+- 如果是`Spring`上下服务，将包路径`com.webank.weevent.core.config`加入扫描即可导入配置`Bean FiscoConfig`。示例如下（"com.webank.weevent.broker"为集成服务的包名）：
 
 ```java
 @SpringBootApplication(scanBasePackages = {"com.webank.weevent.broker", "com.webank.weevent.core.config"})
