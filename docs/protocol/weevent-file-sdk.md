@@ -195,5 +195,43 @@ public interface IWeEventFileClient {
 }
 ```
 
+### 代码样例
 
-完整地代码请参见[大文件传输](../advanced/bigfile.md) 。
+```java
+public static void main(String[] args) {
+    try {
+        FiscoConfig fiscoConfig = new FiscoConfig();
+        fiscoConfig.load("");
+        
+        IWeEventFileClient weEventFileClient = IWeEventFileClient.build("1", "./logs", 1024 * 1024, fiscoConfig);
+        String topicName = "com.weevent.file";
+
+        // 订阅文件，接收到的文件存到"./logs"目录中
+        weEventFileClient.openTransport4Receiver(topicName, new IWeEventFileClient.FileListener() {
+            @Override
+            public void onFile(String topicName, String fileName) {
+                // 接收到文件，业务处理中
+            }
+
+            @Override
+            public void onException(Throwable e) {
+                e.printStackTrace();
+            }
+        });
+
+        // 发布文件"log4j2.xml"
+        weEventFileClient.openTransport4Sender(topicName);
+        FileChunksMeta fileChunksMeta = weEventFileClient.publishFile(topicName,
+                new File("src/main/resources/log4j2.xml").getAbsolutePath(), true);  
+
+        // 对文件传输事件上链(可选)
+        SendResult sendResult = weEventFileClient.sign(fileChunksMeta);
+        
+        // 验证文件传输事件(可选)
+        FileChunksMetaPlus fileChunksMetaPlus = weEventFileClient.verify(sendResult.getEventId(), this.groupId);
+          
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+```
