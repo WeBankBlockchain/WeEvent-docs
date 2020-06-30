@@ -5,47 +5,28 @@
 
 - `MQTT`是物联网`IoT`中的主流接入协议，协议具体内容参见[http://mqtt.org/](http://mqtt.org/) 。
 - `WeEvent`支持`MQTT 3.1.1`
-### 配置MQTT服务
-
- 在`Broker`服务中，修改配置文件`./conf/weevent.properties`，然后重新启动服务。
-
-```ini
-#mqtt brokerserver
-mqtt.broker.port=7001
-mqtt.broker.keepalive=60
-mqtt.websocket.path=/weevent-broker/mqtt
-```
-
-参数说明：
-
-- mqtt.broker.port
-
-  客户端使用`WebSocket`协议访问`MQTT Broker`。
-
-- mqtt.broker.keepalive
-
-  发送心跳时间。单位为秒。
-
-- mqtt.websocket.path
-
-  客户端使用`WebSocket`协议访问`MQTT Broker`链接。
-
-
-
-### 注意事项
 
 ```eval_rst
 .. note::
-    - 区块链必须确保消息成功上链，暂不支持QoS=2的消息级别。
-    - 不支持断连后会话恢复功能。
+    - 暂不支持QoS=2的消息级别。
 ```
+
+### 开启TCP服务
+
+`weevent-broker`默认支持`MQTT over WebSocket`，`MQTT over TCP`需要额外开启。修改配置文件`./conf/weevent.properties`，然后重新启动服务。
+
+```ini
+#mqtt tcp server
+mqtt.broker.port=7001
+```
+
 ### 样例演示
 
 样例演示需依赖`Mosquitto`客户端，请根据链接(`https://mosquitto.org/download/`)进行下载安装。更多客户端参见[MQTT第三方库](https://github.com/mqtt/mqtt.github.io/wiki/libraries)。
 
 - IoT设备发布事件
 
-  发送消息前需创建`topic` (`com.weevent.test`)。详情请参照[创建Topic](./restful.html)
+  发送消息前需创建主题`com.weevent.test`，请参考[创建Topic](./restful.html)。
 
   ```shell
   $ mosquitto_pub -h localhost -p 7000 -q 1 -t "com.weevent.test" -m "{\"timestamp\":133345566,\"key\":\"temperature\",\"value\":10.0}"
