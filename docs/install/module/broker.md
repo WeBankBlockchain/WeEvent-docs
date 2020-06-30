@@ -112,10 +112,8 @@ $ tree  -L 1
   可选配置。配置文件`./conf/weevent.properties`中`mqtt.*`配置项。
 
   ```ini
-  # 客户端使用WebSocket协议的访问端口
-  mqtt.broker.port=7001
-  # 客户端使用tcp协议的访问端口
-  mqtt.broker.tcp.port=7002
+  # MQTT over tcp端口
+  mqtt.broker.tcp.port=7001
   # 心跳时间 单位:秒
   mqtt.broker.keepalive=60
   # 客户端使用WebSocket协议访问MQTT Broker链接

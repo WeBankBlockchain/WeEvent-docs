@@ -77,17 +77,6 @@ $ tree -L 1
   server.port=7009
   ```
 
-- 重置密码的邮件设置
-
-    可选配置。在配置文件`./conf/application-prod.properties`中，修改`mail`中的`host`、`username`、`password` 配置。
-
-    ```ini
-	spring.mail.default-encoding= UTF-8
-	spring.mail.host= smtp.163.com
-	spring.mail.username= mailusername@163.com
-	spring.mail.password= mailpwd
-    ```
-
 - 区块链FISCO-BCOS节点(复制Broker模块中，配置连接FISCO-BCOS节点的配置文件以及相关证书)
 
   - 区块链节点配置文件fisco.properties

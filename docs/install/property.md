@@ -47,8 +47,7 @@
   | --------------------- | -------------------- | ------------------------------------------------------------ |
   | ip.check.white-table  |                      | IP白名单。多个`IP`地址，以";"分割。<br />默认为空时表示允许任何客户端访问。 |
   | stomp.heartbeats      | 30                   | stomp心跳间隔，单位秒                                        |
-  | mqtt.broker.port      | 7001                 | 使用websocket访问MQTT的端口，默认不开启                      |
-  | mqtt.broker.tcp.port  | 7002                 | 使用tcp访问MQTT的端口，默认不开启                            |
+  | mqtt.broker.tcp.port  | 7001                 | 使用tcp访问MQTT的端口，默认不开启                            |
   | mqtt.broker.keepalive | 60                   | mqtt连接空闲时间，单位秒                                     |
   | mqtt.websocket.path   | /weevent-broker/mqtt | mqtt连接目录                                                 |
 
@@ -67,15 +66,11 @@
 | spring.datasource.dbcp2.max-wait-millis  | 10000                                                        | 数据库连接池最长等待时间ms |
 | spring.datasource.dbcp2.min-idle         | 5                                                            | 数据库连接池最小空闲       |
 | spring.datasource.dbcp2.initial-size     | 5                                                            | 数据库连接池初始大小       |
-| spring.datasource.dbcp2.validation-query | SELECT 'x'                                                   | 数据库连接池验证查询       |
-| spring.mail.default-encoding             | UTF-8                                                        | 编码类型                   |
-| spring.mail.host                         | smtp.163.com                                                 | 邮件服务器主机             |
-| spring.mail.username                     | mailusername@163.com                                         | 邮箱用户名                 |
-| spring.mail.password                     | mailpwd                                                      | 邮箱密码                   |
+| spring.datasource.dbcp2.validation-query | SELECT '1'                                                   | 数据库连接池验证查询       |
 
 ### Processor 配置
 
-- 配置文件`./processor/conf/application-prod.properties ` 。
+- 配置文件`./processor/conf/application-prod.properties` 。
 
 | 配置项                                     | 默认值               | 说明            |
 | --------------------------------------- | ----------------- | ------------- |
@@ -86,7 +81,7 @@
 | spring.datasource.username              | root                 | 数据库用户         |
 | spring.datasource.password              | 123456               | 数据库密码        |
 
-- 配置文件`./processor/conf/processor.properties `。
+- 配置文件`./processor/conf/processor.properties`。
 
 | 配置项                                     | 默认值               | 说明            |
 | --------------------------------------- | ----------------- | ------------- |
