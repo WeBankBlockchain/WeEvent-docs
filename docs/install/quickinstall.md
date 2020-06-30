@@ -61,8 +61,7 @@
   fisco-bcos.version=2.0
   # FISCO-BCOS node channel, eg: 127.0.0.1:20200;127.0.0.2:20200
   fisco-bcos.channel=127.0.0.1:20200
-  # The path of FISCO-BCOS 2.x that contain certificate file ca.crt/node.crt/node.key,
-  # OR FISCO-BCOS 1.3 that contain ca.crt/client.keystore
+  # The path of FISCO-BCOS 2.x that contain certificate file ca.crt/sdk.crt/sdk.key
   fisco-bcos.node_path=~/fisco/nodes/127.0.0.1/sdk
   
   # Required module
@@ -108,7 +107,7 @@
   
       区块链节点的访问证书、私钥存放目录，`FISCO-BCOS 2.x`一般目录为`~/fisco/nodes/127.0.0.1/sdk`。
       
-      `FISCO-BCOS 2.x`的证书文件为`ca.crt`、`node.crt`、`node.key`。如果`WeEvent`服务和区块链节点不在同一台机器上，需要把证书文件拷贝到`WeEvent`所在机器的当前目录，修改`fisco-bcos.node_path=./`。
+      `FISCO-BCOS 2.x`的证书文件为`ca.crt`、`sdk.crt`、`sdk.key`。如果`WeEvent`服务和区块链节点不在同一台机器上，需要把证书文件拷贝到`WeEvent`所在机器的当前目录，修改`fisco-bcos.node_path=./`。
   
   - Gateway
   
@@ -190,6 +189,7 @@
 - 卸载服务
 
   所有服务停止后，直接删除目录即可。
+  
 
 
 快速安装作为一种简易安装方式，默认使用内置的`H2`数据库。并且所有子服务都是单实例的，生产环境中建议多实例部署。各子模块详细部署参见[Broker模块部署](./module/broker.html)和[Governance模块部署](./module/governance.html)。

@@ -22,14 +22,13 @@ sys.path.insert(0, os.path.abspath('.'))
 # -- Project information -----------------------------------------------------
 
 project = 'WeEvent'
-copyright = '2019, cristic'
-author = 'cristic'
+copyright = '2020, cristic'
+author = 'WeEvent'
 
 # The short X.Y version
 version = ''
 # The full version, including alpha/beta/rc tags
 release = ''
-
 
 # -- General configuration ---------------------------------------------------
 
@@ -62,7 +61,7 @@ import recommonmark
 from recommonmark.parser import CommonMarkParser
 from recommonmark.transform import AutoStructify
 source_parsers = {
-    '.md': CommonMarkParser,
+	'.md': 'recommonmark.parser.CommonMarkParser',
 }
 #
 source_suffix = ['.rst', '.md']
@@ -77,7 +76,7 @@ master_doc = 'index'
 # This is also used if you do content translation via gettext catalogs.
 # Usually you set "language" from the command line for these cases.
 language = 'zh_CN'
-
+html_search_language = 'utf-8'
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path .
@@ -99,8 +98,17 @@ import sphinx_rtd_theme
 html_theme = "sphinx_rtd_theme"
 html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 
+github_doc_root = 'https://github.com/WeBankFinTech/WeEvent-docs'
 def setup(app):
- app.add_stylesheet("css/style.css" )
+    app.add_config_value('recommonmark_config', {
+        'url_resolver': lambda url: github_doc_root + url,
+        'auto_toc_tree_section': 'Contents',
+        'enable_eval_rst': True,
+	}, True)
+
+    app.add_transform(AutoStructify)
+    app.add_stylesheet('css/custom.css')
+    app.add_javascript('js/readthedocs-analytics.js')
  
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -220,7 +228,9 @@ todo_include_todos = True
 html_static_path = ['_static']
 
 html_context = {
-    'css_files': [
-        '_static/index.css',  # table css
-        ],
-     }
+    "display_github": True, # Integrate GitHub
+    "github_repo": "WeEvent-docs", # Repo name
+    "github_user": "WeBankFinTech",
+    "github_version": "master", # Version
+    "conf_py_path": "/docs/", # Path in the checkout to the docs root
+}

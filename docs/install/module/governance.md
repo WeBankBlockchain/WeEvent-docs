@@ -88,6 +88,17 @@ $ tree -L 1
 	spring.mail.password= mailpwd
     ```
 
+- 区块链FISCO-BCOS节点(复制Broker模块中，配置连接FISCO-BCOS节点的配置文件以及相关证书)
+
+  - 区块链节点配置文件fisco.properties
+
+    修改`nodes=127.0.0.1:20200`配置项，`nodes`为区块链节点`channel`访问入口。
+
+  - 访问节点的证书文件
+
+    2.x版本的证书文件`ca.crt`、`sdk.crt`、`sdk.key`放在`./conf/`目录下。
+
+
 ### 初始化数据库
 
 执行脚本`init-governance.sh` 初始化数据库，成功输出如下。否则，用户需要检查数据库配置是否正常。

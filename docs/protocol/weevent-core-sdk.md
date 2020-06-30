@@ -70,16 +70,16 @@ public static void main(String[] args) {
         IProducer iProducer = fiscoBcosInstance.buildProducer();
         iProducer.startProducer();
 
-        // 发布事件
+        // 生产者发布事件
         WeEvent weEvent = new WeEvent(“com.weevent.test”, "hello weevent".getBytes());
         SendResult sendResult = iProducer.publish(weEvent, “1”, fiscoConfig.getWeb3sdkTimeout());
         System.out.println(sendResult);
         
-        // 创建生产者
+        // 创建消费者
         IConsumer iConsumer = fiscoBcosInstance.buildConsumer();
         iConsumer.startConsumer();
 
-		// 订阅消息
+	// 消费者订阅消息
         String subscriptionId = iConsumer.subscribe(“com.weevent.test”, “1”, WeEvent.OFFSET_LAST, new HashMap<>(), new IConsumer.ConsumerListener() {
             @Override
             public void onEvent(String subscriptionId, WeEvent event) {
@@ -135,15 +135,13 @@ consumer.history_merge_block=8
 
 集成好`weevent-core.Jar`，设置好配置文件`fisco.properties`及其访问节点的证书后。执行`Jar`包里的方法部署合约：
 
-```bash
-java -classpath "./lib/*:./conf" com.webank.weevent.core.fisco.util.Web3sdkUtils
-2020-03-06 10:33:37 topic control address in every group:
-topic control address in group: 1
-        version: 10     address: 0x23df89a2893120f686a4aa03b41acf6836d11e5d     new: true
-topic control address in group: 2
-        version: 10     address: 0x23df89a2893120f686a4aa03b41acf6836d11e5d     new: true
-```
+  ```shell
+  $ java -classpath "./conf:./lib/*:../lib/*" com.webank.weevent.core.fisco.util.Web3sdkUtils
+    2020-06-05 11:08:36 topic control address in every group:
+    topic control address in group: 1
+            EchoAddress(version=10, address=0x23df89a2893120f686a4aa03b41acf6836d11e5d, isNew=false)
+  ```
 
-其中`./lib`为`weevent-core.Jar`及其依赖所在目录，`./conf`为`fisco.properties`所在目录。
+其中`./conf`为`fisco.properties`所在目录，`./lib`为`weevent-core.Jar`及其依赖所在目录。
 
 这个方法可重入，重复执行时只是简单显示一下数据。屏幕输出`new`为`true`表示合约是本次部署，`false`表示是之前部署的合约。

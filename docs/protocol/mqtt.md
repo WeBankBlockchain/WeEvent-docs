@@ -34,10 +34,11 @@ mqtt.websocket.path=/weevent-broker/mqtt
 
 ### 注意事项
 
-- 区块链必须确保消息成功上链，暂不支持QoS-0和QoS-2消息级别。
-
-- 不支持断连后会话恢复功能。
-
+```eval_rst
+.. note::
+    - 区块链必须确保消息成功上链，暂不支持QoS=2的消息级别。
+    - 不支持断连后会话恢复功能。
+```
 ### 样例演示
 
 样例演示需依赖`Mosquitto`客户端，请根据链接(`https://mosquitto.org/download/`)进行下载安装。更多客户端参见[MQTT第三方库](https://github.com/mqtt/mqtt.github.io/wiki/libraries)。

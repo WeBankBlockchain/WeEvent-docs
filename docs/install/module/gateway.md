@@ -57,13 +57,13 @@ $ tree  -L 1
 
 ### 服务启停
 
-通过`./gateway.sh start`命令启动服务，正常启动如下：
+  通过`./gateway.sh start`命令启动服务，正常启动如下：
 
-```shell
-$ ./gateway.sh start
-start weevent-gateway success (PID=89059)
-add the crontab job success
-```
+  ```shell
+  $ ./gateway.sh start
+  start weevent-gateway success (PID=89059)
+  add the crontab job success
+  ```
 
 通过`./gateway.sh stop`命令停止服务。
 

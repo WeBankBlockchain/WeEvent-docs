@@ -148,7 +148,15 @@ $ curl -H"Content-Type: application/json" -d '{"id":"1","jsonrpc":"2.0","method"
     "result": {
         "topic": "hello",
         "content": "MTIzNDU2",
-        "extensions":{"weevent-format":"json"},
+        "extensions":{
+            "weevent-format": "json",
+            "weevent-plus": {
+                "timestamp":1591326142038,
+                "height":168,
+                "txHash":"0x5c9fc570c1ac35f85382f38aa7d88ff038deb5865b971af34b6828fc6c23b5e9",
+                "sender":"0x64fa644d2a694681bd6addd6c5e36cccd8dcdde3"
+            }
+        },
         "eventId": "2cf24dba-59-1124"
     }
 }
@@ -156,9 +164,11 @@ $ curl -H"Content-Type: application/json" -d '{"id":"1","jsonrpc":"2.0","method"
 
 
 
-**注意**
-以下管理端接口，业务程序里一般用不到，可以直接安装`Goverance`模块来使用这部分功能。
 
+```eval_rst
+.. note::
+   - 以下管理端接口，业务程序里一般用不到，可以直接安装`Goverance`模块来使用这部分功能。
+```
 #### 当前Topic列表
 - 请求
 ```shell
