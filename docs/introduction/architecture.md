@@ -1,26 +1,24 @@
 ## 架构说明
 
-`WeEvent`主要使用[Spring Boot](https://spring.io/projects/spring-boot)框架开发。既支持单独的`weevent-core.jar `包集成，也支持以独立服务的方式部署。
+`WeEvent`服务使用[Spring Boot](https://spring.io/projects/spring-boot)框架开发。业务集成上，既支持直接加载独立的`JAR`包使用服务，例如`weevent-core.jar `、`weevent-file.jar`等。也支持通过代理服务来提供功能，例如`weevent-broker`、`weevent-governance`、`weevent-processor`。
 
-以独立服务部署的方式中，有`Broker`、`Governance`、`Processor`、`API Gateway`等子服务。
+### 各子块服务简介
 
-### 子服务简介
-
-- Broker
+- weevent-broker
 
   `WeEvent`的事件代理模块，提供核心的事件发布订阅`Pub`/`Sub`以及`Topic`管理功能。
 
-  `Broker`就是`weevent-core.jar `的服务化，以支持各种协议接入。
+  `weevent-broker`就是`weevent-core.jar `的服务化，以支持各种协议接入。
 
-- Governance
+- weevent-governance
 
-  `WeEvent`的事件治理模块，提供一个`Web`管理端。支持区块链信息浏览、`Topic`事件治理、流计算等。
+  `WeEvent`的事件治理模块，提供一个`Web`管理端。支持区块链信息浏览、`Topic`事件治理、流计算、大文件传输等。
 
   使用数据库持久化相关数据，支持`H2`和`Mysql`。
 
-- Processor
+- weevent-processor
 
-    是`Governance`实时流计算功能中，规则引擎的分布式运行容器。
+    是`weevent-governance`实时流计算功能中，规则引擎的分布式运行容器。
     
 - API Gateway
 
