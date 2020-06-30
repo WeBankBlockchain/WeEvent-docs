@@ -77,18 +77,18 @@
     ```java
     public static void main(String[] args) {
         try {
-            // FTP连接信息，工作目录./test
-            FtpInfo ftpInfo = new FtpInfo("127.0.0.1", 21, "ftpuser", "123456", "./test");
-            // 当使用ftp信息构造WeEventFileClient时，默认读写FTP服务器中用户主目录下的文件
-            IWeEventFileClient weEventFileClient = IWeEventFileClient.build("1", "./receiver", ftpInfo, 1024 * 1024, fiscoConfig);
+            // FTP连接信息，接收文件的根目录./receiver
+            FtpInfo ftpInfo = new FtpInfo("127.0.0.1", 21, "ftpuser", "123456", "./receiver");
+            // 本地文件缓存./local
+            IWeEventFileClient weEventFileClient = IWeEventFileClient.build("1", "./local", ftpInfo, 1024 * 1024, fiscoConfig);
     
             String topicName = "com.weevent.file";
-            // 发送FTP服务器上的文件./test/sender/foo.txt
+            // 发送FTP服务器上的文件./sender/foo.txt
             weEventFileClient.openTransport4Sender(topicName);
             FileChunksMeta fileChunksMeta = weEventFileClient.publishFile(topicName, "./sender/foo.txt", true);
             System.out.println(fileChunksMeta.toString());
     
-            // 订阅文件接收到文件后，写到FTP服务器"./test/receiver"目录下
+            // 订阅文件接收到文件后，写到FTP服务器"./receiver"目录下
             weEventFileClient.openTransport4Receiver(topicName, new IWeEventFileClient.FileListener() {
                 @Override
                 public void onFile(String topicName, String fileName) {
