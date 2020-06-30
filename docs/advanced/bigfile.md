@@ -137,13 +137,13 @@ public static void main(String[] args) {
         int port = 21;
         String userName = "ftpuser";
         String passWd = "123456";
+        // ftpuser用户主目录下的现对路径
         String ftpReceivePath = "./";
     
         try {
-            IWeEventFileClient weEventFileClient = IWeEventFileClient.build(groupId, receivePath, fileChunkSize, fiscoConfig);
-    
+            FtpInfo ftpInfo = new FtpInfo(host, port, userName, passWd, "./test");
             // 当使用ftp信息构造WeEventFileClient时，默认读写FTP服务器中用户主目录下的文件
-            IWeEventFileClient weEventFileClient = IWeEventFileClient.build(groupId, receivePath, host, port, userName, passWd, ftpReceivePath, fileChunkSize, fiscoConfig);
+            IWeEventFileClient weEventFileClient = IWeEventFileClient.build(groupId, receivePath, ftpInfo, fileChunkSize, fiscoConfig);
     
             // 发送方读取FTP服务器中用户主目录下./test/build_chain.sh文件发送
             weEventFileClient.openTransport4Sender("com.weevent.file");
