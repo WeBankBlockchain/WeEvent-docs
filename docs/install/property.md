@@ -56,47 +56,43 @@
 
 ### Governance
 
-配置文件`./governance/conf/application-prod.properties`。
+- 配置文件`./governance/conf/application-prod.properties`。
 
-| 配置项                                   | 默认值                                                       | 配置说明                   |
-| ---------------------------------------- | ------------------------------------------------------------ | -------------------------- |
-| server.port                              | 7009                                                         | spring监听端口             |
-| spring.datasource.url                    | jdbc:mysql://127.0.0.1:3306/governance?useUnicode=true&characterEncoding=utf-8&useSSL=false | 数据源                     |
-| spring.datasource.driver-class-name      | org.mariadb.jdbc.Driver                                      | 驱动类                     |
-| spring.datasource.username               | xxxx                                                         | 数据库账号用户名           |
-| spring.datasource.password               | yyyy                                                         | 数据库账号密码             |
-| spring.datasource.type                   | org.apache.commons.dbcp2.BasicDataSource                     | 数据源类型                 |
-| spring.datasource.dbcp2.max-wait-millis  | 10000                                                        | 数据库连接池最长等待时间ms |
-| spring.datasource.dbcp2.min-idle         | 5                                                            | 数据库连接池最小空闲       |
-| spring.datasource.dbcp2.initial-size     | 5                                                            | 数据库连接池初始大小       |
-| spring.datasource.dbcp2.validation-query | SELECT 'x'                                                   | 数据库连接池验证查询       |
-| spring.mail.default-encoding             | UTF-8                                                        | 编码类型                   |
-| spring.mail.host                         | smtp.163.com                                                 | 邮件服务器主机             |
-| spring.mail.username                     | mailusername@163.com                                         | 邮箱用户名                 |
-| spring.mail.password                     | mailpwd                                                      | 邮箱密码                   |
+  | 配置项                                   | 默认值                                                       | 配置说明                   |
+  | ---------------------------------------- | ------------------------------------------------------------ | -------------------------- |
+  | server.port                              | 7009                                                         | spring监听端口             |
+  | spring.datasource.url                    | jdbc:mysql://127.0.0.1:3306/governance?useUnicode=true&characterEncoding=utf-8&useSSL=false | 数据源                     |
+  | spring.datasource.driver-class-name      | org.mariadb.jdbc.Driver                                      | 驱动类                     |
+  | spring.datasource.username               | xxxx                                                         | 数据库账号用户名           |
+  | spring.datasource.password               | yyyy                                                         | 数据库账号密码             |
+  | spring.datasource.type                   | org.apache.commons.dbcp2.BasicDataSource                     | 数据源类型                 |
+  | spring.datasource.dbcp2.max-wait-millis  | 10000                                                        | 数据库连接池最长等待时间ms |
+  | spring.datasource.dbcp2.min-idle         | 5                                                            | 数据库连接池最小空闲       |
+  | spring.datasource.dbcp2.initial-size     | 5                                                            | 数据库连接池初始大小       |
+  | spring.datasource.dbcp2.validation-query | SELECT '1'                                                   | 数据库连接池验证查询       |
 
 ### Processor 配置
 
-- 配置文件`./processor/conf/application-prod.properties ` 。
+- 配置文件`./processor/conf/application-prod.properties` 。
 
-| 配置项                                     | 默认值               | 说明            |
-| --------------------------------------- | ----------------- | ------------- |
-| server.port                             | 7008              | 默认端口          |
-| spring.datasource.url                   | jdbc:mysql://127.0.0.1:3306/WeEvent_processor | JDBC连接串   |
-| spring.datasource.driverClassName       | org.mariadb.jdbc.Driver | 连接驱动 |
-| spring.jpa.database                     | mysql                | 类型          |
-| spring.datasource.username              | root                 | 数据库用户         |
-| spring.datasource.password              | 123456               | 数据库密码        |
+  | 配置项                                   | 默认值               | 说明            |
+  | --------------------------------------- | ----------------- | ------------- |
+  | server.port                             | 7008              | 默认端口          |
+  | spring.datasource.url                   | jdbc:mysql://127.0.0.1:3306/WeEvent_processor | JDBC连接串   |
+  | spring.datasource.driverClassName       | org.mariadb.jdbc.Driver | 连接驱动 |
+  | spring.jpa.database                     | mysql                | 类型          |
+  | spring.datasource.username              | root                 | 数据库用户         |
+  | spring.datasource.password              | 123456               | 数据库密码        |
 
-- 配置文件`./processor/conf/processor.properties `。
+- 配置文件`./processor/conf/processor.properties`。
 
-| 配置项                                     | 默认值               | 说明            |
-| --------------------------------------- | ----------------- | ------------- |
-| quartz.schedule.name                    | schedule          | quartz标识名称    |
-| org.quartz.scheduler.instanceName       | test              | scheduler名称   |
-| org.quartz.dataSource.WeEvent_processor | WeEvent_processor | 连接quartz数据库名称 |
-| org.quartz.threadPool.threadCount       | 20                | 进程数据          |
-| org.quartz.threadPool.threadPriority    | 5                 | 进行优先级         |
+  | 配置项                                   | 默认值               | 说明            |
+  | --------------------------------------- | ----------------- | ------------- |
+  | quartz.schedule.name                    | schedule          | quartz标识名称    |
+  | org.quartz.scheduler.instanceName       | test              | scheduler名称   |
+  | org.quartz.dataSource.WeEvent_processor | WeEvent_processor | 连接quartz数据库名称 |
+  | org.quartz.threadPool.threadCount       | 20                | 进程数据          |
+  | org.quartz.threadPool.threadPriority    | 5                 | 进行优先级         |
 
 
 ```eval_rst
