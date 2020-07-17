@@ -20,7 +20,7 @@
     
     `JsonRPC`协议是对`STOMP`协议标准功能集的一个补充。
     
-  `RESTful`主要是给`Web`开发使用，内置的`Governance`模块就有大量使用。
+    `RESTful`主要是给`Web`开发使用，内置的`Governance`模块就有大量使用。
     
     `MQTT`主要面向物联网`IoT`设备的接入。
     

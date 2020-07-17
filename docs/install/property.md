@@ -29,9 +29,12 @@
   | orgid                        | fisco                | 机构名，按机构实际名称填写即可          |
   | nodes                        | 127.0.0.1:20200      | 区块链节点列表，多个地址以`;`分割       |
   | account                      | bcec428d5205abe0f... | `WeEvent`执行交易的账号，一般不需要修改 |
+  | ca-crt-path                  | ca.crt               | 区块链节点的访问证书                   |
+  | sdk-crt-path                 | sdk.crt              | 区块链节点的访问证书                   |
+  | sdk-key-path                 | sdk.key              | 区块链节点的访问证书                   |
   | web3sdk.timeout              | 10000                | 交易执行超时时间，单位毫秒              |
   | web3sdk.core-pool-size       | 10                   | web3sdk最小线程数                       |
-  | web3sdk.max-pool-size        | 1000                 | web3sdk最大线程数                       |
+  | web3sdk.max-pool-size        | 100                  | web3sdk最大线程数                       |
   | web3sdk.keep-alive-seconds   | 10                   | web3sdk线程空闲时间，单位秒             |
   | consumer.idle-time           | 1000                 | 区块链新增块事件检测周期，单位毫秒      |
   | consumer.history_merge_block | 8                    | 事件过滤的区块范围                      |
@@ -46,11 +49,10 @@
   | 配置项                | 默认值               | 配置说明                                                     |
   | --------------------- | -------------------- | ------------------------------------------------------------ |
   | ip.check.white-table  |                      | IP白名单。多个`IP`地址，以";"分割。<br />默认为空时表示允许任何客户端访问。 |
-  | stomp.heartbeats      | 30                   | stomp心跳间隔，单位秒                                        |
-  | mqtt.broker.port      | 7001                 | 使用websocket访问MQTT的端口，默认不开启                      |
-  | mqtt.broker.tcp.port  | 7002                 | 使用tcp访问MQTT的端口，默认不开启                            |
+  | block.chain.type      | fisco                | 区块链类别，fisco或fabric                                   |
+  | stomp.heartbeats      | 30                   | stomp心跳间隔，单位秒
+  | mqtt.broker.tcp.port  | 7001                 | 使用tcp访问MQTT的端口，默认不开启                            |
   | mqtt.broker.keepalive | 60                   | mqtt连接空闲时间，单位秒                                     |
-  | mqtt.websocket.path   | /weevent-broker/mqtt | mqtt连接目录                                                 |
 
 ### Governance
 
