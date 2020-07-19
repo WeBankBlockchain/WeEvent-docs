@@ -1,5 +1,5 @@
 ## Java File SDK
-
+本节介绍如何将大文件传输功能以`jar`包形式直接集成到业务服务里。
 ### 前置条件
 
 - 区块链FISCO-BCOS节点
@@ -12,7 +12,7 @@
 
 - gradle依赖
 ```groovy
-implement 'com.webank.weevent:weevent-fie:1.3.0'
+implement 'com.webank.weevent:weevent-file:1.3.0'
 ```
 - maven依赖
 ```xml

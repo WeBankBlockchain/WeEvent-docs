@@ -36,7 +36,7 @@
     
 ```eval_rst
 .. note::
-  - 区块链配置在两个代码模块`weevent-core`和`weevent-broker`里都有涉及到。都需要配置。
+  - 区块链配置在两个代码模块weevent-core和weevent-broker里都有涉及到。都需要配置。
 ```
 - 部署系统合约
 
