@@ -167,7 +167,7 @@ $ curl -H"Content-Type: application/json" -d '{"id":"1","jsonrpc":"2.0","method"
 
 ```eval_rst
 .. note::
-   - 以下管理端接口，业务程序里一般用不到，可以直接安装`Goverance`模块来使用这部分功能。
+   - 以下管理端接口，业务程序里一般用不到，可以直接安装Goverance模块来使用这部分功能。
 ```
 #### 当前Topic列表
 - 请求

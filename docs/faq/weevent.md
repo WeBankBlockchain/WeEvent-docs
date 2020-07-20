@@ -50,7 +50,7 @@
   当服务超时或者机器宕机时，一般的逻辑是重试，这种策略很容易出现重复请求。但是整个业务系统内，不只在`WeEevnt`服务的边界会出现这种情况，任何一个服务边界都会出现。 建议业务统一处理，比如在事件内容里带一个唯一ID`UUID`，消费的时候使用`UUID`字段来判断该事件是否已经处理过。
 ```eval_rst
 .. important::
-    - `EventID`不是用来去重的，同一事件每成功发布一次，都会生成不同的`EventID`。
+    - EventID不是用来去重的，同一事件每成功发布一次，都会生成不同的EventID。
 ```
 - 服务状态检查脚本`check-service.sh`出现`"deploy contract failed"`
   - 检查`WeEvent`到`FISCO-BCOS`的连接及其配置。

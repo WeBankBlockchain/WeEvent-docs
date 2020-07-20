@@ -97,5 +97,5 @@
 
 ```eval_rst
 .. note::
-   - `org.quartz.dataSource.*`  配置的数据库信息需要和`org.quartz.jobStore.dataSource` 配置的数据源信息一致。
+   - `org.quartz.dataSource.*`  配置的数据库信息需要和org.quartz.jobStore.dataSource配置的数据源信息一致。
 ```
