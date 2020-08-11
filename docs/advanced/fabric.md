@@ -5,7 +5,7 @@
 ### 前置条件
 - 安装`weevent-broker`, 具体安装步骤[weevent-broker章节](../install/module/broker.html)
 
-  以`weevent-broker`安装到 `/usr/local/weevent/weevent-broker-1.1.0` 目录为例。
+  以`weevent-broker`安装到 `/usr/local/weevent/weevent-broker-1.3.0` 目录为例。
   
 
 - 安装`Fabric 1.4`区块链节点(以官网`Fabric Samples`安装为例), 
@@ -20,7 +20,7 @@
   - 配置`WeEvent`访问区块链
   
     ```shell
-    $ cd /usr/local/weevent/weevent-broker-1.1.0/
+    $ cd /usr/local/weevent/weevent-broker-1.3.0/
     $ vi ./conf/weevent.properties
     ```
 
@@ -98,16 +98,17 @@ public class Rest {
         try {
             SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
             RestTemplate rest = new RestTemplate(requestFactory);
+
             // ensure topic exist "com.weevent.test"
-            Boolean result = rest.getForEntity("http://localhost:8080/weevent/rest/open?topic={topic}&groupId={groupId}",
-                    Boolean.class,
-                    "com.weevent.test",
-                    "mychannel").getBody();
-            System.out.println(result);
+            String topic = "com.weevent.test";
+            ResponseEntity<BaseResponse<Boolean>> rsp = rest.exchange("http://localhost:7000/weevent-broker/rest/open?topic={topic}&groupId={groupId}", HttpMethod.GET, null, new ParameterizedTypeReference<BaseResponse<Boolean>>() {
+            }, topic, "mychannel");
+
+            System.out.println(rsp.getBody().getData());
             // publish event to topic "com.weevent.test"
             SendResult sendResult = rest.getForEntity("http://localhost:8080/weevent/rest/publish?topic={topic}&groupId={groupId}&content={content}",
                     SendResult.class,
-                    "com.weevent.test",
+                    topic,
                     "mychannel",
                     "hello weevent".getBytes(StandardCharsets.UTF_8)).getBody();
             System.out.println(sendResult.getStatus());
