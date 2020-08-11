@@ -2,6 +2,17 @@
 
 `WeEvent`特性变化请参见[版本变更历史](https://github.com/WeBankFinTech/WeEvent/releases)。
 
+- v1.3.0安装包
+
+| 版本           | github下载                                                   | 国内下载                                                     | md5                              |
+| -------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | -------------------------------- |
+| 快速安装包     | [weevent-1.3.0.tar.gz](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.3.0/weevent-1.3.0.tar.gz) | [weevent-1.3.0.tar.gz](https://www.fisco.com.cn/cdn/weevent/download/releases/v1.2.0/weevent-1.2.0.tar.gz) | c956bc9efd420d336043bb7a453e16fe |
+| Gateway模块    | [weevent-gateway-1.3.0.tar.gz](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.3.0/weevent-gateway-1.3.0.tar.gz) | [weevent-gateway-1.3.0.tar.gz](https://www.fisco.com.cn/cdn/weevent/download/releases/v1.2.0/weevent-gateway-1.2.0.tar.gz) | 30aa5fae65ab14426a81ecc9dcfa2aec |
+| Broker模块     | [weevent-broker-1.3.0.tar.gz](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.3.0/weevent-broker-1.3.0.tar.gz) | [weevent-broker-1.3.0.tar.gz](https://www.fisco.com.cn/cdn/weevent/download/releases/v1.2.0/weevent-broker-1.2.0.tar.gz) | ca059b6df41b40861e76a8151f949ab2 |
+| Governance模块 | [weevent-governance-1.3.0.tar.gz](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.3.0/weevent-governance-1.3.0.tar.gz) | [weevent-governance-1.3.0.tar.gz](https://www.fisco.com.cn/cdn/weevent/download/releases/v1.2.0/weevent-governance-1.2.0.tar.gz) | 206b9f559a1be1290802537481c1e137 |
+| Processor模块  | [weevent-processor-1.3.0.tar.gz](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.3.0/weevent-processor-1.3.0.tar.gz) | [weevent-governance-1.3.0.tar.gz](https://www.fisco.com.cn/cdn/weevent/download/releases/v1.2.0/weevent-processor-1.2.0.tar.gz) | 7fde00629201e3f3f9f6706c380ba422 |
+
+
 - v1.2.0安装包
 
 | 版本           | github下载                                                   | 国内下载                                                     | md5                              |
