@@ -1,20 +1,20 @@
-## Java SDK
+## Java Client SDK
 `WeEvent`支持`RESTful`、`JsonRPC`、`STOMP`、`MQTT`等协议，方便各种语言的接入和适配。
 
-同时为`Java`语言提供了独立的`SDK`。其他语言`SDK`在规划中，欢迎大家贡献代码，[WeEvent代码仓库](https://github.com/WeBankFinTech/WeEvent) 。
+同时为`Java`语言提供了独立的客户端`SDK`。其他语言`SDK`在规划中，欢迎大家贡献代码，[WeEvent代码仓库](https://github.com/WeBankFinTech/WeEvent) 。
 
 ### 集成SDK
 
 - gradle依赖
 ```groovy
-implement 'com.webank.weevent:weevent-client:1.2.0'
+implement 'com.webank.weevent:weevent-client:1.3.0'
 ```
 - maven依赖
 ```xml
 <dependency>
     <groupId>com.webank.weevent</groupId>
     <artifactId>weevent-client</artifactId>
-    <version>1.2.0</version>
+    <version>1.3.0</version>
 </dependency>
 ```
 
@@ -104,6 +104,15 @@ public interface IWeEventClient {
     SendResult publish(WeEvent weEvent) throws BrokerException;
 
     /**
+     * Publish an event to topic in asynchronous way.
+     *
+     * @param weEvent WeEvent(String topic, byte[] content, Map extensions)
+     * @return send result, SendResult.SUCCESS if success, and SendResult.eventId
+     * @throws BrokerException broker exception
+     */
+    CompletableFuture<SendResult> publishAsync(WeEvent weEvent) throws BrokerException;
+
+    /**
      * Interface for event notify callback
      */
     interface EventListener {
@@ -127,46 +136,24 @@ public interface IWeEventClient {
      *
      * @param topic topic name
      * @param offset from next event after this offset(an event id), WeEvent.OFFSET_FIRST if from head of queue, WeEvent.OFFSET_LAST if from tail of queue
+     * @param extension extension params
      * @param listener notify interface
      * @return subscription Id
      * @throws BrokerException invalid input param
      */
-    String subscribe(String topic, String offset, @NonNull EventListener listener) throws BrokerException;
+    String subscribe(String topic, String offset, Map<String, String> extension, @NonNull EventListener listener) throws BrokerException;
 
     /**
      * Subscribe events from topic.
      *
-     * @param topic topic name
-     * @param offset from next event after this offset(an event id), WeEvent.OFFSET_FIRST if from head of queue, WeEvent.OFFSET_LAST if from tail of queue
-     * @param subscriptionId keep last subscribe
-     * @param listener notify interface
-     * @return subscription Id
-     * @throws BrokerException invalid input param
-     */
-    String subscribe(String topic, String offset, String subscriptionId, @NonNull EventListener listener) throws BrokerException;
-
-    /**
-     * Subscribe events from multiple topic.
-     *
      * @param topics topic list
      * @param offset from next event after this offset(an event id), WeEvent.OFFSET_FIRST if from head of queue, WeEvent.OFFSET_LAST if from tail of queue
+     * @param extension extension params
      * @param listener notify interface
      * @return subscription Id
      * @throws BrokerException invalid input param
      */
-    String subscribe(String[] topics, String offset, @NonNull EventListener listener) throws BrokerException;
-
-    /**
-     * Subscribe events from multiple topic.
-     *
-     * @param topics topic list
-     * @param offset from next event after this offset(an event id), WeEvent.OFFSET_FIRST if from head of queue, WeEvent.OFFSET_LAST if from tail of queue
-     * @param subscriptionId keep last subscribe
-     * @param listener notify interface
-     * @return subscription Id
-     * @throws BrokerException invalid input param
-     */
-    String subscribe(String[] topics, String offset, String subscriptionId, @NonNull EventListener listener) throws BrokerException;
+    String subscribe(String[] topics, String offset, Map<String, String> extension, @NonNull EventListener listener) throws BrokerException;
 
     /**
      * Unsubscribe an exist subscription subscribed by subscribe interface.
@@ -205,50 +192,6 @@ public interface IWeEventClient {
      * @throws BrokerException broker exception
      */
     WeEvent getEvent(String eventId) throws BrokerException;
-
-    // The following's is for big file's Pub/Sub
-
-    /**
-     * Publish a file to topic.
-     * The file's data DO NOT stored in block chain. Yes, it's not persist, may be deleted sometime after subscribe notify.
-     *
-     * @param topic binding topic
-     * @param localFile local file to be send
-     * @return send result, SendResult.SUCCESS if success, and return SendResult.eventId
-     * @throws BrokerException broker exception
-     */
-    SendResult publishFile(String topic, String localFile) throws BrokerException, IOException;
-
-    /**
-     * Interface for file notify callback
-     */
-    interface FileListener {
-        /**
-         * Called while new file arrived.
-         *
-         * @param subscriptionId binding subscription
-         * @param localFile local file with data
-         */
-        void onFile(String subscriptionId, String localFile);
-
-        /**
-         * Called while raise exception.
-         *
-         * @param e the e
-         */
-        void onException(Throwable e);
-    }
-
-    /**
-     * Subscribe file from topic.
-     *
-     * @param topic topic name
-     * @param filePath file path to store arriving file
-     * @param fileListener notify interface
-     * @return subscription Id
-     * @throws BrokerException broker exception
-     */
-    String subscribeFile(String topic, String filePath, @NonNull FileListener fileListener) throws BrokerException;
 }
 ```
 
@@ -257,7 +200,7 @@ public interface IWeEventClient {
 ```java
 public static void main(String[] args) {
     try {
-        IWeEventClient client = new IWeEventClient.Builder().brokerUrl("http://localhost:8080/weevent-broker");
+        IWeEventClient client = IWeEventClient.builder().brokerUrl("http://localhost:8080/weevent-broker").groupId(WeEvent.DEFAULT_GROUP_ID).build();
         
         String topicName = "com.weevent.test";
         // open 一个"com.weevent.test"的主题
@@ -273,4 +216,4 @@ public static void main(String[] args) {
 }
 ```
 
-完整的代码请参见[Java SDK代码样例](https://github.com/WeBankFinTech/WeEvent/blob/master/weevent-broker/src/test/java/com/webank/weevent/sample/JavaSDK.java) 。
+完整的代码请参见[Java Client SDK代码样例](https://github.com/WeBankFinTech/WeEvent/blob/master/weevent-broker/src/test/java/com/webank/weevent/broker/sample/JavaSDK.java) 。

@@ -20,7 +20,7 @@
     
     `JsonRPC`协议是对`STOMP`协议标准功能集的一个补充。
     
-  `RESTful`主要是给`Web`开发使用，内置的`Governance`模块就有大量使用。
+    `RESTful`主要是给`Web`开发使用，内置的`Governance`模块就有大量使用。
     
     `MQTT`主要面向物联网`IoT`设备的接入。
     
@@ -48,9 +48,10 @@
   `WeEvent`不处理发布事件的去重。
 
   当服务超时或者机器宕机时，一般的逻辑是重试，这种策略很容易出现重复请求。但是整个业务系统内，不只在`WeEevnt`服务的边界会出现这种情况，任何一个服务边界都会出现。 建议业务统一处理，比如在事件内容里带一个唯一ID`UUID`，消费的时候使用`UUID`字段来判断该事件是否已经处理过。
-
-  注意：`EventID`不是用来去重的，同一事件每成功发布一次，都会生成不同的`EventID`。
-
+```eval_rst
+.. important::
+    - EventID不是用来去重的，同一事件每成功发布一次，都会生成不同的EventID。
+```
 - 服务状态检查脚本`check-service.sh`出现`"deploy contract failed"`
   - 检查`WeEvent`到`FISCO-BCOS`的连接及其配置。
   - 检查`FISCO-BCOS`节点是否正常出块。
@@ -74,20 +75,45 @@
   
   这个问题涉及到`JDK`加密算法的实现。`Oracle JDK`里带了这个算法实现，`Open JDK`直到 1.9版本才有。所以在`CentOS`系统中，如果使用 `Open JDK 1.9`以下版本，`WeEvent`启动时会出现以下异常。请升级`Open JDK`版本到1.9或者使用`Oracle JDK`。
   
-- 如果用户使用区块链`FISCO-BCOS 1.3` ，则需要注意以下问题。
-  在安装governance模块，需要安装`WeBase 1.0.4`。具体安装步骤，请参见[WeBase安装](https://webasedoc.readthedocs.io/zh_CN/latest/docs/WeBASE/install.html)。
+    
+  
+  
+- 如何配置`WeEvent`支持`FISCO BCOS`国密？
 
-  以下两点需要特别注意：
+  配置`WeEvent`支持`FISCO BCOS`国密需先安装国密版`FISCO BCOS` ，然后修改`WeEvent`配置项即可，具体步骤如下：
 
-    - 由于WeBase和WeEvent端口冲突，需修改WeBase一键部署源码包中的`common.properties`文件，配置已有的区块链和服务端口。具体如下:
+  - 安装国密版`FISCO BCOS` 
+  
+    具体安装步骤，请参见[部署国密版FISCO BCOS](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/manual/guomi_crypto.html#fisco-bcos)
 
+  - 修改`WeEvent`配置项
+
+     修改broker服务下配置项`./conf/fisco.properties#web3sdk.encrypt-type`为`SM2_TYPE`。其他安装配置与[快速安装](../install/quickinstall.md)一致。
+      
+- 如何切换数据库
+   
+    目前WeEvent默认的是H2数据库，`application-prod.properties`中默认数据库配置如下
+   
     ```
-    mgr.port=8182
-    front.port=8181
-    node.p2pPort=30300
-    node.channelPort=20200
-    node.rpcPort=8545
-    if.exist.fisco=yes
+    spring.datasource.url=jdbc:h2:./WeEvent_governance
+    spring.datasource.driver-class-name=org.h2.Driver
+    spring.datasource.username=root
+    spring.datasource.password=123456
+    ```  
+  
+    如果要切换成Mysql数据库，改成下面这样，其中`url、username、password` 修改成需要连接的数据库配置。
+    
+     ```
+    spring.datasource.url=jdbc:mysql://127.0.0.1:3306/WeEvent_governance?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    spring.datasource.driver-class-name=org.mariadb.jdbc.Driver
+    spring.datasource.username=root
+    spring.datasource.password=123456
+     ```
+```eval_rst
+.. important::  
+    - Mysql数据库要赋予配置账号创建库表的权限。
+```
     ```
-
-    - 需要修改`webase-node-mgr`服务中的`conf/application.yml`文件。将`isUseSecurity`和`isDeleteInfo`都改成`false`。
+    >> grant all privileges on *.* to 'root'@'%' identified by '123456';
+    >> flush privileges;
+    ```

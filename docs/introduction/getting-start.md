@@ -18,9 +18,9 @@
 
 - 配置区块链
 
-  默认支持`FISCO-BCOS 2.0`，也可以通过配置切换到`FISCO-BCOS 1.3`和`Fabric 1.4`。
+  默认支持`FISCO-BCOS 2.x`，也可以通过配置切换到`Fabric 1.4`。
 
-  - FISCO-BCOS 2.0
+  - FISCO-BCOS 2.x
 
     在配置文件`./weevent-broker/src/main/resources/fisco.properties`里配置：
 
@@ -28,40 +28,36 @@
 
     节点访问`channel`端口`nodes=...`
 
-    然后将节点访问证书`ca.crt`、`node.crt`、`node.key`放到目录下`./weevent-broker/src/main/resources/v2/`。
-
-  - FISCO-BCOS 1.3
-
-    在配置文件`./weevent-broker/src/main/resources/fisco.properties`里配置：
-
-    区块链版本`version=1.3`
-
-    节点访问`Channel`端口`nodes=...`。
-
-    将节点访问证书`ca.crt`、`client.keystore`放到目录下`./weevent-broker/src/main/resources/`。
+    然后将节点访问证书`ca.crt`、`sdk.crt`、`sdk.key`放到目录下`./weevent-broker/src/main/resources/`。
 
   - Fabric 1.4
 
     具体内容详见[适配Fabric](https://weeventdoc.readthedocs.io/zh_CN/latest/advanced/fabric.html)。
-
+    
+```eval_rst
+.. note::
+  - 区块链配置在两个代码模块weevent-core和weevent-broker里都有涉及到。都需要配置。
+```
 - 部署系统合约
 
-  通过运行`./weevent-broker/src/main/java/com/webank/weevent/broker/fisco/util/Web3sdkUtils.java`来部署`WeEvent`内置合约。
+  `weevent-core`和`weevent-broker`模块关于区块链的配置相同。
+
+  通过运行`./weevent-core/src/main/java/com/webank/weevent/core/fisco/util/Web3sdkUtils.java`来部署`WeEvent`内置合约。
 
 - 运行服务及代码样例
 
-  启动`Broker`服务`./weevent-broker/src/main/java/com/webank/weevent/BrokerApplication.java`。
+  启动`Broker`服务`./weevent-broker/src/main/java/com/webank/weevent/broker/BrokerApplication.java`。
 
-  然后体验各种功能样例`./weevent-broker/src/test/java/com/webank/weevent/sample`。
+  然后体验各种功能样例`./weevent-broker/src/test/java/com/webank/weevent/broker/sample`。
 
 - 编译打包服务
 
   ```bash
   $ cd ./weevent-build; ./package.sh
   Usage:
-      package master: ./package.sh --version 1.1.0
-      package tag: ./package.sh --tag v1.1.0 --version 1.1.0
-      package local: ./package.sh --tag local --version 1.1.0
+      package master: ./package.sh --version 1.3.0
+      package tag: ./package.sh --tag v1.3.0 --version 1.3.0
+      package local: ./package.sh --tag local --version 1.3.0
   ```
 
   支持编译`master`最新代码，某个`tag`代码，以及本地的代码。
