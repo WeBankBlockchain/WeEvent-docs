@@ -59,6 +59,7 @@ public class FiscoBcosInstance {
 ```java
 public static void main(String[] args) {
     try {
+        String topicName = "com.weevent.test";
         FiscoConfig fiscoConfig = new FiscoConfig();
         // 默认从classpath里读取配置文件fisco.properties
         fiscoConfig.load("");
@@ -70,9 +71,12 @@ public static void main(String[] args) {
         IProducer iProducer = fiscoBcosInstance.buildProducer();
         iProducer.startProducer();
 
+        // 创建topic
+        iProducer.open(topicName, WeEvent.DEFAULT_GROUP_ID);
+
         // 生产者发布事件
-        WeEvent weEvent = new WeEvent("com.weevent.test", "hello weevent".getBytes());
-        SendResult sendResult = iProducer.publish(weEvent, "1", fiscoConfig.getWeb3sdkTimeout());
+        WeEvent weEvent = new WeEvent(topicName, "hello weevent".getBytes());
+        SendResult sendResult = iProducer.publish(weEvent, WeEvent.DEFAULT_GROUP_ID, fiscoConfig.getWeb3sdkTimeout());
         System.out.println(sendResult);
         
         // 创建消费者
@@ -80,7 +84,7 @@ public static void main(String[] args) {
         iConsumer.startConsumer();
 
         // 消费者订阅消息
-        String subscriptionId = iConsumer.subscribe("com.weevent.test", "1", WeEvent.OFFSET_LAST, new HashMap<>(), new IConsumer.ConsumerListener() {
+        String subscriptionId = iConsumer.subscribe(topicName, WeEvent.DEFAULT_GROUP_ID, WeEvent.OFFSET_LAST, new HashMap<>(), new IConsumer.ConsumerListener() {
             @Override
             public void onEvent(String subscriptionId, WeEvent event) {
                 // 回调后的业务处理
