@@ -116,8 +116,6 @@ $ tree  -L 1
   mqtt.broker.tcp.port=7001
   # 心跳时间 单位:秒
   mqtt.broker.keepalive=60
-  # 客户端使用WebSocket协议访问MQTT Broker链接
-  mqtt.websocket.path=/weevent-broker/mqtt
   ```
   
 
