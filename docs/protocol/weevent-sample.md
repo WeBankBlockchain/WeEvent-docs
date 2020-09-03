@@ -91,7 +91,7 @@
   - 命令行参数说明：
       
     - 1 : 代表群组`id`，参考查看群组`groupId`列表返回的群组列表
-    - 317e7c4c-9-42 : `eventId`，发布事件成功后，会返回改事件的`eventId`
+    - 317e7c4c-9-42 : `eventId`，发布事件成功后，会返回该事件的`eventId`
       
 - 查看`topic`详情
   ```shell
@@ -102,5 +102,5 @@
 - 查看节点容量
   ```shell
   $ ./command.sh general 1
-  $ general result: {"code":0,"message":"success","data":{"nodeCount":4,"transactionCount":36,"latestBlock":36}}
+  $ general result: {"code":0,"message":"success","data":{"nodeCount":4,"transactionCount":42,"latestBlock":42}}
   ```
