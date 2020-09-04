@@ -55,9 +55,9 @@
   ```bash
   $ cd ./weevent-build; ./package.sh
   Usage:
-      package master: ./package.sh --version 1.3.0
-      package tag: ./package.sh --tag v1.3.0 --version 1.3.0
-      package local: ./package.sh --tag local --version 1.3.0
+      package master: ./package.sh --version 1.4.0
+      package tag: ./package.sh --tag v1.4.0 --version 1.4.0
+      package local: ./package.sh --tag local --version 1.4.0
   ```
 
   支持编译`master`最新代码，某个`tag`代码，以及本地的代码。
