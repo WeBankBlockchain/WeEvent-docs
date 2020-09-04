@@ -2,6 +2,17 @@
 
 `WeEvent`特性变化请参见[版本变更历史](https://github.com/WeBankFinTech/WeEvent/releases)。
 
+- v1.4.0安装包
+
+| 版本           | github下载                                                   | 国内下载                                                     | md5                              |
+| -------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | -------------------------------- |
+| 快速安装包     | [weevent-1.4.0.tar.gz](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.4.0/weevent-1.4.0.tar.gz) | [weevent-1.4.0.tar.gz](https://osp-1257653870.cos.ap-guangzhou.myqcloud.com/WeEvent/download/releases/v1.4.0/weevent-1.4.0.tar.gz) | e8d304034390a5f25a7bc0ff361c7ace |
+| Gateway模块    | [weevent-gateway-1.4.0.tar.gz](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.4.0/weevent-gateway-1.4.0.tar.gz) | [weevent-gateway-1.4.0.tar.gz](https://osp-1257653870.cos.ap-guangzhou.myqcloud.com/WeEvent/download/releases/v1.4.0/weevent-gateway-1.4.0.tar.gz) | c63dccffb1e482381849afed0b77725d |
+| Broker模块     | [weevent-broker-1.4.0.tar.gz](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.4.0/weevent-broker-1.4.0.tar.gz) | [weevent-broker-1.4.0.tar.gz](https://osp-1257653870.cos.ap-guangzhou.myqcloud.com/WeEvent/download/releases/v1.4.0/weevent-broker-1.4.0.tar.gz) | dd578628828e031e37fe2c5a44c42a24 |
+| Governance模块 | [weevent-governance-1.4.0.tar.gz](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.4.0/weevent-governance-1.4.0.tar.gz) | [weevent-governance-1.4.0.tar.gz](https://osp-1257653870.cos.ap-guangzhou.myqcloud.com/WeEvent/download/releases/v1.4.0/weevent-governance-1.4.0.tar.gz) | 3eec244c41d25312805012fdd441eb24 |
+| Processor模块  | [weevent-processor-1.4.0.tar.gz](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.4.0/weevent-processor-1.4.0.tar.gz) | [weevent-governance-1.4.0.tar.gz](https://osp-1257653870.cos.ap-guangzhou.myqcloud.com/WeEvent/download/releases/v1.4.0/weevent-processor-1.4.0.tar.gz) | aa94140ba9d27aca75dd373e54be561f |
+
+
 - v1.3.0安装包
 
 | 版本           | github下载                                                   | 国内下载                                                     | md5                              |

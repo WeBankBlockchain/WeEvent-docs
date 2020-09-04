@@ -139,7 +139,7 @@ public class Rest {
 
   - content ：用户自定义数据。需要特别注意`content`需进行`UrlEncode`编码，`GET`方法支持的`QueryString`最大长度为1024字节。
 
-  - weevent-json:可选参数。用户自定义拓展，以`weevent-`开头。
+  - weevent-format:可选参数。用户自定义拓展，以`weevent-`开头。
 
   - status：`SUCCESS`，说明是发布成功，`eventId`是对应的事件ID。
 
@@ -347,10 +347,10 @@ public class Rest {
      "message":"success",
      "data": 
             {
-                "weEventVersion": "1.1.0",
-                "gitCommitTimeStamp": "2019-09-16 18:01:23",
+                "weEventVersion": "1.4.0",
+                "gitCommitTimeStamp": "2020-09-02 18:30:14",
                 "gitBranch": "master",
-                "gitCommitHash": "a5b022b"
+                "gitCommitHash": "f42ceeb"
             }
     }
     ```

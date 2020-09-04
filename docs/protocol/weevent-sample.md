@@ -3,7 +3,7 @@
 
 ### 前置条件
 
-已经安装、部署成功，并启动`WeEvent`服务(1.3.0 版本以上)，`WeEvent`服务[快速安装](../install/quickinstall.md)，
+已经安装、部署成功，并启动`WeEvent`服务，`WeEvent`服务[快速安装](../install/quickinstall.md)，
 
 ### 下载`WeEvent-Sample`
   
