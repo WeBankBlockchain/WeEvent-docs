@@ -7,7 +7,7 @@
 ### Docker镜像安装
 
   ```bash
-  $ docker pull weevent/weevent:1.3.0; docker run -d -p 8080:8080 -p 7001:7001 weevent/weevent:1.3.0 /root/run.sh
+  $ docker pull weevent/weevent:1.4.0; docker run -d -p 8080:8080 -p 7001:7001 weevent/weevent:1.4.0 /root/run.sh
   ```
 
   `WeEvent`的镜像里包括了`FISCO-BCOS`网络，`WeEvent`服务的各个子模块以及各种依赖。
@@ -19,19 +19,19 @@
 
 - 获取安装包
 
-  从`github`下载安装包[weevent-1.3.0.tar.gz](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.3.0/weevent-1.3.0.tar.gz)，并且解压到`/tmp/` 。
+  从`github`下载安装包[weevent-1.4.0.tar.gz](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.4.0/weevent-1.4.0.tar.gz)，并且解压到`/tmp/` 。
 
   ```shell
   $ cd /tmp/
-  $ wget https://github.com/WeBankFinTech/WeEvent/releases/download/v1.3.0/weevent-1.3.0.tar.gz
-  $ tar -zxf weevent-1.3.0.tar.gz
+  $ wget https://github.com/WeBankFinTech/WeEvent/releases/download/v1.4.0/weevent-1.4.0.tar.gz
+  $ tar -zxf weevent-1.4.0.tar.gz
   ```
 
-  如果`github`下载速度慢，可以尝试[国内下载链接](https://www.fisco.com.cn/cdn/weevent/download/releases/v1.3.0/weevent-1.3.0.tar.gz)。
+  如果`github`下载速度慢，可以尝试[国内下载链接](https://osp-1257653870.cos.ap-guangzhou.myqcloud.com/WeEvent/download/releases/v1.4.0/weevent-1.4.0.tar.gz)。
 解压后目录结构如下：
   
   ```shell
-  $ cd weevent-1.3.0/ 
+  $ cd weevent-1.4.0/
   $ tree -L 2
   .
   ├── bin
@@ -176,7 +176,7 @@
     ```shell
     $ ./start-all.sh
     ZooKeeper JMX enabled by default
-    Using config: /usr/local/weevent/zookeeper/apache-zookeeper-3.6.0-bin/bin/../conf/zoo.cfg
+    Using config: /usr/local/weevent/zookeeper/apache-zookeeper-3.6.1-bin/bin/../conf/zoo.cfg
     Starting zookeeper ... STARTED
     start weevent-broker success (PID=3642)
     add the crontab job success
