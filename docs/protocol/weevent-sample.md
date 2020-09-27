@@ -24,7 +24,7 @@
 
 - 构建
   ```shell
-  $ chmod +x *.sh && dos2unix *.sh
+  $ chmod +x *.sh gradlew && dos2unix *.sh gradlew
   $ ./build.sh
   ```
   
