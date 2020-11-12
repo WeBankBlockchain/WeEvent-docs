@@ -118,13 +118,12 @@
   订阅方的客户端会收到发送方的文件
   ```shell
   $ ./command.sh receiveFile 1 com.weevent.test
-  $ ./received/com.weevent.test/application.properties
+  $ ./received/application.properties
   ```
   
   - 命令行参数说明：
         
     - 1 : 代表群组`id`，参考查看群组`groupId`列表返回的群组列表
     - com.weevent.test : `topic`名称
-    - src/main/resources/application.properties : 发送方发送的文件路径
-    - ./received/com.weevent.test/application.properties : 接收方文件存放路径
+    - src/main/resources/application.properties : `filePath`发送方需发送的文件路径
     
