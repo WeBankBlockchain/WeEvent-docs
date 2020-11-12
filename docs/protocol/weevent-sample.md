@@ -104,3 +104,19 @@
   $ ./command.sh general 1
   $ general result: {"code":0,"message":"success","data":{"nodeCount":4,"transactionCount":42,"latestBlock":42}}
   ```
+  
+- 文件传输
+    
+  说明：发送方和订阅方存在于不同的客户端，所以这里需要重新开一个新的窗口。
+    
+  ```shell
+  $ cd /tmp/WeEvent-Sample
+  $ ./command.sh sendFile 1 com.weevent.test build.sh
+  $ sendFile success, fileChunksMeta:{"fileId":"53a12e3305b0464da0a737e00516fd49","fileName":"build.sh","fileSize":193,"fileMd5":"bb8a5115bf7e22f041f8f4a56fcac591","topic":"20201111","groupId":"1","overwrite":true,"chunkSize":1048576,"chunkNum":1,"chunkStatus":"AQ==","startTime":1605148408}
+  ```
+    
+  订阅方的客户端会收到发送方的文件
+  ```shell
+  $ ./command.sh receiveFile 1 com.weevent.test
+  $ ./received/build.sh
+  ```
