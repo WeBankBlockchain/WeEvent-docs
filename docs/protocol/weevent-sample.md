@@ -111,12 +111,20 @@
     
   ```shell
   $ cd /tmp/WeEvent-Sample
-  $ ./command.sh sendFile 1 com.weevent.test build.sh
-  $ sendFile success, fileChunksMeta:{"fileId":"53a12e3305b0464da0a737e00516fd49","fileName":"build.sh","fileSize":193,"fileMd5":"bb8a5115bf7e22f041f8f4a56fcac591","topic":"20201111","groupId":"1","overwrite":true,"chunkSize":1048576,"chunkNum":1,"chunkStatus":"AQ==","startTime":1605148408}
+  $ ./command.sh sendFile 1 com.weevent.test src/main/resources/application.properties
+  $ sendFile success, fileChunksMeta:{"fileId":"bbd8a9be0ba24103a6e39b9ebcd40502","fileName":"application.properties","fileSize":59,"fileMd5":"53cacd61992b21b9cd2d52ad5628ec52","topic":"com.weevent.test","groupId":"1","overwrite":true,"chunkSize":1048576,"chunkNum":1,"chunkStatus":"AQ==","startTime":1605166915}
   ```
     
   订阅方的客户端会收到发送方的文件
   ```shell
   $ ./command.sh receiveFile 1 com.weevent.test
-  $ ./received/build.sh
+  $ ./received/com.weevent.test/application.properties
   ```
+  
+  - 命令行参数说明：
+        
+    - 1 : 代表群组`id`，参考查看群组`groupId`列表返回的群组列表
+    - com.weevent.test : `topic`名称
+    - src/main/resources/application.properties : 发送方发送的文件路径
+    - ./received/com.weevent.test/application.properties : 接收方文件存放路径
+    
