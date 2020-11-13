@@ -107,23 +107,29 @@
   
 - 文件传输
     
-  说明：发送方和订阅方存在于不同的客户端，所以这里需要重新开一个新的窗口。
-    
+  说明：发送方和订阅方存在于不同的客户端，所以这里需要重新开一个新的窗口。需要提前开启订阅，发送方才能发送文件
+  
+  接收方开启订阅，等待发送方发送文件
+  ```shell
+  $ ./command.sh receiveFile 1 com.weevent.test
+  ```
+  
+  发送方发送文件
   ```shell
   $ cd /tmp/WeEvent-Sample
-  $ ./command.sh sendFile 1 com.weevent.test src/main/resources/application.properties
-  $ sendFile success, fileChunksMeta:{"fileId":"bbd8a9be0ba24103a6e39b9ebcd40502","fileName":"application.properties","fileSize":59,"fileMd5":"53cacd61992b21b9cd2d52ad5628ec52","topic":"com.weevent.test","groupId":"1","overwrite":true,"chunkSize":1048576,"chunkNum":1,"chunkStatus":"AQ==","startTime":1605166915}
+  $ ./command.sh sendFile 1 com.weevent.test test.txt
+  $ sendFile success, fileChunksMeta:{"fileId":"bbd8a9be0ba24103a6e39b9ebcd40502","fileName":"test.txt","fileSize":59,"fileMd5":"53cacd61992b21b9cd2d52ad5628ec52","topic":"com.weevent.test","groupId":"1","overwrite":true,"chunkSize":1048576,"chunkNum":1,"chunkStatus":"AQ==","startTime":1605166915}
   ```
     
   订阅方的客户端会收到发送方的文件
   ```shell
   $ ./command.sh receiveFile 1 com.weevent.test
-  $ ./received/application.properties
+  $ ./received/test.txt
   ```
   
   - 命令行参数说明：
         
     - 1 : 代表群组`id`，参考查看群组`groupId`列表返回的群组列表
     - com.weevent.test : `topic`名称
-    - src/main/resources/application.properties : `filePath`发送方需发送的文件路径
+    - test.txt : `filePath`发送方需发送的文件路径
     
