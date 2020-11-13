@@ -121,7 +121,7 @@
   $ sendFile success, fileChunksMeta:{"fileId":"bbd8a9be0ba24103a6e39b9ebcd40502","fileName":"test.txt","fileSize":59,"fileMd5":"53cacd61992b21b9cd2d52ad5628ec52","topic":"com.weevent.test","groupId":"1","overwrite":true,"chunkSize":1048576,"chunkNum":1,"chunkStatus":"AQ==","startTime":1605166915}
   ```
     
-  订阅方的客户端会收到发送方的文件
+  订阅方的客户端会收到发送方的文件，接收方收到的文件默认存放在 ./received 路径下，可以修改
   ```shell
   $ ./command.sh receiveFile 1 com.weevent.test
   $ ./received/test.txt
