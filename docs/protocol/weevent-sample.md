@@ -24,7 +24,7 @@
 
 - 构建
   ```shell
-  $ chmod +x *.sh && dos2unix *.sh
+  $ chmod +x *.sh gradlew && dos2unix *.sh gradlew
   $ ./build.sh
   ```
   
@@ -104,3 +104,32 @@
   $ ./command.sh general 1
   $ general result: {"code":0,"message":"success","data":{"nodeCount":4,"transactionCount":42,"latestBlock":42}}
   ```
+  
+- 文件传输
+    
+  说明：发送方和订阅方存在于不同的客户端，所以这里需要重新开一个新的窗口。需要提前开启订阅，发送方才能发送文件
+  
+  接收方开启订阅，等待发送方发送文件
+  ```shell
+  $ ./command.sh receiveFile 1 com.weevent.test
+  ```
+  
+  发送方发送文件
+  ```shell
+  $ cd /tmp/WeEvent-Sample
+  $ ./command.sh sendFile 1 com.weevent.test test.txt
+  $ sendFile success, fileChunksMeta:{"fileId":"bbd8a9be0ba24103a6e39b9ebcd40502","fileName":"test.txt","fileSize":59,"fileMd5":"53cacd61992b21b9cd2d52ad5628ec52","topic":"com.weevent.test","groupId":"1","overwrite":true,"chunkSize":1048576,"chunkNum":1,"chunkStatus":"AQ==","startTime":1605166915}
+  ```
+    
+  订阅方的客户端会收到发送方的文件，接收方收到的文件默认存放在 ./received 路径下，可以修改
+  ```shell
+  $ ./command.sh receiveFile 1 com.weevent.test
+  $ ./received/test.txt
+  ```
+  
+  - 命令行参数说明：
+        
+    - 1 : 代表群组`id`，参考查看群组`groupId`列表返回的群组列表
+    - com.weevent.test : `topic`名称
+    - test.txt : `filePath`发送方需发送的文件路径
+    
