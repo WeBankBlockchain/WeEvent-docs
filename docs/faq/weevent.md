@@ -76,19 +76,7 @@
   这个问题涉及到`JDK`加密算法的实现。`Oracle JDK`里带了这个算法实现，`Open JDK`直到 1.9版本才有。所以在`CentOS`系统中，如果使用 `Open JDK 1.9`以下版本，`WeEvent`启动时会出现以下异常。请升级`Open JDK`版本到1.9或者使用`Oracle JDK`。
   
     
-  
-  
-- 如何配置`WeEvent`支持`FISCO BCOS`国密？
 
-  配置`WeEvent`支持`FISCO BCOS`国密需先安装国密版`FISCO BCOS` ，然后修改`WeEvent`配置项即可，具体步骤如下：
-
-  - 安装国密版`FISCO BCOS` 
-  
-    具体安装步骤，请参见[部署国密版FISCO BCOS](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/manual/guomi_crypto.html#fisco-bcos)
-
-  - 修改`WeEvent`配置项
-
-     修改broker服务下配置项`./conf/fisco.properties#web3sdk.encrypt-type`为`SM2_TYPE`。其他安装配置与[快速安装](../install/quickinstall.md)一致。
       
 - 如何切换数据库
    
