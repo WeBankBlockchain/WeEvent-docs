@@ -6,7 +6,7 @@
 
     必选配置。`WeEvent`通过区块链`FISCO-BCOS`的P2P网络发布和订阅文件。
 
-    具体安装步骤，请参见[FISCO-BCOS安装](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/installation.html)。
+    具体安装步骤，请参见[FISCO-BCOS安装](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/tutorial/installation.html)。
 
 ### 集成SDK
 

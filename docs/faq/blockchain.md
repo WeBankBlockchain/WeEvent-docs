@@ -1,5 +1,5 @@
 ## 区块链
-`WeEvent`使用区块链`FISCO-BCOS`作为数据存储和持久化机制。这里列举的是`WeEvent`访问`FISCO-BCOS`节点可能出现的问题。关于`FISCO-BCOS`更多FAQ，参见[FISCO-BCOS FAQ](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/faq.html) 。
+`WeEvent`使用区块链`FISCO-BCOS`作为数据存储和持久化机制。这里列举的是`WeEvent`访问`FISCO-BCOS`节点可能出现的问题。关于`FISCO-BCOS`更多FAQ，参见[FISCO-BCOS FAQ](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/faq/index.html) 。
 
 - `FISCO-BCOS`节点推荐的组网方式？
 

@@ -66,7 +66,7 @@ $ tree  -L 1
 
     2.x版本的证书文件`ca.crt`、`sdk.crt`、`sdk.key`放在`./conf/`目录下。
 
-    证书文件生成及获取请参见[FISCO-BCOS 2.x安装](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/installation.html#id1)
+    证书文件生成及获取请参见[FISCO-BCOS 2.x安装](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/tutorial/installation.html)
 
 - 部署系统合约
 
