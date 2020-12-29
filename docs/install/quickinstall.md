@@ -183,6 +183,8 @@
     start weevent-gateway success (PID=3643)
     add the crontab job success
     ```
+    
+    如果安装了governance服务，默认访问链接为：http://127.0.0.1:7009/weevent-governance/# ，默认用户名为：admin，默认密码为：123456
 
   - 停止所有服务的命令`./stop-all.sh`。
 
