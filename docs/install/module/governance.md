@@ -115,7 +115,7 @@ add the crontab job success
 
 ### 服务访问
 
-服务启动后通过 http://127.0.0.1:7009/weevent-governance/# 访问governance服务，默认用户名为：admin，默认密码为：123456
+服务启动后通过 http://127.0.0.1:8080/weevent-governance/# 访问governance服务，默认用户名为：admin，默认密码为：123456
 
 
 ### 多视图管理
