@@ -107,14 +107,15 @@ start weevent-governance success (PID=53926)
 add the crontab job success
 ```
 
-### 服务访问
-
-服务启动后通过 http://127.0.0.1:7009/weevent-governance/# 访问governance服务，默认用户名为：admin，默认密码为：12346
-
 
 通过`./governance.sh stop`命令停止服务。
 
 进程启动后，会自动添加`crontab`监控任务`./governance.sh monitor`。
+
+
+### 服务访问
+
+服务启动后通过 http://127.0.0.1:7009/weevent-governance/# 访问governance服务，默认用户名为：admin，默认密码为：123456
 
 
 ### 多视图管理
