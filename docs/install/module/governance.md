@@ -86,6 +86,18 @@ $ tree -L 1
   - 访问节点的证书文件
 
     2.x版本的证书文件`ca.crt`、`sdk.crt`、`sdk.key`放在`./conf/`目录下。
+    
+  - governance支持配置多个节点
+  
+    配置文件`governance.properties` 示例如下，可以体验节点之间传文件等。
+  
+    ```properties
+    nodeAddressList[0]=127.0.0.1:20200
+    nodeAddressList[1]=127.0.0.1:20201
+    nodeAddressList[2]=127.0.0.1:20202,127.0.0.1:20203
+    ```
+  
+    
 
 
 ### 初始化数据库
