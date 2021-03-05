@@ -38,6 +38,7 @@
   │   ├── start-all.sh
   │   └── stop-all.sh
   ├── config.properties
+  ├── fisco.yml
   ├── install-all.sh
   ├── modules
   │   ├── broker
@@ -48,7 +49,7 @@
   │   └── zookeeper
   ```
   
-- 修改配置
+- 修改配置config.properties
 
   默认配置文件`./config.properties`如下：
 
@@ -59,8 +60,6 @@
   # Required module
   # support 2.x
   fisco-bcos.version=2.0
-  # FISCO-BCOS node channel, eg: 127.0.0.1:20200;127.0.0.2:20200
-  fisco-bcos.channel=127.0.0.1:20200
   # The path of FISCO-BCOS 2.x that contain certificate file ca.crt/sdk.crt/sdk.key
   fisco-bcos.node_path=~/fisco/nodes/127.0.0.1/sdk
   
@@ -99,14 +98,10 @@
   
       支持`2.0`及其以上版本。
   
-    - `fisco-bcos.channel`
-  
-      区块链节点的`channel`访问入口。配置多个节点时用`;`分割，如`127.0.0.1:20200;127.0.0.2:20200`。
-  
     - `fisco-bcos.node_path`
   
       区块链节点的访问证书、私钥存放目录，`FISCO-BCOS 2.x`一般目录为`~/fisco/nodes/127.0.0.1/sdk`。
-      
+    
       `FISCO-BCOS 2.x`的证书文件为`ca.crt`、`sdk.crt`、`sdk.key`。如果`WeEvent`服务和区块链节点不在同一台机器上，需要把证书文件拷贝到`WeEvent`所在机器的当前目录，修改`fisco-bcos.node_path=./`。
   
   - Gateway
@@ -132,6 +127,21 @@
     - `proceessor.enable`是否安装`Proceessor`模块，默认为`false`不安装
     - 监听端口`processor.port`
   
+- 修改配置fisco.yml
+
+   .. note::
+
+  配置说明：该配置字段`fisco bcos sdk config`部分与FiscoBcos SDK配置一致，详细配置说明参考 [FiscoBcos SDK配置说明](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/sdk/java_sdk/configuration.html) ，安装时关注字段为节点配置。
+
+  ```yaml
+  network:
+    peers:
+      - "127.0.0.1:20200"
+      - "127.0.0.1:20201"
+  ```
+
+  
+
 - 一键安装
 
   以安装到目录`/usr/local/weevent/`为例。

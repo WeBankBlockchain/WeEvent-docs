@@ -64,8 +64,16 @@ $ tree  -L 1
 
   - 访问节点的证书文件
 
-    2.x版本的证书文件`ca.crt`、`sdk.crt`、`sdk.key`放在`./conf/`目录下。
+    2.x版本的证书文件`ca.crt`、`sdk.crt`、`sdk.key`放在`./conf/conf`目录下。
 
+    国密版需要的证书文件`gmca.crt、gmensdk.crt、gmensdk.key、gmsdk.crt、gmsdk.key` 。
+    
+    证书目录在FiscoBcos安装目录下`nodes/127.0.0.1/sdk/`, 可直接将该目录下所有内容拷贝到 `./conf/conf`下。
+    
+    ```
+    cp -rf fisco安装路径/nodes/127.0.0.1/sdk/* ./conf/conf
+    ```
+    
     证书文件生成及获取请参见[FISCO-BCOS 2.x安装](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/installation.html#id1)
 
 - 部署系统合约
@@ -118,6 +126,15 @@ $ tree  -L 1
   mqtt.broker.keepalive=60
   ```
   
+
+- 启动用户身份认证、权限控制
+
+  可选配置，默认不开启，目前支持MQTT协议，后续会扩展支持其他协议。需要在DB里配置用户名密码，可通过外部工具处理，后续提供接口增删。
+
+  ```properties
+  spring.security.user.auth=false
+  spring.security.user.topic.auth=false
+  ```
 
 更多系统详细配置参见[配置说明](../property.html)
 
