@@ -7,7 +7,7 @@
 ### Docker镜像安装
 
   ```bash
-  $ docker pull weevent/weevent:1.5.0; docker run -d -p 8080:8080 -p 7001:7001 weevent/weevent:1.5.0 /root/run.sh
+  $ docker pull weevent/weevent:1.6.0; docker run -d -p 8080:8080 -p 7001:7001 weevent/weevent:1.6.0 /root/run.sh
   ```
 
   `WeEvent`的镜像里包括了`FISCO-BCOS`网络，`WeEvent`服务的各个子模块以及各种依赖。
@@ -19,19 +19,19 @@
 
 - 获取安装包
 
-  从`github`下载安装包[weevent-1.5.0.tar.gz](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.5.0/weevent-1.5.0.tar.gz)，并且解压到`/tmp/` 。
+  从`github`下载安装包[weevent-1.6.0.tar.gz](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.6.0/weevent-1.6.0.tar.gz)，并且解压到`/tmp/` 。
 
   ```shell
   $ cd /tmp/
-  $ wget https://github.com/WeBankFinTech/WeEvent/releases/download/v1.5.0/weevent-1.5.0.tar.gz
-  $ tar -zxf weevent-1.5.0.tar.gz
+  $ wget https://github.com/WeBankFinTech/WeEvent/releases/download/v1.6.0/weevent-1.6.0.tar.gz
+  $ tar -zxf weevent-1.6.0.tar.gz
   ```
 
-  如果`github`下载速度慢，可以尝试[国内下载链接](https://osp-1257653870.cos.ap-guangzhou.myqcloud.com/WeEvent/download/releases/v1.5.0/weevent-1.5.0.tar.gz)。
+  如果`github`下载速度慢，可以尝试[国内下载链接](https://osp-1257653870.cos.ap-guangzhou.myqcloud.com/WeEvent/download/releases/v1.6.0/weevent-1.6.0.tar.gz)。
 解压后目录结构如下：
   
   ```shell
-  $ cd weevent-1.5.0/
+  $ cd weevent-1.6.0/
   $ tree -L 2
   .
   ├── bin
@@ -140,7 +140,13 @@
       - "127.0.0.1:20201"
   ```
 
-  
+
+```eval_rst
+.. note::
+  - 多数情况下以上配置只需修改`config.properties`中证书路径`fisco-bcos.node_path`和`fisco.yml`中`network.peers`连接的节点地址即可运行。其他字段可按照自己实际需求进行修改配置。
+```
+
+
 
 - 一键安装
 
