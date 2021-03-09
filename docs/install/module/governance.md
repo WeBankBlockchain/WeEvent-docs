@@ -79,13 +79,13 @@ $ tree -L 1
 
 - 区块链FISCO-BCOS节点(复制Broker模块中，配置连接FISCO-BCOS节点的配置文件以及相关证书)
 
-  - 区块链节点配置文件fisco.properties
+  - 区块链节点配置文件fisco.yml
 
     修改`nodes=127.0.0.1:20200`配置项，`nodes`为区块链节点`channel`访问入口。
 
   - 访问节点的证书文件
 
-    2.x版本的证书文件`ca.crt`、`sdk.crt`、`sdk.key`放在`./conf/`目录下。
+    2.x版本的证书文件`ca.crt`、`sdk.crt`、`sdk.key`放在`./conf/conf`目录下，国密的证书放在`./conf/conf/gm`目录下。详细参考[FISCO-BCOS SDK配置说明](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/sdk/java_sdk/configuration.html)。
     
   - governance支持配置多个节点
   

@@ -22,7 +22,7 @@
 
   - FISCO-BCOS 2.x
 
-    在配置文件`./weevent-broker/src/main/resources/fisco.properties`里配置：
+    在配置文件`./weevent-broker/src/main/resources/fisco.yml`里配置：
 
     区块链版本`version=2.0`
 
