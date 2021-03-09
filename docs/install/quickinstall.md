@@ -102,7 +102,7 @@
   
       区块链节点的访问证书、私钥存放目录，`FISCO-BCOS 2.x`一般目录为`~/fisco/nodes/127.0.0.1/sdk`。
   
-      如果`WeEvent`服务和区块链节点不在同一台机器上，需要把上述目录下文件拷贝到`WeEvent`所在机器的当前目录如 `./conf`目录下，并设置`fisco-bcos.node_path=./conf` 。 **注意**：``fisco-bcos.node_path`目录结构需与节点证书目录`~/fisco/nodes/127.0.0.1/sdk`结构一致，同时不要包含其他文件， 安装时会将`fisco-bcos.node_path`目录下所有内容拷贝到每个模块子目录下。
+      如果`WeEvent`服务和区块链节点不在同一台机器上，需要把上述目录下文件拷贝到`WeEvent`所在机器的当前目录如 `./conf`目录下，并设置`fisco-bcos.node_path=./conf` 。 **注意**：`fisco-bcos.node_path`目录结构需与节点证书目录`~/fisco/nodes/127.0.0.1/sdk`结构一致，同时不要包含其他文件， 安装时会将`fisco-bcos.node_path`目录下所有内容拷贝到每个模块子目录下。
       
       以下为标准版和国密版依赖的证书文件及目录结构：
       
