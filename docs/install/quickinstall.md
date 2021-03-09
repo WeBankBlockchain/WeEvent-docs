@@ -82,7 +82,7 @@
   #mysql.password=yyy
   
   # Optional module
-  processor.enable=true
+  processor.enable=false
   processor.port=7008
   ```
   
@@ -101,8 +101,27 @@
     - `fisco-bcos.node_path`
   
       区块链节点的访问证书、私钥存放目录，`FISCO-BCOS 2.x`一般目录为`~/fisco/nodes/127.0.0.1/sdk`。
-    
-      `FISCO-BCOS 2.x`的证书文件为`ca.crt`、`sdk.crt`、`sdk.key`。如果`WeEvent`服务和区块链节点不在同一台机器上，需要把证书文件拷贝到`WeEvent`所在机器的当前目录，修改`fisco-bcos.node_path=./`。
+  
+      如果`WeEvent`服务和区块链节点不在同一台机器上，需要把上述目录下文件拷贝到`WeEvent`所在机器的当前目录如 `./conf`目录下，并设置`fisco-bcos.node_path=./conf` 。 **注意**：``fisco-bcos.node_path`目录结构需与节点证书目录`~/fisco/nodes/127.0.0.1/sdk`结构一致，同时不要包含其他文件， 安装时会将`fisco-bcos.node_path`目录下所有内容拷贝到每个模块子目录下。
+      
+      以下为标准版和国密版依赖的证书文件及目录结构：
+      
+      ```bash
+      $ tree  fisco/nodes/127.0.0.1/sdk/
+      fisco/nodes/127.0.0.1/sdk/
+      ├── ca.crt
+      ├── sdk.crt
+      └── sdk.key
+      
+      $ tree  fisco_gm/nodes/127.0.0.1/sdk/
+      fisco_gm/nodes/127.0.0.1/sdk/
+      └── gm
+          ├── gmca.crt
+          ├── gmensdk.crt
+          ├── gmensdk.key
+          ├── gmsdk.crt
+          └── gmsdk.key
+      ```
   
   - Gateway
   
@@ -128,8 +147,6 @@
     - 监听端口`processor.port`
   
 - 修改配置fisco.yml
-
-   .. note::
 
   配置说明：该配置字段`fisco bcos sdk config`部分与FiscoBcos SDK配置一致，详细配置说明参考 [FiscoBcos SDK配置说明](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/sdk/java_sdk/configuration.html) ，安装时关注字段为节点配置。
 

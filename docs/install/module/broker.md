@@ -58,7 +58,7 @@ $ tree  -L 1
   
 - 区块链FISCO-BCOS节点
 
-  - 区块链节点配置文件fisco.properties
+  - 区块链节点配置文件fisco.yml
 
     修改`nodes=127.0.0.1:20200`配置项，`nodes`为区块链节点`channel`访问入口。
 
@@ -74,7 +74,7 @@ $ tree  -L 1
     cp -rf fisco安装路径/nodes/127.0.0.1/sdk/* ./conf/conf
     ```
     
-    证书文件生成及获取请参见[FISCO-BCOS 2.x安装](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/installation.html#id1)
+    证书文件生成及获取请参见[FISCO-BCOS 2.x安装](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/installation.html#id1) 及 [FISCO-BCOS SDK配置说明 ](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/sdk/java_sdk/configuration.html)。
 
 - 部署系统合约
 
@@ -126,7 +126,6 @@ $ tree  -L 1
   mqtt.broker.keepalive=60
   ```
   
-
 - 启动用户身份认证、权限控制
 
   可选配置，默认不开启，目前支持MQTT协议，后续会扩展支持其他协议。需要在DB里配置用户名密码，可通过外部工具处理，后续提供接口增删。
