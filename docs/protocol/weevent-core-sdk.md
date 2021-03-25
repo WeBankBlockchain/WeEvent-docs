@@ -61,7 +61,7 @@ public static void main(String[] args) {
     try {
         String topicName = "com.weevent.test";
         FiscoConfig fiscoConfig = new FiscoConfig();
-        // 默认从classpath里读取配置文件fisco.properties
+        // 默认从classpath里读取配置文件fisco.yml
         fiscoConfig.load("");
     
         // 获取FISCO实例
@@ -108,38 +108,69 @@ public static void main(String[] args) {
 
 ### 关于配置文件
 
-以上样例中使用到的配置文件`fisco.properties`，内容如下：
+以上样例中使用到的配置文件`fisco.yml`，内容如下：
 
-```properties
-#fisco version
-version=2.0
-#fisco channel nodes, like 127.0.0.1:20200
-nodes=127.0.0.1:20200
-orgid=fisco
-#god account
-account=bcec428d5205abe0f0cc8a734083908d9eb8563e31f943d760786edf42ad67dd
-#web3sdk
-web3sdk.timeout=10000
-web3sdk.core-pool-size=10
-web3sdk.max-pool-size=200
-web3sdk.keep-alive-seconds=10
-#consumer
-consumer.idle-time=1000
-consumer.history_merge_block=8
+```yaml
+################ weevent core config ################
+
+version: 2.0
+orgId: fisco
+
+timeout: 10000
+poolSize: 10
+maxPoolSize: 200
+keepAliveSeconds: 10
+
+consumerHistoryMergeBlock: 8
+consumerIdleTime: 1000
+
+
+################ fisco bcos sdk config ################
+# https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/sdk/java_sdk/configuration.html
+
+#cryptoMaterial:
+#  certPath: "conf"
+#  caCert: "conf/ca.crt"
+#  sslCert: "conf/sdk.crt"
+#  sslKey: "conf/sdk.key"
+#  enSslCert: "conf/gm/gmensdk.crt"
+#  enSslKey: "conf/gm/gmensdk.key"
+
+account:
+# ECDSA_TYPE
+  accountAddress: "0x64fa644d2a694681bd6addd6c5e36cccd8dcdde3"
+#  SM_TYPE
+#  accountAddress: "0x4278900c23e4b364ba6202a24682d99be9ff8cbc"
+#  accountFileFormat: "pem"
+#  accountFilePath: ""
+  keyStoreDir: "account"
+#  password: ""
+
+#amop:
+#  - publicKeys: [ "conf/amop/consumer_public_key_1.pem" ]
+#    topicName: "PrivateTopic1"
+#  - password: "123456"
+#    privateKey: "conf/amop/consumer_private_key.p12"
+#    topicName: "PrivateTopic2"
+
+
+network:
+  peers:
+    - "127.0.0.1:20200"
+
+threadPool:
+  channelProcessorThreadSize: "16"
+  maxBlockingQueueSize: "102400"
+  receiptProcessorThreadSize: "16"
 ```
 
-- 如果是普通Java服务，将上面文件放入`classpath`下面。通过默认方式`FiscoConfig.load("")`即可加载。
-- 如果是`Spring`上下服务，将包路径`com.webank.weevent.core.config`加入扫描即可导入配置`Bean FiscoConfig`。示例如下（"com.webank.weevent.broker"为集成服务的包名）：
-
-```java
-@SpringBootApplication(scanBasePackages = {"com.webank.weevent.broker", "com.webank.weevent.core.config"})
-```
+- 将上面文件放入`classpath`下面。通过默认方式`FiscoConfig.load("")`即可加载。
 
 ### 初始化部署合约
 
 安装完区块链网络后，需要先初始化部署`WeEvent`内置合约（一般称为`Topic Control`合约）才能使用`WeEvent`。
 
-集成好`weevent-core.Jar`，设置好配置文件`fisco.properties`及其访问节点的证书后。执行`Jar`包里的方法部署合约：
+集成好`weevent-core.Jar`，设置好配置文件`fisco.yml`及其访问节点的证书后。执行`Jar`包里的方法部署合约：
 
   ```shell
   $ java -classpath "./conf:./lib/*:../lib/*" com.webank.weevent.core.fisco.util.Web3sdkUtils
@@ -148,6 +179,6 @@ consumer.history_merge_block=8
             EchoAddress(version=10, address=0x23df89a2893120f686a4aa03b41acf6836d11e5d, isNew=false)
   ```
 
-其中`./conf`为`fisco.properties`所在目录，`./lib`为`weevent-core.Jar`及其依赖所在目录。
+其中`./conf`为`fisco.yml`所在目录，`./lib`为`weevent-core.Jar`及其依赖所在目录。
 
 这个方法可重入，重复执行时只是简单显示一下数据。屏幕输出`new`为`true`表示合约是本次部署，`false`表示是之前部署的合约。
