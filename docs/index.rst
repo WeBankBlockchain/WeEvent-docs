@@ -39,3 +39,4 @@ WeEvent由微众银行自主研发并完全开源，秉承分布式商业模式�
    /advanced/index
    /history/changelog.md
    /faq/index
+   微众银行参与和建立的所有区块链项目 <https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/community.html>

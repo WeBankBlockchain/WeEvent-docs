@@ -26,27 +26,26 @@
 - Mysql数据库
 
   可选配置。支持`Mysql`存储数据，如果不配置则使用内置的`H2`数据库。如果要使用Mysql数据库，需要做一个
-  
   切换，切换步骤，请参考[FAQ](https://weeventdoc.readthedocs.io/zh_CN/latest/faq/weevent.html)。
 
   推荐安装`Mysql 5.7+`版本。具体安装步骤，安装请参见[Mysql安装](http://dev.mysql.com/downloads/mysql/) 。
 
 ### 获取安装包
 
-从`github`下载安装包[weevent-processor-1.4.0.tar.gz](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.4.0/weevent-processor-1.4.0.tar.gz)，并且解压到`/usr/local/weevent/`下。
+从`github`下载安装包[weevent-processor-1.6.0.tar.gz](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.6.0/weevent-processor-1.6.0.tar.gz)，并且解压到`/usr/local/weevent/`下。
 
 ```shell
 $ cd /usr/local/weevent/
-$ wget https://github.com/WeBankFinTech/WeEvent/releases/download/v1.4.0/weevent-processor-1.4.0.tar.gz
-$ tar -xvf weevent-processor-1.4.0.tar.gz
+$ wget https://github.com/WeBankFinTech/WeEvent/releases/download/v1.6.0/weevent-processor-1.6.0.tar.gz
+$ tar -xvf weevent-processor-1.6.0.tar.gz
 ```
 
-如果`github`下载速度慢，可以尝试[国内下载链接](https://osp-1257653870.cos.ap-guangzhou.myqcloud.com/WeEvent/download/releases/v1.4.0/weevent-processor-1.4.0.tar.gz)。
+如果`github`下载速度慢，可以尝试[国内下载链接](https://osp-1257653870.cos.ap-guangzhou.myqcloud.com/WeEvent/download/releases/v1.6.0/weevent-processor-1.6.0.tar.gz)。
 
 解压后的目录结构如下
 
 ```
-$ cd ./weevent-processor-1.4.0
+$ cd ./weevent-processor-1.6.0
 $ tree -L 1
 .
 |-- apps
@@ -122,7 +121,7 @@ $ ./processor.sh start
 ```
 
 - ruleName: 支持英文字母、数字、下划线、连字符
-- type：改规则处理数据的格式，目前只支持JSON格式
+- type：该规则处理数据的格式，目前只支持JSON格式
 - payload: 规则的内容
 - ruleDescription: 对规则的补充描述
 
@@ -242,7 +241,7 @@ $ ./processor.sh start
      ```
       SELECT * FROM Websites WHERE abs(temperature) > 50;
 
-      SELECT * FROM Websites WHERE ceil(temperature)> 50;
+      SELECT * FROM Websites WHERE ceil(temperature) > 50;
 
       SELECT * FROM Websites WHERE floor(temperature) > 50;
 

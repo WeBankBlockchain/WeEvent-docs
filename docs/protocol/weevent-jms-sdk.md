@@ -13,14 +13,14 @@
 
 - gradle依赖
 ```groovy
-implement 'com.webank.weevent:weevent-jms:1.4.0'
+implement 'com.webank.weevent:weevent-jms:1.6.0'
 ```
 - maven依赖
 ```xml
 <dependency>
     <groupId>com.webank.weevent</groupId>
     <artifactId>weevent-jms</artifactId>
-    <version>1.4.0</version>
+    <version>1.6.0</version>
 </dependency>
 ```
 

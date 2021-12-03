@@ -21,38 +21,101 @@
 
 - 区块链FISCO-BCOS节点配置
 
-  配置文件`./broker/conf/fisco.properties`。
+  配置文件`./broker/conf/fisco.yml`， 与governance依赖的配置文件`fisco.yml`相同。
 
-  | 配置项                       | 默认值               | 配置说明                                |
-  | ---------------------------- | -------------------- | --------------------------------------- |
-  | version                      | 2.0                  | FISCO-BCOS版本，支持2.x                 |
-  | orgid                        | fisco                | 机构名，按机构实际名称填写即可          |
-  | nodes                        | 127.0.0.1:20200      | 区块链节点列表，多个地址以`;`分割       |
-  | account                      | bcec428d5205abe0f... | `WeEvent`执行交易的账号，一般不需要修改 |
-  | ca-crt-path                  | ca.crt               | 区块链节点的访问证书                   |
-  | sdk-crt-path                 | sdk.crt              | 区块链节点的访问证书                   |
-  | sdk-key-path                 | sdk.key              | 区块链节点的访问证书                   |
-  | web3sdk.timeout              | 10000                | 交易执行超时时间，单位毫秒              |
-  | web3sdk.core-pool-size       | 10                   | web3sdk最小线程数                       |
-  | web3sdk.max-pool-size        | 100                  | web3sdk最大线程数                       |
-  | web3sdk.keep-alive-seconds   | 10                   | web3sdk线程空闲时间，单位秒             |
-  | consumer.idle-time           | 1000                 | 区块链新增块事件检测周期，单位毫秒      |
-  | consumer.history_merge_block | 8                    | 事件过滤的区块范围                      |
+  改配置文件分为两部分，`weevent core config`和 `fisco bcos sdk config`部分，前者是weevent配置，后者是完全依照[FISCO-BCOS SDK 配置说明](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/sdk/java_sdk/configuration.html) 配置。
+  
+  ```yaml
+  ################ weevent core config ################
+  
+  version: 2.0
+  orgId: fisco
+  
+  timeout: 10000
+  poolSize: 10
+  maxPoolSize: 200
+  keepAliveSeconds: 10
+  
+  consumerHistoryMergeBlock: 8
+  consumerIdleTime: 1000
   
   
-  区块链节点详细配置，参见[Web3SDK配置文件](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/) 。
+  ################ fisco bcos sdk config ################
+  # https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/sdk/java_sdk/configuration.html
   
+  #cryptoMaterial:
+  #  certPath: "conf"
+  #  caCert: "conf/ca.crt"
+  #  sslCert: "conf/sdk.crt"
+  #  sslKey: "conf/sdk.key"
+  #  enSslCert: "conf/gm/gmensdk.crt"
+  #  enSslKey: "conf/gm/gmensdk.key"
+  
+  account:
+  # ECDSA_TYPE
+    accountAddress: "0x64fa644d2a694681bd6addd6c5e36cccd8dcdde3"
+  #  SM_TYPE
+  #  accountAddress: "0x4278900c23e4b364ba6202a24682d99be9ff8cbc"
+  #  accountFileFormat: "pem"
+  #  accountFilePath: ""
+    keyStoreDir: "account"
+  #  password: ""
+  
+  #amop:
+  #  - publicKeys: [ "conf/amop/consumer_public_key_1.pem" ]
+  #    topicName: "PrivateTopic1"
+  #  - password: "123456"
+  #    privateKey: "conf/amop/consumer_private_key.p12"
+  #    topicName: "PrivateTopic2"
+  
+  
+  network:
+    peers:
+      - "127.0.0.1:20200"
+  
+  threadPool:
+    channelProcessorThreadSize: "16"
+    maxBlockingQueueSize: "102400"
+    receiptProcessorThreadSize: "16"
+  ```
+  
+```eval_rst
+.. note::
+   - account.accountAddress为发起交易的账户地址，在`keyStoreDir`目录下存放该账户的私钥，也可以自己重新生成私钥替换，但需保持固定地址，因为topic管理等有权限控制，其他账户无权限。详细逻辑可参考`weevent-core/src/main/java/com/webank/weevent/core/fisco/web3sdk/v2/solc10/solidity`合约实现。
+```
+
+  
+
+| 配置项                       | 默认值               | 配置说明                                |
+| ---------------------------- | -------------------- | --------------------------------------- |
+| version                      | 2.0                  | FISCO-BCOS版本，支持2.x                 |
+| orgId                       | fisco                | 机构名，按机构实际名称填写即可          |
+| timeout                   | 10000                | 交易执行超时时间，单位毫秒              |
+| poolSize | 10                   | 最小线程数                       |
+| maxPoolSize | 100                  | 最大线程数                       |
+| keepAliveSeconds | 10                   | 线程空闲时间，单位秒             |
+| consumerIdleTime | 1000                 | 区块链新增块事件检测周期，单位毫秒      |
+| consumerHistoryMergeBlock | 8                    | 事件过滤的区块范围                      |
+
+  
+
+
 - WeEvent服务配置
 
   配置文件`./broker/conf/weevent.properties`。
 
-  | 配置项                | 默认值               | 配置说明                                                     |
-  | --------------------- | -------------------- | ------------------------------------------------------------ |
-  | ip.check.white-table  |                      | IP白名单。多个`IP`地址，以";"分割。<br />默认为空时表示允许任何客户端访问。 |
-  | block.chain.type      | fisco                | 区块链类别，fisco或fabric                                   |
-  | stomp.heartbeats      | 30                   | stomp心跳间隔，单位秒
-  | mqtt.broker.tcp.port  | 7001                 | 使用tcp访问MQTT的端口，默认不开启                            |
-  | mqtt.broker.keepalive | 60                   | mqtt连接空闲时间，单位秒                                     |
+  | 配置项                               | 默认值 | 配置说明                                                     |
+  | ------------------------------------ | ------ | ------------------------------------------------------------ |
+  | ip.check.white-table                 |        | IP白名单。多个`IP`地址，以";"分割。<br />默认为空时表示允许任何客户端访问。 |
+  | block.chain.type                     | fisco  | 区块链类别，fisco或fabric                                    |
+  | stomp.heartbeats                     | 30     | stomp心跳间隔，单位秒                                        |
+  | mqtt.broker.tcp.port                 | 7001   | 使用tcp访问MQTT的端口，默认不开启                            |
+  | mqtt.broker.keepalive                | 60     | mqtt连接空闲时间，单位秒                                     |
+  | mqtt.broker.security.ssl             | false  | mqtt是否开启ssl                                              |
+  | mqtt.broker.security.ssl.client_auth | false  | mqtt ssl是否开启双向认证                                     |
+  | mqtt.broker.security.ssl.ca_cert     |        | ssl ca证书                                                   |
+  | mqtt.broker.security.ssl.server_cert |        | 服务端证书                                                   |
+  | mqtt.broker.security.ssl.server_key  |        | 服务端私钥                                                   |
 
 ### Governance
 
@@ -70,6 +133,12 @@
   | spring.datasource.dbcp2.min-idle         | 5                                                            | 数据库连接池最小空闲       |
   | spring.datasource.dbcp2.initial-size     | 5                                                            | 数据库连接池初始大小       |
   | spring.datasource.dbcp2.validation-query | SELECT '1'                                                   | 数据库连接池验证查询       |
+  
+- 配置文件`./governance/conf/governance.properties`
+
+  | 配置项          | 默认值 | 配置说明                                                     |
+  | --------------- | ------ | ------------------------------------------------------------ |
+  | nodeAddressList |        | 数组，可连接多个不同节点，需要与fisco.yml里配置的节点证书相同 |
 
 ### Processor 配置
 
@@ -99,3 +168,12 @@
 .. note::
    - `org.quartz.dataSource.*`  配置的数据库信息需要和org.quartz.jobStore.dataSource配置的数据源信息一致。
 ```
+
+### 国密配置
+
+前提条件：区块链为国密版本。
+
+配置方式与[FISCO-BCOS SDK配置](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/sdk/java_sdk/configuration.html)方式一致：
+
+1. 将国密证书放到 `classpath/conf/gm`目录下（fisco-bcos sdk会自动检查链是国密还是非国密版本）。
+2. `fisco.yml`中`account.accountAddress`字段改为国密账户地址，并将该账户私钥文件放到 `keyStoreDir`目录下。WeEvent默认已有账户，若使用新账户直接替换账户地址和私钥文件即可。

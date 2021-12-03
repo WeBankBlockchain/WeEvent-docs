@@ -32,20 +32,20 @@
 
 ### 获取安装包
 
-从`github`下载安装包[weevent-governance-1.4.0.tar.gz](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.4.0/weevent-governance-1.4.0.tar.gz)，并且解压到`/usr/local/weevent/`下。
+从`github`下载安装包[weevent-governance-1.6.0.tar.gz](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.6.0/weevent-governance-1.6.0.tar.gz)，并且解压到`/usr/local/weevent/`下。
 
 ```shell
 $ cd /usr/local/weevent/
-$ wget https://github.com/WeBankFinTech/WeEvent/releases/download/v1.4.0/weevent-governance-1.4.0.tar.gz
-$ tar -xvf weevent-governance-1.4.0.tar.gz
+$ wget https://github.com/WeBankFinTech/WeEvent/releases/download/v1.6.0/weevent-governance-1.6.0.tar.gz
+$ tar -xvf weevent-governance-1.6.0.tar.gz
 ```
 
-如果`github`下载速度慢，可以尝试[国内下载链接](https://osp-1257653870.cos.ap-guangzhou.myqcloud.com/WeEvent/download/releases/v1.4.0/weevent-governance-1.4.0.tar.gz)。
+如果`github`下载速度慢，可以尝试[国内下载链接](https://osp-1257653870.cos.ap-guangzhou.myqcloud.com/WeEvent/download/releases/v1.6.0/weevent-governance-1.6.0.tar.gz)。
 
 解压后的目录结构如下
 
 ```
-$ cd ./weevent-governance-1.4.0
+$ cd ./weevent-governance-1.6.0
 $ tree -L 1
 .
 |-- apps
@@ -79,13 +79,25 @@ $ tree -L 1
 
 - 区块链FISCO-BCOS节点(复制Broker模块中，配置连接FISCO-BCOS节点的配置文件以及相关证书)
 
-  - 区块链节点配置文件fisco.properties
+  - 区块链节点配置文件fisco.yml
 
     修改`nodes=127.0.0.1:20200`配置项，`nodes`为区块链节点`channel`访问入口。
 
   - 访问节点的证书文件
 
-    2.x版本的证书文件`ca.crt`、`sdk.crt`、`sdk.key`放在`./conf/`目录下。
+    2.x版本的证书文件`ca.crt`、`sdk.crt`、`sdk.key`放在`./conf/conf`目录下，国密的证书放在`./conf/conf/gm`目录下。详细参考[FISCO-BCOS SDK配置说明](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/sdk/java_sdk/configuration.html)。
+    
+  - governance支持配置多个节点
+  
+    配置文件`governance.properties` 示例如下，可以体验节点之间传文件等。
+  
+    ```properties
+    nodeAddressList[0]=127.0.0.1:20200
+    nodeAddressList[1]=127.0.0.1:20201
+    nodeAddressList[2]=127.0.0.1:20202,127.0.0.1:20203
+    ```
+  
+    
 
 
 ### 初始化数据库
@@ -107,9 +119,15 @@ start weevent-governance success (PID=53926)
 add the crontab job success
 ```
 
+
 通过`./governance.sh stop`命令停止服务。
 
 进程启动后，会自动添加`crontab`监控任务`./governance.sh monitor`。
+
+
+### 服务访问
+
+服务启动后通过 http://127.0.0.1:8080/weevent-governance/# 访问governance服务，默认用户名为：admin，默认密码为：123456
 
 
 ### 多视图管理

@@ -7,7 +7,7 @@
 ### Docker镜像安装
 
   ```bash
-  $ docker pull weevent/weevent:1.4.0; docker run -d -p 8080:8080 -p 7001:7001 weevent/weevent:1.4.0 /root/run.sh
+  $ docker pull weevent/weevent:1.6.0; docker run -d -p 8080:8080 -p 7001:7001 weevent/weevent:1.6.0 /root/run.sh
   ```
 
   `WeEvent`的镜像里包括了`FISCO-BCOS`网络，`WeEvent`服务的各个子模块以及各种依赖。
@@ -19,25 +19,26 @@
 
 - 获取安装包
 
-  从`github`下载安装包[weevent-1.4.0.tar.gz](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.4.0/weevent-1.4.0.tar.gz)，并且解压到`/tmp/` 。
+  从`github`下载安装包[weevent-1.6.0.tar.gz](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.6.0/weevent-1.6.0.tar.gz)，并且解压到`/tmp/` 。
 
   ```shell
   $ cd /tmp/
-  $ wget https://github.com/WeBankFinTech/WeEvent/releases/download/v1.4.0/weevent-1.4.0.tar.gz
-  $ tar -zxf weevent-1.4.0.tar.gz
+  $ wget https://github.com/WeBankFinTech/WeEvent/releases/download/v1.6.0/weevent-1.6.0.tar.gz
+  $ tar -zxf weevent-1.6.0.tar.gz
   ```
 
-  如果`github`下载速度慢，可以尝试[国内下载链接](https://osp-1257653870.cos.ap-guangzhou.myqcloud.com/WeEvent/download/releases/v1.4.0/weevent-1.4.0.tar.gz)。
+  如果`github`下载速度慢，可以尝试[国内下载链接](https://osp-1257653870.cos.ap-guangzhou.myqcloud.com/WeEvent/download/releases/v1.6.0/weevent-1.6.0.tar.gz)。
 解压后目录结构如下：
   
   ```shell
-  $ cd weevent-1.4.0/
+  $ cd weevent-1.6.0/
   $ tree -L 2
   .
   ├── bin
   │   ├── start-all.sh
   │   └── stop-all.sh
   ├── config.properties
+  ├── fisco.yml
   ├── install-all.sh
   ├── modules
   │   ├── broker
@@ -48,7 +49,7 @@
   │   └── zookeeper
   ```
   
-- 修改配置
+- 修改配置config.properties
 
   默认配置文件`./config.properties`如下：
 
@@ -59,8 +60,6 @@
   # Required module
   # support 2.x
   fisco-bcos.version=2.0
-  # FISCO-BCOS node channel, eg: 127.0.0.1:20200;127.0.0.2:20200
-  fisco-bcos.channel=127.0.0.1:20200
   # The path of FISCO-BCOS 2.x that contain certificate file ca.crt/sdk.crt/sdk.key
   fisco-bcos.node_path=~/fisco/nodes/127.0.0.1/sdk
   
@@ -83,7 +82,7 @@
   #mysql.password=yyy
   
   # Optional module
-  processor.enable=true
+  processor.enable=false
   processor.port=7008
   ```
   
@@ -99,15 +98,30 @@
   
       支持`2.0`及其以上版本。
   
-    - `fisco-bcos.channel`
-  
-      区块链节点的`channel`访问入口。配置多个节点时用`;`分割，如`127.0.0.1:20200;127.0.0.2:20200`。
-  
     - `fisco-bcos.node_path`
   
       区块链节点的访问证书、私钥存放目录，`FISCO-BCOS 2.x`一般目录为`~/fisco/nodes/127.0.0.1/sdk`。
+  
+      如果`WeEvent`服务和区块链节点不在同一台机器上，需要把上述目录下文件拷贝到`WeEvent`所在机器的当前目录如 `./conf`目录下，并设置`fisco-bcos.node_path=./conf` 。 **注意**：`fisco-bcos.node_path`目录结构需与节点证书目录`~/fisco/nodes/127.0.0.1/sdk`结构一致，同时不要包含其他文件， 安装时会将`fisco-bcos.node_path`目录下所有内容拷贝到每个模块子目录下。
       
-      `FISCO-BCOS 2.x`的证书文件为`ca.crt`、`sdk.crt`、`sdk.key`。如果`WeEvent`服务和区块链节点不在同一台机器上，需要把证书文件拷贝到`WeEvent`所在机器的当前目录，修改`fisco-bcos.node_path=./`。
+      以下为标准版和国密版依赖的证书文件及目录结构：
+      
+      ```bash
+      $ tree  fisco/nodes/127.0.0.1/sdk/
+      fisco/nodes/127.0.0.1/sdk/
+      ├── ca.crt
+      ├── sdk.crt
+      └── sdk.key
+      
+      $ tree  fisco_gm/nodes/127.0.0.1/sdk/
+      fisco_gm/nodes/127.0.0.1/sdk/
+      └── gm
+          ├── gmca.crt
+          ├── gmensdk.crt
+          ├── gmensdk.key
+          ├── gmsdk.crt
+          └── gmsdk.key
+      ```
   
   - Gateway
   
@@ -132,6 +146,25 @@
     - `proceessor.enable`是否安装`Proceessor`模块，默认为`false`不安装
     - 监听端口`processor.port`
   
+- 修改配置fisco.yml
+
+  配置说明：该配置字段`fisco bcos sdk config`部分与FiscoBcos SDK配置一致，详细配置说明参考 [FiscoBcos SDK配置说明](https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/sdk/java_sdk/configuration.html) ，安装时关注字段为节点配置。
+
+  ```yaml
+  network:
+    peers:
+      - "127.0.0.1:20200"
+      - "127.0.0.1:20201"
+  ```
+
+
+```eval_rst
+.. note::
+  - 多数情况下以上配置只需修改`config.properties`中证书路径`fisco-bcos.node_path`和`fisco.yml`中`network.peers`连接的节点地址即可运行。其他字段可按照自己实际需求进行修改配置。
+```
+
+
+
 - 一键安装
 
   以安装到目录`/usr/local/weevent/`为例。
@@ -183,6 +216,8 @@
     start weevent-gateway success (PID=3643)
     add the crontab job success
     ```
+    
+    如果安装了governance服务，默认访问链接为：http://127.0.0.1:8080/weevent-governance/# ，默认用户名为：admin，默认密码为：123456
 
   - 停止所有服务的命令`./stop-all.sh`。
 

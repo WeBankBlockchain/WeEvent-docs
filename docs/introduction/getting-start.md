@@ -22,7 +22,7 @@
 
   - FISCO-BCOS 2.x
 
-    在配置文件`./weevent-broker/src/main/resources/fisco.properties`里配置：
+    在配置文件`./weevent-broker/src/main/resources/fisco.yml`里配置：
 
     区块链版本`version=2.0`
 
@@ -55,9 +55,9 @@
   ```bash
   $ cd ./weevent-build; ./package.sh
   Usage:
-      package master: ./package.sh --version 1.4.0
-      package tag: ./package.sh --tag v1.4.0 --version 1.4.0
-      package local: ./package.sh --tag local --version 1.4.0
+      package master: ./package.sh --version 1.6.0
+      package tag: ./package.sh --tag v1.6.0 --version 1.6.0
+      package local: ./package.sh --tag local --version 1.6.0
   ```
 
   支持编译`master`最新代码，某个`tag`代码，以及本地的代码。

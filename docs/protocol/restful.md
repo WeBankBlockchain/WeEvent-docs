@@ -347,7 +347,7 @@ public class Rest {
      "message":"success",
      "data": 
             {
-                "weEventVersion": "1.4.0",
+                "weEventVersion": "1.6.0",
                 "gitCommitTimeStamp": "2020-09-02 18:30:14",
                 "gitBranch": "master",
                 "gitCommitHash": "f42ceeb"
