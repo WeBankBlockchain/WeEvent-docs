@@ -122,7 +122,7 @@ $ curl -H "Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method"
     "result": {
         "topic": "com.weevent.test",
         "status": "SUCCESS",
-        "eventId": "10-123"
+        "eventId": "2cf24dba-10-123"
     }
 }
 ```
@@ -132,8 +132,7 @@ $ curl -H "Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method"
   
   - extensions：用户自定义数据以`weevent-`开头。可选参数。
   
-  - result ： 返回字段`result` ，是一个`WeEvent`对象的序列化，可查看WeEvent对象。“status”：“SUCCESS”表示成功。”eventId“："10-123"表示发布事件成功ID。
-  
+  - result ： 返回字段`result` ，是一个`WeEvent`对象的序列化，可查看WeEvent对象。“status”：“SUCCESS”表示成功。”eventId“："2cf24dba-10-123"表示发布事件成功ID。
 
 ####  获取Event详情
 - 请求
@@ -235,8 +234,6 @@ $ curl -H"Content-Type: application/json" -d'{"id":"1","jsonrpc":"2.0","method":
   - sequenceNumber：已发布事件数。
 
   - blockNumber：最新已发布事件的区块高度。
-  
-
 
 
 
