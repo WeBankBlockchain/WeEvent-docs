@@ -46,7 +46,7 @@ public class Rest {
     }
 }
 ```
-完整的代码，请参见[RESTful代码样例](https://github.com/WeBankFinTech/WeEvent/blob/master/weevent-broker/src/test/java/com/webank/weevent/sample/Rest.java) 。
+完整的代码，请参见[RESTful代码样例](https://github.com/WeBankBlockchain/WeEvent/blob/master/weevent-broker/src/test/java/com/webank/weevent/sample/Rest.java) 。
 
 
 ### 接口说明

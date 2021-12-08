@@ -104,7 +104,7 @@ public static void main(String[] args) {
 ```
 
 以上样例将发布者和订阅者放在一起只是为了方便示例，业务实际场景一般在不同的进程。
-完整的代码请参见[Java Core SDK代码样例](https://github.com/WeBankFinTech/WeEvent/blob/master/weevent-core/src/test/java/com/webank/weevent/core/FiscoBcosInstanceTest.java) 。
+完整的代码请参见[Java Core SDK代码样例](https://github.com/WeBankBlockchain/WeEvent/blob/master/weevent-core/src/test/java/com/webank/weevent/core/FiscoBcosInstanceTest.java) 。
 
 ### 关于配置文件
 
