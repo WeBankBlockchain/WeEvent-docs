@@ -9,7 +9,7 @@
   
   ```shell
   $ cd /tmp/
-  $ git clone https://github.com/WeBankFinTech/WeEvent-Sample.git
+  $ git clone https://github.com/WeBankBlockchain/WeEvent-Sample.git
   ```
 
 ### 配置与构建

@@ -72,4 +72,4 @@ public static void main(String[] args) throws JMSException, InterruptedException
 }
 ```
 
-完整的代码请参见[Java JMS SDK代码样例](https://github.com/WeBankFinTech/WeEvent/blob/master/weevent-jms/src/test/java/com/webank/weevent/jms/JMSSample.java) 。
+完整的代码请参见[Java JMS SDK代码样例](https://github.com/WeBankBlockchain/WeEvent/blob/master/weevent-jms/src/test/java/com/webank/weevent/jms/JMSSample.java) 。
