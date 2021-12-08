@@ -19,11 +19,11 @@
 
 - 获取安装包
 
-  从`github`下载安装包[weevent-1.6.0.tar.gz](https://github.com/WeBankFinTech/WeEvent/releases/download/v1.6.0/weevent-1.6.0.tar.gz)，并且解压到`/tmp/` 。
+  从`github`下载安装包[weevent-1.6.0.tar.gz](https://github.com/WeBankBlockchain/WeEvent/releases/download/v1.6.0/weevent-1.6.0.tar.gz)，并且解压到`/tmp/` 。
 
   ```shell
   $ cd /tmp/
-  $ wget https://github.com/WeBankFinTech/WeEvent/releases/download/v1.6.0/weevent-1.6.0.tar.gz
+  $ wget https://github.com/WeBankBlockchain/WeEvent/releases/download/v1.6.0/weevent-1.6.0.tar.gz
   $ tar -zxf weevent-1.6.0.tar.gz
   ```
 

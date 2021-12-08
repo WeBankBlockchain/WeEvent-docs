@@ -12,7 +12,7 @@
 
 通常一个事件包含四个部分的信息，事件`ID`、内容、可选的自定义属性以及关联的主题。
 
-事件内容对`WeEvent`是透明的，业务可以存放任何数据，例如字符型的`Json`、`XML`，或者二进制的`Protocol Buffer`等。在`Java`中映射为字节数组`byte[]`，完整的`Java`映射类参见[WeEvent.java](https://github.com/WeBankFinTech/WeEvent/blob/master/weevent-client/src/main/java/com/webank/weevent/client/WeEvent.java)。
+事件内容对`WeEvent`是透明的，业务可以存放任何数据，例如字符型的`Json`、`XML`，或者二进制的`Protocol Buffer`等。在`Java`中映射为字节数组`byte[]`，完整的`Java`映射类参见[WeEvent.java](https://github.com/WeBankBlockchain/WeEvent/blob/master/weevent-client/src/main/java/com/webank/weevent/client/WeEvent.java)。
 
 ### 主题（Topic）  
 业务上一般把数据结构相同，属于同类型的事件归属于同一主题`Topic`。

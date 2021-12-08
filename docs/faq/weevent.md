@@ -2,7 +2,7 @@
 
 关于`WeEvent`使用的一些常见问题和答案都会整理归档到这里。
 
-简单的接口调用异常一般从错误码中就可以得到答案[WeEvent错误码](../protocol/errorcode.html) 。有任何意见和建议，欢迎你参与`WeEvent`项目讨论[Issues](https://github.com/WeBankFinTech/WeEvent/issues) 。
+简单的接口调用异常一般从错误码中就可以得到答案[WeEvent错误码](../protocol/errorcode.html) 。有任何意见和建议，欢迎你参与`WeEvent`项目讨论[Issues](https://github.com/WeBankBlockchain/WeEvent/issues) 。
 
 - 怎么部署`WeEvent`和`FISCO-BCOS`？
 
