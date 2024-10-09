@@ -27,7 +27,6 @@
   $ tar -zxf weevent-1.6.0.tar.gz
   ```
 
-  如果`github`下载速度慢，可以尝试[国内下载链接](https://osp-1257653870.cos.ap-guangzhou.myqcloud.com/WeEvent/download/releases/v1.6.0/weevent-1.6.0.tar.gz)。
 解压后目录结构如下：
   
   ```shell
