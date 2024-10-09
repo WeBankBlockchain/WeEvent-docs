@@ -2,16 +2,16 @@
 
 ### 使用WeEvent服务
 
-选好所需要的版本，一般推荐[最新版本](https://github.com/WeBankFinTech/WeEvent/releases)。选择`Docker`镜像或者通过`Bash`脚本一键安装。详情参见[WeEvent快速安装](../install/quickinstall.html)。
+选好所需要的版本，一般推荐[最新版本](https://github.com/WeBankBlockchain/WeEvent/releases)。选择`Docker`镜像或者通过`Bash`脚本一键安装。详情参见[WeEvent快速安装](../install/quickinstall.html)。
 
 ### 参与WeEvent开发
 
 想参与`WeEvent`开发或者体验未正式发布的特性，需要从源码开始，流程如下：
 
-- 下载[github源码](https://github.com/WeBankFinTech/WeEvent)
+- 下载[github源码](https://github.com/WeBankBlockchain/WeEvent)
 
   ```bash
-  $ git clone https://github.com/WeBankFinTech/WeEvent.git
+  $ git clone https://github.com/WeBankBlockchain/WeEvent.git
   ```
 
   通过`IDE`打开`Gradle`工程，推荐`IntelliJ IDEA`。
@@ -69,5 +69,5 @@
   详情参见[WeEvent快速安装](../install/quickinstall.html)。
 
 
-欢迎参与`WeEvent`项目[issues](https://github.com/WeBankFinTech/WeEvent/issues)。
+欢迎参与`WeEvent`项目[issues](https://github.com/WeBankBlockchain/WeEvent/issues)。
 

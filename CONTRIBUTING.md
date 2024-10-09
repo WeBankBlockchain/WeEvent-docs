@@ -26,7 +26,7 @@
 
 可以做的最简单的事情，就是帮助我们推动发展，并对我们的进展产生影响，帮助、支持在WeEvent中遇到困难的人。
 
-你可以在这里回复 [issues on Github](https://github.com/WeBankFinTech/WeEvent/issues)
+你可以在这里回复 [issues on Github](https://github.com/WeBankBlockchain/WeEvent/issues)
 
 ### 测试
 

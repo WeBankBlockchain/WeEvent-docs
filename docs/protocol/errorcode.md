@@ -10,5 +10,5 @@
 - 客户端错误码在(100000, 200000)之间，为用户输入错误。一般通过检查输入参数或者接口调用的方式就能解决这类问题。
 - 服务端错误码在(200000, 300000)之间，一般是服务环境变化引起的错误。请按照FAQ列表排查，或者联系`WeEvent`技术支持。  
 
-错误码文件，请参见[ErrorCode.java](https://github.com/WeBankFinTech/WeEvent/blob/master/weevent-client/src/main/java/com/webank/weevent/client/ErrorCode.java) 。
+错误码文件，请参见[ErrorCode.java](https://github.com/WeBankBlockchain/WeEvent/blob/master/weevent-client/src/main/java/com/webank/weevent/client/ErrorCode.java) 。
 

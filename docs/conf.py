@@ -98,7 +98,7 @@ import sphinx_rtd_theme
 html_theme = "sphinx_rtd_theme"
 html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 
-github_doc_root = 'https://github.com/WeBankFinTech/WeEvent-docs'
+github_doc_root = 'https://github.com/WeBankBlockchain/WeEvent-docs'
 def setup(app):
     app.add_config_value('recommonmark_config', {
         'url_resolver': lambda url: github_doc_root + url,
@@ -230,7 +230,7 @@ html_static_path = ['_static']
 html_context = {
     "display_github": True, # Integrate GitHub
     "github_repo": "WeEvent-docs", # Repo name
-    "github_user": "WeBankFinTech",
+    "github_user": "WeBankBlockchain",
     "github_version": "master", # Version
     "conf_py_path": "/docs/", # Path in the checkout to the docs root
 }
