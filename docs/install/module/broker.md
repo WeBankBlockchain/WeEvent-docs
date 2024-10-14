@@ -26,7 +26,7 @@ $ cd /usr/local/weevent/
 $ wget https://github.com/WeBankBlockchain/WeEvent/releases/download/v1.6.0/weevent-broker-1.6.0.tar.gz
 $ tar -zxf weevent-broker-1.6.0.tar.gz
 ```
-如果`github`下载速度慢，可以尝试[国内下载链接](https://osp-1257653870.cos.ap-guangzhou.myqcloud.com/WeEvent/download/releases/v1.6.0/weevent-broker-1.6.0.tar.gz)。
+
 
 解压后的目录如下：
 

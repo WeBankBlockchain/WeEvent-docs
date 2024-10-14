@@ -40,7 +40,6 @@ $ wget https://github.com/WeBankBlockchain/WeEvent/releases/download/v1.6.0/weev
 $ tar -xvf weevent-governance-1.6.0.tar.gz
 ```
 
-如果`github`下载速度慢，可以尝试[国内下载链接](https://osp-1257653870.cos.ap-guangzhou.myqcloud.com/WeEvent/download/releases/v1.6.0/weevent-governance-1.6.0.tar.gz)。
 
 解压后的目录结构如下
 
